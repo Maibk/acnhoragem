@@ -40,7 +40,7 @@ class MyFormsScreen extends StatelessWidget {
           centerTitle: true,
           leading: InkWell(
               onTap: () {
-                Get.back();
+                Get.toNamed(AppRoutes.homePage);
               },
               child: Icon(Icons.arrow_back_ios, color: Colors.white)),
           actions: [

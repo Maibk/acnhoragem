@@ -6,6 +6,8 @@ import 'dart:io';
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
+import 'package:anchorageislamabad/presentation/home_screen/controller/home_controller.dart';
+import 'package:anchorageislamabad/presentation/login_screen/controller/login_controller.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
 import 'package:dio/dio.dart' as _dio;
@@ -29,10 +31,16 @@ import '../../../widgets/paginations/paged_view.dart';
 /// This class manages the state of the DiscoverScreen, including the
 /// current discoverModelObj
 ///
+///
+///
+
 class ServentFormsController extends GetxController {
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController btnControllerUseLess = RoundedLoadingButtonController();
+
+  HomeController controller = Get.put(HomeController());
+
   File? ownerImage;
   File? ownerCnicFront;
   File? ownerCnicBack;
@@ -42,46 +50,46 @@ class ServentFormsController extends GetxController {
   File? servantCnicBack;
   File? servantFamilyImage;
 
-  TextEditingController fullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController fathersController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController telephoneController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController natinalityController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController occupationController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController presentAddController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController permanantAddController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController allotmentAddController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController completionAddController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController sizeHouseAddController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController custructionStatusAddController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController cnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
-  TextEditingController rankController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController servisController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController officeController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController mobileController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController houseController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController roadController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController streetController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController blockController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController colonyController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController cellNoController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController ptclController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController fathersController = TextEditingController();
+  TextEditingController telephoneController = TextEditingController();
+  TextEditingController natinalityController = TextEditingController();
+  TextEditingController occupationController = TextEditingController();
+  TextEditingController presentAddController = TextEditingController();
+  TextEditingController permanantAddController = TextEditingController();
+  TextEditingController allotmentAddController = TextEditingController();
+  TextEditingController completionAddController = TextEditingController();
+  TextEditingController sizeHouseAddController = TextEditingController();
+  TextEditingController custructionStatusAddController = TextEditingController();
+  TextEditingController cnicController = TextEditingController();
+  TextEditingController rankController = TextEditingController();
+  TextEditingController servisController = TextEditingController();
+  TextEditingController officeController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController houseController = TextEditingController();
+  TextEditingController roadController = TextEditingController();
+  TextEditingController streetController = TextEditingController();
+  TextEditingController blockController = TextEditingController();
+  TextEditingController colonyController = TextEditingController();
+  TextEditingController cellNoController = TextEditingController();
+  TextEditingController ptclController = TextEditingController();
   //servent controller
-  TextEditingController serventfullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventfathersController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventfullNameController = TextEditingController();
+  TextEditingController serventfathersController = TextEditingController();
 
-  TextEditingController serventcnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
-  TextEditingController serventmobileController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventhouseController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventroadController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventstreetController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventblockController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventcolonyVillageController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventfamfullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventoccutionController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventfamCnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
-  TextEditingController serventfamMobController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController serventpresentAddController = TextEditingController(text: kDebugMode ? "abc" : null);
-  TextEditingController ownerSignatureController = TextEditingController(text: "Name");
+  TextEditingController serventcnicController = TextEditingController();
+  TextEditingController serventmobileController = TextEditingController();
+  TextEditingController serventhouseController = TextEditingController();
+  TextEditingController serventroadController = TextEditingController();
+  TextEditingController serventstreetController = TextEditingController();
+  TextEditingController serventblockController = TextEditingController();
+  TextEditingController serventcolonyVillageController = TextEditingController();
+  TextEditingController serventfamfullNameController = TextEditingController();
+  TextEditingController serventoccutionController = TextEditingController();
+  TextEditingController serventfamCnicController = TextEditingController();
+  TextEditingController serventfamMobController = TextEditingController();
+  TextEditingController serventpresentAddController = TextEditingController();
+  TextEditingController? ownerSignatureController;
   TextEditingController serventdateController = TextEditingController(text: DateTime.now().format("yyyy-MM-dd"));
 
   //private arms controller
@@ -299,6 +307,9 @@ class ServentFormsController extends GetxController {
     serventstreetController.clear();
     serventblockController.clear();
     serventcolonyVillageController.clear();
+    servantselectedValue = null;
+    servantplotstSelectedValue = null;
+    servantstreetSelectedValue = null;
     servantCnicBack = null;
     servantCnicFront = null;
     servantImage = null;

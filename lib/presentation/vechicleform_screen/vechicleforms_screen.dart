@@ -561,9 +561,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     isFinal: false,
                                                     keyboardType: TextInputType.emailAddress,
                                                     limit: HelperFunction.EMAIL_VALIDATION,
-                                                    validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                    },
+                                                    validator: controller.vehicleDataIndex > 1
+                                                        ? (value) {
+                                                            return HelperFunction.empthyFieldValidator(value!);
+                                                          }
+                                                        : null,
                                                   ),
                                                 ),
                                                 Expanded(
@@ -572,9 +574,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     controller: controller.makeController,
                                                     isFinal: false,
                                                     keyboardType: TextInputType.emailAddress,
-                                                    validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                    },
+                                                    validator: controller.vehicleDataIndex > 1
+                                                        ? (value) {
+                                                            return HelperFunction.empthyFieldValidator(value!);
+                                                          }
+                                                        : null,
                                                   ),
                                                 ),
                                               ],
@@ -592,9 +596,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     isFinal: false,
                                                     keyboardType: TextInputType.emailAddress,
                                                     limit: HelperFunction.EMAIL_VALIDATION,
-                                                    validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                    },
+                                                    validator: controller.vehicleDataIndex > 1
+                                                        ? (value) {
+                                                            return HelperFunction.empthyFieldValidator(value!);
+                                                          }
+                                                        : null,
                                                   ),
                                                 ),
                                                 Expanded(
@@ -603,9 +609,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     controller: controller.colorController,
                                                     isFinal: false,
                                                     keyboardType: TextInputType.emailAddress,
-                                                    validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                    },
+                                                    validator: controller.vehicleDataIndex > 1
+                                                        ? (value) {
+                                                            return HelperFunction.empthyFieldValidator(value!);
+                                                          }
+                                                        : null,
                                                   ),
                                                 ),
                                               ],
@@ -623,9 +631,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     isFinal: false,
                                                     keyboardType: TextInputType.emailAddress,
                                                     limit: HelperFunction.EMAIL_VALIDATION,
-                                                    validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                    },
+                                                    validator: controller.vehicleDataIndex > 1
+                                                        ? (value) {
+                                                            return HelperFunction.empthyFieldValidator(value!);
+                                                          }
+                                                        : null,
                                                   ),
                                                 ),
                                                 Expanded(
@@ -634,9 +644,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     controller: controller.chassisController,
                                                     isFinal: false,
                                                     keyboardType: TextInputType.emailAddress,
-                                                    validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                    },
+                                                    validator: controller.vehicleDataIndex > 1
+                                                        ? (value) {
+                                                            return HelperFunction.empthyFieldValidator(value!);
+                                                          }
+                                                        : null,
                                                   ),
                                                 ),
                                               ],
@@ -647,55 +659,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           ],
                                         ),
                                       ),
-                                      // Padding(
-                                      //   padding: getPadding(left: 10,right: 10),
-                                      //   child: CustomButton(
-                                      //     width: getHorizontalSize(350),
-                                      //     fontSize: 12,
-                                      //     fontWeight: FontWeight.w700,
-                                      //     color: ColorConstant.whiteA700,
-                                      //     label: "Attach a clear image of yours".tr,
-                                      //     textColor: ColorConstant.anbtnBlue,
-                                      //     borderColor: ColorConstant.anbtnBlue,
-                                      //     prefix: Icon(Icons.add_circle_outline,color: ColorConstant.anbtnBlue,),
-                                      //     onPressed: () {
-                                      //     },
-                                      //   ),
-                                      // ),
-                                      // SizedBox(height: getVerticalSize(15),),
-                                      // Padding(
-                                      //   padding: getPadding(left: 10,right: 10),
-                                      //   child: CustomButton(
-                                      //     width: getHorizontalSize(350),
-                                      //     fontSize: 12,
-                                      //     fontWeight: FontWeight.w700,
-                                      //     color: ColorConstant.whiteA700,
-                                      //     label: "Attach a clear image of your CNIC front side".tr,
-                                      //     textColor: ColorConstant.anbtnBlue,
-                                      //     borderColor: ColorConstant.anbtnBlue,
-                                      //     prefix: Icon(Icons.add_circle_outline,color: ColorConstant.anbtnBlue,),
-                                      //     onPressed: () {
-                                      //     },
-                                      //   ),
-                                      // ),
-                                      // SizedBox(height: getVerticalSize(15),),
-                                      // Padding(
-                                      //   padding: getPadding(left: 10,right: 10),
-                                      //   child: CustomButton(
-                                      //     width: getHorizontalSize(350),
-                                      //     fontSize: 12,
-                                      //     fontWeight: FontWeight.w700,
-                                      //     color: ColorConstant.whiteA700,
-                                      //
-                                      //     label: "Attach a clear image of your CNIC back side".tr,
-                                      //     textColor: ColorConstant.anbtnBlue,
-                                      //     borderColor: ColorConstant.anbtnBlue,
-                                      //     prefix: Icon(Icons.add_circle_outline,color: ColorConstant.anbtnBlue,),
-                                      //     onPressed: () {
-                                      //     },
-                                      //   ),
-                                      // ),
-                                      // SizedBox(height: getVerticalSize(15),),
                                       Padding(
                                         padding: getPadding(left: 10, right: 10),
                                         child: MyAnimatedButton(
@@ -754,9 +717,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
-                                          },
+                                          validator: controller.userInfoDataIndex > 1
+                                              ? (value) {
+                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                }
+                                              : null,
                                         ),
                                         SizedBox(
                                           height: getVerticalSize(5),
@@ -775,9 +740,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   FilteringTextInputFormatter.digitsOnly,
                                                   TextInputFormatterWithPattern('#####-#######-#'),
                                                 ],
-                                                validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                validator: controller.userInfoDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
                                               ),
                                             ),
                                             Expanded(
@@ -786,9 +753,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 controller: controller.userMobileController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
-                                                validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                validator: controller.userInfoDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
                                               ),
                                             ),
                                           ],

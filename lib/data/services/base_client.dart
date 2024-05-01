@@ -81,7 +81,7 @@ class BaseClient {
           var exception = ApiException(
             url: url,
             message: 'Unable to process request. Please try again later.',
-          );
+        );
           return onError?.call(exception) ?? handleApiError(exception);
         }
 

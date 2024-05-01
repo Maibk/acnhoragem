@@ -39,40 +39,43 @@ class CustomTextField extends StatefulWidget {
   double? sidePadding;
   Widget? prefixWidget;
 
-  CustomTextField({
-    Key? key,
-    this.fieldText,
-    this.hintText,
-    this.isFinal,
-    this.validator,
-    this.enabled = true,
-    this.isCaps = false,
-    this.inputFormatters,
-    this.onChanged,
-    this.icon,
-    this.readOnly,
-    this.postPixText,
-    this.iconData,
-    this.sufixIconOnTap,
-    this.onTap,
-    this.isPassword = false,
-    this.limit,
-    this.maxLines,
-    this.nameWidth,
-    this.focusNode,
-    this.nextFocusNode,
-    this.controller,
-    this.keyboardType,
-    this.textInputAction,
-    this.onFieldSubmitted,
-    this.onEditingComplete,
-    this.lableColor,
-    this.lableFontSize,
-    this.iconHeight,
-    this.sidePadding,
-    this.iconSize,
-    this.prefixWidget,
-  }) : super(key: key);
+  AutovalidateMode? autovalidateMode;
+
+  CustomTextField(
+      {Key? key,
+      this.fieldText,
+      this.hintText,
+      this.isFinal,
+      this.validator,
+      this.enabled = true,
+      this.isCaps = false,
+      this.inputFormatters,
+      this.onChanged,
+      this.icon,
+      this.readOnly,
+      this.postPixText,
+      this.iconData,
+      this.sufixIconOnTap,
+      this.onTap,
+      this.isPassword = false,
+      this.limit,
+      this.maxLines,
+      this.nameWidth,
+      this.focusNode,
+      this.nextFocusNode,
+      this.controller,
+      this.keyboardType,
+      this.textInputAction,
+      this.onFieldSubmitted,
+      this.onEditingComplete,
+      this.lableColor,
+      this.lableFontSize,
+      this.iconHeight,
+      this.sidePadding,
+      this.iconSize,
+      this.prefixWidget,
+      this.autovalidateMode})
+      : super(key: key);
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -94,23 +97,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
         padding: const EdgeInsets.symmetric(
           horizontal: 3.0,
         ),
-        decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(00.0)),
+        decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.circular(00.0)),
         child: Column(
           children: [
             Stack(
               children: [
                 TextFormField(
-                  textCapitalization: widget.isCaps!
-                      ? TextCapitalization.sentences
-                      : TextCapitalization.none,
+                  textCapitalization: widget.isCaps! ? TextCapitalization.sentences : TextCapitalization.none,
                   obscureText: widget.isPassword!,
                   focusNode: widget.focusNode,
                   readOnly: widget.readOnly ?? false,
                   validator: widget.validator,
                   enabled: widget.enabled ?? false,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  autovalidateMode: widget.autovalidateMode ?? AutovalidateMode.onUserInteraction,
                   cursorColor: ColorConstant.hintTextColor,
                   controller: widget.controller,
                   keyboardType: widget.keyboardType,
@@ -140,20 +139,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   onFieldSubmitted: (_) {
                     widget.isFinal!
                         ? FocusScope.of(context).unfocus()
-                        : FocusScope.of(context)
-                            .requestFocus(widget.nextFocusNode!);
+                        : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
                   },
                   onEditingComplete: () {
                     widget.isFinal!
                         ? FocusScope.of(context).unfocus()
-                        : FocusScope.of(context)
-                            .requestFocus(widget.nextFocusNode!);
+                        : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
                   },
                   textInputAction: widget.isFinal!
                       ? TextInputAction.done // For final fields, show "Done"
                       : widget.maxLines == 1
-                          ? TextInputAction
-                              .next // For non-final single-line fields, show "Next"
+                          ? TextInputAction.next // For non-final single-line fields, show "Next"
                           : TextInputAction.newline,
                   //   style: _setFontStyle,
                   //  decoration: AppStyles.decoration2(widget.fieldText!),
@@ -163,11 +159,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       fontWeight: FontWeight.normal),
 
                   decoration: InputDecoration(
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 15, minHeight: 38),
+                    prefixIconConstraints: BoxConstraints(minWidth: 15, minHeight: 38),
                     prefixIcon: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 5.0, bottom: 5, right: 10),
+                      padding: const EdgeInsets.only(top: 5.0, bottom: 5, right: 10),
                       child: widget.prefixWidget ?? null,
                     ),
                     labelText: widget.fieldText,
@@ -177,33 +171,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     errorStyle: TextStyle(
                       color: Theme.of(context).errorColor, // or any other color
                     ),
-                    labelStyle: AppStyle.txtSourceSansProRegular16Gray600
-                        .copyWith(
-                            fontSize: widget.lableFontSize ?? 15,
-                            color: widget.lableColor ?? ColorConstant.gray600,
-                            fontWeight: FontWeight.w400),
-                    contentPadding:
-                        EdgeInsets.only(left: 1, right: 10, bottom: 15),
+                    labelStyle: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                        fontSize: widget.lableFontSize ?? 15,
+                        color: widget.lableColor ?? ColorConstant.gray600,
+                        fontWeight: FontWeight.w400),
+                    contentPadding: EdgeInsets.only(left: 1, right: 10, bottom: 15),
                     errorBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(
-                            width: 1.0, color: Theme.of(context).errorColor)),
+                        borderSide: BorderSide(width: 1.0, color: Theme.of(context).errorColor)),
                     border: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(
-                            width: 1.0, color: ColorConstant.appBorderGray)),
+                        borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                     enabledBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(
-                            width: 1.0, color: ColorConstant.appBorderGray)),
+                        borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                     disabledBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(
-                            width: 1.0, color: ColorConstant.appBorderGray)),
+                        borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                     focusedBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(
-                            width: 1.0, color: ColorConstant.appBorderGray)),
+                        borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                   ),
                 ),
                 GestureDetector(
@@ -223,13 +210,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           width: widget.iconSize ?? 40.0,
                           height: 35.0,
                           margin: EdgeInsets.only(left: 10, right: 5),
-                          padding: EdgeInsets.only(
-                              right: 12.0, bottom: 5, top: 2 /* top:15.0*/
+                          padding: EdgeInsets.only(right: 12.0, bottom: 5, top: 2 /* top:15.0*/
                               ),
                           child: widget.postPixText != null
-                              ? Align(
-                                  alignment: Alignment.centerRight,
-                                  child: widget.postPixText)
+                              ? Align(alignment: Alignment.centerRight, child: widget.postPixText)
                               : widget.icon == null
                                   ? widget.iconData == null
                                       ? Container()
@@ -258,8 +242,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   _setFontStyle() {
     return TextStyle(
       fontSize: widget.lableFontSize ?? 14,
-      color:
-          ColorConstant.blackColor.withOpacity(0.5) ?? ColorConstant.blackColor,
+      color: ColorConstant.blackColor.withOpacity(0.5) ?? ColorConstant.blackColor,
       fontFamily: widget.isPassword == true ? '' : AppFonts.lucidaBright,
       fontWeight: FontWeight.w400,
     );
@@ -268,16 +251,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
   _setHintStyle() {
     return TextStyle(
       fontSize: widget.lableFontSize ?? 14,
-      color:
-          ColorConstant.blackColor.withOpacity(0.5) ?? ColorConstant.blackColor,
+      color: ColorConstant.blackColor.withOpacity(0.5) ?? ColorConstant.blackColor,
       fontFamily: widget.isPassword == false ? '' : AppFonts.lucidaBright,
       fontWeight: FontWeight.w400,
     );
   }
-
-  
 }
-
 
 class TextInputFormatterWithPattern extends TextInputFormatter {
   final String _pattern;

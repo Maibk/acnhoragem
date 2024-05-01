@@ -55,32 +55,42 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
         ),
       ),
       child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 100.0,
+          backgroundColor: Colors.transparent,
+          title: MyText(
+            title: "Entry Card",
+            clr: ColorConstant.whiteA700,
+            fontSize: 20,
+            customWeight: FontWeight.w500,
+          ),
+          centerTitle: true,
+          leading: InkWell(
+              onTap: () {
+                Get.toNamed(AppRoutes.myformsPage);
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              )),
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Get.toNamed(AppRoutes.menuPage);
+              },
+            ),
+          ],
+        ),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: Padding(
           padding: getPadding(left: 10),
           child: Column(
             children: [
-              CustomAppBar(
-                title: MyText(
-                  title: "Entry Card",
-                  clr: ColorConstant.whiteA700,
-                  fontSize: 20,
-                  customWeight: FontWeight.w500,
-                ),
-                centerTitle: true,
-                leading: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Icon(Icons.arrow_back_ios)),
-                trailing: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    Get.toNamed(AppRoutes.menuPage);
-                  },
-                ),
-              ),
               GetBuilder(
                   init: controller,
                   builder: (_value) {
@@ -323,6 +333,17 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           children: [
                                             Expanded(
                                               child: CustomTextField(
+                                                fieldText: "Road".tr,
+                                                controller: controller.roadController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.emailAddress,
+                                                validator: (value) {
+                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                },
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: CustomTextField(
                                                 fieldText: "Colony/Residential Area Name".tr,
                                                 controller: controller.colonyController,
                                                 isFinal: false,
@@ -491,9 +512,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
-                                          },
+                                          validator: controller.spouseDataIndex > 1
+                                              ? (value) {
+                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                }
+                                              : null,
                                         ),
                                         SizedBox(
                                           height: getVerticalSize(5),
@@ -504,9 +527,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
-                                          },
+                                    validator: controller.spouseDataIndex > 1
+                                              ? (value) {
+                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                }
+                                              : null,
                                         ),
                                         SizedBox(
                                           height: getVerticalSize(5),
@@ -524,9 +549,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   FilteringTextInputFormatter.digitsOnly,
                                                   TextInputFormatterWithPattern('#####-#######-#'),
                                                 ],
-                                                validator: (value) {
+                                          validator: controller.spouseDataIndex > 1
+                                              ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                }
+                                              : null,
                                               ),
                                             ),
                                             Expanded(
@@ -535,9 +562,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 controller: controller.spousemobileController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
-                                                validator: (value) {
+                                             validator: controller.spouseDataIndex > 1
+                                              ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                }
+                                              : null,
                                               ),
                                             ),
                                           ],
@@ -692,9 +721,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
                                                 limit: HelperFunction.EMAIL_VALIDATION,
-                                                validator: (value) {
+                                               validator: controller.spouseDataIndex > 1
+                                              ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                }
+                                              : null,
                                               ),
                                             ),
                                             Expanded(
@@ -703,9 +734,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 controller: controller.spousecolonyController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
-                                                validator: (value) {
+                                            validator: controller.spouseDataIndex > 1
+                                              ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                }
+                                              : null,
                                               ),
                                             ),
                                           ],
@@ -861,9 +894,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
-                                          },
+                                          validator: controller.childDataIndex > 1
+                                              ? (value) {
+                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                }
+                                              : null,
                                         ),
                                         SizedBox(
                                           height: getVerticalSize(5),
@@ -874,9 +909,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
-                                          },
+                                          validator: controller.childDataIndex > 1
+                                              ? (value) {
+                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                }
+                                              : null,
                                         ),
                                         SizedBox(
                                           height: getVerticalSize(5),
@@ -895,9 +932,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 ],
                                                 keyboardType: TextInputType.number,
                                                 limit: HelperFunction.EMAIL_VALIDATION,
-                                                validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                validator: controller.childDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
                                               ),
                                             ),
                                             Expanded(
@@ -906,9 +945,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 controller: controller.childmobileController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
-                                                validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                validator: controller.childDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
                                               ),
                                             ),
                                           ],
@@ -1063,9 +1104,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
                                                 limit: HelperFunction.EMAIL_VALIDATION,
-                                                validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                validator: controller.childDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
                                               ),
                                             ),
                                             Expanded(
@@ -1074,9 +1117,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 controller: controller.childcolonyController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
-                                                validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
-                                                },
+                                                validator: controller.childDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
                                               ),
                                             ),
                                           ],
@@ -1191,8 +1236,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                   fontSize: 16,
                                   bgColor: ColorConstant.anbtnBlue,
                                   controller: _value.btnController,
-                                  title: "Submit".tr,                         
-                                 onTap: () async {
+                                  title: "Submit".tr,
+                                  onTap: () async {
                                     controller.SubmitEntryFormApi(context);
                                   },
                                 ),
