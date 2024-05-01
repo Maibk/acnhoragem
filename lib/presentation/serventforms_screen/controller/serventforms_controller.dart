@@ -10,6 +10,7 @@ import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart' as _http;
 import 'package:image_picker/image_picker.dart';
@@ -41,45 +42,45 @@ class ServentFormsController extends GetxController {
   File? servantCnicBack;
   File? servantFamilyImage;
 
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController fathersController = TextEditingController();
-  TextEditingController telephoneController = TextEditingController();
-  TextEditingController natinalityController = TextEditingController();
-  TextEditingController occupationController = TextEditingController();
-  TextEditingController presentAddController = TextEditingController();
-  TextEditingController permanantAddController = TextEditingController();
-  TextEditingController allotmentAddController = TextEditingController();
-  TextEditingController completionAddController = TextEditingController();
-  TextEditingController sizeHouseAddController = TextEditingController();
-  TextEditingController custructionStatusAddController = TextEditingController();
-  TextEditingController cnicController = TextEditingController();
-  TextEditingController rankController = TextEditingController();
-  TextEditingController servisController = TextEditingController();
-  TextEditingController officeController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
-  TextEditingController houseController = TextEditingController();
-  TextEditingController roadController = TextEditingController();
-  TextEditingController streetController = TextEditingController();
-  TextEditingController blockController = TextEditingController();
-  TextEditingController colonyController = TextEditingController();
-  TextEditingController cellNoController = TextEditingController();
-  TextEditingController ptclController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController fathersController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController telephoneController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController natinalityController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController occupationController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController presentAddController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController permanantAddController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController allotmentAddController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController completionAddController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController sizeHouseAddController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController custructionStatusAddController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController cnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
+  TextEditingController rankController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController servisController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController officeController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController mobileController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController houseController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController roadController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController streetController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController blockController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController colonyController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController cellNoController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController ptclController = TextEditingController(text: kDebugMode ? "abc" : null);
   //servent controller
-  TextEditingController serventfullNameController = TextEditingController();
-  TextEditingController serventfathersController = TextEditingController();
+  TextEditingController serventfullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventfathersController = TextEditingController(text: kDebugMode ? "abc" : null);
 
-  TextEditingController serventcnicController = TextEditingController();
-  TextEditingController serventmobileController = TextEditingController();
-  TextEditingController serventhouseController = TextEditingController();
-  TextEditingController serventroadController = TextEditingController();
-  TextEditingController serventstreetController = TextEditingController();
-  TextEditingController serventblockController = TextEditingController();
-  TextEditingController serventcolonyVillageController = TextEditingController();
-  TextEditingController serventfamfullNameController = TextEditingController();
-  TextEditingController serventoccutionController = TextEditingController();
-  TextEditingController serventfamCnicController = TextEditingController();
-  TextEditingController serventfamMobController = TextEditingController();
-  TextEditingController serventpresentAddController = TextEditingController();
+  TextEditingController serventcnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
+  TextEditingController serventmobileController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventhouseController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventroadController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventstreetController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventblockController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventcolonyVillageController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventfamfullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventoccutionController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventfamCnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
+  TextEditingController serventfamMobController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController serventpresentAddController = TextEditingController(text: kDebugMode ? "abc" : null);
   TextEditingController ownerSignatureController = TextEditingController(text: "Name");
   TextEditingController serventdateController = TextEditingController(text: DateTime.now().format("yyyy-MM-dd"));
 
@@ -108,7 +109,6 @@ class ServentFormsController extends GetxController {
   int? selectedValue;
   Street? streetSelectedValue;
   Plots? plotstSelectedValue;
-
 
   String plotPlaceHolder = "Plots";
   List<Map<String, dynamic>> block = [
@@ -151,7 +151,6 @@ class ServentFormsController extends GetxController {
               Constants.getStreetByBlockUrl + id.toString(), onSuccess: (response) {
             update();
             log(response.data['data'].toString(), name: "Street data>>");
-            streets.clear();
             for (var element in response.data['data']) {
               streets.add(Street(id: element["id"] ?? 0, title: element["title"] ?? ""));
             }
@@ -187,7 +186,6 @@ class ServentFormsController extends GetxController {
               headers: {'Authorization': "Bearer $token"},
               Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
-            plots.clear();
             for (var element in response.data['data']) {
               plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? ""));
             }

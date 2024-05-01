@@ -1,6 +1,7 @@
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../core/utils/color_constant.dart';
@@ -138,7 +139,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 fieldText: "CNIC No.".tr,
                                                 controller: controller.cnicController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.number,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter.digitsOnly,
+                                                  TextInputFormatterWithPattern('#####-#######-#'),
+                                                ],
                                                 limit: HelperFunction.EMAIL_VALIDATION,
                                                 validator: (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
@@ -231,7 +236,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               fontWeight: FontWeight.w400,
                                                             ),
                                                           )
-                                                        : Text(controller.selectedValue.toString()),
+                                                        : Text(controller.streetSelectedValue.toString()),
                                                     value: controller.streetSelectedValue,
                                                     disabledHint: Text(
                                                       controller.streets.isEmpty ? "Please wait..." : "Streets",
@@ -347,7 +352,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                             controller.ownerImage != null
+                                                ? Icons.check_circle_sharp
+                                                :    Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -369,7 +376,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                               controller.ownerCnicFront != null
+                                                ? Icons.check_circle_sharp
+                                                :  Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -391,7 +400,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                             controller.ownerCnicBack != null
+                                                ? Icons.check_circle_sharp
+                                                :  Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -489,7 +500,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 fieldText: "CNIC No.".tr,
                                                 controller: controller.serventcnicController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.number,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter.digitsOnly,
+                                                  TextInputFormatterWithPattern('#####-#######-#'),
+                                                ],
                                                 limit: HelperFunction.EMAIL_VALIDATION,
                                                 validator: (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
@@ -703,7 +718,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                             controller.servantImage != null
+                                                ? Icons.check_circle_sharp
+                                                :  Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -725,7 +742,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.servantCnicFront != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -747,7 +766,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                             controller.servantCnicBack != null
+                                                ? Icons.check_circle_sharp
+                                                :  Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -894,7 +915,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                            controller.servantFamilyImage != null
+                                                ? Icons.check_circle_sharp
+                                                :   Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {

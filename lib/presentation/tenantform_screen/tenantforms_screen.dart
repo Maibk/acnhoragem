@@ -5,6 +5,7 @@ import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:csc_picker_i18n/csc_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../core/utils/color_constant.dart';
@@ -312,10 +313,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                     children: [
                                       Expanded(
                                         child: CustomTextField(
-                                          fieldText: "CNIC / Passport No.".tr,
+                                          fieldText: "CNIC".tr,
                                           controller: controller.cnicController,
                                           isFinal: false,
-                                          keyboardType: TextInputType.emailAddress,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.digitsOnly,
+                                            TextInputFormatterWithPattern('#####-#######-#'),
+                                          ],
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
                                             return HelperFunction.empthyFieldValidator(value!);
@@ -324,7 +329,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       ),
                                       Expanded(
                                         child: CustomTextField(
-                                          fieldText: "Occupationt".tr,
+                                          fieldText: "Occupation".tr,
                                           controller: controller.occupationController,
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,

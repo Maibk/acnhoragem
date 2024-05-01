@@ -228,10 +228,14 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               children: [
                                                 Expanded(
                                                   child: CustomTextField(
-                                                    fieldText: "CNIC / Passport No.".tr,
+                                                    fieldText: "CNIC".tr,
                                                     controller: controller.cnicController,
                                                     isFinal: false,
-                                                    keyboardType: TextInputType.emailAddress,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter.digitsOnly,
+                                                      TextInputFormatterWithPattern('#####-#######-#'),
+                                                    ],
+                                                    keyboardType: TextInputType.phone,
                                                     limit: HelperFunction.EMAIL_VALIDATION,
                                                     validator: (value) {
                                                       return HelperFunction.empthyFieldValidator(value!);

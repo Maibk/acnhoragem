@@ -9,6 +9,7 @@ import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart' as _http;
 import 'package:image_picker/image_picker.dart';
@@ -32,35 +33,35 @@ class EntryFormsController extends GetxController {
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController btnControllerUseLess = RoundedLoadingButtonController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController fathersController = TextEditingController();
-  TextEditingController cnicController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
-  TextEditingController houseController = TextEditingController();
-  TextEditingController roadController = TextEditingController();
-  TextEditingController streetController = TextEditingController();
-  TextEditingController blockController = TextEditingController();
-  TextEditingController colonyController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController fathersController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController cnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
+  TextEditingController mobileController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController houseController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController roadController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController streetController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController blockController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController colonyController = TextEditingController(text: kDebugMode ? "abc" : null);
 
-  TextEditingController spousefullNameController = TextEditingController();
-  TextEditingController spousefathersController = TextEditingController();
-  TextEditingController spousecnicController = TextEditingController();
-  TextEditingController spousemobileController = TextEditingController();
-  TextEditingController spousehouseController = TextEditingController();
-  TextEditingController spouseroadController = TextEditingController();
-  TextEditingController spousestreetController = TextEditingController();
-  TextEditingController spouseblockController = TextEditingController();
-  TextEditingController spousecolonyController = TextEditingController();
+  TextEditingController spousefullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController spousefathersController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController spousecnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
+  TextEditingController spousemobileController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController spousehouseController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController spouseroadController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController spousestreetController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController spouseblockController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController spousecolonyController = TextEditingController(text: kDebugMode ? "abc" : null);
 
-  TextEditingController childfullNameController = TextEditingController();
-  TextEditingController childfathersController = TextEditingController();
-  TextEditingController childcnicController = TextEditingController();
-  TextEditingController childmobileController = TextEditingController();
-  TextEditingController childhouseController = TextEditingController();
-  TextEditingController childroadController = TextEditingController();
-  TextEditingController childstreetController = TextEditingController();
-  TextEditingController childblockController = TextEditingController();
-  TextEditingController childcolonyController = TextEditingController();
+  TextEditingController childfullNameController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController childfathersController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController childcnicController = TextEditingController(text: kDebugMode ? "54284-6781369-1" : null);
+  TextEditingController childmobileController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController childhouseController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController childroadController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController childstreetController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController childblockController = TextEditingController(text: kDebugMode ? "abc" : null);
+  TextEditingController childcolonyController = TextEditingController(text: kDebugMode ? "abc" : null);
 
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
@@ -626,7 +627,7 @@ class EntryFormsController extends GetxController {
             } on _dio.DioException catch (error) {
               // dio error (api reach the server but not performed successfully
               // no response
-              log(error.response?.data["message"].toString() ?? "", name: "eeror api");
+              log(error.response?.data["message"].toString() ?? "", name: "error api");
               btnController.stop();
               Utils.showToast(
                 error.response?.data["message"].toString() ?? error.error.toString(),

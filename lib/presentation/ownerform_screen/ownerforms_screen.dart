@@ -311,11 +311,15 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                     children: [
                                       Expanded(
                                         child: CustomTextField(
-                                          fieldText: "CNIC / Passport No.".tr,
+                                          fieldText: "CNIC".tr,
                                           controller: controller.cnicController,
                                           isFinal: false,
-                                          keyboardType: TextInputType.emailAddress,
+                                          keyboardType: TextInputType.number,
                                           limit: HelperFunction.EMAIL_VALIDATION,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.digitsOnly,
+                                            TextInputFormatterWithPattern('#####-#######-#'),
+                                          ],
                                           validator: (value) {
                                             return HelperFunction.empthyFieldValidator(value!);
                                           },
@@ -323,7 +327,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                       ),
                                       Expanded(
                                         child: CustomTextField(
-                                          fieldText: "Occupationt".tr,
+                                          fieldText: "Occupation".tr,
                                           controller: controller.occupationController,
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
@@ -1059,12 +1063,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               : "Attach Allotment Letter".tr,
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
-                                          prefix: controller.allotmentletter != null
-                                              ? null
-                                              : Icon(
-                                                  Icons.add_circle_outline,
-                                                  color: ColorConstant.anbtnBlue,
-                                                ),
+                                          prefix: Icon(
+                                            controller.allotmentletter != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
+                                            color: ColorConstant.anbtnBlue,
+                                          ),
                                           onPressed: () async {
                                             controller.allotmentletter = await controller.imagePicker();
                                           },
@@ -1085,12 +1089,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               : "Attach Approval of Building Plan".tr,
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
-                                          prefix: controller.buildingplan != null
-                                              ? null
-                                              : Icon(
-                                                  Icons.add_circle_outline,
-                                                  color: ColorConstant.anbtnBlue,
-                                                ),
+                                          prefix: Icon(
+                                            controller.buildingplan != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
+                                            color: ColorConstant.anbtnBlue,
+                                          ),
                                           onPressed: () async {
                                             controller.buildingplan = await controller.imagePicker();
                                           },
@@ -1109,12 +1113,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           label: "Completion Certificate".tr,
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
-                                          prefix: controller.certificate != null
-                                              ? null
-                                              : Icon(
-                                                  Icons.add_circle_outline,
-                                                  color: ColorConstant.anbtnBlue,
-                                                ),
+                                          prefix: Icon(
+                                            controller.certificate != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
+                                            color: ColorConstant.anbtnBlue,
+                                          ),
                                           onPressed: () async {
                                             controller.certificate = await controller.imagePicker();
                                           },

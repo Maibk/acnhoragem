@@ -1,6 +1,7 @@
 import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../core/utils/app_fonts.dart';
@@ -147,8 +148,12 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 fieldText: "CNIC No.".tr,
                                                 controller: controller.cnicController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.phone,
                                                 limit: HelperFunction.EMAIL_VALIDATION,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter.digitsOnly,
+                                                  TextInputFormatterWithPattern('#####-#######-#'),
+                                                ],
                                                 validator: (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 },
@@ -343,7 +348,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.ownerImage != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -365,7 +372,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.ownerCnicFront != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -387,7 +396,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.ownerCnicBack != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -508,8 +519,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 fieldText: "CNIC No.".tr,
                                                 controller: controller.spousecnicController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
-                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                keyboardType: TextInputType.phone,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter.digitsOnly,
+                                                  TextInputFormatterWithPattern('#####-#######-#'),
+                                                ],
                                                 validator: (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 },
@@ -710,7 +724,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.spouseImage != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -732,7 +748,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.spouseCnicFront != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -754,7 +772,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.spouseCnicBack != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -869,7 +889,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 fieldText: "CNIC No.".tr,
                                                 controller: controller.childcnicController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter.digitsOnly,
+                                                  TextInputFormatterWithPattern('#####-#######-#'),
+                                                ],
+                                                keyboardType: TextInputType.number,
                                                 limit: HelperFunction.EMAIL_VALIDATION,
                                                 validator: (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
@@ -1071,7 +1095,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.childImage != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -1093,7 +1119,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.childCnicFront != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -1115,7 +1143,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.childCnicBack != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -1161,12 +1191,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                   fontSize: 16,
                                   bgColor: ColorConstant.anbtnBlue,
                                   controller: _value.btnController,
-                                  title: "Submit".tr,
-                                  // onTap: () async {
-                                  //   // controller.loginAPI(context);
-                                  // },
-
-                                  onTap: () async {
+                                  title: "Submit".tr,                         
+                                 onTap: () async {
                                     controller.SubmitEntryFormApi(context);
                                   },
                                 ),
