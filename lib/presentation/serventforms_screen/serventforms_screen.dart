@@ -169,7 +169,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 fieldText: "Mobile number".tr,
                                                 controller: controller.mobileController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.phone,
                                                 validator: (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 },
@@ -536,7 +536,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 fieldText: "Mobile number".tr,
                                                 controller: controller.serventmobileController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.phone,
                                                 validator: controller.servantDataIndex > 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);

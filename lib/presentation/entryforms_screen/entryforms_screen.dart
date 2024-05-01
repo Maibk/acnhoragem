@@ -174,7 +174,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 fieldText: "Mobile number".tr,
                                                 controller: controller.mobileController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.phone,
                                                 validator: (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 },
@@ -561,7 +561,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 fieldText: "Mobile number".tr,
                                                 controller: controller.spousemobileController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.phone,
                                              validator: controller.spouseDataIndex > 1
                                               ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
@@ -944,7 +944,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 fieldText: "Mobile number".tr,
                                                 controller: controller.childmobileController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.phone,
                                                 validator: controller.childDataIndex > 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);

@@ -752,7 +752,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fieldText: "Mobile number".tr,
                                                 controller: controller.userMobileController,
                                                 isFinal: false,
-                                                keyboardType: TextInputType.emailAddress,
+                                                keyboardType: TextInputType.phone,
                                                 validator: controller.userInfoDataIndex > 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
