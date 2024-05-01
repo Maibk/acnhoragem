@@ -810,7 +810,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.userDrivingLicenseFrontSideImage != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -833,7 +835,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.userDrivingLicenseBackSideImage != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -856,7 +860,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.userCnicFrontSideImage != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -878,7 +884,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              Icons.add_circle_outline,
+                                              controller.userCnicBacktSideImage != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -947,7 +955,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingLicenseFrontSideImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -970,7 +980,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingLicenseBackSideImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -992,7 +1004,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingCnicFrontSideImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1014,7 +1028,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingCnicBackSideImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1036,7 +1052,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingVehicalRegistrationImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1059,7 +1077,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingOwnerImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1081,7 +1101,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingAllotmentLetterImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1103,7 +1125,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingMaintenanceBillImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1125,7 +1149,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            Icons.add_circle_outline,
+                                            controller.underTakingOldStickerImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {

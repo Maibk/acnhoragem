@@ -18,7 +18,6 @@ import '../../widgets/common_image_view.dart';
 import '../../widgets/custom_textfield_forms.dart';
 import '../../widgets/no_internet_found.dart';
 import '../../widgets/paginations/paged_listview.dart';
-import '../../widgets/widgets_shimmer.dart';
 import 'controller/complaints_controller.dart';
 
 class CreateNewComplaintScreen extends StatefulWidget {

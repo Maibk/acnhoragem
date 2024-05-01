@@ -16,7 +16,6 @@ import '../../widgets/common_image_view.dart';
 import '../../widgets/custom_expensiontile.dart';
 import '../../widgets/no_internet_found.dart';
 import '../../widgets/paginations/paged_listview.dart';
-import '../../widgets/widgets_shimmer.dart';
 import 'controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {

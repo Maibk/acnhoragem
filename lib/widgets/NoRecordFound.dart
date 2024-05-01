@@ -24,22 +24,25 @@ class NoRecordFound extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            image != null? SvgPicture.asset(
-              image!,
-              width: 240.0,
-              height: 100.0,
-              matchTextDirection: true,
-            ) : Container(),
-            icon != null? Icon(
-              icon,
-              size: 40.0,
-            ) : Container(),
+            image != null
+                ? SvgPicture.asset(
+                    image!,
+                    width: 240.0,
+                    height: 100.0,
+                    matchTextDirection: true,
+                  )
+                : Container(),
+            icon != null
+                ? Icon(
+                    icon,
+                    size: 40.0,
+                  )
+                : Container(),
             SizedBox(
               height: 20,
             ),
             MyText(
-              title:
-              msg.isEmpty? "No Record Found!":msg,
+              title: msg.isEmpty ? "No Record Found!" : msg,
               weight: 'Semi Bold',
               fontSize: responsive.setTextScale(18),
             )
