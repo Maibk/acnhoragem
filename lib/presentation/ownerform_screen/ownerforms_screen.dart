@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/presentation/splash_screen/controller/splash_controller.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
@@ -30,6 +32,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
   // const DiscoverScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final hasPagePushed = Navigator.of(context).canPop();
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -51,7 +54,22 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
           centerTitle: true,
           leading: InkWell(
               onTap: () {
-                Get.back();
+                hasPagePushed
+                    ? Get.back()
+                    : showDialog(
+                        context: context,
+                        builder: (ct) {
+                          return CustomDialogue(
+                            dialogueBoxHeading: 'Exit'.tr,
+                            dialogueBoxText: 'Are you sure want to Exit?'.tr,
+                            actionOnNo: () {
+                              Navigator.pop(ct);
+                            },
+                            actionOnYes: () {
+                              SystemNavigator.pop();
+                            },
+                          );
+                        });
               },
               child: Icon(
                 Icons.arrow_back_ios,
@@ -224,7 +242,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                 child: DropdownButton<Street>(
                                               hint: controller.streetSelectedValue == null
                                                   ? Text(
-                                                      controller.streets.isEmpty ? "Please wait..." : "Streets ",
+                                                      "Select Street",
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: ColorConstant.blackColor.withOpacity(0.5),
@@ -235,7 +253,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                   : Text(controller.selectedValue.toString()),
                                               value: controller.streetSelectedValue,
                                               disabledHint: Text(
-                                                controller.streets.isEmpty ? "Please wait..." : "Streets",
+                                                "Select Street",
                                                 style: TextStyle(
                                                   fontSize: 14,
                                                   color: ColorConstant.blackColor.withOpacity(0.5),
@@ -265,9 +283,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                 child: DropdownButton<Plots>(
                                               hint: controller.plotstSelectedValue == null
                                                   ? Text(
-                                                      controller.plots.isEmpty
-                                                          ? "Please wait..."
-                                                          : controller.plotPlaceHolder,
+                                                      "Select Plot",
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: ColorConstant.blackColor.withOpacity(0.5),
@@ -278,9 +294,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                   : Text(controller.plotstSelectedValue.toString()),
                                               value: controller.plotstSelectedValue,
                                               disabledHint: Text(
-                                                controller.plots.isEmpty
-                                                    ? "Please wait..."
-                                                    : controller.plotPlaceHolder,
+                                                "Select Plot",
                                                 style: TextStyle(
                                                   fontSize: 14,
                                                   color: ColorConstant.blackColor.withOpacity(0.5),
@@ -592,21 +606,142 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           },
                                         ),
                                       ),
-                                      Expanded(
-                                        child: CustomTextField(
-                                          fieldText: "Construction Status".tr,
-                                          controller: controller.custructionStatusAddController,
-                                          isFinal: false,
-                                          keyboardType: TextInputType.emailAddress,
-                                          validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
-                                          },
-                                        ),
-                                      ),
+                                      // Expanded(
+                                      //   child: CustomTextField(
+                                      //     fieldText: "Construction Status".tr,
+                                      //     controller: controller.custructionStatusAddController,
+                                      //     isFinal: false,
+                                      //     keyboardType: TextInputType.emailAddress,
+                                      //     validator: (value) {
+                                      //       return HelperFunction.empthyFieldValidator(value!);
+                                      //     },
+                                      //   ),
+                                      // ),
                                     ],
                                   ),
                                   SizedBox(
                                     height: getVerticalSize(15),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      GetBuilder(
+                                          init: controller,
+                                          builder: (context) {
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding: getPadding(left: 10),
+                                                      child: MyText(
+                                                        title: "Construction Status:",
+                                                        clr: ColorConstant.antextlightgray,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: getHorizontalSize(20),
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        GetBuilder(
+                                                          init: controller,
+                                                          builder: (controller) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                controller
+                                                                    .updateConstructionStatus("Under Construction");
+                                                                log(controller.constructionStatus);
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  controller.constructionStatus == "Under Construction"
+                                                                      ? Icon(
+                                                                          Icons.circle,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons.circle_outlined,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(10),
+                                                                  ),
+                                                                  MyText(
+                                                                    title: "Under Construction",
+                                                                    clr: ColorConstant.antextlightgray,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(20),
+                                                        ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(10),
+                                                        ),
+                                                        GetBuilder(
+                                                          init: controller,
+                                                          builder: (controller) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                controller.updateConstructionStatus("Complete");
+                                                                log(controller.constructionStatus);
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  controller.constructionStatus == "Complete"
+                                                                      ? Icon(
+                                                                          Icons.circle,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons.circle_outlined,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(10),
+                                                                  ),
+                                                                  MyText(
+                                                                    title: "Complete",
+                                                                    clr: ColorConstant.antextlightgray,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: getVerticalSize(5),
+                                                ),
+                                                SizedBox(
+                                                  height: getVerticalSize(5),
+                                                ),
+                                                SizedBox(
+                                                  height: getVerticalSize(20),
+                                                ),
+                                              ],
+                                            );
+                                          }),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: getVerticalSize(5),
                                   ),
                                 ],
                               )
@@ -737,7 +872,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           fieldText: "Arms Quantity".tr,
                                                           controller: controller.armQuantityController,
                                                           isFinal: false,
-                                                          keyboardType: TextInputType.emailAddress,
+                                                          keyboardType: TextInputType.number,
                                                           validator: (value) {
                                                             return HelperFunction.empthyFieldValidator(value!);
                                                           },
@@ -804,212 +939,249 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                               GetBuilder(
                                   init: controller,
                                   builder: (context) {
-                                    return Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: getPadding(left: 10),
-                                              child: MyText(
-                                                title: "VEHICLE(s) IN USE",
-                                                clr: ColorConstant.antextlightgray,
-                                                fontSize: 14,
+                                    return Form(
+                                      key: controller.vehicleFormKey,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          if (controller.vehicleDataIndex != 0)
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.only(left: 15),
+                                                  padding: EdgeInsets.all(10),
+                                                  decoration:
+                                                      BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                                                  child: MyText(
+                                                    title: controller.vehicleDataIndex.toString(),
+                                                    clr: ColorConstant.whiteA700,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          Row(
+                                            children: [
+                                              Padding(
+                                                padding: getPadding(left: 10),
+                                                child: MyText(
+                                                  title: "VEHICLE(s) IN USE",
+                                                  clr: ColorConstant.antextlightgray,
+                                                  fontSize: 14,
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: getHorizontalSize(20),
-                                            ),
-                                            GetBuilder(
-                                              init: controller,
-                                              builder: (controller) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    controller.updateVehicle("Yes");
-                                                  },
-                                                  child: Row(
-                                                    children: [
-                                                      controller.hasVehicle == "Yes"
-                                                          ? Icon(
-                                                              Icons.circle,
-                                                              color: ColorConstant.blackColor,
-                                                              size: 14,
-                                                            )
-                                                          : Icon(
-                                                              Icons.circle_outlined,
-                                                              color: ColorConstant.blackColor,
-                                                              size: 14,
-                                                            ),
-                                                      SizedBox(
-                                                        width: getHorizontalSize(10),
-                                                      ),
-                                                      MyText(
-                                                        title: "Yes",
-                                                        clr: ColorConstant.antextlightgray,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
+                                              SizedBox(
+                                                width: getHorizontalSize(20),
+                                              ),
+                                              GetBuilder(
+                                                init: controller,
+                                                builder: (controller) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      controller.updateVehicle("Yes");
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        controller.hasVehicle == "Yes"
+                                                            ? Icon(
+                                                                Icons.circle,
+                                                                color: ColorConstant.blackColor,
+                                                                size: 14,
+                                                              )
+                                                            : Icon(
+                                                                Icons.circle_outlined,
+                                                                color: ColorConstant.blackColor,
+                                                                size: 14,
+                                                              ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(10),
+                                                        ),
+                                                        MyText(
+                                                          title: "Yes",
+                                                          clr: ColorConstant.antextlightgray,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                              SizedBox(
+                                                width: getHorizontalSize(20),
+                                              ),
+                                              GetBuilder(
+                                                init: controller,
+                                                builder: (controller) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      controller.updateVehicle("No");
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        controller.hasVehicle == "No"
+                                                            ? Icon(
+                                                                Icons.circle,
+                                                                color: ColorConstant.blackColor,
+                                                                size: 14,
+                                                              )
+                                                            : Icon(
+                                                                Icons.circle_outlined,
+                                                                color: ColorConstant.blackColor,
+                                                                size: 14,
+                                                              ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(10),
+                                                        ),
+                                                        MyText(
+                                                          title: "No",
+                                                          clr: ColorConstant.antextlightgray,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(5),
+                                          ),
+                                          controller.hasVehicle == "Yes"
+                                              ? Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Expanded(
+                                                          child: CustomTextField(
+                                                            fieldText: "Vehicle Type".tr,
+                                                            controller: controller.vehicleTypeController,
+                                                            isFinal: false,
+                                                            keyboardType: TextInputType.emailAddress,
+                                                            validator: controller.vehicleDataIndex < 1
+                                                                ? (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }
+                                                                : null,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: CustomTextField(
+                                                            fieldText: "Registration No.".tr,
+                                                            controller: controller.vehicleRegisterNoController,
+                                                            isFinal: false,
+                                                            keyboardType: TextInputType.emailAddress,
+                                                            validator: controller.vehicleDataIndex < 1
+                                                                ? (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }
+                                                                : null,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: getVerticalSize(5),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Expanded(
+                                                          child: CustomTextField(
+                                                            fieldText: "Color".tr,
+                                                            controller: controller.vehicleColorController,
+                                                            isFinal: false,
+                                                            keyboardType: TextInputType.emailAddress,
+                                                            limit: HelperFunction.EMAIL_VALIDATION,
+                                                            validator: controller.vehicleDataIndex < 1
+                                                                ? (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }
+                                                                : null,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: CustomTextField(
+                                                            fieldText: "Sticker No.".tr,
+                                                            controller: controller.vehicleStikerController,
+                                                            isFinal: false,
+                                                            keyboardType: TextInputType.emailAddress,
+                                                            validator: controller.vehicleDataIndex < 1
+                                                                ? (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }
+                                                                : null,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: getVerticalSize(5),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Expanded(
+                                                          child: CustomTextField(
+                                                            fieldText: "Engine No".tr,
+                                                            controller: controller.vehicleEngineNoController,
+                                                            isFinal: false,
+                                                            keyboardType: TextInputType.emailAddress,
+                                                            limit: HelperFunction.EMAIL_VALIDATION,
+                                                            validator: controller.vehicleDataIndex < 1
+                                                                ? (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }
+                                                                : null,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: CustomTextField(
+                                                            fieldText: "E-Tag".tr,
+                                                            controller: controller.vehicleEtagController,
+                                                            isFinal: false,
+                                                            keyboardType: TextInputType.emailAddress,
+                                                            validator: controller.vehicleDataIndex < 1
+                                                                ? (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }
+                                                                : null,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: getVerticalSize(15),
+                                                    ),
+                                                  ],
+                                                )
+                                              : Column(),
+                                          SizedBox(
+                                            height: getVerticalSize(15),
+                                          ),
+                                          Padding(
+                                            padding: getPadding(left: 10, right: 10),
+                                            child: MyAnimatedButton(
+                                              radius: 5.0,
+                                              height: getVerticalSize(50),
+                                              width: getHorizontalSize(400),
+                                              fontSize: 16,
+                                              bgColor: ColorConstant.anbtnBlue,
+                                              controller: controller.uselessbtnController,
+                                              title: "Add Vehicle".tr,
+                                              onTap: () async {
+                                                controller.addvehicle(context);
                                               },
                                             ),
-                                            SizedBox(
-                                              width: getHorizontalSize(20),
-                                            ),
-                                            GetBuilder(
-                                              init: controller,
-                                              builder: (controller) {
-                                                return GestureDetector(
-                                                  onTap: () {
-                                                    controller.updateVehicle("No");
-                                                  },
-                                                  child: Row(
-                                                    children: [
-                                                      controller.hasVehicle == "No"
-                                                          ? Icon(
-                                                              Icons.circle,
-                                                              color: ColorConstant.blackColor,
-                                                              size: 14,
-                                                            )
-                                                          : Icon(
-                                                              Icons.circle_outlined,
-                                                              color: ColorConstant.blackColor,
-                                                              size: 14,
-                                                            ),
-                                                      SizedBox(
-                                                        width: getHorizontalSize(10),
-                                                      ),
-                                                      MyText(
-                                                        title: "No",
-                                                        clr: ColorConstant.antextlightgray,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(5),
-                                        ),
-                                        controller.hasVehicle == "Yes"
-                                            ? Column(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: CustomTextField(
-                                                          fieldText: "Vehicle Type".tr,
-                                                          controller: controller.vehicleTypeController,
-                                                          isFinal: false,
-                                                          keyboardType: TextInputType.emailAddress,
-                                                          validator: (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          },
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: CustomTextField(
-                                                          fieldText: "Registration No.".tr,
-                                                          controller: controller.vehicleRegisterNoController,
-                                                          isFinal: false,
-                                                          keyboardType: TextInputType.emailAddress,
-                                                          validator: (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: getVerticalSize(5),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: CustomTextField(
-                                                          fieldText: "Color".tr,
-                                                          controller: controller.vehicleColorController,
-                                                          isFinal: false,
-                                                          keyboardType: TextInputType.emailAddress,
-                                                          limit: HelperFunction.EMAIL_VALIDATION,
-                                                          validator: (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          },
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: CustomTextField(
-                                                          fieldText: "Sticker No.".tr,
-                                                          controller: controller.vehicleStikerController,
-                                                          isFinal: false,
-                                                          keyboardType: TextInputType.emailAddress,
-                                                          validator: (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: getVerticalSize(5),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: CustomTextField(
-                                                          fieldText: "Engine No".tr,
-                                                          controller: controller.vehicleEngineNoController,
-                                                          isFinal: false,
-                                                          keyboardType: TextInputType.emailAddress,
-                                                          limit: HelperFunction.EMAIL_VALIDATION,
-                                                          validator: (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          },
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child: CustomTextField(
-                                                          fieldText: "E-Tag".tr,
-                                                          controller: controller.vehicleEtagController,
-                                                          isFinal: false,
-                                                          keyboardType: TextInputType.emailAddress,
-                                                          validator: (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          },
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: getVerticalSize(15),
-                                                  ),
-                                                ],
-                                              )
-                                            : Column(),
-
-                                        // Padding(
-                                        //   padding: getPadding(left: 10, right: 10),
-                                        //   child: MyAnimatedButton(
-                                        //     radius: 5.0,
-                                        //     height: getVerticalSize(50),
-                                        //     width: getHorizontalSize(400),
-                                        //     fontSize: 16,
-                                        //     bgColor: ColorConstant.anbtnBlue,
-                                        //     controller: controller.btnController,
-                                        //     title: "Add Vehicle".tr,
-                                        //     onTap: () async {
-                                        //       // controller.loginAPI(context);
-                                        //     },
-                                        //   ),
-                                        // ),
-                                        SizedBox(
-                                          height: getVerticalSize(20),
-                                        ),
-                                      ],
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(20),
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(20),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   })
                             ],

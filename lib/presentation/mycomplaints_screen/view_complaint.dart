@@ -2,6 +2,7 @@ import 'package:anchorageislamabad/core/utils/helper_functions.dart';
 import 'package:anchorageislamabad/presentation/complaints_screen/controller/complaints_controller.dart';
 import 'package:anchorageislamabad/presentation/mycomplaints_screen/controller/view_complaint_controller.dart';
 import 'package:anchorageislamabad/widgets/common_image_view.dart';
+import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:anchorageislamabad/widgets/custom_textfield_forms.dart';
 import 'package:flutter/material.dart';
@@ -151,45 +152,143 @@ class VIewComplaintsScreen extends StatelessWidget {
                       ),
                       status == "Resolved"
                           ? Column()
-                          : Column(
-                              children: [
-                                MyText(
-                                  title: "Feedback / Message",
-                                  fontSize: 16,
-                                  clr: ColorConstant.antextGrayDark,
-                                  customWeight: FontWeight.bold,
-                                ),
-                                SizedBox(
-                                  height: getVerticalSize(16),
-                                ),
-                                CustomTextFieldForms(
-                                  hintText: "Type Your text here",
-                                  controller: controller.messageController,
-                                  isFinal: false,
-                                  keyboardType: TextInputType.streetAddress,
-                                  limit: 80,
-                                  maxLines: 8,
-                                  validator: (value) {
-                                    return HelperFunction.empthyFieldValidator(value!);
-                                  },
-                                ),
-                                SizedBox(
-                                  height: getVerticalSize(16),
-                                ),
-                                MyAnimatedButton(
-                                  radius: 5.0,
-                                  height: getVerticalSize(45),
-                                  width: getHorizontalSize(400),
-                                  fontSize: 16,
-                                  bgColor: ColorConstant.anbtnBlue,
-                                  controller: controller.btnController,
-                                  title: "Send Message".tr,
-                                  onTap: () async {
-                                    controller.submitMessge(context, complaintID);
-                                  },
-                                ),
-                              ],
-                            ),
+                          : GetBuilder<ViewComplaintController>(builder: (context) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (viewcontroller.complainMessages?.data?.messages?.isEmpty == true)
+                                    SizedBox.shrink()
+                                  else if (viewcontroller.complainMessages?.data?.messages != null)
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        MyText(
+                                          title: "History",
+                                          fontSize: 16,
+                                          clr: ColorConstant.antextGrayDark,
+                                          customWeight: FontWeight.bold,
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(16),
+                                        ),
+                                        Container(
+                                          height: context.isExpanded ? null : 150,
+                                          decoration: BoxDecoration(
+                                              color: ColorConstant.whiteA700, borderRadius: BorderRadius.circular(12)),
+                                          child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: context.isExpanded
+                                                ? NeverScrollableScrollPhysics()
+                                                : ClampingScrollPhysics(),
+                                            itemCount: viewcontroller.complainMessages?.data?.messages?.length ?? 0,
+                                            itemBuilder: (context, index) {
+                                              return ListTile(
+                                                leading: CustomImageView(
+                                                  imagePath: ImageConstant.profileIcon,
+                                                ).paddingOnly(bottom: 15),
+                                                title: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          width: 120,
+                                                          child: MyText(
+                                                            title: viewcontroller.complainMessages?.data
+                                                                    ?.messages?[index].userName ??
+                                                                "",
+                                                            fontSize: 16,
+                                                            clr: ColorConstant.antextGrayDark,
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: 120,
+                                                          child: MyText(
+                                                            title: viewcontroller.complainMessages?.data
+                                                                    ?.messages?[index].dateTime ??
+                                                                "",
+                                                            fontSize: 15,
+                                                            clr: ColorConstant.antextGrayDark,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    MyText(
+                                                      title: viewcontroller
+                                                              .complainMessages?.data?.messages?[index].message ??
+                                                          "",
+                                                      fontSize: 16,
+                                                      clr: ColorConstant.blackColor,
+                                                    ).paddingOnly(top: 10),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(16),
+                                        ),
+                                        context.isExpanded
+                                            ? SizedBox.shrink()
+                                            : InkWell(
+                                                onTap: () {
+                                                  context.expand();
+                                                },
+                                                child: Center(
+                                                  child: MyText(
+                                                    title: "View More",
+                                                    fontSize: 16,
+                                                    clr: ColorConstant.antextGrayDark,
+                                                    customWeight: FontWeight.bold,
+                                                    under: true,
+                                                  ),
+                                                ),
+                                              ),
+                                      ],
+                                    ),
+                                  SizedBox(
+                                    height: getVerticalSize(16),
+                                  ),
+                                  MyText(
+                                    title: "Feedback / Message",
+                                    fontSize: 16,
+                                    clr: ColorConstant.antextGrayDark,
+                                    customWeight: FontWeight.bold,
+                                  ),
+                                  SizedBox(
+                                    height: getVerticalSize(16),
+                                  ),
+                                  CustomTextFieldForms(
+                                    hintText: "Type Your text here",
+                                    controller: controller.messageController,
+                                    isFinal: false,
+                                    keyboardType: TextInputType.streetAddress,
+                                    limit: 80,
+                                    maxLines: 8,
+                                    validator: (value) {
+                                      return HelperFunction.empthyFieldValidator(value!);
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: getVerticalSize(16),
+                                  ),
+                                  MyAnimatedButton(
+                                    radius: 5.0,
+                                    height: getVerticalSize(45),
+                                    width: getHorizontalSize(400),
+                                    fontSize: 16,
+                                    bgColor: ColorConstant.anbtnBlue,
+                                    controller: controller.btnController,
+                                    title: "Send Message".tr,
+                                    onTap: () async {
+                                      controller.submitMessge(context, complaintID);
+                                    },
+                                  ),
+                                ],
+                              );
+                            }),
                     ],
                   ),
                 ),

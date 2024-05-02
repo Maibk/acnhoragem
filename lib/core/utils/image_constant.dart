@@ -12,6 +12,8 @@ class ImageConstant {
   static String noImage = '$imagePath/noImage.jpg';
 
   static String profileIcon = '$imagePath/Group 18.png';
+  
+  static String myprofileIcon = '$imagePath/profilee.png';
 
   static String myComplaintIcon = '$imagePath/Group 19.png';
 

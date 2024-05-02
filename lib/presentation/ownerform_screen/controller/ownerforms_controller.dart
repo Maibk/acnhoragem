@@ -46,10 +46,10 @@ class OwnerFornsScreenController extends GetxController {
   String privatearms = "";
   String alottmentletter = "";
   String completionCertificate = "";
+  String constructionStatus = "";
   String hasVehicle = "";
 
-
-  int? selectedValue;  
+  int? selectedValue;
   List<Street> streets = [];
   List<Plots> plots = [];
   Street? streetSelectedValue;
@@ -77,9 +77,11 @@ class OwnerFornsScreenController extends GetxController {
     {"id": 18, "title": "NS-3"},
   ];
 
-
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
+
+  final RoundedLoadingButtonController uselessbtnController = RoundedLoadingButtonController();
+
   //owners controllers
   TextEditingController fullNameController = TextEditingController();
   TextEditingController fathersController = TextEditingController();
@@ -128,13 +130,46 @@ class OwnerFornsScreenController extends GetxController {
 
   GlobalKey<FormState> formKey = GlobalKey();
 
+  Map<String, dynamic> ownerFormdata = {};
+
+  GlobalKey<FormState> vehicleFormKey = GlobalKey();
+  int vehicleDataIndex = 0;
+
+  Future<void> addvehicle(context) async {
+    final formState = vehicleFormKey.currentState;
+    if (formState!.validate()) {
+      Utils.check().then((value) async {
+        ownerFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController.text;
+        ownerFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController.text;
+        ownerFormdata['color[$vehicleDataIndex]'] = vehicleColorController.text;
+        ownerFormdata['sticker_no[$vehicleDataIndex]'] = vehicleStikerController.text;
+        ownerFormdata['etag[$vehicleDataIndex]'] = vehicleEtagController.text;
+        Utils.showToast(
+          "Vehicle ${vehicleDataIndex + 1} Added Successfully",
+          false,
+        );
+        vehicleDataIndex = vehicleDataIndex + 1;
+
+        clearVehicleForm();
+        update();
+      });
+    }
+  }
+
+  clearVehicleForm() {
+    vehicleTypeController.clear();
+    vehicleRegisterNoController.clear();
+    vehicleColorController.clear();
+    vehicleStikerController.clear();
+    vehicleEtagController.clear();
+    vehicleEngineNoController.clear();
+  }
+
   Future<void> ownerFormApi(context) async {
     final formState = formKey.currentState;
     if (formState!.validate()) {
       Utils.check().then((value) async {
-        Map<String, dynamic> data = {};
-
-        data = {
+        Map<String, dynamic> data = {
           'name': fullNameController.text,
           'cnic': cnicController.text,
           'phone': telephoneController.text,
@@ -148,24 +183,22 @@ class OwnerFornsScreenController extends GetxController {
           'size_of_house_plot': sizeHouseAddController.text,
           'allotment_letter': alottmentletter,
           'completion_certificate': completionCertificate,
-          'construction_status': custructionStatusAddController.text,
+          'construction_status': constructionStatus,
           'private_arm': privatearms,
+          'vehicle_status': hasVehicle,
           'license_no': privateLicenseController?.text ?? "No",
           'arm_quantity': armQuantityController?.text ?? "No",
           'bore_type': privateBoreController?.text ?? "No",
           'ammunition_quantity': armQuantityController?.text ?? "No",
-          'vehicle_status': hasVehicle,
-          'vehicle_type[]': vehicleTypeController.text,
-          'registration[]': vehicleRegisterNoController.text,
-          'color[]': vehicleColorController.text,
-          'sticker_no[]': vehicleStikerController.text,
-          'etag[]': vehicleEtagController.text,
           'status': '0'
         };
+
+        ownerFormdata.addAll(data);
+
         if (allotmentletter != null) {
           String filePath1 = allotmentletter?.path ?? '';
           if (filePath1.isNotEmpty) {
-            data['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
+            ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
               filePath1,
               filename: filePath1.split('/').last,
               contentType: _http.MediaType.parse('image/jpeg'),
@@ -176,7 +209,7 @@ class OwnerFornsScreenController extends GetxController {
         if (buildingplan != null) {
           String filePath1 = buildingplan?.path ?? '';
           if (filePath1.isNotEmpty) {
-            data['copy_approval_building_plan'] = await _dio.MultipartFile.fromFile(
+            ownerFormdata['copy_approval_building_plan'] = await _dio.MultipartFile.fromFile(
               filePath1,
               filename: filePath1.split('/').last,
               contentType: _http.MediaType.parse('image/jpeg'),
@@ -186,7 +219,7 @@ class OwnerFornsScreenController extends GetxController {
         if (certificate != null) {
           String filePath1 = certificate?.path ?? '';
           if (filePath1.isNotEmpty) {
-            data['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
+            ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
               filePath1,
               filename: filePath1.split('/').last,
               contentType: _http.MediaType.parse('image/jpeg'),
@@ -206,7 +239,7 @@ class OwnerFornsScreenController extends GetxController {
                     'Authorization': "Bearer $token",
                   },
                 ),
-                data: _dio.FormData.fromMap(data),
+                data: _dio.FormData.fromMap(ownerFormdata),
               );
               if (response.statusCode == 200) {
                 Utils.showToast(
@@ -332,8 +365,10 @@ class OwnerFornsScreenController extends GetxController {
     update();
   }
 
-
-
+  updateConstructionStatus(value) {
+    constructionStatus = value;
+    update();
+  }
 
   updateCompletionCertificate(value) {
     completionCertificate = value;

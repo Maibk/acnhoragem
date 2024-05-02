@@ -126,6 +126,9 @@ class MyComplaintsScreen extends StatelessWidget {
                                               onTap: () {
                                                 viewCompplaincontroller
                                                     .getViewComplain(controller.complaints!.data![index].id ?? 0);
+
+                                                viewCompplaincontroller
+                                                    .getMessagesOnComplain(controller.complaints!.data![index].id ?? 0);
                                                 Get.to(() => VIewComplaintsScreen(
                                                       description:
                                                           controller.complaints!.data![index].description ?? "",

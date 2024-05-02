@@ -86,6 +86,9 @@ class ServentFormsController extends GetxController {
   TextEditingController serventcolonyVillageController = TextEditingController();
   TextEditingController serventfamfullNameController = TextEditingController();
   TextEditingController serventoccutionController = TextEditingController();
+  TextEditingController serventpostOfficeController = TextEditingController();
+  TextEditingController serventCityController = TextEditingController();
+
   TextEditingController serventfamCnicController = TextEditingController();
   TextEditingController serventfamMobController = TextEditingController();
   TextEditingController serventpresentAddController = TextEditingController();
@@ -240,6 +243,8 @@ class ServentFormsController extends GetxController {
   int servantFamilyDataIndex = 0;
 
   addServant() async {
+    ownerSignatureController?.text = fullNameController.text;
+    update();
     if (servantImage == null) {
       Utils.showToast(
         "Please select image of servant",
@@ -262,13 +267,13 @@ class ServentFormsController extends GetxController {
         servantData["servant_father[$servantDataIndex]"] = serventfathersController.text;
         servantData['servant_cnic[$servantDataIndex]'] = serventcnicController.text;
         servantData['servant_mobile[$servantDataIndex]'] = serventmobileController.text;
-        servantData['servant_house[$servantDataIndex]'] = servantplotstSelectedValue?.id ?? 0;
+        servantData['servant_house[$servantDataIndex]'] = serventhouseController.text;
         servantData['servant_road[$servantDataIndex]'] = serventroadController.text;
-        servantData['servant_street[$servantDataIndex]'] = servantstreetSelectedValue?.id ?? 0;
+        servantData['servant_street[$servantDataIndex]'] = serventstreetController.text;
         servantData['servant_village[$servantDataIndex]'] = serventcolonyVillageController.text;
         servantData['servant_block[$servantDataIndex]'] = servantselectedValue ?? 0;
-        servantData['servant_po[$servantDataIndex]'] = "";
-        servantData['servant_city[$servantDataIndex]'] = "";
+        servantData['servant_po[$servantDataIndex]'] = serventpostOfficeController.text;
+        servantData['servant_city[$servantDataIndex]'] = serventpostOfficeController.text;
         servantData['servant_province[$servantDataIndex]'] = "";
         servantData['servant_image[$servantDataIndex]'] = await _dio.MultipartFile.fromFile(
           servantImage!.path,
@@ -307,6 +312,8 @@ class ServentFormsController extends GetxController {
     serventstreetController.clear();
     serventblockController.clear();
     serventcolonyVillageController.clear();
+    serventCityController.clear();
+    serventpostOfficeController.clear();
     servantselectedValue = null;
     servantplotstSelectedValue = null;
     servantstreetSelectedValue = null;

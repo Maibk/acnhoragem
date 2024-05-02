@@ -141,7 +141,9 @@ class ComplaintsController extends GetxController {
 
             return false;
           });
-        });
+        }
+        
+        );
       } else {
         isInternetAvailable.value = false;
       }

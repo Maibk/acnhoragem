@@ -242,7 +242,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       child: DropdownButton<Street>(
                                                     hint: controller.streetSelectedValue == null
                                                         ? Text(
-                                                            controller.streets.isEmpty ? "Please wait..." : "Streets ",
+                                                            "Select Street",
                                                             style: TextStyle(
                                                               fontSize: 14,
                                                               color: ColorConstant.blackColor.withOpacity(0.5),
@@ -253,7 +253,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         : Text(controller.streetSelectedValue.toString()),
                                                     value: controller.streetSelectedValue,
                                                     disabledHint: Text(
-                                                      controller.streets.isEmpty ? "Please wait..." : "Streets",
+                                                      "Select Street",
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: ColorConstant.blackColor.withOpacity(0.5),
@@ -283,9 +283,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       child: DropdownButton<Plots>(
                                                     hint: controller.plotstSelectedValue == null
                                                         ? Text(
-                                                            controller.plots.isEmpty
-                                                                ? "Please wait..."
-                                                                : controller.plotPlaceHolder,
+                                                            "Select Plot",
                                                             style: TextStyle(
                                                               fontSize: 14,
                                                               color: ColorConstant.blackColor.withOpacity(0.5),
@@ -296,9 +294,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         : Text(controller.plotstSelectedValue.toString()),
                                                     value: controller.plotstSelectedValue,
                                                     disabledHint: Text(
-                                                      controller.plots.isEmpty
-                                                          ? "Please wait..."
-                                                          : controller.plotPlaceHolder,
+                                                      "Select Plot",
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: ColorConstant.blackColor.withOpacity(0.5),
@@ -457,7 +453,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                 key: controller.addServantFormKey,
                                 child: CustomExpansionTile(
                                   title: MyText(
-                                    title: 'Servent Information',
+                                    title: 'Servant Information',
                                     clr: ColorConstant.black900,
                                     fontSize: 16,
                                   ),
@@ -486,7 +482,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: controller.servantDataIndex > 1
+                                          validator: controller.servantDataIndex < 1
                                               ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 }
@@ -501,7 +497,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: controller.servantDataIndex > 1
+                                          validator: controller.servantDataIndex < 1
                                               ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 }
@@ -524,7 +520,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   TextInputFormatterWithPattern('#####-#######-#'),
                                                 ],
                                                 limit: HelperFunction.EMAIL_VALIDATION,
-                                                validator: controller.servantDataIndex > 1
+                                                validator: controller.servantDataIndex < 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
                                                       }
@@ -537,7 +533,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 controller: controller.serventmobileController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.phone,
-                                                validator: controller.servantDataIndex > 1
+                                                validator: controller.servantDataIndex < 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
                                                       }
@@ -562,137 +558,38 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           height: getVerticalSize(5),
                                         ),
                                         SizedBox(
-                                          width: getHorizontalSize(330),
-                                          child: DropdownButton(
-                                            isExpanded: true,
-                                            padding: EdgeInsets.symmetric(horizontal: 2),
-                                            hint: controller.servantselectedValue == null
-                                                ? Text(
-                                                    "Block/COMM ",
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: ColorConstant.blackColor.withOpacity(0.5),
-                                                      fontFamily: AppFonts.lucidaBright,
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
-                                                  )
-                                                : Text(controller.servantselectedValue.toString()),
-                                            value: controller.servantselectedValue,
-                                            disabledHint: Text(
-                                              "  ",
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: ColorConstant.blackColor.withOpacity(0.5),
-                                                fontFamily: AppFonts.lucidaBright,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            items: controller.block.map((item) {
-                                              return DropdownMenuItem<int>(
-                                                value: item['id'],
-                                                child: Text(item['title']),
-                                              );
-                                            }).toList(),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                controller.servantselectedValue = value!;
-                                                controller.servantstreets.clear();
-                                                controller.servantplots.clear();
-                                                controller.getStreetByBlock(value);
-                                              });
-                                            },
-                                          ).paddingOnly(left: 12),
-                                        ),
-                                        SizedBox(
                                           height: getVerticalSize(5),
                                         ),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            GetBuilder(
-                                                init: controller,
-                                                builder: (context) {
-                                                  return Expanded(
-                                                      child: DropdownButton<Street>(
-                                                    hint: controller.servantstreetSelectedValue == null
-                                                        ? Text(
-                                                            controller.streets.isEmpty ? "Please wait..." : "Streets ",
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              color: ColorConstant.blackColor.withOpacity(0.5),
-                                                              fontFamily: AppFonts.lucidaBright,
-                                                              fontWeight: FontWeight.w400,
-                                                            ),
-                                                          )
-                                                        : Text(controller.servantstreetSelectedValue.toString()),
-                                                    value: controller.servantstreetSelectedValue,
-                                                    disabledHint: Text(
-                                                      controller.streets.isEmpty ? "Please wait..." : "Streets",
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: ColorConstant.blackColor.withOpacity(0.5),
-                                                        fontFamily: AppFonts.lucidaBright,
-                                                        fontWeight: FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    items: controller.streets.map((item) {
-                                                      return DropdownMenuItem<Street>(
-                                                        value: item,
-                                                        child: Text(item.title.toString()),
-                                                      );
-                                                    }).toList(),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        controller.servantstreetSelectedValue = value;
-                                                        controller.servantplots.clear();
-                                                        controller.getPlotNoByStreet(value!.id);
-                                                      });
-                                                    },
-                                                  ).paddingOnly(left: 12));
-                                                }),
-                                            GetBuilder(
-                                                init: controller,
-                                                builder: (context) {
-                                                  return Expanded(
-                                                      child: DropdownButton<Plots>(
-                                                    hint: controller.servantplotstSelectedValue == null
-                                                        ? Text(
-                                                            controller.plots.isEmpty
-                                                                ? "Please wait..."
-                                                                : controller.plotPlaceHolder,
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              color: ColorConstant.blackColor.withOpacity(0.5),
-                                                              fontFamily: AppFonts.lucidaBright,
-                                                              fontWeight: FontWeight.w400,
-                                                            ),
-                                                          )
-                                                        : Text(controller.servantplotstSelectedValue.toString()),
-                                                    value: controller.servantplotstSelectedValue,
-                                                    disabledHint: Text(
-                                                      controller.plots.isEmpty
-                                                          ? "Please wait..."
-                                                          : controller.plotPlaceHolder,
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: ColorConstant.blackColor.withOpacity(0.5),
-                                                        fontFamily: AppFonts.lucidaBright,
-                                                        fontWeight: FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                    items: controller.plots.map((item) {
-                                                      return DropdownMenuItem<Plots>(
-                                                        value: item,
-                                                        child: Text(item.title.toString()),
-                                                      );
-                                                    }).toList(),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        controller.servantplotstSelectedValue = value;
-                                                      });
-                                                    },
-                                                  ).paddingOnly(left: 12));
-                                                })
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "House/Plot".tr,
+                                                controller: controller.serventhouseController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.emailAddress,
+                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                validator: controller.servantDataIndex < 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Road".tr,
+                                                controller: controller.serventroadController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.emailAddress,
+                                                validator: controller.servantDataIndex < 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         SizedBox(
@@ -703,12 +600,12 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           children: [
                                             Expanded(
                                               child: CustomTextField(
-                                                fieldText: "Block".tr,
-                                                controller: controller.serventblockController,
+                                                fieldText: "Street".tr,
+                                                controller: controller.serventstreetController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
                                                 limit: HelperFunction.EMAIL_VALIDATION,
-                                                validator: controller.servantDataIndex > 1
+                                                validator: controller.servantDataIndex < 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
                                                       }
@@ -721,7 +618,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 controller: controller.serventcolonyVillageController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
-                                                validator: controller.servantDataIndex > 1
+                                                validator: controller.servantDataIndex < 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
                                                       }
@@ -732,6 +629,44 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                         ),
                                         SizedBox(
                                           height: getVerticalSize(15),
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(5),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Post Office/Thana".tr,
+                                                controller: controller.serventpostOfficeController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.emailAddress,
+                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                validator: controller.servantDataIndex < 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "City/Province".tr,
+                                                controller: controller.serventCityController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.emailAddress,
+                                                validator: controller.servantDataIndex < 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(5),
                                         ),
                                         Padding(
                                           padding: getPadding(left: 10, right: 10),
@@ -866,7 +801,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: controller.servantFamilyDataIndex > 1
+                                          validator: controller.servantFamilyDataIndex < 1
                                               ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 }
@@ -881,7 +816,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: controller.servantFamilyDataIndex > 1
+                                          validator: controller.servantFamilyDataIndex < 1
                                               ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 }
@@ -904,7 +839,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   TextInputFormatterWithPattern('#####-#######-#'),
                                                 ],
                                                 limit: HelperFunction.EMAIL_VALIDATION,
-                                                validator: controller.servantFamilyDataIndex > 1
+                                                validator: controller.servantFamilyDataIndex < 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
                                                       }
@@ -917,7 +852,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 controller: controller.serventfamMobController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
-                                                validator: controller.servantFamilyDataIndex > 1
+                                                validator: controller.servantFamilyDataIndex < 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
                                                       }
@@ -935,7 +870,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           isFinal: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: controller.servantFamilyDataIndex > 1
+                                          validator: controller.servantFamilyDataIndex < 1
                                               ? (value) {
                                                   return HelperFunction.empthyFieldValidator(value!);
                                                 }
@@ -1010,9 +945,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             child: CustomTextField(
                                               fieldText: "SIGNATURE OF OWNER:".tr,
                                               readOnly: true,
-                                              controller: TextEditingController(
-                                                  text: homecontroller.profileModel?.name ??
-                                                      loginResponseModel?.data?.name),
+                                              controller:
+                                                  TextEditingController(text: controller.fullNameController.text),
                                               isFinal: false,
                                               keyboardType: TextInputType.emailAddress,
                                               limit: HelperFunction.EMAIL_VALIDATION,

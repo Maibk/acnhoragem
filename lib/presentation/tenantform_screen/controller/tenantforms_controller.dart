@@ -8,16 +8,12 @@ import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:http_parser/http_parser.dart' as _http;
 import 'package:image_picker/image_picker.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:http_parser/http_parser.dart' as _http;
 
 import '../../../Shared_prefrences/app_prefrences.dart';
 import '../../../core/model_classes/deal_model.dart';
-import '../../../core/model_classes/login_model.dart';
-import '../../../core/model_classes/page_model.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
@@ -85,6 +81,8 @@ class TenantFornsScreenController extends GetxController {
     return null;
   }
 
+  final RoundedLoadingButtonController uselessbtnController = RoundedLoadingButtonController();
+
   String? privatearms = "";
   String? hasVehicle = "";
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
@@ -119,12 +117,12 @@ class TenantFornsScreenController extends GetxController {
   TextEditingController armQuantityController = TextEditingController();
   TextEditingController? privateBoreController;
   //vichicles controller
-  TextEditingController? vehicleTypeController;
-  TextEditingController? vehicleRegisterNoController;
-  TextEditingController? vehicleColorController;
-  TextEditingController? vehicleStikerController;
-  TextEditingController? vehicleEngineNoController;
-  TextEditingController? vehicleEtagController;
+  TextEditingController vehicleTypeController = TextEditingController();
+  TextEditingController vehicleRegisterNoController = TextEditingController();
+  TextEditingController vehicleColorController = TextEditingController();
+  TextEditingController vehicleStikerController = TextEditingController();
+  TextEditingController vehicleEngineNoController = TextEditingController();
+  TextEditingController vehicleEtagController = TextEditingController();
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
@@ -134,13 +132,47 @@ class TenantFornsScreenController extends GetxController {
 
   GlobalKey<FormState> formKey = GlobalKey();
 
+  Map<String, dynamic> tenantFormdata = {};
+
+  GlobalKey<FormState> vehicleFormKey = GlobalKey();
+  int vehicleDataIndex = 0;
+
+  Future<void> addvehicle(context) async {
+    final formState = vehicleFormKey.currentState;
+    if (formState!.validate()) {
+      Utils.check().then((value) async {
+        tenantFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController.text;
+        tenantFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController.text;
+        tenantFormdata['color[$vehicleDataIndex]'] = vehicleColorController.text;
+        tenantFormdata['sticker_no[$vehicleDataIndex]'] = vehicleStikerController.text;
+        tenantFormdata['etag[$vehicleDataIndex]'] = vehicleEtagController.text;
+        Utils.showToast(
+          "Vehicle ${vehicleDataIndex + 1} Added Successfully",
+          false,
+        );
+        vehicleDataIndex = vehicleDataIndex + 1;
+
+        clearVehicleForm();
+        update();
+        log(tenantFormdata.toString());
+      });
+    }
+  }
+
+  clearVehicleForm() {
+    vehicleTypeController.clear();
+    vehicleRegisterNoController.clear();
+    vehicleColorController.clear();
+    vehicleStikerController.clear();
+    vehicleEtagController.clear();
+    vehicleEngineNoController.clear();
+  }
+
   Future<void> tenantFormApi(context) async {
     final formState = formKey.currentState;
     if (formState!.validate()) {
       Utils.check().then((value) async {
-        Map<String, dynamic> data = {};
-
-        data = {
+        Map<String, dynamic> data = {
           'tenant_name': fullNameController.text,
           'name': fullNameController.text,
           'phone': telephoneController.text,
@@ -156,27 +188,24 @@ class TenantFornsScreenController extends GetxController {
           'tenant_street_no': streetSelectedValue?.id ?? 0,
           'tenant_house_no': plotstSelectedValue?.id ?? 0,
           'tenant_size_of_house_plot': sizeHouseAddController.text,
-
           'present_address': presentAddController.text,
           'permanent_address': presentAddController.text,
           'size_of_house_plot': sizeHouseAddController.text,
           'allotment_letter': alottmentletter,
           'completion_certificate': completionCertificate,
           'construction_status': custructionStatusAddController.text,
-          'private_arm': privateArmsController?.text ?? "No",
-          'license_no': privateLicenseController?.text ?? "No",
-          'arm_quantity': privateArmsController?.text ?? "No",
-          'bore_type': privateBoreController?.text ?? "No",
+          'private_arm': privateArmsController ?? "No",
+          'license_no': privateLicenseController ?? "No",
+          'arm_quantity': privateArmsController ?? "No",
+          'bore_type': privateBoreController ?? "No",
           'ammunition_quantity': privateAmmunitionController?.text ?? "No",
           'vehicle_status': hasVehicle,
-          'vehicle_type[]': vehicleTypeController?.text ?? "No",
-          'registration[]': vehicleRegisterNoController?.text ?? "No",
-          'color[]': vehicleColorController?.text ?? "No",
-          'sticker_no[]': vehicleStikerController?.text ?? "No",
-          'etag[]': vehicleEtagController?.text ?? "No",
+
           'submit_date': DateTime.now(),
           'status': '0'
         };
+        data.addAll(tenantFormdata);
+
         if (ownerCnic != null) {
           String filePath1 = ownerCnic?.path ?? '';
           if (filePath1.isNotEmpty) {

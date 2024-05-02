@@ -69,6 +69,7 @@ class Constants {
   static const complaintUrl = '${baseUrl}complaint';
   static const complaintTypeUrl = '${baseUrl}complaint-type';
   static const viewComplainUrl = '${baseUrl}complaint/';
+  static const messagesOnComplainUrl = '${baseUrl}complaint/';
   static const getStreetByBlockUrl = '${baseUrl}street/';
   static const getPlotByStreetUrl = '${baseUrl}plot/';
   static const billsUrl = '${baseUrl}bills';

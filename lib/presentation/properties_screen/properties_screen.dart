@@ -31,31 +31,38 @@ class PropertiesScreen extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          toolbarHeight: 100.0,
+          backgroundColor: Colors.transparent,
+          title: MyText(
+            title: "My Properties",
+            clr: ColorConstant.whiteA700,
+            fontSize: 20,
+            customWeight: FontWeight.w500,
+          ),
+          centerTitle: true,
+          leading: InkWell(
+              onTap: () {
+                Get.toNamed(AppRoutes.homePage);
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+              )),
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Get.toNamed(AppRoutes.menuPage);
+              },
+            ),
+          ],
+        ),
         body: Column(
           children: [
-            Padding(
-              padding: getPadding(left: 10),
-              child: CustomAppBar(
-                title: MyText(
-                  title: "My Properties",
-                  clr: ColorConstant.whiteA700,
-                  fontSize: 20,
-                  customWeight: FontWeight.w500,
-                ),
-                centerTitle: true,
-                leading: GestureDetector(
-                    onTap: () {
-                      Get.back();
-                    },
-                    child: Icon(Icons.arrow_back_ios)),
-                trailing: IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    Get.toNamed(AppRoutes.menuPage);
-                  },
-                ),
-              ),
-            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -185,31 +192,92 @@ class PropertiesScreen extends StatelessWidget {
                               onPressed: () async {
                                 await showDialog(
                                   context: context,
-                                  builder: (_context) {
-                                    return SimpleDialog(
-                                      title: const Text("Select User type"),
-                                      children: <Widget>[
-                                        SimpleDialogOption(
-                                          onPressed: () {
-                                            controller.userTypeContoller.text = "Owner";
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text(
-                                            "Owner",
-                                          ),
-                                        ),
-                                        SimpleDialogOption(
-                                          onPressed: () {
-                                            controller.userTypeContoller.text = "Tenant";
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text(
-                                            "Tenant",
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                  barrierDismissible: false,
+                                  builder: (_) => AlertDialog(
+                                    backgroundColor: Colors.transparent,
+                                    shadowColor: Colors.transparent,
+                                    surfaceTintColor: Colors.transparent,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    actions: [
+                                      Container(
+                                          padding: EdgeInsets.all(20),
+                                          width: 368,
+                                          height: 230,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(color: Colors.white),
+                                              borderRadius: BorderRadius.circular(10),
+                                              color: Color(0xffFFFFFF)),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Select User Type",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 25,
+                                                  color: Color(0xff02045C),
+                                                  fontFamily: 'Ageo',
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      controller.userTypeContoller.text = "Owner";
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(4),
+                                                        color: Color(0xff0072BC),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Owner",
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            color: Color(0xffFFFFFF),
+                                                            fontFamily: 'Ageo',
+                                                          ),
+                                                        ).paddingSymmetric(horizontal: 35, vertical: 10),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: getHorizontalSize(20),
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      controller.userTypeContoller.text = "Tenant";
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(width: 1, color: ColorConstant.anbtnBlue),
+                                                          borderRadius: BorderRadius.circular(4),
+                                                          color: ColorConstant.whiteA700),
+                                                      child: Center(
+                                                        child: Text(
+                                                          "Tenant",
+                                                          style: TextStyle(
+                                                            fontSize: 16,
+                                                            color: ColorConstant.blackColor,
+                                                            fontFamily: 'Ageo',
+                                                          ),
+                                                        ).paddingSymmetric(horizontal: 35, vertical: 10),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          )),
+                                    ],
+                                  ),
                                 );
 
                                 controller.userTypeContoller.text == "Owner"

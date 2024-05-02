@@ -1,13 +1,21 @@
+import 'dart:developer';
+
 import 'package:anchorageislamabad/Shared_prefrences/app_prefrences.dart';
 import 'package:anchorageislamabad/core/utils/image_constant.dart';
+import 'package:anchorageislamabad/data/services/api_call_status.dart';
+import 'package:anchorageislamabad/data/services/api_exceptions.dart';
+import 'package:anchorageislamabad/data/services/base_client.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/common_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:anchorageislamabad/widgets/paginations/paged_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/size_utils.dart';
+import '../../core/utils/utils.dart';
 import '../../widgets/custom_dialogue.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -15,6 +23,12 @@ class MenuScreen extends StatelessWidget {
   // const DiscoverScreen({Key? key}) : super(key: key);
 
   AppPreferences _appPreferences = AppPreferences();
+
+  RxBool isInternetAvailable = true.obs;
+  Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
+  AppPreferences appPreferences = AppPreferences();
+  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+  GlobalKey<FormState> formKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +43,7 @@ class MenuScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          toolbarHeight: 100.0,
+          toolbarHeight: 70.0,
           backgroundColor: Colors.transparent,
           title: MyText(
             title: "Menu",
@@ -64,7 +78,7 @@ class MenuScreen extends StatelessWidget {
                           children: [
                             CommonImageView(
                               imagePath: ImageConstant.logo,
-                              height: 80,
+                              height: 70,
                               width: 100,
                               fit: BoxFit.fill,
                             ),
@@ -85,6 +99,7 @@ class MenuScreen extends StatelessWidget {
                                         border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menuprofile.png",
+                                      scale: 2,
                                     ).paddingAll(15),
                                   ),
                                   SizedBox(
@@ -98,14 +113,8 @@ class MenuScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: getVerticalSize(5),
-                            ),
                             Divider(
                               color: ColorConstant.antextlightgray,
-                            ),
-                            SizedBox(
-                              height: getVerticalSize(5),
                             ),
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
@@ -121,6 +130,7 @@ class MenuScreen extends StatelessWidget {
                                         border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menucomplain.png",
+                                      scale: 2,
                                     ).paddingAll(15),
                                   ),
                                   SizedBox(
@@ -134,14 +144,8 @@ class MenuScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: getVerticalSize(5),
-                            ),
                             Divider(
                               color: ColorConstant.antextlightgray,
-                            ),
-                            SizedBox(
-                              height: getVerticalSize(5),
                             ),
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
@@ -157,6 +161,7 @@ class MenuScreen extends StatelessWidget {
                                         border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menubilldetail.png",
+                                      scale: 2,
                                     ).paddingAll(15),
                                   ),
                                   SizedBox(
@@ -170,14 +175,8 @@ class MenuScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: getVerticalSize(5),
-                            ),
                             Divider(
                               color: ColorConstant.antextlightgray,
-                            ),
-                            SizedBox(
-                              height: getVerticalSize(5),
                             ),
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
@@ -193,6 +192,7 @@ class MenuScreen extends StatelessWidget {
                                         border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menuproperty.png",
+                                      scale: 2,
                                     ).paddingAll(15),
                                   ),
                                   SizedBox(
@@ -206,14 +206,8 @@ class MenuScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: getVerticalSize(5),
-                            ),
                             Divider(
                               color: ColorConstant.antextlightgray,
-                            ),
-                            SizedBox(
-                              height: getVerticalSize(5),
                             ),
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
@@ -229,6 +223,7 @@ class MenuScreen extends StatelessWidget {
                                         border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menuOnlineform.png",
+                                      scale: 2,
                                     ).paddingAll(15),
                                   ),
                                   SizedBox(
@@ -242,14 +237,8 @@ class MenuScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: getVerticalSize(5),
-                            ),
                             Divider(
                               color: ColorConstant.antextlightgray,
-                            ),
-                            SizedBox(
-                              height: getVerticalSize(5),
                             ),
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
@@ -265,6 +254,7 @@ class MenuScreen extends StatelessWidget {
                                         border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menudownloadform.png",
+                                      scale: 2,
                                     ).paddingAll(15),
                                   ),
                                   SizedBox(
@@ -278,15 +268,173 @@ class MenuScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: getVerticalSize(5),
+                            Divider(
+                              color: ColorConstant.antextlightgray,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                launchUrl(
+                                  Uri.parse("https://anchorageislamabad.com/about"),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.transparent,
+                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                    child: CommonImageView(
+                                      imagePath: "assets/images/menudownloadform.png",
+                                      scale: 2,
+                                    ).paddingAll(15),
+                                  ),
+                                  SizedBox(
+                                    width: getHorizontalSize(20),
+                                  ),
+                                  MyText(
+                                    title: "About App",
+                                    clr: ColorConstant.whiteA700,
+                                    fontSize: 18,
+                                  ),
+                                ],
+                              ),
                             ),
                             Divider(
                               color: ColorConstant.antextlightgray,
                             ),
-                            SizedBox(
-                              height: getVerticalSize(5),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                launchUrl(
+                                  Uri.parse("https://anchorageislamabad.com/terms-and-conditions"),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.transparent,
+                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                    child: CommonImageView(
+                                      imagePath: "assets/images/menudownloadform.png",
+                                      scale: 2,
+                                    ).paddingAll(15),
+                                  ),
+                                  SizedBox(
+                                    width: getHorizontalSize(20),
+                                  ),
+                                  MyText(
+                                    title: "Terms and Conditions",
+                                    clr: ColorConstant.whiteA700,
+                                    fontSize: 18,
+                                  ),
+                                ],
+                              ),
                             ),
+                            Divider(
+                              color: ColorConstant.antextlightgray,
+                            ),
+                            GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                launchUrl(
+                                  Uri.parse("https://anchorageislamabad.com/privacy-policy"),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.transparent,
+                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                    child: CommonImageView(
+                                      imagePath: "assets/images/menudownloadform.png",
+                                      scale: 2,
+                                    ).paddingAll(15),
+                                  ),
+                                  SizedBox(
+                                    width: getHorizontalSize(20),
+                                  ),
+                                  MyText(
+                                    title: "Privacy Policy",
+                                    clr: ColorConstant.whiteA700,
+                                    fontSize: 18,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Divider(
+                              color: ColorConstant.antextlightgray,
+                            ),
+                            GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () async {
+                                  await showDialog(
+                                      context: context,
+                                      builder: (ct) {
+                                        return CustomDialogue(
+                                          dialogueBoxHeading: 'Delete Account'.tr,
+                                          dialogueBoxText: 'Are you sure want to delete your account?'.tr,
+                                          actionOnNo: () {
+                                            Navigator.pop(ct);
+                                          },
+                                          actionOnYes: () {
+                                            Get.offAllNamed(AppRoutes.loginPage);
+                                            Utils.check().then((value) async {
+                                              if (value) {
+                                                isInternetAvailable.value = true;
+
+                                                apiCallStatus.value = ApiCallStatus.loading;
+
+                                                _appPreferences
+                                                    .getAccessToken(prefName: AppPreferences.prefAccessToken)
+                                                    .then((token) async {
+                                                  await BaseClient.get(headers: {
+                                                    'Authorization': "Bearer $token"
+                                                  }, "https://anchorageislamabad.com/api/account-delete?user_id=0&is_delete=1",
+                                                      onSuccess: (response) {
+                                                    log(response.toString());
+
+                                                    return true;
+                                                  }, onError: (error) {
+                                                    log(error.toString());
+                                                    ApiException apiException = error;
+
+                                                    print(apiException.message);
+
+                                                    BaseClient.handleApiError(error);
+
+                                                    apiCallStatus.value = ApiCallStatus.error;
+
+                                                    return false;
+                                                  });
+                                                });
+                                              } else {
+                                                isInternetAvailable.value = false;
+                                              }
+                                            });
+
+                                            return null;
+                                          },
+                                        );
+                                      });
+                                },
+                                child: Container(
+                                  width: Get.width,
+                                  decoration: BoxDecoration(
+                                      color: ColorConstant.apppWhite, borderRadius: BorderRadius.circular(6)),
+                                  child: Center(
+                                    child: MyText(
+                                      title: "Delete Account",
+                                      clr: ColorConstant.anbtnBlue,
+                                      fontSize: 18,
+                                    ).paddingSymmetric(vertical: 10),
+                                  ),
+                                )).paddingOnly(bottom: 5),
                             GestureDetector(
                                 behavior: HitTestBehavior.opaque,
                                 onTap: () async {
@@ -320,12 +468,6 @@ class MenuScreen extends StatelessWidget {
                                     ).paddingSymmetric(vertical: 10),
                                   ),
                                 )),
-                            SizedBox(
-                              height: getVerticalSize(20),
-                            ),
-                            SizedBox(
-                              height: getVerticalSize(20),
-                            ),
                           ],
                         ).paddingSymmetric(horizontal: 40)
                       ],

@@ -62,7 +62,8 @@ class LoginController extends GetxController {
               );
               Get.offAllNamed(AppRoutes.homePage);
             } else {
-              Utils.showToast('Incorrect Password or Email', true);
+               Utils.showToast('Incorrect Password or Email', true);
+              btnController.stop();
               // Handle the case where data is null in the response
             }
           }, onError: (error) {
@@ -77,7 +78,11 @@ class LoginController extends GetxController {
           CustomSnackBar.showCustomErrorToast(
             message: Strings.noInternetConnection.tr,
           );
+
+          btnController.stop();
         }
+
+        btnController.stop();
       });
     } else {
       print("Form validation failed");

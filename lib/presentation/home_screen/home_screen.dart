@@ -275,6 +275,20 @@ class HomeScreen extends StatelessWidget {
                                       ListTile(
                                         title: Text("CNIC : ${controller.profileModel!.cnic}"),
                                       ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.toNamed(AppRoutes.myProfilePage);
+                                        },
+                                        child: Center(
+                                          child: MyText(
+                                            title: "View More",
+                                            fontSize: 16,
+                                            clr: ColorConstant.antextGrayDark,
+                                            customWeight: FontWeight.bold,
+                                            under: true,
+                                          ),
+                                        ),
+                                      ),
                                     ]
                                   : [CircularProgressIndicator.adaptive()],
                             );
@@ -320,7 +334,21 @@ class HomeScreen extends StatelessWidget {
                                               ));
                                             },
                                           ),
-                                        )
+                                        ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.toNamed(AppRoutes.billsPage);
+                                        },
+                                        child: Center(
+                                          child: MyText(
+                                            title: "View More",
+                                            fontSize: 16,
+                                            clr: ColorConstant.antextGrayDark,
+                                            customWeight: FontWeight.bold,
+                                            under: true,
+                                          ),
+                                        ),
+                                      ),
                                     ]
                                   : [CircularProgressIndicator.adaptive()],
                             );
@@ -355,7 +383,7 @@ class HomeScreen extends StatelessWidget {
                                       children: [
                                         Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Container(
                                               width: getHorizontalSize(320), // Set the width explicitly
@@ -365,8 +393,8 @@ class HomeScreen extends StatelessWidget {
                                                 shrinkWrap: true,
                                                 padding: EdgeInsets.zero,
                                                 scrollDirection: Axis.vertical,
-                                                itemCount: controller.complaints!.data!
-                                                    .length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                                itemCount:
+                                                    3, // Increase the itemCount by 1 to accommodate the "View All" item
                                                 itemBuilder: (BuildContext context, int index) {
                                                   return Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -374,7 +402,7 @@ class HomeScreen extends StatelessWidget {
                                                       Container(
                                                         width: 220,
                                                         child: MyText(
-                                                          title: controller.complaints!.data![index].description!,
+                                                          title: controller.complaints?.data?[index].description ?? "",
                                                           clr: ColorConstant.antextGrayDark,
                                                           fontSize: 12,
                                                         ),
@@ -406,6 +434,22 @@ class HomeScreen extends StatelessWidget {
                                                     ],
                                                   ).paddingOnly(bottom: 15);
                                                 },
+                                              ),
+                                            ),
+                                            Center(
+                                              child: InkWell(
+                                                onTap: () {
+                                                  Get.toNamed(AppRoutes.myComplaintsPage);
+                                                },
+                                                child: Center(
+                                                  child: MyText(
+                                                    title: "View More",
+                                                    fontSize: 16,
+                                                    clr: ColorConstant.antextGrayDark,
+                                                    customWeight: FontWeight.bold,
+                                                    under: true,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             SizedBox(height: getVerticalSize(10)),

@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:anchorageislamabad/presentation/login_screen/controller/login_controller.dart';
+import 'package:anchorageislamabad/presentation/mycomplaints_screen/models/complain_messages.dart';
 import 'package:anchorageislamabad/presentation/mycomplaints_screen/models/view_model.dart';
 import 'package:anchorageislamabad/presentation/splash_screen/controller/splash_controller.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
@@ -51,7 +52,16 @@ class ViewComplaintController extends GetxController {
   RxList<DealsModel> categories = <DealsModel>[].obs;
   GlobalKey<FormState> formKey = new GlobalKey();
 
+  bool isExpanded = false;
+
+  expand() {
+    isExpanded = true;
+    update();
+  }
+
   ViewComplaintModel? viewComplaintModel;
+
+  ComplainMessages? complainMessages;
 
   Future<ViewComplaintModel?> getViewComplain(id) async {
     Utils.check().then((value) async {
@@ -67,6 +77,40 @@ class ViewComplaintController extends GetxController {
               Constants.viewComplainUrl + id.toString(), onSuccess: (response) {
             log(response.toString());
             viewComplaintModel = ViewComplaintModel.fromJson(response.data);
+            update();
+
+            return true;
+          }, onError: (error) {
+            ApiException apiException = error;
+            print(apiException.message);
+            BaseClient.handleApiError(error);
+            apiCallStatus.value = ApiCallStatus.error;
+            return false;
+          });
+        });
+      } else {
+        isInternetAvailable.value = false;
+      }
+    });
+    return null;
+  }
+
+  Future<ComplainMessages?> getMessagesOnComplain(id) async {
+    Utils.check().then((value) async {
+      if (value) {
+        isInternetAvailable.value = true;
+
+        apiCallStatus.value = ApiCallStatus.loading;
+
+        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+          await BaseClient.get(
+              // headers: {'Authorization': "Bearer 15|7zbPqSX0mng6isF9L3iU3v33V6eaoGvEMkE2K7Fg"},
+              headers: {'Authorization': "Bearer $token"},
+              Constants.viewComplainUrl + id.toString(), onSuccess: (response) {
+            isExpanded = false;
+            update();
+            log(response.toString());
+            complainMessages = ComplainMessages.fromJson(response.data);
             update();
 
             return true;

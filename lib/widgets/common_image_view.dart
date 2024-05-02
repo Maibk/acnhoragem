@@ -17,6 +17,7 @@ class CommonImageView extends StatelessWidget {
   double? placeHolderHeight;
   double? placeHolderWidth;
   Alignment? alignment;
+  double? scale;
   Color? color;
   final BoxFit fit;
   final String placeHolder;
@@ -34,6 +35,7 @@ class CommonImageView extends StatelessWidget {
     this.placeHolderWidth,
     this.alignment,
     this.color,
+    this.scale,
     this.fit = BoxFit.cover,
     this.placeHolder = 'assets/images/image_not_found.png',
   });
@@ -42,11 +44,11 @@ class CommonImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return alignment != null
         ? Align(
-      alignment: alignment!,
-      child: _buildImageView(),
-    )
+            alignment: alignment!,
+            child: _buildImageView(),
+          )
         : _buildImageView();
-   // return _buildImageView();
+    // return _buildImageView();
   }
 
   Widget _buildImageView() {
@@ -102,6 +104,7 @@ class CommonImageView extends StatelessWidget {
         height: height,
         width: width,
         fit: fit,
+        scale: scale,
       );
     }
     return SizedBox();

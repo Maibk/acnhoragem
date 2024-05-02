@@ -313,9 +313,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           child: DropdownButton<Street>(
                                                         hint: controller.streetSelectedValue == null
                                                             ? Text(
-                                                                controller.streets.isEmpty
-                                                                    ? "Please wait..."
-                                                                    : "Streets ",
+                                                                "Select Street",
                                                                 style: TextStyle(
                                                                   fontSize: 14,
                                                                   color: ColorConstant.blackColor.withOpacity(0.5),
@@ -326,7 +324,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             : Text(controller.selectedValue.toString()),
                                                         value: controller.streetSelectedValue,
                                                         disabledHint: Text(
-                                                          controller.streets.isEmpty ? "Please wait..." : "Streets",
+                                                          "Select Street",
                                                           style: TextStyle(
                                                             fontSize: 14,
                                                             color: ColorConstant.blackColor.withOpacity(0.5),
@@ -356,9 +354,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           child: DropdownButton<Plots>(
                                                         hint: controller.plotstSelectedValue == null
                                                             ? Text(
-                                                                controller.plots.isEmpty
-                                                                    ? "Please wait..."
-                                                                    : controller.plotPlaceHolder,
+                                                                "Select Plot",
                                                                 style: TextStyle(
                                                                   fontSize: 14,
                                                                   color: ColorConstant.blackColor.withOpacity(0.5),
@@ -369,9 +365,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             : Text(controller.plotstSelectedValue.toString()),
                                                         value: controller.plotstSelectedValue,
                                                         disabledHint: Text(
-                                                          controller.plots.isEmpty
-                                                              ? "Please wait..."
-                                                              : controller.plotPlaceHolder,
+                                                          "Select Plot",
                                                           style: TextStyle(
                                                             fontSize: 14,
                                                             color: ColorConstant.blackColor.withOpacity(0.5),

@@ -67,7 +67,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
           ],
         ),
         body: Padding(
-          padding: getPadding(left: 20, right: 20),
+          padding: getPadding(left: 10, right: 10),
           child: Column(
             children: [
               Expanded(
@@ -150,20 +150,23 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                     SizedBox(height: 20.0),
                                     if (controller.selectedComplaint != null)
                                       MyText(title: "Complaint Type", fontSize: 12),
-                                    DropdownButton(
-                                      value: controller.selectedDepartment,
-                                      items: controller.selectedComplaint?.findDepartments.map((department) {
-                                        return DropdownMenuItem(
-                                          value: department,
-                                          child: Text(department['title']),
-                                        );
-                                      }).toList(),
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          controller.selectedDepartment = newValue as Map<String, dynamic>?;
-                                          log(controller.selectedDepartment!['id'].toString());
-                                        });
-                                      },
+                                    Container(
+                                      width: getHorizontalSize(370),
+                                      child: DropdownButton(
+                                        value: controller.selectedDepartment,
+                                        items: controller.selectedComplaint?.findDepartments.map((department) {
+                                          return DropdownMenuItem(
+                                            value: department,
+                                            child: Text(department['title']),
+                                          );
+                                        }).toList(),
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            controller.selectedDepartment = newValue as Map<String, dynamic>?;
+                                            log(controller.selectedDepartment!['id'].toString());
+                                          });
+                                        },
+                                      ),
                                     ),
                                     SizedBox(height: getVerticalSize(10)),
                                     MyText(title: "Description", fontSize: 12),

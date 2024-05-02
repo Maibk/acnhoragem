@@ -22,7 +22,6 @@ class MyprofileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-
       child: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -84,24 +83,50 @@ class MyprofileScreen extends StatelessWidget {
                                       width: double.infinity,
                                       padding: getPadding(left: 30, right: 30, top: 20, bottom: 20),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          CommonImageView(
-                                            imagePath: ImageConstant.profileIcon,
-                                            height: 100,
-                                            width: 100,
+                                          Stack(
+                                            alignment: Alignment.bottomRight,
+                                            children: [
+                                              Container(
+                                                height: 150,
+                                                width: 150,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: ColorConstant.anbtnBlue,
+                                                ),
+                                                child: CommonImageView(
+                                                  imagePath: ImageConstant.myprofileIcon,
+                                                  fit: BoxFit.contain,
+                                                ).paddingAll(25),
+                                              ),
+                                              Positioned(
+                                                right: 15,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: ColorConstant.anbtnBlue,
+                                                      border: Border.all(width: .5, color: ColorConstant.whiteA700)),
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    color: ColorConstant.whiteA700,
+                                                    size: 20,
+                                                  ).paddingAll(5),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           SizedBox(
                                             height: getVerticalSize(10),
                                           ),
                                           MyText(
-                                            title: controller.getProfileModel?.name ?? " ",
-                                            fontSize: 22,
-                                          ),
+                                              title: controller.getProfileModel?.name ?? " ",
+                                              fontSize: 30,
+                                              weight: "Bold"),
                                           MyText(
                                             title: controller.getProfileModel?.email ?? "",
                                             clr: ColorConstant.antextlightgray,
-                                            fontSize: 12,
+                                            fontSize: 15,
                                           ),
                                           SizedBox(
                                             height: getVerticalSize(10),
@@ -113,7 +138,7 @@ class MyprofileScreen extends StatelessWidget {
                                           // ),
                                         ],
                                       ),
-                                    ),
+                                    ).paddingSymmetric(horizontal: 10),
                                     SizedBox(
                                       height: getVerticalSize(10),
                                     ),

@@ -213,113 +213,6 @@ class EntryFormsController extends GetxController {
   }
 
   Map<String, dynamic> EntryFormData = {};
-
-  // Future<void> childEntryFormAPi(context) async {
-  //   final formState = childEntryFormKey.currentState;
-  //   if (formState!.validate()) {
-  //     Utils.check().then((value) async {
-  //       Map<String, dynamic> data = {};
-
-  //       data = {
-  //         'name': childfullNameController.text,
-  //         "father_name": childfathersController.text,
-  //         'cnic': childcnicController.text,
-  //         'phone': childmobileController.text,
-  //         'house_no': childhouseController.text,
-  //         'road': childroadController.text,
-  //         'street': childstreetController.text,
-  //         'block': childblockController.text,
-  //         'residential_area': childcolonyController.text,
-  //       };
-  //       if (childImage != null) {
-  //         String filePath1 = childImage?.path ?? '';
-  //         if (filePath1.isNotEmpty) {
-  //           data['image'] = await _dio.MultipartFile.fromFile(
-  //             filePath1,
-  //             filename: filePath1.split('/').last,
-  //             contentType: _http.MediaType.parse('image/jpeg'),
-  //           );
-  //         }
-  //       }
-
-  //       if (childCnicFront != null) {
-  //         String filePath1 = childCnicFront?.path ?? '';
-  //         if (filePath1.isNotEmpty) {
-  //           data['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-  //             filePath1,
-  //             filename: filePath1.split('/').last,
-  //             contentType: _http.MediaType.parse('image/jpeg'),
-  //           );
-  //         }
-  //       }
-  //       if (childCnicBack != null) {
-  //         String filePath1 = childCnicBack?.path ?? '';
-  //         if (filePath1.isNotEmpty) {
-  //           data['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-  //             filePath1,
-  //             filename: filePath1.split('/').last,
-  //             contentType: _http.MediaType.parse('image/jpeg'),
-  //           );
-  //         }
-  //       }
-  //       if (value) {
-  //         btnController.start();
-  //         _appPreferences
-  //             .getAccessToken(prefName: AppPreferences.prefAccessToken)
-  //             .then((token) async {
-  //           var dio = _dio.Dio();
-  //           try {
-  //             var response = await dio.request(
-  //               'https://anchorageislamabad.com/api/entry-card/child',
-  //               options: _dio.Options(
-  //                 method: 'POST',
-  //                 headers: {
-  //                   'Authorization': "Bearer $token",
-  //                 },
-  //               ),
-  //               data: _dio.FormData.fromMap(data),
-  //             );
-  //             if (response.statusCode == 200) {
-  //               Utils.showToast(
-  //                 response.data['message'],
-  //                 false,
-  //               );
-  //               btnController.stop();
-  //               log(json.encode(response.data));
-
-  //               Get.offAllNamed(AppRoutes.homePage);
-  //             } else {
-  //               btnController.stop();
-
-  //               Utils.showToast(
-  //                 response.data['message'],
-  //                 false,
-  //               );
-  //               log(response.statusMessage.toString());
-  //             }
-  //           } on _dio.DioException catch (error) {
-  //             // dio error (api reach the server but not performed successfully
-  //             // no response
-  //             if (error.response == null) {
-  //               var exception = ApiException(
-  //                 url: 'https://anchorageislamabad.com/api/entry-card',
-  //                 message: error.message!,
-  //               );
-  //               return BaseClient.handleApiError(exception);
-  //             }
-  //           }
-  //         });
-  //       } else {
-  //         CustomSnackBar.showCustomErrorToast(
-  //           message: Strings.noInternetConnection,
-  //         );
-  //       }
-  //     });
-  //   } else {
-  //     print("Form validation failed");
-  //   }
-  // }
-
   GlobalKey<FormState> spouseEntryFormKey = GlobalKey();
   int spouseDataIndex = 0;
 
@@ -334,9 +227,9 @@ class EntryFormsController extends GetxController {
           "spouse_father_name": spousefathersController.text,
           'spouse_cnic': spousecnicController.text,
           'spouse_phone': spousemobileController.text,
-          'spouse_house': spouseplotstSelectedValue?.id ?? 0,
+          'spouse_house': spousehouseController.text,
           'spouse_road': spouseroadController.text,
-          'spouse_street': spousestreetSelectedValue?.id ?? 0,
+          'spouse_street': spousestreetController.text,
           'spouse_block': spouseselectedValue ?? 0,
           "spouse_po": "",
           "spouse_city": "",
@@ -441,9 +334,9 @@ class EntryFormsController extends GetxController {
           "child_father_name": childfathersController.text,
           'child_cnic': childcnicController.text,
           'child_phone': childmobileController.text,
-          'child_house': childplotstSelectedValue?.id ?? 0,
+          'child_house': childhouseController.text,
           'child_road': childroadController.text,
-          'child_street': childstreetSelectedValue?.id ?? 0,
+          'child_street': childstreetController.text,
           'child_block': childselectedValue ?? 0,
           "child_po": "",
           "child_city": "",

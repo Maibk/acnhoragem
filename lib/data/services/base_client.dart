@@ -81,7 +81,7 @@ class BaseClient {
           var exception = ApiException(
             url: url,
             message: 'Unable to process request. Please try again later.',
-        );
+          );
           return onError?.call(exception) ?? handleApiError(exception);
         }
 
@@ -113,7 +113,6 @@ class BaseClient {
         if (error.response?.statusCode == 401) {
           await _appPreferences.getAppPreferences().clearPreference();
           Utils.showToast(Strings.sessionExpiredMessage, true);
-       
 
           return;
         }
@@ -251,6 +250,12 @@ class BaseClient {
         // if(gttt.Get.currentRoute!=AppRoutes.loginScreen){
         //   gttt.Get.offAllNamed(AppRoutes.loginScreen);
         // }
+
+        return;
+      }
+
+      if (error.response?.statusCode == 404) {
+        Utils.showToast(error.response?.data['message'], true);
 
         return;
       }
