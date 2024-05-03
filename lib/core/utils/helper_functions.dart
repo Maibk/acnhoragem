@@ -7,7 +7,6 @@ import '../../widgets/custom_text.dart';
 import '../../widgets/custom_toast.dart';
 import 'color_constant.dart';
 
-
 class HelperFunction {
   static String? emailValidate(String val) {
     if (val.isEmpty) {
@@ -18,7 +17,6 @@ class HelperFunction {
       return null;
     }
   }
-
 
   static String? otpvalidate(String val) {
     if (val.isEmpty) {
@@ -56,11 +54,10 @@ class HelperFunction {
     }
   }
 
-
-  static String? stringValidateWithLImit(val,limit, {fieldName}) {
+  static String? stringValidateWithLImit(val, limit, {fieldName}) {
     if (val.isEmpty || val == '') {
       return '${fieldName ?? 'Field'} cannot be empty';
-    }else if(val.toString().length > limit){
+    } else if (val.toString().length > limit) {
       return 'Character limit exceeded';
     } else {
       return null;
@@ -70,28 +67,21 @@ class HelperFunction {
   static String? fullNameFieldValidator(String value) {
     if (value.isEmpty || value == "") {
       return "Full name field cannot be empty";
-    } else if(value.length > 50) {
+    } else if (value.length > 50) {
       return 'Full Name cannot be greater than 25 characters';
-    }
-    else {
+    } else {
       return null;
     }
   }
+
   static String? empthyFieldValidator(String value) {
     if (value.isEmpty || value == "") {
       return "Field cannot be empty";
-    } else if(value.length > 50) {
-      return 'Cannot be greater than 25 characters';
-    }
-    else {
-      return null;
     }
   }
 
-
   static String? passwordValidate(String value, {bool isConfirmPassword = false, String? password}) {
-    RegExp regex =
-    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$');
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$');
     if (value.isEmpty || value == "") {
       return "Password is required";
     }
@@ -99,13 +89,12 @@ class HelperFunction {
       return "Password is really short please enter at least 6 character.";
     }
     if (isConfirmPassword) {
-      if(value != password){
+      if (value != password) {
         return "Password and confirm password do not match";
-      }else if (!regex.hasMatch(value)) {
+      } else if (!regex.hasMatch(value)) {
         return 'Please enter at least one character uppercase,\none lower case,one special character and one digit';
         // return 'Weak password please enter at least one character uppercase,\none lower case,one special character and one digit';
-      }
-      else {
+      } else {
         return null;
       }
     } else {
@@ -114,7 +103,6 @@ class HelperFunction {
   }
 
   static String? passwordValidateStrong(String value) {
-
     //r'^
     //   (?=.*[A-Z])       // should contain at least one upper case
     //   (?=.*[a-z])       // should contain at least one lower case
@@ -122,8 +110,7 @@ class HelperFunction {
     //   (?=.*?[!@#\$&*~]) // should contain at least one Special character
     //   .{6,}             // Must be at least 8 characters in length
     // $
-    RegExp regex =
-    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$');
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$');
 
     if (value.isEmpty || value == "") {
       return "Password field cannot be empty";
@@ -134,13 +121,10 @@ class HelperFunction {
     if (!regex.hasMatch(value)) {
       return 'Please enter at least one character uppercase,\none lower case,one special character and one digit';
       // return 'Weak password please enter at least one character uppercase,\none lower case,one special character and one digit';
-    }
-    else {
+    } else {
       return null;
     }
   }
-
-
 
   static bool showPassword(bool value) {
     if (value == true) {
@@ -150,21 +134,18 @@ class HelperFunction {
     }
   }
 
-
-
-
   static void showBottomSheet(context,
       {double? bottomSheetHeight,
       double? spaceBetween,
-        double? radius,
+      double? radius,
       String? screenTitle,
       Widget? save,
       Widget? widget}) {
     showModalBottomSheet(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(radius ?? 30.0), topLeft: Radius.circular(radius ?? 30.0)),
+          borderRadius:
+              BorderRadius.only(topRight: Radius.circular(radius ?? 30.0), topLeft: Radius.circular(radius ?? 30.0)),
         ),
         context: context,
         builder: (BuildContext bc) {
@@ -188,7 +169,10 @@ class HelperFunction {
                             fontSize: 15,
                             clr: ColorConstant.secondaryTextColor,
                           )),
-                      MyText(title: '${screenTitle ?? 'Screen Name'}',customWeight: FontWeight.w700,),
+                      MyText(
+                        title: '${screenTitle ?? 'Screen Name'}',
+                        customWeight: FontWeight.w700,
+                      ),
                       if (save == null)
                         MyText(
                           title: 'Cancel',
@@ -231,8 +215,6 @@ class HelperFunction {
     return true;
   }
 
-
-
   static Color getHashColor({String? color}) {
     Color hashColor;
     int tempColor = int.parse(color!.replaceFirst("#", "0xff"));
@@ -245,13 +227,8 @@ class HelperFunction {
     storage.clear();
   }
 
-
-  static  showBottomSheet2(context,
-      {double? bottomSheetHeight,
-        String? screenTitle,
-        Widget? save,
-        Widget? apply,
-        Widget? widget}) {
+  static showBottomSheet2(context,
+      {double? bottomSheetHeight, String? screenTitle, Widget? save, Widget? apply, Widget? widget}) {
     showModalBottomSheet(
         backgroundColor: Colors.white,
         context: context,
@@ -260,7 +237,7 @@ class HelperFunction {
           return Wrap(
             children: [
               Padding(
-                padding: getPadding(left: 20,right: 20,bottom: 20,top: 35),
+                padding: getPadding(left: 20, right: 20, bottom: 20, top: 35),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -282,17 +259,20 @@ class HelperFunction {
                     ),
 
                     ///putting this widget due to balancing the size of row
-                    save != null ? save : apply != null ? apply :
-                    MyText(
-                      title: 'Cancel',
-                      fontSize: 16,
-                      clr: Colors.transparent,
-                    ),
+                    save != null
+                        ? save
+                        : apply != null
+                            ? apply
+                            : MyText(
+                                title: 'Cancel',
+                                fontSize: 16,
+                                clr: Colors.transparent,
+                              ),
                   ],
                 ),
               ),
               Padding(
-                padding: getPadding(left: 20,right: 20),
+                padding: getPadding(left: 20, right: 20),
                 child: widget ?? Container(),
               ),
             ],
@@ -311,7 +291,6 @@ class HelperFunction {
   //   };
   // }
 
-
   static const double FULL_SCREEN_SIZE = 100.0;
   static const int EMAIL_VALIDATION = 50;
   static const int NAME_VALIDATION = 50;
@@ -324,7 +303,7 @@ class HelperFunction {
   static const double FORM_PADDING2 = 15.0;
 
 //  Screens padding
-  static const double   SCREENS_SIDE_PADDING = 5.0;
+  static const double SCREENS_SIDE_PADDING = 5.0;
 
-  static const double TITLE_TEXT_SIZE=16.0;
+  static const double TITLE_TEXT_SIZE = 16.0;
 }

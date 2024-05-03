@@ -50,7 +50,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
         ),
       ),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           toolbarHeight: 100.0,
@@ -652,10 +652,32 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             ),
                                             Expanded(
                                               child: CustomTextField(
-                                                fieldText: "City/Province".tr,
+                                                fieldText: "City".tr,
                                                 controller: controller.serventCityController,
                                                 isFinal: false,
                                                 keyboardType: TextInputType.emailAddress,
+                                                validator: controller.servantDataIndex < 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(5),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Province".tr,
+                                                controller: controller.serventProvinceController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.emailAddress,
+                                                limit: HelperFunction.EMAIL_VALIDATION,
                                                 validator: controller.servantDataIndex < 1
                                                     ? (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);

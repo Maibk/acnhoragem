@@ -246,7 +246,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                   child: DropdownButton<Street>(
                                                 hint: controller.streetSelectedValue == null
                                                     ? Text(
-                                                       "Select Street",
+                                                        "Select Street",
                                                         style: TextStyle(
                                                           fontSize: 14,
                                                           color: ColorConstant.blackColor.withOpacity(0.5),
@@ -257,7 +257,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     : Text(controller.selectedValue.toString()),
                                                 value: controller.streetSelectedValue,
                                                 disabledHint: Text(
-                                                   "Select Street",
+                                                  "Select Street",
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: ColorConstant.blackColor.withOpacity(0.5),
@@ -287,7 +287,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                   child: DropdownButton<Plots>(
                                                 hint: controller.plotstSelectedValue == null
                                                     ? Text(
-                                                           "Select Plot",
+                                                        "Select Plot",
                                                         style: TextStyle(
                                                           fontSize: 14,
                                                           color: ColorConstant.blackColor.withOpacity(0.5),
@@ -298,7 +298,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     : Text(controller.plotstSelectedValue.toString()),
                                                 value: controller.plotstSelectedValue,
                                                 disabledHint: Text(
-                                             "Select Plot",
+                                                  "Select Plot",
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: ColorConstant.blackColor.withOpacity(0.5),
@@ -360,7 +360,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       height: getVerticalSize(5),
                                     ),
                                     CustomTextField(
-                                      fieldText: "Present Address.".tr,
+                                      fieldText: "Permanent Address.".tr,
                                       controller: controller.presentAddController,
                                       isFinal: false,
                                       keyboardType: TextInputType.emailAddress,
@@ -964,52 +964,97 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               controller: controller.vehicleStikerController,
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
-                                                              validator: controller.vehicleDataIndex < 1
-                                                                  ? (value) {
-                                                                      return HelperFunction.empthyFieldValidator(
-                                                                          value!);
-                                                                    }
-                                                                  : null,
                                                             ),
                                                           ),
                                                         ],
                                                       ),
                                                       SizedBox(
-                                                        height: getVerticalSize(5),
+                                                        height: getVerticalSize(15),
                                                       ),
                                                       Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
-                                                          Expanded(
-                                                            child: CustomTextField(
-                                                              fieldText: "Engine No".tr,
-                                                              controller: controller.vehicleEngineNoController,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.emailAddress,
-                                                              limit: HelperFunction.EMAIL_VALIDATION,
-                                                              validator: controller.vehicleDataIndex < 1
-                                                                  ? (value) {
-                                                                      return HelperFunction.empthyFieldValidator(
-                                                                          value!);
-                                                                    }
-                                                                  : null,
+                                                          Padding(
+                                                            padding: getPadding(left: 10),
+                                                            child: MyText(
+                                                              title: "E-Tag",
+                                                              clr: ColorConstant.antextlightgray,
+                                                              fontSize: 14,
                                                             ),
                                                           ),
-                                                          Expanded(
-                                                            child: CustomTextField(
-                                                              fieldText: "E-Tag".tr,
-                                                              controller: controller.vehicleEtagController,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.emailAddress,
-                                                              validator: controller.vehicleDataIndex < 1
-                                                                  ? (value) {
-                                                                      return HelperFunction.empthyFieldValidator(
-                                                                          value!);
-                                                                    }
-                                                                  : null,
-                                                            ),
+                                                          SizedBox(
+                                                            width: getHorizontalSize(20),
+                                                          ),
+                                                          GetBuilder(
+                                                            init: controller,
+                                                            builder: (controller) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  controller.updateEtag("Yes");
+                                                                },
+                                                                child: Row(
+                                                                  children: [
+                                                                    controller.eTag == "Yes"
+                                                                        ? Icon(
+                                                                            Icons.circle,
+                                                                            color: ColorConstant.blackColor,
+                                                                            size: 14,
+                                                                          )
+                                                                        : Icon(
+                                                                            Icons.circle_outlined,
+                                                                            color: ColorConstant.blackColor,
+                                                                            size: 14,
+                                                                          ),
+                                                                    SizedBox(
+                                                                      width: getHorizontalSize(10),
+                                                                    ),
+                                                                    MyText(
+                                                                      title: "Yes",
+                                                                      clr: ColorConstant.antextlightgray,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                          SizedBox(
+                                                            width: getHorizontalSize(20),
+                                                          ),
+                                                          GetBuilder(
+                                                            init: controller,
+                                                            builder: (controller) {
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  controller.updateEtag("No");
+                                                                },
+                                                                child: Row(
+                                                                  children: [
+                                                                    controller.eTag == "No"
+                                                                        ? Icon(
+                                                                            Icons.circle,
+                                                                            color: ColorConstant.blackColor,
+                                                                            size: 14,
+                                                                          )
+                                                                        : Icon(
+                                                                            Icons.circle_outlined,
+                                                                            color: ColorConstant.blackColor,
+                                                                            size: 14,
+                                                                          ),
+                                                                    SizedBox(
+                                                                      width: getHorizontalSize(10),
+                                                                    ),
+                                                                    MyText(
+                                                                      title: "No",
+                                                                      clr: ColorConstant.antextlightgray,
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            },
                                                           ),
                                                         ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
                                                       ),
                                                       SizedBox(
                                                         height: getVerticalSize(15),
@@ -1025,7 +1070,20 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           controller: controller.uselessbtnController,
                                                           title: "Add Vehicle".tr,
                                                           onTap: () async {
-                                                            controller.addvehicle(context);
+                                                            if (controller.vehicleDataIndex > 0) {
+                                                              if (controller.vehicleTypeController.text == "" &&
+                                                                  controller.vehicleRegisterNoController.text == "" &&
+                                                                  controller.vehicleColorController.text == "" &&
+                                                                  controller.vehicleEngineNoController.text == "" &&
+                                                                  controller.vehicleEtagController.text == "") {
+                                                                Utils.showToast(
+                                                                    "Please fill in the required fields", true);
+                                                              } else {
+                                                                controller.addvehicle(context);
+                                                              }
+                                                            } else if (controller.vehicleDataIndex == 0) {
+                                                              controller.addvehicle(context);
+                                                            }
                                                           },
                                                         ),
                                                       ),

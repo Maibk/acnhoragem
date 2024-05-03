@@ -137,7 +137,11 @@ class OwnerFornsScreenController extends GetxController {
 
   Future<void> addvehicle(context) async {
     final formState = vehicleFormKey.currentState;
-    if (formState!.validate()) {
+
+
+
+    
+    if (formState!.validate(  ) ) {
       Utils.check().then((value) async {
         ownerFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController.text;
         ownerFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController.text;
@@ -298,7 +302,7 @@ class OwnerFornsScreenController extends GetxController {
               headers: {'Authorization': "Bearer $token"},
               Constants.getStreetByBlockUrl + id.toString(), onSuccess: (response) {
             update();
-            log(response.data['data'].toString(), name: "Street data>>");
+
             streets.clear();
             for (var element in response.data['data']) {
               streets.add(Street(id: element["id"] ?? 0, title: element["title"] ?? ""));
@@ -335,11 +339,22 @@ class OwnerFornsScreenController extends GetxController {
               headers: {'Authorization': "Bearer $token"},
               Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
-            plots.clear();
+            plots.clear;
             for (var element in response.data['data']) {
-              plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? ""));
+              plots.add(
+                  Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
             }
             plots;
+
+            for (var element in response.data['data']) {
+              if (element["street_id"] == id) {
+                log(element["sq_yards"]);
+                sizeHouseAddController.text = element["sq_yards"];
+                update();
+              }
+              ;
+            }
+
             log(response.data['data'].toString());
 
             update();
@@ -401,6 +416,7 @@ class Street {
 class Plots {
   int? id;
   String? title;
+  String? sq_yards;
 
-  Plots({required this.id, required this.title});
+  Plots({required this.id, required this.title, required this.sq_yards});
 }

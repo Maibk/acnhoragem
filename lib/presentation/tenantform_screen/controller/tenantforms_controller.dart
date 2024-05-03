@@ -85,6 +85,7 @@ class TenantFornsScreenController extends GetxController {
 
   String? privatearms = "";
   String? hasVehicle = "";
+  String? eTag = "";
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   TextEditingController fullNameController = TextEditingController();
@@ -120,7 +121,7 @@ class TenantFornsScreenController extends GetxController {
   TextEditingController vehicleTypeController = TextEditingController();
   TextEditingController vehicleRegisterNoController = TextEditingController();
   TextEditingController vehicleColorController = TextEditingController();
-  TextEditingController vehicleStikerController = TextEditingController();
+  TextEditingController? vehicleStikerController;
   TextEditingController vehicleEngineNoController = TextEditingController();
   TextEditingController vehicleEtagController = TextEditingController();
   RxBool isInternetAvailable = true.obs;
@@ -144,8 +145,8 @@ class TenantFornsScreenController extends GetxController {
         tenantFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController.text;
         tenantFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController.text;
         tenantFormdata['color[$vehicleDataIndex]'] = vehicleColorController.text;
-        tenantFormdata['sticker_no[$vehicleDataIndex]'] = vehicleStikerController.text;
-        tenantFormdata['etag[$vehicleDataIndex]'] = vehicleEtagController.text;
+        tenantFormdata['sticker_no[$vehicleDataIndex]'] = vehicleStikerController?.text ?? "No";
+        tenantFormdata['etag[$vehicleDataIndex]'] = eTag ?? "No";
         Utils.showToast(
           "Vehicle ${vehicleDataIndex + 1} Added Successfully",
           false,
@@ -163,9 +164,11 @@ class TenantFornsScreenController extends GetxController {
     vehicleTypeController.clear();
     vehicleRegisterNoController.clear();
     vehicleColorController.clear();
-    vehicleStikerController.clear();
+    vehicleStikerController?.clear();
     vehicleEtagController.clear();
     vehicleEngineNoController.clear();
+    hasVehicle = "";
+    eTag = "";
   }
 
   Future<void> tenantFormApi(context) async {
@@ -199,7 +202,7 @@ class TenantFornsScreenController extends GetxController {
           'arm_quantity': privateArmsController ?? "No",
           'bore_type': privateBoreController ?? "No",
           'ammunition_quantity': privateAmmunitionController?.text ?? "No",
-          'vehicle_status': hasVehicle,
+          'vehicle_status': vehicleDataIndex > 0 ? "Yes" : "NO",
 
           'submit_date': DateTime.now(),
           'status': '0'
@@ -385,10 +388,20 @@ class TenantFornsScreenController extends GetxController {
             update();
             plots.clear();
             for (var element in response.data['data']) {
-              plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? ""));
+              plots.add(
+                  Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
             }
             plots;
             log(response.data['data'].toString());
+
+            for (var element in response.data['data']) {
+              if (element["street_id"] == id) {
+                log(element["sq_yards"]);
+                sizeHouseAddController.text = element["sq_yards"];
+                update();
+              }
+              ;
+            }
 
             update();
 
@@ -427,6 +440,11 @@ class TenantFornsScreenController extends GetxController {
     hasVehicle = value;
     update();
   }
+
+  updateEtag(value) {
+    eTag = value;
+    update();
+  }
 }
 
 class Street {
@@ -439,6 +457,7 @@ class Street {
 class Plots {
   int? id;
   String? title;
+  String? sq_yards;
 
-  Plots({required this.id, required this.title});
+  Plots({required this.id, required this.title, required this.sq_yards});
 }

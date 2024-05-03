@@ -52,6 +52,10 @@ class EntryFormsController extends GetxController {
   TextEditingController spousestreetController = TextEditingController();
   TextEditingController spouseblockController = TextEditingController();
   TextEditingController spousecolonyController = TextEditingController();
+  TextEditingController spouseMohallaController = TextEditingController();
+  TextEditingController spouseThanaController = TextEditingController();
+  TextEditingController spouseCityController = TextEditingController();
+  TextEditingController spouseProvinceController = TextEditingController();
 
   TextEditingController childfullNameController = TextEditingController();
   TextEditingController childfathersController = TextEditingController();
@@ -62,6 +66,11 @@ class EntryFormsController extends GetxController {
   TextEditingController childstreetController = TextEditingController();
   TextEditingController childblockController = TextEditingController();
   TextEditingController childcolonyController = TextEditingController();
+
+  TextEditingController childMohallaController = TextEditingController();
+  TextEditingController childThanaController = TextEditingController();
+  TextEditingController childCityController = TextEditingController();
+  TextEditingController childProvinceController = TextEditingController();
 
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
@@ -231,10 +240,10 @@ class EntryFormsController extends GetxController {
           'spouse_road': spouseroadController.text,
           'spouse_street': spousestreetController.text,
           'spouse_block': spouseselectedValue ?? 0,
-          "spouse_po": "",
-          "spouse_city": "",
-          "spouse_province": "",
-          'spouse_village': spousecolonyController.text,
+          "spouse_po": spouseProvinceController.text,
+          "spouse_city": spouseCityController.text,
+          "spouse_province": spouseProvinceController.text,
+          'spouse_village': spouseMohallaController.text,
         };
         data.forEach((key, value) {
           EntryFormData["$key[$spouseDataIndex]"] = value;
@@ -296,6 +305,12 @@ class EntryFormsController extends GetxController {
     spousestreetController.clear();
     spouseblockController.clear();
     spousecolonyController.clear();
+
+    spouseProvinceController.clear();
+    spouseCityController.clear();
+    spouseProvinceController.clear();
+    spouseMohallaController.clear();
+
     spouseselectedValue = null;
     spousestreetSelectedValue = null;
     spouseplotstSelectedValue = null;
@@ -338,10 +353,10 @@ class EntryFormsController extends GetxController {
           'child_road': childroadController.text,
           'child_street': childstreetController.text,
           'child_block': childselectedValue ?? 0,
-          "child_po": "",
-          "child_city": "",
-          "child_province": "",
-          'child_village': childcolonyController.text,
+          "child_po": childThanaController.text,
+          "child_city": childCityController.text,
+          "child_province": childProvinceController.text,
+          'child_village': childMohallaController.text,
         };
         data.forEach((key, value) {
           EntryFormData["$key[$childDataIndex]"] = value;
@@ -402,6 +417,12 @@ class EntryFormsController extends GetxController {
     childstreetController.clear();
     childblockController.clear();
     childcolonyController.clear();
+
+    childThanaController.clear();
+    childCityController.clear();
+    childProvinceController.clear();
+    childMohallaController.clear();
+
     childselectedValue = null;
     childstreetSelectedValue = null;
     childplotstSelectedValue = null;

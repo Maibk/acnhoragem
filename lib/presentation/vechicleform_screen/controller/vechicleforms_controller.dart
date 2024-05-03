@@ -11,6 +11,7 @@ import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart' as _http;
 import 'package:image_picker/image_picker.dart';
@@ -37,6 +38,7 @@ class VechicleController extends GetxController {
   TextEditingController fathersController = TextEditingController();
   TextEditingController cnicController = TextEditingController();
   TextEditingController rankController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
   TextEditingController servisController = TextEditingController();
   TextEditingController officeController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
@@ -186,6 +188,23 @@ class VechicleController extends GetxController {
       }
     });
     return null;
+  }
+
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+
+      dateController.text = '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}';
+    }
+    update();
   }
 
   // LoginModel? userDetails;
@@ -416,7 +435,7 @@ class VechicleController extends GetxController {
             'name': fullNameController.text,
             "father_name": fathersController.text,
             "service_category": selectedServiceCategory == 1 ? "civilian" : "service personnel",
-            "date": DateTime.now().format("yyyy-MM-dd"),
+            "date": dateController.text,
             'rank': rankController.text.isEmpty ? " " : rankController.text,
             'service_no': servisController.text.isEmpty ? " " : servisController.text,
             'cnic': cnicController.text,

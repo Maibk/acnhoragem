@@ -35,7 +35,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
         ),
       ),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           toolbarHeight: 100.0,
@@ -100,6 +100,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       Form(
                                         key: _value.sticketProformaFormKey,
                                         child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             CustomTextField(
                                               fieldText: "Full Name".tr,
@@ -126,6 +127,14 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             ),
                                             SizedBox(
                                               height: getVerticalSize(10),
+                                            ),
+
+                                            Padding(
+                                              padding: getPadding(left: 10),
+                                              child: MyText(
+                                                title: "Select Category:",
+                                                fontSize: 20,
+                                              ),
                                             ),
                                             Padding(
                                               padding: getPadding(left: 10, top: 10, right: 10),
@@ -192,6 +201,23 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             // if (_value
                                             //         .selectedServiceCategory ==
                                             //     2)
+
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: CustomTextField(
+                                                    fieldText: "Date".tr,
+                                                    controller: controller.dateController,
+                                                    isFinal: false,
+                                                    onTap: () {
+                                                      controller.selectDate(context);
+                                                    },
+                                                    enabled: false,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
@@ -451,6 +477,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             SizedBox(
                                               height: getVerticalSize(15),
                                             ),
+
                                             Padding(
                                               padding: getPadding(left: 10, top: 10, right: 10),
                                               child: Row(

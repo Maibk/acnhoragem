@@ -1153,33 +1153,41 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: MyAnimatedButton(
+                                                        radius: 5.0,
+                                                        height: getVerticalSize(50),
+                                                        width: getHorizontalSize(400),
+                                                        fontSize: 16,
+                                                        bgColor: ColorConstant.anbtnBlue,
+                                                        controller: controller.uselessbtnController,
+                                                        title: "Add Vehicle".tr,
+                                                        onTap: () async {
+                                                          if (controller.vehicleDataIndex > 0) {
+                                                            if (controller.vehicleTypeController.text == "" &&
+                                                                controller.vehicleRegisterNoController.text == "" &&
+                                                                controller.vehicleColorController.text == "" &&
+                                                                controller.vehicleStikerController.text == "" &&
+                                                                controller.vehicleEngineNoController.text == "" &&
+                                                                controller.vehicleEtagController.text == "") {
+                                                              Utils.showToast(
+                                                                  "Please fill in the required fields", true);
+                                                            } else {
+                                                              controller.addvehicle(context);
+                                                            }
+                                                          } else if (controller.vehicleDataIndex == 0) {
+                                                            controller.addvehicle(context);
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: getVerticalSize(20),
+                                                    ),
                                                   ],
                                                 )
                                               : Column(),
-                                          SizedBox(
-                                            height: getVerticalSize(15),
-                                          ),
-                                          Padding(
-                                            padding: getPadding(left: 10, right: 10),
-                                            child: MyAnimatedButton(
-                                              radius: 5.0,
-                                              height: getVerticalSize(50),
-                                              width: getHorizontalSize(400),
-                                              fontSize: 16,
-                                              bgColor: ColorConstant.anbtnBlue,
-                                              controller: controller.uselessbtnController,
-                                              title: "Add Vehicle".tr,
-                                              onTap: () async {
-                                                controller.addvehicle(context);
-                                              },
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(20),
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(20),
-                                          ),
                                         ],
                                       ),
                                     );

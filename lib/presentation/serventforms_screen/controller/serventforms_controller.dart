@@ -88,6 +88,7 @@ class ServentFormsController extends GetxController {
   TextEditingController serventoccutionController = TextEditingController();
   TextEditingController serventpostOfficeController = TextEditingController();
   TextEditingController serventCityController = TextEditingController();
+  TextEditingController serventProvinceController = TextEditingController();
 
   TextEditingController serventfamCnicController = TextEditingController();
   TextEditingController serventfamMobController = TextEditingController();
@@ -274,7 +275,7 @@ class ServentFormsController extends GetxController {
         servantData['servant_block[$servantDataIndex]'] = servantselectedValue ?? 0;
         servantData['servant_po[$servantDataIndex]'] = serventpostOfficeController.text;
         servantData['servant_city[$servantDataIndex]'] = serventpostOfficeController.text;
-        servantData['servant_province[$servantDataIndex]'] = "";
+        servantData['servant_province[$servantDataIndex]'] = serventProvinceController.text;
         servantData['servant_image[$servantDataIndex]'] = await _dio.MultipartFile.fromFile(
           servantImage!.path,
           filename: servantImage!.path.split('/').last,
@@ -314,6 +315,7 @@ class ServentFormsController extends GetxController {
     serventcolonyVillageController.clear();
     serventCityController.clear();
     serventpostOfficeController.clear();
+    serventProvinceController.clear();
     servantselectedValue = null;
     servantplotstSelectedValue = null;
     servantstreetSelectedValue = null;

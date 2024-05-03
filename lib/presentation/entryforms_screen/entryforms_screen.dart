@@ -85,7 +85,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
             ),
           ],
         ),
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
         body: Padding(
           padding: getPadding(left: 10),
@@ -629,7 +629,75 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: getVerticalSize(15),
+                                          height: getVerticalSize(5),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Mohalla/Village.".tr,
+                                                controller: controller.spouseMohallaController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.text,
+                                                validator: controller.spouseDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Post Office/Thana".tr,
+                                                controller: controller.spouseThanaController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.text,
+                                                validator: controller.spouseDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(5),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "City".tr,
+                                                controller: controller.spouseCityController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.text,
+                                                validator: controller.spouseDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Province".tr,
+                                                controller: controller.spouseProvinceController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.text,
+                                                validator: controller.spouseDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(5),
                                         ),
                                         Padding(
                                           padding: getPadding(left: 10, right: 10),
@@ -898,6 +966,77 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                         ),
                                         SizedBox(
                                           height: getVerticalSize(15),
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(5),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Mohalla/Village.".tr,
+                                                controller: controller.childMohallaController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.text,
+                                                validator: controller.spouseDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Post Office/Thana".tr,
+                                                controller: controller.childThanaController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.text,
+                                                validator: controller.spouseDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(5),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "City".tr,
+                                                controller: controller.childCityController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.text,
+                                                validator: controller.spouseDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: CustomTextField(
+                                                fieldText: "Province".tr,
+                                                controller: controller.childProvinceController,
+                                                isFinal: false,
+                                                keyboardType: TextInputType.text,
+                                                validator: controller.spouseDataIndex > 1
+                                                    ? (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }
+                                                    : null,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: getVerticalSize(5),
                                         ),
                                         Padding(
                                           padding: getPadding(left: 10, right: 10),
