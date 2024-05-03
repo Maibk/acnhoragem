@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         translations: AppLocalization(),
         locale: Get.deviceLocale, //for setting localization strings
         fallbackLocale: Locale('en', 'US'),
-        title: 'auto_app',
+        title: 'Anchorage Islamabad',
         initialBinding: InitialBindings(),
         initialRoute: AppRoutes.splashScreen,
         getPages: AppRoutes.pages,
