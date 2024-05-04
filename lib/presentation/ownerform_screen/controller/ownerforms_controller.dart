@@ -138,10 +138,7 @@ class OwnerFornsScreenController extends GetxController {
   Future<void> addvehicle(context) async {
     final formState = vehicleFormKey.currentState;
 
-
-
-    
-    if (formState!.validate(  ) ) {
+    if (formState!.validate()) {
       Utils.check().then((value) async {
         ownerFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController.text;
         ownerFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController.text;
@@ -345,15 +342,6 @@ class OwnerFornsScreenController extends GetxController {
                   Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
             }
             plots;
-
-            for (var element in response.data['data']) {
-              if (element["street_id"] == id) {
-                log(element["sq_yards"]);
-                sizeHouseAddController.text = element["sq_yards"];
-                update();
-              }
-              ;
-            }
 
             log(response.data['data'].toString());
 

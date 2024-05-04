@@ -78,7 +78,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   url_launcher: ^6.2.6
   webview_flutter: ^4.5.0
-  csc_picker_i18n: ^0.2.8
+  csc_picker: ^0.2.7
   flutter_launcher_icons: ^0.13.1
   flutter_screenutil: ^5.9.0
  

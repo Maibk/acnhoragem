@@ -1,20 +1,17 @@
 import 'dart:developer';
 
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
-import 'package:anchorageislamabad/presentation/splash_screen/controller/splash_controller.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
-import 'package:csc_picker_i18n/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import 'package:csc_picker/csc_picker.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/size_utils.dart';
 import '../../core/utils/utils.dart';
 import '../../routes/app_routes.dart';
 import '../../widgets/animated_custom_button.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_dialogue.dart';
 import '../../widgets/custom_expensiontile.dart';
@@ -311,6 +308,16 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               onChanged: (value) {
                                                 setState(() {
                                                   controller.plotstSelectedValue = value;
+                                                  log(controller.plotstSelectedValue!.id.toString());
+                                                  for (var i = 0; i < controller.plots.length; i++) {
+                                                    controller.plotstSelectedValue?.id == controller.plots[i].id;
+                                                    if (controller.plotstSelectedValue?.id == controller.plots[i].id) {
+                                                      controller.sizeHouseAddController.text =
+                                                          controller.plots[i].sq_yards.toString();
+                                                      log("Square yard found ${controller.sizeHouseAddController.text}");
+                                                      break;
+                                                    }
+                                                  }
                                                 });
                                               },
                                             ).paddingOnly(left: 12));
@@ -599,6 +606,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           fieldText: "Size of House/ Plot".tr,
                                           controller: controller.sizeHouseAddController,
                                           isFinal: false,
+                                          enabled: false,
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {

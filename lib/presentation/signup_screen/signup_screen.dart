@@ -31,6 +31,8 @@ class SignUpScreen extends GetWidget<SignUpController> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return BaseviewAuthScreen(
       image: true,
       imageShown: ImageConstant.backgroundImage,
@@ -86,8 +88,8 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                 actions: [
                                   Container(
                                       padding: EdgeInsets.all(20),
-                                      width: 368,
-                                      height: 230,
+                                      height: 230.h,
+                                      width: screenWidth,
                                       decoration: BoxDecoration(
                                           border: Border.all(color: Colors.white),
                                           borderRadius: BorderRadius.circular(10),
@@ -107,51 +109,56 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                           ),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  controller.userTypeContoller.text = "Owner";
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(4),
-                                                    color: Color(0xff0072BC),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Owner",
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                        color: Color(0xffFFFFFF),
-                                                        fontFamily: 'Ageo',
-                                                      ),
-                                                    ).paddingSymmetric(horizontal: 35, vertical: 10),
+                                              Expanded(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    controller.userTypeContoller.text = "Owner";
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(4),
+                                                      color: Color(0xff0072BC),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Owner",
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Color(0xffFFFFFF),
+                                                          fontFamily: 'Ageo',
+                                                        ),
+                                                      ).paddingSymmetric(vertical: 5),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: getHorizontalSize(20),
+                                                width: getHorizontalSize(5),
                                               ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  controller.userTypeContoller.text = "Tenant";
-                                                  Navigator.pop(context);
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(width: 1, color: ColorConstant.anbtnBlue),
-                                                      borderRadius: BorderRadius.circular(4),
-                                                      color: ColorConstant.whiteA700),
-                                                  child: Center(
-                                                    child: Text(
-                                                      "Tenant",
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                        color: ColorConstant.blackColor,
-                                                        fontFamily: 'Ageo',
-                                                      ),
-                                                    ).paddingSymmetric(horizontal: 35, vertical: 10),
+                                              Expanded(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    controller.userTypeContoller.text = "Tenant";
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(width: 1, color: ColorConstant.anbtnBlue),
+                                                        borderRadius: BorderRadius.circular(4),
+                                                        color: ColorConstant.whiteA700),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Tenant",
+                                                        style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: ColorConstant.blackColor,
+                                                          fontFamily: 'Ageo',
+                                                        ),
+                                                      ).paddingSymmetric(vertical: 5),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -162,10 +169,6 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                 ],
                               ),
                             );
-
-                            controller.userTypeContoller.text == "Owner"
-                                ? Get.toNamed(AppRoutes.ownerFormsPage)
-                                : Get.toNamed(AppRoutes.tenantFormsPage);
                           },
                           child: TextFormField(
                             enabled: false,
@@ -176,7 +179,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                               labelText: "User type",
                               labelStyle: AppStyle.txtSourceSansProRegular16Gray600
                                   .copyWith(fontSize: 15, color: ColorConstant.gray600, fontWeight: FontWeight.w400),
-                              contentPadding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+                              contentPadding: EdgeInsets.only(left: 18, right: 10, bottom: 15),
                               errorBorder: UnderlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
                                   borderSide: BorderSide(width: 1.0, color: Theme.of(context).errorColor)),
@@ -199,6 +202,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                         SizedBox(
                           height: getVerticalSize(5),
                         ),
+
                         CustomTextField(
                           fieldText: "First Name".tr,
                           controller: controller.firstNameController,

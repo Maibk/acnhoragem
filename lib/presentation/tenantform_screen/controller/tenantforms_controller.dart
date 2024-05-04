@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart' as _http;
 import 'package:image_picker/image_picker.dart';
@@ -36,6 +38,29 @@ class TenantFornsScreenController extends GetxController {
   File? policeForm;
   File? certificate;
   int? selectedValue;
+
+  List<File>? ownerCnicFrontBack;
+  List<File>? tenantCnicFrontBack;
+  List<File>? estateCnicFrontBack;
+
+  Future<List<File>?> getImages(context) async {
+    final pickedFile = await picker.pickMultiImage(imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
+
+    List<File> selectedImages = [];
+
+    List<XFile> xfilePick = pickedFile;
+    if (xfilePick.isNotEmpty) {
+      for (var i = 0; i < xfilePick.length; i++) {
+        selectedImages.add(File(xfilePick[i].path));
+      }
+
+      update();
+      return selectedImages;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+    }
+    return null;
+  }
 
   String alottmentletter = "";
   String completionCertificate = "";
@@ -67,6 +92,7 @@ class TenantFornsScreenController extends GetxController {
   List<Plots> plots = [];
   Street? streetSelectedValue;
   Plots? plotstSelectedValue;
+
   final ImagePicker picker = ImagePicker();
 
   Future<File?> imagePicker() async {
@@ -112,15 +138,15 @@ class TenantFornsScreenController extends GetxController {
   TextEditingController cellNoController = TextEditingController();
   TextEditingController ptclController = TextEditingController();
   //private arms controller
-  TextEditingController? privateLicenseController;
-  TextEditingController? privateArmsController;
-  TextEditingController? privateAmmunitionController;
+  TextEditingController privateLicenseController = TextEditingController();
+  TextEditingController privateArmsController = TextEditingController();
+  TextEditingController privateAmmunitionController = TextEditingController();
   TextEditingController armQuantityController = TextEditingController();
-  TextEditingController? privateBoreController;
+  TextEditingController privateBoreController = TextEditingController();
   //vichicles controller
-  TextEditingController vehicleTypeController = TextEditingController();
-  TextEditingController vehicleRegisterNoController = TextEditingController();
-  TextEditingController vehicleColorController = TextEditingController();
+  TextEditingController? vehicleTypeController;
+  TextEditingController? vehicleRegisterNoController;
+  TextEditingController? vehicleColorController;
   TextEditingController? vehicleStikerController;
   TextEditingController vehicleEngineNoController = TextEditingController();
   TextEditingController vehicleEtagController = TextEditingController();
@@ -133,7 +159,15 @@ class TenantFornsScreenController extends GetxController {
 
   GlobalKey<FormState> formKey = GlobalKey();
 
-  Map<String, dynamic> tenantFormdata = {};
+  var tenantFormdata = {};
+
+  Map<String, dynamic> NovehicleFormdata = {
+    'vehicle_type[]': 'No',
+    'registration[]': 'NO',
+    'color[]': 'NO',
+    'sticker_no[]': 'NO',
+    'etag[]': 'NO'
+  };
 
   GlobalKey<FormState> vehicleFormKey = GlobalKey();
   int vehicleDataIndex = 0;
@@ -142,9 +176,9 @@ class TenantFornsScreenController extends GetxController {
     final formState = vehicleFormKey.currentState;
     if (formState!.validate()) {
       Utils.check().then((value) async {
-        tenantFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController.text;
-        tenantFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController.text;
-        tenantFormdata['color[$vehicleDataIndex]'] = vehicleColorController.text;
+        tenantFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController?.text ?? "No";
+        tenantFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController?.text ?? "NO";
+        tenantFormdata['color[$vehicleDataIndex]'] = vehicleColorController?.text ?? "No";
         tenantFormdata['sticker_no[$vehicleDataIndex]'] = vehicleStikerController?.text ?? "No";
         tenantFormdata['etag[$vehicleDataIndex]'] = eTag ?? "No";
         Utils.showToast(
@@ -161,9 +195,9 @@ class TenantFornsScreenController extends GetxController {
   }
 
   clearVehicleForm() {
-    vehicleTypeController.clear();
-    vehicleRegisterNoController.clear();
-    vehicleColorController.clear();
+    vehicleTypeController?.clear();
+    vehicleRegisterNoController?.clear();
+    vehicleColorController?.clear();
     vehicleStikerController?.clear();
     vehicleEtagController.clear();
     vehicleEngineNoController.clear();
@@ -175,7 +209,7 @@ class TenantFornsScreenController extends GetxController {
     final formState = formKey.currentState;
     if (formState!.validate()) {
       Utils.check().then((value) async {
-        Map<String, dynamic> data = {
+        var data = _dio.FormData.fromMap({
           'tenant_name': fullNameController.text,
           'name': fullNameController.text,
           'phone': telephoneController.text,
@@ -197,89 +231,153 @@ class TenantFornsScreenController extends GetxController {
           'allotment_letter': alottmentletter,
           'completion_certificate': completionCertificate,
           'construction_status': custructionStatusAddController.text,
-          'private_arm': privateArmsController ?? "No",
-          'license_no': privateLicenseController ?? "No",
-          'arm_quantity': privateArmsController ?? "No",
-          'bore_type': privateBoreController ?? "No",
-          'ammunition_quantity': privateAmmunitionController?.text ?? "No",
+          'private_arm': privatearms == "Yes" ? "Yes" : "No",
+          'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+          'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+          'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+          'ammunition_quantity': privatearms == "Yes" ? privateAmmunitionController.text : "No",
           'vehicle_status': vehicleDataIndex > 0 ? "Yes" : "NO",
 
-          'submit_date': DateTime.now(),
+          'submit_date': DateTime.now().format("dd-MM-yyyy").toString(),
           'status': '0'
-        };
-        data.addAll(tenantFormdata);
+        });
+        vehicleDataIndex > 0
+            ? {
+                tenantFormdata.forEach((key, value) {
+                  data.fields.addAll([MapEntry(key, value)]);
+                })
+              }
+            : {
+                NovehicleFormdata.forEach((key, value) {
+                  data.fields.addAll([MapEntry(key, value)]);
+                })
+              };
 
-        if (ownerCnic != null) {
-          String filePath1 = ownerCnic?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            data['owner_cnic_image[]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
+        // if (ownerCnic != null) {
+        //   String filePath1 = ownerCnic?.path ?? '';
+        //   if (filePath1.isNotEmpty) {
+        //     data['owner_cnic_image[]'] = await _dio.MultipartFile.fromFile(
+        //       filePath1,
+        //       filename: filePath1.split('/').last,
+        //       contentType: _http.MediaType.parse('image/jpeg'),
+        //     );
+        //   }
+        // }
+
+        // if (tenantCnic != null) {
+        //   String filePath1 = tenantCnic?.path ?? '';
+        //   if (filePath1.isNotEmpty) {
+        //     data['tenant_cnic_image[]'] = await _dio.MultipartFile.fromFile(
+        //       filePath1,
+        //       filename: filePath1.split('/').last,
+        //       contentType: _http.MediaType.parse('image/jpeg'),
+        //     );
+        //   }
+        // }
+        // if (estateAgentCnic != null) {
+        //   String filePath1 = estateAgentCnic?.path ?? '';
+        //   if (filePath1.isNotEmpty) {
+        //     for (var file in ownerCnicFrontBack!) {
+        //       NovehicleFormdata['agent_cnic_image[]'] = await _dio.MultipartFile.fromFile(
+        //         filePath1,
+        //         filename: filePath1.split('/').last,
+        //         contentType: _http.MediaType.parse('image/jpeg'),
+        //       );
+        //     }
+
+        //     NovehicleFormdata['agent_cnic_image[]'] = await _dio.MultipartFile.fromFile(
+        //       filePath1,
+        //       filename: filePath1.split('/').last,
+        //       contentType: _http.MediaType.parse('image/jpeg'),
+        //     );
+        //   }
+        // }
+
+        for (var file in ownerCnicFrontBack!) {
+          data.files.addAll([
+            MapEntry(
+                "owner_cnic_image[]",
+                await _dio.MultipartFile.fromFile(
+                  file.path,
+                  filename: file.path.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                )),
+          ]);
         }
 
-        if (tenantCnic != null) {
-          String filePath1 = tenantCnic?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            data['tenant_cnic_image[]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
+        for (var file in tenantCnicFrontBack!) {
+          data.files.addAll([
+            MapEntry(
+                "tenant_cnic_image[]",
+                await _dio.MultipartFile.fromFile(
+                  file.path,
+                  filename: file.path.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                )),
+          ]);
         }
-        if (estateAgentCnic != null) {
-          String filePath1 = estateAgentCnic?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            data['agent_cnic_image[]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
+        for (var file in ownerCnicFrontBack!) {
+          data.files.addAll([
+            MapEntry(
+                "agent_cnic_image[]",
+                await _dio.MultipartFile.fromFile(
+                  file.path,
+                  filename: file.path.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                )),
+          ]);
         }
+
         if (tenantPhoto != null) {
           String filePath1 = tenantPhoto?.path ?? '';
           if (filePath1.isNotEmpty) {
-            data['tenant_image'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+            data.files.add(MapEntry(
+                'tenant_image',
+                await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                )));
           }
         }
         if (rentAgreement != null) {
           String filePath1 = rentAgreement?.path ?? '';
           if (filePath1.isNotEmpty) {
-            data['agreement_image'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+            data.files.add(MapEntry(
+                'agreement_image',
+                await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                )));
           }
         }
         if (policeForm != null) {
           String filePath1 = policeForm?.path ?? '';
           if (filePath1.isNotEmpty) {
-            data['police_registration_image'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+            data.files.add(MapEntry(
+                'police_registration_image',
+                await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                )));
           }
         }
         if (certificate != null) {
           String filePath1 = estateAgentCnic?.path ?? '';
           if (filePath1.isNotEmpty) {
-            data['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+            data.files.add(MapEntry(
+                'copy_completion_certificate',
+                await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                )));
           }
         }
+
+        log(data.fields.toString());
         if (value) {
           btnController.start();
           _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
@@ -293,7 +391,7 @@ class TenantFornsScreenController extends GetxController {
                     'Authorization': "Bearer $token",
                   },
                 ),
-                data: _dio.FormData.fromMap(data),
+                data: data,
               );
               if (response.statusCode == 200) {
                 Utils.showToast(
@@ -317,6 +415,7 @@ class TenantFornsScreenController extends GetxController {
               // dio error (api reach the server but not performed successfully
               // no response
               if (error.response == null) {
+                btnController.stop();
                 var exception = ApiException(
                   url: 'https://anchorageislamabad.com/api/owner-application',
                   message: error.message!,
@@ -393,15 +492,6 @@ class TenantFornsScreenController extends GetxController {
             }
             plots;
             log(response.data['data'].toString());
-
-            for (var element in response.data['data']) {
-              if (element["street_id"] == id) {
-                log(element["sq_yards"]);
-                sizeHouseAddController.text = element["sq_yards"];
-                update();
-              }
-              ;
-            }
 
             update();
 

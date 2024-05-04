@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
+import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
-import 'package:csc_picker_i18n/csc_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import 'package:csc_picker/csc_picker.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/size_utils.dart';
@@ -315,6 +315,17 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 onChanged: (value) {
                                                   setState(() {
                                                     controller.plotstSelectedValue = value;
+                                                    log(controller.plotstSelectedValue!.id.toString());
+                                                    for (var i = 0; i < controller.plots.length; i++) {
+                                                      controller.plotstSelectedValue?.id == controller.plots[i].id;
+                                                      if (controller.plotstSelectedValue?.id ==
+                                                          controller.plots[i].id) {
+                                                        controller.sizeHouseAddController.text =
+                                                            controller.plots[i].sq_yards.toString();
+                                                        log("Square yard found ${controller.sizeHouseAddController.text}");
+                                                        break;
+                                                      }
+                                                    }
                                                   });
                                                 },
                                               ).paddingOnly(left: 12));
@@ -376,11 +387,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       fieldText: "Size of House/ Plot".tr,
                                       controller: controller.sizeHouseAddController,
                                       isFinal: false,
-                                      keyboardType: TextInputType.emailAddress,
-                                      limit: HelperFunction.EMAIL_VALIDATION,
-                                      validator: (value) {
-                                        return HelperFunction.empthyFieldValidator(value!);
-                                      },
+                                      enabled: false,
                                     ),
                                     SizedBox(
                                       height: getVerticalSize(20),
@@ -725,7 +732,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                             fieldText: "Arms Quantity".tr,
                                                             controller: controller.privateArmsController,
                                                             isFinal: false,
-                                                            keyboardType: TextInputType.emailAddress,
+                                                            keyboardType: TextInputType.phone,
                                                             validator: (value) {
                                                               return HelperFunction.empthyFieldValidator(value!);
                                                             },
@@ -741,7 +748,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                            fieldText: "Ammunition Qantity ".tr,
+                                                            fieldText: "Ammunition Quantity".tr,
                                                             controller: controller.privateAmmunitionController,
                                                             isFinal: false,
                                                             keyboardType: TextInputType.emailAddress,
@@ -753,7 +760,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
-                                                            fieldText: "Bore/Typer".tr,
+                                                            fieldText: "Bore/Type".tr,
                                                             controller: controller.privateBoreController,
                                                             isFinal: false,
                                                             keyboardType: TextInputType.emailAddress,
@@ -1071,9 +1078,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           title: "Add Vehicle".tr,
                                                           onTap: () async {
                                                             if (controller.vehicleDataIndex > 0) {
-                                                              if (controller.vehicleTypeController.text == "" &&
-                                                                  controller.vehicleRegisterNoController.text == "" &&
-                                                                  controller.vehicleColorController.text == "" &&
+                                                              if (controller.vehicleTypeController?.text == "" &&
+                                                                  controller.vehicleRegisterNoController?.text == "" &&
+                                                                  controller.vehicleColorController?.text == "" &&
                                                                   controller.vehicleEngineNoController.text == "" &&
                                                                   controller.vehicleEtagController.text == "") {
                                                                 Utils.showToast(
@@ -1147,13 +1154,13 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.ownerCnic != null
+                                                controller.ownerCnicFrontBack != null
                                                     ? Icons.check_circle_sharp
                                                     : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
-                                                controller.ownerCnic = await controller.imagePicker();
+                                                controller.ownerCnicFrontBack = await controller.getImages(context);
                                               },
                                             ),
                                           ),
@@ -1171,13 +1178,13 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.tenantCnic != null
+                                                controller.tenantCnicFrontBack != null
                                                     ? Icons.check_circle_sharp
                                                     : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
-                                                controller.tenantCnic = await controller.imagePicker();
+                                                controller.tenantCnicFrontBack = await controller.getImages(context);
                                               },
                                             ),
                                           ),
@@ -1195,13 +1202,13 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.estateAgentCnic != null
+                                                controller.estateCnicFrontBack != null
                                                     ? Icons.check_circle_sharp
                                                     : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
-                                                controller.estateAgentCnic = await controller.imagePicker();
+                                                controller.estateCnicFrontBack = await controller.getImages(context);
                                               },
                                             ),
                                           ),
@@ -1321,19 +1328,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               controller: controller.btnController,
                                               title: "Submit".tr,
                                               onTap: () async {
-                                                if (controller.ownerCnic == null) {
+                                                if (controller.ownerCnicFrontBack == null) {
                                                   Utils.showToast(
                                                     "Please select owner CNIC",
                                                     true,
                                                   );
-                                                } else if (controller.tenantCnic == null) {
+                                                } else if (controller.tenantCnicFrontBack == null) {
                                                   Utils.showToast(
                                                     "Please select tenant CNIC",
-                                                    true,
-                                                  );
-                                                } else if (controller.estateAgentCnic == null) {
-                                                  Utils.showToast(
-                                                    "Please select estate  CNIC",
                                                     true,
                                                   );
                                                 } else if (controller.tenantPhoto == null) {
@@ -1349,11 +1351,6 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 } else if (controller.policeForm == null) {
                                                   Utils.showToast(
                                                     "Please select police registration form",
-                                                    true,
-                                                  );
-                                                } else if (controller.certificate == null) {
-                                                  Utils.showToast(
-                                                    "Please select Completion certificate",
                                                     true,
                                                   );
                                                 } else {
