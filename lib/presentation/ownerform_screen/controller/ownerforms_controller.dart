@@ -121,7 +121,7 @@ class OwnerFornsScreenController extends GetxController {
   TextEditingController vehicleStikerController = TextEditingController();
   TextEditingController vehicleEngineNoController = TextEditingController();
   TextEditingController vehicleEtagController = TextEditingController();
-
+  String? eTag = "";
   RxBool isInternetAvailable = true.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
@@ -144,7 +144,7 @@ class OwnerFornsScreenController extends GetxController {
         ownerFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController.text;
         ownerFormdata['color[$vehicleDataIndex]'] = vehicleColorController.text;
         ownerFormdata['sticker_no[$vehicleDataIndex]'] = vehicleStikerController.text;
-        ownerFormdata['etag[$vehicleDataIndex]'] = vehicleEtagController.text;
+        ownerFormdata['etag[$vehicleDataIndex]'] = eTag == "Yes" ? "Yes" : "No";
         Utils.showToast(
           "Vehicle ${vehicleDataIndex + 1} Added Successfully",
           false,
@@ -365,6 +365,11 @@ class OwnerFornsScreenController extends GetxController {
 
   updateAllotmentLetter(value) {
     alottmentletter = value;
+    update();
+  }
+
+  updateEtag(value) {
+    eTag = value;
     update();
   }
 

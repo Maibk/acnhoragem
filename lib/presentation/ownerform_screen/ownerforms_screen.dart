@@ -1124,39 +1124,92 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       ],
                                                     ),
                                                     SizedBox(
-                                                      height: getVerticalSize(5),
+                                                      height: getVerticalSize(15),
                                                     ),
                                                     Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                            fieldText: "Engine No".tr,
-                                                            controller: controller.vehicleEngineNoController,
-                                                            isFinal: false,
-                                                            keyboardType: TextInputType.emailAddress,
-                                                            limit: HelperFunction.EMAIL_VALIDATION,
-                                                            validator: controller.vehicleDataIndex < 1
-                                                                ? (value) {
-                                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                                  }
-                                                                : null,
+                                                        Padding(
+                                                          padding: getPadding(left: 10),
+                                                          child: MyText(
+                                                            title: "E-Tag",
+                                                            clr: ColorConstant.antextlightgray,
+                                                            fontSize: 14,
                                                           ),
                                                         ),
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                            fieldText: "E-Tag".tr,
-                                                            controller: controller.vehicleEtagController,
-                                                            isFinal: false,
-                                                            keyboardType: TextInputType.emailAddress,
-                                                            validator: controller.vehicleDataIndex < 1
-                                                                ? (value) {
-                                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                                  }
-                                                                : null,
-                                                          ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(20),
+                                                        ),
+                                                        GetBuilder(
+                                                          init: controller,
+                                                          builder: (controller) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                controller.updateEtag("Yes");
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  controller.eTag == "Yes"
+                                                                      ? Icon(
+                                                                          Icons.circle,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons.circle_outlined,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(10),
+                                                                  ),
+                                                                  MyText(
+                                                                    title: "Yes",
+                                                                    clr: ColorConstant.antextlightgray,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(20),
+                                                        ),
+                                                        GetBuilder(
+                                                          init: controller,
+                                                          builder: (controller) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                controller.updateEtag("No");
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  controller.eTag == "No"
+                                                                      ? Icon(
+                                                                          Icons.circle,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons.circle_outlined,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(10),
+                                                                  ),
+                                                                  MyText(
+                                                                    title: "No",
+                                                                    clr: ColorConstant.antextlightgray,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
                                                         ),
                                                       ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: getVerticalSize(5),
                                                     ),
                                                     SizedBox(
                                                       height: getVerticalSize(15),
