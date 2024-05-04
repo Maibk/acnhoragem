@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/utils/color_constant.dart';
+import '../../core/utils/constants.dart';
 import '../../core/utils/size_utils.dart';
 import '../../core/utils/utils.dart';
 import '../../widgets/custom_dialogue.dart';
@@ -397,6 +398,7 @@ class MenuScreen extends StatelessWidget {
                                                     'Authorization': "Bearer $token"
                                                   }, "https://anchorageislamabad.com/api/account-delete?user_id=0&is_delete=1",
                                                       onSuccess: (response) {
+                                                    Get.offAllNamed(AppRoutes.loginPage);
                                                     log(response.toString());
 
                                                     return true;
@@ -448,10 +450,48 @@ class MenuScreen extends StatelessWidget {
                                             Navigator.pop(ct);
                                           },
                                           actionOnYes: () async {
-                                            await _appPreferences.getAppPreferences().isPreferenceReady;
-                                            await _appPreferences.clearPreference();
+                               
 
-                                            Get.offAllNamed(AppRoutes.loginPage);
+                                            Utils.check().then((value) async {
+                                              if (value) {
+                                                isInternetAvailable.value = true;
+
+                                                apiCallStatus.value = ApiCallStatus.loading;
+
+                                                _appPreferences
+                                                    .getAccessToken(prefName: AppPreferences.prefAccessToken)
+                                                    .then((token) async {
+                                                  await BaseClient.get(
+                                                      headers: {'Authorization': "Bearer $token"},
+                                                      Constants.logout, onSuccess: (response) {
+                                                    Utils.showToast(response.data['message'], false);
+                                                    Get.offAllNamed(AppRoutes.loginPage);
+                                                    log(response.toString());
+
+
+                                                                  _appPreferences.getAppPreferences().isPreferenceReady;
+                                             _appPreferences.clearPreference();
+
+                                                    return true;
+                                                  }, onError: (error) {
+                                                    log(error.toString());
+                                                    ApiException apiException = error;
+
+                                                    print(apiException.message);
+
+                                                    BaseClient.handleApiError(error);
+
+                                                    apiCallStatus.value = ApiCallStatus.error;
+
+                                                    return false;
+                                                  });
+                                                });
+                                              } else {
+                                                isInternetAvailable.value = false;
+                                              }
+                                            });
+
+                                            return null;
                                           },
                                         );
                                       });

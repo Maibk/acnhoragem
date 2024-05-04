@@ -92,12 +92,6 @@ class BaseClient {
           );
           return onError?.call(exception) ?? handleApiError(exception);
         }
-
-        if (error.response?.data['data']['message'].toString() == "Complaint Not Found.") {
-          return false;
-        }
-
-        // no internet connection
         print('error ====>');
         print(error);
         if (error.message!.toLowerCase().contains('socket')) {

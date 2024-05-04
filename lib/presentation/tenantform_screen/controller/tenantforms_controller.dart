@@ -44,7 +44,11 @@ class TenantFornsScreenController extends GetxController {
   List<File>? estateCnicFrontBack;
 
   Future<List<File>?> getImages(context) async {
-    final pickedFile = await picker.pickMultiImage(imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
+    final pickedFile = await picker.pickMultiImage(  
+      
+      
+      
+      imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
 
     List<File> selectedImages = [];
 
@@ -365,7 +369,7 @@ class TenantFornsScreenController extends GetxController {
           }
         }
         if (certificate != null) {
-          String filePath1 = estateAgentCnic?.path ?? '';
+          String filePath1 = certificate?.path ?? '';
           if (filePath1.isNotEmpty) {
             data.files.add(MapEntry(
                 'copy_completion_certificate',
@@ -391,7 +395,7 @@ class TenantFornsScreenController extends GetxController {
                     'Authorization': "Bearer $token",
                   },
                 ),
-                data: data,
+                data: data, 
               );
               if (response.statusCode == 200) {
                 Utils.showToast(

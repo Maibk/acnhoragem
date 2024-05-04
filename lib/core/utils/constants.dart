@@ -77,6 +77,11 @@ class Constants {
   static const getProfileUrl = '${baseUrl}profile';
   static const updateProfileUrl = '${baseUrl}update-profile';
   static const getProperties = '${baseUrl}properties';
+  static const logout = '${baseUrl}logout';
+ 
+
+
+
 
   static const updatePassUrl = baseUrl + 'user/updatePassword';
   static const updateOldPassUrl = baseUrl + 'user/update-old-password';

@@ -157,7 +157,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       fieldText: "Telephone No.".tr,
                                       controller: controller.telephoneController,
                                       isFinal: false,
-                                      keyboardType: TextInputType.emailAddress,
+                                      keyboardType: TextInputType.phone,
                                       limit: HelperFunction.EMAIL_VALIDATION,
                                       validator: (value) {
                                         return HelperFunction.empthyFieldValidator(value!);
