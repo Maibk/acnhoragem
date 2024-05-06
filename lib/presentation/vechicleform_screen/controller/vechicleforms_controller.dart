@@ -72,10 +72,10 @@ class VechicleController extends GetxController {
   List<TextEditingController> userCnicControllers = [];
   List<TextEditingController> userMobileControllers = [];
 
-  File? userDrivingLicenseFrontSideImage;
-  File? userDrivingLicenseBackSideImage;
-  File? userCnicFrontSideImage;
-  File? userCnicBacktSideImage;
+  List<File> userDrivingLicenseFrontSideImages = [];
+  List<File> userDrivingLicenseBackSideImages = [];
+  List<File> userCnicFrontSideImages = [];
+  List<File> userCnicBacktSideImages = [];
 
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
@@ -267,8 +267,8 @@ class VechicleController extends GetxController {
   addVehicle(index) async {
     final formState = addVehicleFormKey.currentState;
 
-    addVehicleControllers();
     if (formState!.validate()) {
+      addVehicleControllers();
       vehicalData['vehicle_no[$index]'] = vehicleNoControllers[index].text;
       vehicalData["vehicle_make[$index]"] = makeControllers[index].text;
       vehicalData['vehicle_model[$index]'] = modelControllers[index].text;
@@ -288,22 +288,22 @@ class VechicleController extends GetxController {
   }
 
   addUserInfo(index) async {
-    if (userDrivingLicenseFrontSideImage == null) {
+    if (userDrivingLicenseFrontSideImages.isEmpty) {
       Utils.showToast(
         "Please select image of Driving License Front Side",
         true,
       );
-    } else if (userDrivingLicenseBackSideImage == null) {
+    } else if (userDrivingLicenseBackSideImages.isEmpty) {
       Utils.showToast(
         "Please select image of Driving License Back Side",
         true,
       );
-    } else if (userCnicFrontSideImage == null) {
+    } else if (userCnicFrontSideImages.isEmpty) {
       Utils.showToast(
         "Please select image of CNIC front side",
         true,
       );
-    } else if (userCnicBacktSideImage == null) {
+    } else if (userCnicBacktSideImages.isEmpty) {
       Utils.showToast(
         "Please select image of CNIC back side",
         true,
@@ -311,30 +311,74 @@ class VechicleController extends GetxController {
     } else {
       final formState = addUserInfoFormKey.currentState;
       if (formState!.validate()) {
+        addUserControllers();
         vehicalData['user_name[$index]'] = userfullNameControllers[index].text;
         vehicalData["user_nic[$index]"] = userCnicControllers[index].text;
         vehicalData['user_phone[$index]'] = userMobileControllers[index].text;
 
-        vehicalData['user_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
-          userCnicFrontSideImage!.path,
-          filename: userCnicFrontSideImage!.path.split('/').last,
-          contentType: _http.MediaType.parse('image/jpeg'),
-        );
-        vehicalData['user_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
-          userCnicBacktSideImage!.path,
-          filename: userCnicBacktSideImage!.path.split('/').last,
-          contentType: _http.MediaType.parse('image/jpeg'),
-        );
-        vehicalData['user_license_front[$index]'] = await _dio.MultipartFile.fromFile(
-          userDrivingLicenseFrontSideImage!.path,
-          filename: userDrivingLicenseFrontSideImage!.path.split('/').last,
-          contentType: _http.MediaType.parse('image/jpeg'),
-        );
-        vehicalData['user_license_back[$index]'] = await _dio.MultipartFile.fromFile(
-          userDrivingLicenseBackSideImage!.path,
-          filename: userDrivingLicenseBackSideImage!.path.split('/').last,
-          contentType: _http.MediaType.parse('image/jpeg'),
-        );
+        for (var element in userDrivingLicenseFrontSideImages) {
+          String filePath1 = element.path;
+          if (filePath1.isNotEmpty) {
+            vehicalData['user_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
+        }
+        // vehicalData['user_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
+        //   userCnicFrontSideImage!.path,
+        //   filename: userCnicFrontSideImage!.path.split('/').last,
+        //   contentType: _http.MediaType.parse('image/jpeg'),
+        // );
+
+        for (var element in userDrivingLicenseBackSideImages) {
+          String filePath1 = element.path;
+          if (filePath1.isNotEmpty) {
+            vehicalData['user_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
+        }
+        // vehicalData['user_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
+        //   userCnicBacktSideImage!.path,
+        //   filename: userCnicBacktSideImage!.path.split('/').last,
+        //   contentType: _http.MediaType.parse('image/jpeg'),
+        // );
+
+        for (var element in userCnicFrontSideImages) {
+          String filePath1 = element.path;
+          if (filePath1.isNotEmpty) {
+            vehicalData['user_license_front[$index]'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
+        }
+        // vehicalData['user_license_front[$index]'] = await _dio.MultipartFile.fromFile(
+        //   userDrivingLicenseFrontSideImage!.path,
+        //   filename: userDrivingLicenseFrontSideImage!.path.split('/').last,
+        //   contentType: _http.MediaType.parse('image/jpeg'),
+        // );
+
+        for (var element in userCnicBacktSideImages) {
+          String filePath1 = element.path;
+          if (filePath1.isNotEmpty) {
+            vehicalData['user_license_back[$index]'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
+        }
+        // vehicalData['user_license_back[$index]'] = await _dio.MultipartFile.fromFile(
+        //   userDrivingLicenseBackSideImage!.path,
+        //   filename: userDrivingLicenseBackSideImage!.path.split('/').last,
+        //   contentType: _http.MediaType.parse('image/jpeg'),
+        // );
 
         Utils.showToast(
           "User Info ${userInfoDataIndex + 1} Added Successfully",
@@ -452,7 +496,7 @@ class VechicleController extends GetxController {
             'service_no': servisController.text.isEmpty ? " " : servisController.text,
             'cnic': cnicController.text,
             'office_department': officeController.text,
-            'phone': mobileController.text,
+            'phone': cellNoController.text,
             'house_no': plotstSelectedValue?.id ?? 0,
             'road_street': "No",
             'street': streetSelectedValue?.id ?? 0,
@@ -605,8 +649,19 @@ class VechicleController extends GetxController {
     super.onInit();
     addUserControllers();
     addVehicleControllers();
-    
-    
+  }
 }
 
+class Street {
+  int? id;
+  String? title;
 
+  Street({required this.id, required this.title});
+}
+
+class Plots {
+  int? id;
+  String? title;
+
+  Plots({required this.id, required this.title});
+}
