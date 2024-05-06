@@ -50,16 +50,27 @@ class VechicleController extends GetxController {
   TextEditingController cellNoController = TextEditingController();
   TextEditingController ptclController = TextEditingController();
 
-  TextEditingController vehicleNoController = TextEditingController();
-  TextEditingController makeController = TextEditingController();
-  TextEditingController modelController = TextEditingController();
-  TextEditingController colorController = TextEditingController();
-  TextEditingController engineNoController = TextEditingController();
-  TextEditingController chassisController = TextEditingController();
+  // TextEditingController vehicleNoController = TextEditingController();
+  // TextEditingController makeController = TextEditingController();
+  // TextEditingController modelController = TextEditingController();
+  // TextEditingController colorController = TextEditingController();
+  // TextEditingController engineNoController = TextEditingController();
+  // TextEditingController chassisController = TextEditingController();
+
+  List<TextEditingController> vehicleNoControllers = [];
+  List<TextEditingController> makeControllers = [];
+  List<TextEditingController> modelControllers = [];
+  List<TextEditingController> colorControllers = [];
+  List<TextEditingController> engineNoControllers = [];
+  List<TextEditingController> chassisControllers = [];
   //user controller
-  TextEditingController userfullNameController = TextEditingController();
-  TextEditingController userCnicController = TextEditingController();
-  TextEditingController userMobileController = TextEditingController();
+  // TextEditingController userfullNameController = TextEditingController();
+  // TextEditingController userCnicController = TextEditingController();
+  // TextEditingController userMobileController = TextEditingController();
+
+  List<TextEditingController> userfullNameControllers = [];
+  List<TextEditingController> userCnicControllers = [];
+  List<TextEditingController> userMobileControllers = [];
 
   File? userDrivingLicenseFrontSideImage;
   File? userDrivingLicenseBackSideImage;
@@ -234,48 +245,49 @@ class VechicleController extends GetxController {
   int userInfoDataIndex = 0;
 
   int vehicleDataIndex = 0;
-  clearAddUserInfo() {
-    userfullNameController.clear();
-    userCnicController.clear();
-    userMobileController.clear();
-    userDrivingLicenseFrontSideImage = null;
-    userDrivingLicenseBackSideImage = null;
-    userCnicFrontSideImage = null;
-    userCnicBacktSideImage = null;
-  }
+  // clearAddUserInfo() {
+  //   userfullNameController.clear();
+  //   userCnicController.clear();
+  //   userMobileController.clear();
+  //   userDrivingLicenseFrontSideImage = null;
+  //   userDrivingLicenseBackSideImage = null;
+  //   userCnicFrontSideImage = null;
+  //   userCnicBacktSideImage = null;
+  // }
 
-  clearAddVehicle() {
-    vehicleNoController.clear();
-    makeController.clear();
-    modelController.clear();
-    colorController.clear();
-    engineNoController.clear();
-    chassisController.clear();
-  }
+  // clearAddVehicle() {
+  //   vehicleNoController.clear();
+  //   makeController.clear();
+  //   modelController.clear();
+  //   colorController.clear();
+  //   engineNoController.clear();
+  //   chassisController.clear();
+  // }
 
-  addVehicle() async {
+  addVehicle(index) async {
     final formState = addVehicleFormKey.currentState;
+
+    addVehicleControllers();
     if (formState!.validate()) {
-      vehicalData['vehicle_no[$vehicleDataIndex]'] = vehicleNoController.text;
-      vehicalData["vehicle_make[$vehicleDataIndex]"] = makeController.text;
-      vehicalData['vehicle_model[$vehicleDataIndex]'] = modelController.text;
+      vehicalData['vehicle_no[$index]'] = vehicleNoControllers[index].text;
+      vehicalData["vehicle_make[$index]"] = makeControllers[index].text;
+      vehicalData['vehicle_model[$index]'] = modelControllers[index].text;
 
-      vehicalData['vehicle_color[$vehicleDataIndex]'] = colorController.text;
-      vehicalData['vehicle_engine[$vehicleDataIndex]'] = engineNoController.text;
+      vehicalData['vehicle_color[$index]'] = colorControllers[index].text;
+      vehicalData['vehicle_engine[$index]'] = engineNoControllers[index].text;
 
-      vehicalData['vehicle_chassis[$vehicleDataIndex]'] = chassisController.text;
+      vehicalData['vehicle_chassis[$index]'] = chassisControllers[index].text;
 
       Utils.showToast(
         "Vehicle ${vehicleDataIndex + 1} Added Successfully",
         false,
       );
-      clearAddVehicle();
       vehicleDataIndex = vehicleDataIndex + 1;
       update();
     }
   }
 
-  addUserInfo() async {
+  addUserInfo(index) async {
     if (userDrivingLicenseFrontSideImage == null) {
       Utils.showToast(
         "Please select image of Driving License Front Side",
@@ -299,26 +311,26 @@ class VechicleController extends GetxController {
     } else {
       final formState = addUserInfoFormKey.currentState;
       if (formState!.validate()) {
-        vehicalData['user_name[$userInfoDataIndex]'] = userfullNameController.text;
-        vehicalData["user_nic[$userInfoDataIndex]"] = userCnicController.text;
-        vehicalData['user_phone[$userInfoDataIndex]'] = userMobileController.text;
+        vehicalData['user_name[$index]'] = userfullNameControllers[index].text;
+        vehicalData["user_nic[$index]"] = userCnicControllers[index].text;
+        vehicalData['user_phone[$index]'] = userMobileControllers[index].text;
 
-        vehicalData['user_cnic_front[$userInfoDataIndex]'] = await _dio.MultipartFile.fromFile(
+        vehicalData['user_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
           userCnicFrontSideImage!.path,
           filename: userCnicFrontSideImage!.path.split('/').last,
           contentType: _http.MediaType.parse('image/jpeg'),
         );
-        vehicalData['user_cnic_back[$userInfoDataIndex]'] = await _dio.MultipartFile.fromFile(
+        vehicalData['user_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
           userCnicBacktSideImage!.path,
           filename: userCnicBacktSideImage!.path.split('/').last,
           contentType: _http.MediaType.parse('image/jpeg'),
         );
-        vehicalData['user_license_front[$userInfoDataIndex]'] = await _dio.MultipartFile.fromFile(
+        vehicalData['user_license_front[$index]'] = await _dio.MultipartFile.fromFile(
           userDrivingLicenseFrontSideImage!.path,
           filename: userDrivingLicenseFrontSideImage!.path.split('/').last,
           contentType: _http.MediaType.parse('image/jpeg'),
         );
-        vehicalData['user_license_back[$userInfoDataIndex]'] = await _dio.MultipartFile.fromFile(
+        vehicalData['user_license_back[$index]'] = await _dio.MultipartFile.fromFile(
           userDrivingLicenseBackSideImage!.path,
           filename: userDrivingLicenseBackSideImage!.path.split('/').last,
           contentType: _http.MediaType.parse('image/jpeg'),
@@ -328,7 +340,7 @@ class VechicleController extends GetxController {
           "User Info ${userInfoDataIndex + 1} Added Successfully",
           false,
         );
-        clearAddUserInfo();
+        // clearAddUserInfo();
         userInfoDataIndex = userInfoDataIndex + 1;
         update();
       }
@@ -573,23 +585,28 @@ class VechicleController extends GetxController {
     }
   }
 
+  addVehicleControllers() {
+    vehicleNoControllers.add(TextEditingController());
+    makeControllers.add(TextEditingController());
+    modelControllers.add(TextEditingController());
+    colorControllers.add(TextEditingController());
+    engineNoControllers.add(TextEditingController());
+    chassisControllers.add(TextEditingController());
+  }
+
+  addUserControllers() {
+    userfullNameControllers.add(TextEditingController());
+    userCnicControllers.add(TextEditingController());
+    userMobileControllers.add(TextEditingController());
+  }
+
   @override
   void onInit() {
     super.onInit();
-    getProfileData();
-  }
+    addUserControllers();
+    addVehicleControllers();
+    
+    
 }
 
-class Street {
-  int? id;
-  String? title;
 
-  Street({required this.id, required this.title});
-}
-
-class Plots {
-  int? id;
-  String? title;
-
-  Plots({required this.id, required this.title});
-}

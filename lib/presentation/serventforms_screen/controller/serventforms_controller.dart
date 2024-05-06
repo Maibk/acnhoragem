@@ -50,6 +50,11 @@ class ServentFormsController extends GetxController {
   File? servantCnicBack;
   File? servantFamilyImage;
 
+  List<File> servantImages = [];
+  List<File> servantCnicFronts = [];
+  List<File> servantCnicBacks = [];
+  List<File> servantFamilyImages = [];
+
   TextEditingController fullNameController = TextEditingController();
   TextEditingController fathersController = TextEditingController();
   TextEditingController telephoneController = TextEditingController();
@@ -74,25 +79,45 @@ class ServentFormsController extends GetxController {
   TextEditingController cellNoController = TextEditingController();
   TextEditingController ptclController = TextEditingController();
   //servent controller
-  TextEditingController serventfullNameController = TextEditingController();
-  TextEditingController serventfathersController = TextEditingController();
 
-  TextEditingController serventcnicController = TextEditingController();
-  TextEditingController serventmobileController = TextEditingController();
-  TextEditingController serventhouseController = TextEditingController();
-  TextEditingController serventroadController = TextEditingController();
-  TextEditingController serventstreetController = TextEditingController();
-  TextEditingController serventblockController = TextEditingController();
-  TextEditingController serventcolonyVillageController = TextEditingController();
-  TextEditingController serventfamfullNameController = TextEditingController();
-  TextEditingController serventoccutionController = TextEditingController();
-  TextEditingController serventpostOfficeController = TextEditingController();
-  TextEditingController serventCityController = TextEditingController();
-  TextEditingController serventProvinceController = TextEditingController();
+  List<TextEditingController> serventfullNameControllers = [];
+  List<TextEditingController> serventfathersControllers = [];
+  List<TextEditingController> serventcnicControllers = [];
+  List<TextEditingController> serventmobileControllers = [];
+  List<TextEditingController> serventhouseControllers = [];
+  List<TextEditingController> serventroadControllers = [];
+  List<TextEditingController> serventstreetControllers = [];
+  List<TextEditingController> serventblockControllers = [];
+  List<TextEditingController> serventcolonyVillageControllers = [];
+  List<TextEditingController> serventpostOfficeControllers = [];
+  List<TextEditingController> serventCityControllers = [];
+  List<TextEditingController> serventProvinceControllers = [];
 
-  TextEditingController serventfamCnicController = TextEditingController();
-  TextEditingController serventfamMobController = TextEditingController();
-  TextEditingController serventpresentAddController = TextEditingController();
+  // TextEditingController serventfullNameController = TextEditingController();
+  // TextEditingController serventfathersController = TextEditingController();
+  // TextEditingController serventcnicController = TextEditingController();
+  // TextEditingController serventmobileController = TextEditingController();
+  // TextEditingController serventhouseController = TextEditingController();
+  // TextEditingController serventroadController = TextEditingController();
+  // TextEditingController serventstreetController = TextEditingController();
+  // TextEditingController serventblockController = TextEditingController();
+  // TextEditingController serventcolonyVillageController = TextEditingController();
+  // TextEditingController serventpostOfficeController = TextEditingController();
+  // TextEditingController serventCityController = TextEditingController();
+  // TextEditingController serventProvinceController = TextEditingController();
+
+  // TextEditingController serventfamfullNameController = TextEditingController();
+  // TextEditingController serventfamCnicController = TextEditingController();
+  // TextEditingController serventfamMobController = TextEditingController();
+  // TextEditingController serventfamoccutionController = TextEditingController();
+  // TextEditingController serventfampresentAddController = TextEditingController();
+
+  List<TextEditingController> serventfamfullNameControllers = [];
+  List<TextEditingController> serventfamCnicControllers = [];
+  List<TextEditingController> serventfamMobControllers = [];
+  List<TextEditingController> serventfamoccutionControllers = [];
+  List<TextEditingController> serventfampresentAddControllers = [];
+
   TextEditingController? ownerSignatureController;
   TextEditingController serventdateController = TextEditingController(text: DateTime.now().format("yyyy-MM-dd"));
 
@@ -243,127 +268,174 @@ class ServentFormsController extends GetxController {
   int servantDataIndex = 0;
   int servantFamilyDataIndex = 0;
 
-  addServant() async {
+  addServant(index) async {
     ownerSignatureController?.text = fullNameController.text;
     update();
-    if (servantImage == null) {
-      Utils.showToast(
-        "Please select image of servant",
-        true,
-      );
-    } else if (servantCnicFront == null) {
-      Utils.showToast(
-        "Please select image of servant CNIC front side",
-        true,
-      );
-    } else if (servantCnicBack == null) {
-      Utils.showToast(
-        "Please select image of servant CNIC back side",
-        true,
-      );
-    } else {
-      final formState = addServantFormKey.currentState;
-      if (formState!.validate()) {
-        servantData['servant_name[$servantDataIndex]'] = serventfullNameController.text;
-        servantData["servant_father[$servantDataIndex]"] = serventfathersController.text;
-        servantData['servant_cnic[$servantDataIndex]'] = serventcnicController.text;
-        servantData['servant_mobile[$servantDataIndex]'] = serventmobileController.text;
-        servantData['servant_house[$servantDataIndex]'] = serventhouseController.text;
-        servantData['servant_road[$servantDataIndex]'] = serventroadController.text;
-        servantData['servant_street[$servantDataIndex]'] = serventstreetController.text;
-        servantData['servant_village[$servantDataIndex]'] = serventcolonyVillageController.text;
-        servantData['servant_block[$servantDataIndex]'] = servantselectedValue ?? 0;
-        servantData['servant_po[$servantDataIndex]'] = serventpostOfficeController.text;
-        servantData['servant_city[$servantDataIndex]'] = serventpostOfficeController.text;
-        servantData['servant_province[$servantDataIndex]'] = serventProvinceController.text;
-        servantData['servant_image[$servantDataIndex]'] = await _dio.MultipartFile.fromFile(
-          servantImage!.path,
-          filename: servantImage!.path.split('/').last,
-          contentType: _http.MediaType.parse('image/jpeg'),
-        );
-
-        servantData['servant_cnic_front[$servantDataIndex]'] = await _dio.MultipartFile.fromFile(
-          servantCnicFront!.path,
-          filename: servantCnicFront!.path.split('/').last,
-          contentType: _http.MediaType.parse('image/jpeg'),
-        );
-        servantData['servant_cnic_back[$servantDataIndex]'] = await _dio.MultipartFile.fromFile(
-          servantCnicBack!.path,
-          filename: servantCnicBack!.path.split('/').last,
-          contentType: _http.MediaType.parse('image/jpeg'),
-        );
-        Utils.showToast(
-          "Servant ${servantDataIndex + 1} Added Successfully",
-          false,
-        );
-        clearServant();
-        servantDataIndex = servantDataIndex + 1;
-        update();
+    // if (servantImage == null) {
+    //   Utils.showToast(
+    //     "Please select image of servant",
+    //     true,
+    //   );
+    // } else if (servantCnicFront == null) {
+    //   Utils.showToast(
+    //     "Please select image of servant CNIC front side",
+    //     true,
+    //   );
+    // } else if (servantCnicBack == null) {
+    //   Utils.showToast(
+    //     "Please select image of servant CNIC back side",
+    //     true,
+    //   );
+    // } else {
+    final formState = addServantFormKey.currentState;
+    if (formState!.validate()) {
+      addServantControllers();
+      servantData['servant_name[$servantDataIndex]'] = serventfullNameControllers[index].text;
+      servantData["servant_father[$servantDataIndex]"] = serventfathersControllers[index].text;
+      servantData['servant_cnic[$servantDataIndex]'] = serventcnicControllers[index].text;
+      servantData['servant_mobile[$servantDataIndex]'] = serventmobileControllers[index].text;
+      servantData['servant_house[$servantDataIndex]'] = serventhouseControllers[index].text;
+      servantData['servant_road[$servantDataIndex]'] = serventroadControllers[index].text;
+      servantData['servant_street[$servantDataIndex]'] = serventstreetControllers[index].text;
+      servantData['servant_village[$servantDataIndex]'] = serventcolonyVillageControllers[index].text;
+      servantData['servant_block[$servantDataIndex]'] = servantselectedValue ?? 0;
+      servantData['servant_po[$servantDataIndex]'] = serventpostOfficeControllers[index].text;
+      servantData['servant_city[$servantDataIndex]'] = serventpostOfficeControllers[index].text;
+      servantData['servant_province[$servantDataIndex]'] = serventProvinceControllers[index].text;
+      for (var element in servantImages) {
+        String filePath1 = element.path;
+        if (filePath1.isNotEmpty) {
+          servantData['servant_image[$index]'] = await _dio.MultipartFile.fromFile(
+            filePath1,
+            filename: filePath1.split('/').last,
+            contentType: _http.MediaType.parse('image/jpeg'),
+          );
+        }
       }
+
+      // servantData['servant_image[$servantDataIndex]'] = await _dio.MultipartFile.fromFile(
+      //   servantImage!.path,
+      //   filename: servantImage!.path.split('/').last,
+      //   contentType: _http.MediaType.parse('image/jpeg'),
+      // );
+
+      for (var element in servantCnicFronts) {
+        String filePath1 = element.path;
+        if (filePath1.isNotEmpty) {
+          servantData['servant_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
+            filePath1,
+            filename: filePath1.split('/').last,
+            contentType: _http.MediaType.parse('image/jpeg'),
+          );
+        }
+      }
+
+      // servantData['servant_cnic_front[$servantDataIndex]'] = await _dio.MultipartFile.fromFile(
+      //   servantCnicFront!.path,
+      //   filename: servantCnicFront!.path.split('/').last,
+      //   contentType: _http.MediaType.parse('image/jpeg'),
+      // );
+
+      for (var element in servantCnicBacks) {
+        String filePath1 = element.path;
+        if (filePath1.isNotEmpty) {
+          servantData['servant_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
+            filePath1,
+            filename: filePath1.split('/').last,
+            contentType: _http.MediaType.parse('image/jpeg'),
+          );
+        }
+      }
+
+      // servantData['servant_cnic_back[$servantDataIndex]'] = await _dio.MultipartFile.fromFile(
+      //   servantCnicBack!.path,
+      //   filename: servantCnicBack!.path.split('/').last,
+      //   contentType: _http.MediaType.parse('image/jpeg'),
+      // );
+      Utils.showToast(
+        "Servant ${servantDataIndex + 1} Added Successfully",
+        false,
+      );
+      log(servantData.toString());
+      // clearServant();
+      servantDataIndex = servantDataIndex + 1;
+      update();
     }
   }
 
-  clearServant() {
-    serventfullNameController.clear();
-    serventfathersController.clear();
-    serventcnicController.clear();
-    serventmobileController.clear();
-    serventhouseController.clear();
-    serventroadController.clear();
-    serventstreetController.clear();
-    serventblockController.clear();
-    serventcolonyVillageController.clear();
-    serventCityController.clear();
-    serventpostOfficeController.clear();
-    serventProvinceController.clear();
-    servantselectedValue = null;
-    servantplotstSelectedValue = null;
-    servantstreetSelectedValue = null;
-    servantCnicBack = null;
-    servantCnicFront = null;
-    servantImage = null;
-  }
+  // clearServant() {
+  //   serventfullNameController.clear();
+  //   serventfathersController.clear();
+  //   serventcnicController.clear();
+  //   serventmobileController.clear();
+  //   serventhouseController.clear();
+  //   serventroadController.clear();
+  //   serventstreetController.clear();
+  //   serventblockController.clear();
+  //   serventcolonyVillageController.clear();
+  //   serventCityController.clear();
+  //   serventpostOfficeController.clear();
+  //   serventProvinceController.clear();
+  //   servantselectedValue = null;
+  //   servantplotstSelectedValue = null;
+  //   servantstreetSelectedValue = null;
+  //   servantCnicBack = null;
+  //   servantCnicFront = null;
+  //   servantImage = null;
+  // }
 
-  addServantFamily() async {
-    if (servantFamilyImage == null) {
-      Utils.showToast(
-        "Please select image of servant family",
-        true,
-      );
-    } else {
-      final formState = addServantFamilyFormKey.currentState;
-      if (formState!.validate()) {
-        servantData['family_name[$servantFamilyDataIndex]'] = serventfamfullNameController.text;
-        servantData["family_occupation[$servantFamilyDataIndex]"] = serventoccutionController.text;
-        servantData['family_nic[$servantFamilyDataIndex]'] = serventfamCnicController.text;
-        servantData['family_cell[$servantFamilyDataIndex]'] = serventfamMobController.text;
-        servantData['family_address[$servantFamilyDataIndex]'] = serventpresentAddController.text;
+  addServantFamily(index) async {
+    // if (servantFamilyImage == null) {
+    //   Utils.showToast(
+    //     "Please select image of servant family",
+    //     true,
+    //   );
+    // } else {
+    final formState = addServantFamilyFormKey.currentState;
+    if (formState!.validate()) {
+      addServantFamControllers();
+      servantData['family_name[$index]'] = serventfamfullNameControllers[index].text;
+      servantData["family_occupation[$index]"] = serventfamoccutionControllers[index].text;
+      servantData['family_nic[$index]'] = serventfamCnicControllers[index].text;
+      servantData['family_cell[$index]'] = serventfamMobControllers[index].text;
+      servantData['family_address[$index]'] = serventfampresentAddControllers[index].text;
 
-        servantData['servant_family_image[$servantFamilyDataIndex]'] = await _dio.MultipartFile.fromFile(
-          servantFamilyImage!.path,
-          filename: servantFamilyImage!.path.split('/').last,
-          contentType: _http.MediaType.parse('image/jpeg'),
-        );
+      for (var element in servantFamilyImages) {
+        String filePath1 = element.path;
+        if (filePath1.isNotEmpty) {
+          servantData['servant_family_image[$index]'] = await _dio.MultipartFile.fromFile(
+            filePath1,
+            filename: filePath1.split('/').last,
+            contentType: _http.MediaType.parse('image/jpeg'),
+          );
+        }
+        // }
+
+        // servantData['servant_family_image[$servantFamilyDataIndex]'] = await _dio.MultipartFile.fromFile(
+        //   servantFamilyImage!.path,
+        //   filename: servantFamilyImage!.path.split('/').last,
+        //   contentType: _http.MediaType.parse('image/jpeg'),
+        // );
 
         Utils.showToast(
           "Servant Family ${servantFamilyDataIndex + 1} Added Successfully",
           false,
         );
-        clearServantFamily();
+        // clearServantFamily();
         servantFamilyDataIndex = servantFamilyDataIndex + 1;
         update();
       }
     }
   }
 
-  clearServantFamily() {
-    serventfamfullNameController.clear();
-    serventoccutionController.clear();
-    serventfamCnicController.clear();
-    serventfamMobController.clear();
-    serventpresentAddController.clear();
-    servantFamilyImage = null;
-  }
+  // clearServantFamily() {
+  //   serventfamfullNameController.clear();
+  //   serventfamoccutionController.clear();
+  //   serventfamCnicController.clear();
+  //   serventfamMobController.clear();
+  //   serventfampresentAddController.clear();
+  //   servantFamilyImage = null;
+  // }
 
   Future<void> submitServantApi(context) async {
     final formState = ownerFormKeyy.currentState;
@@ -436,67 +508,77 @@ class ServentFormsController extends GetxController {
           }
         }
 
-        if (value) {
-          btnController.start();
-          _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-            log(servantData.toString(), name: "servantData");
-            var dio = _dio.Dio(_dio.BaseOptions(
-              baseUrl: "https://anchorageislamabad.com/api",
-              headers: {
-                'Authorization': "Bearer $token",
-              },
-            ));
-            try {
-              var response = await dio.post(
-                "/servant-card",
-                data: _dio.FormData.fromMap(servantData),
-                options: _dio.Options(
-                  method: 'POST',
-                  contentType: 'multipart',
-                ),
-              );
-              if (response.statusCode == 200) {
-                Utils.showToast(
-                  response.data['message'],
-                  false,
-                );
-                btnController.stop();
-                log(json.encode(response.data));
-
-                Get.offAllNamed(AppRoutes.homePage);
-              } else {
-                btnController.stop();
-
-                Utils.showToast(
-                  response.data['message'],
-                  false,
-                );
-                log(response.statusMessage.toString());
-              }
-            } on _dio.DioException catch (error) {
-              // dio error (api reach the server but not performed successfully
-              // no response
-              log(error.response?.data["message"].toString() ?? "");
-              log(error.error.toString(), name: "APi Error");
-              log(error.response.toString(), name: "APi Error Response");
-              btnController.stop();
-              Utils.showToast(
-                error.response?.data["message"].toString() ?? error.error.toString(),
-                true,
-              );
-              if (error.response == null) {
-                var exception = ApiException(
-                  url: "https://anchorageislamabad.com/api/servant-card",
-                  message: error.message!,
-                );
-                return BaseClient.handleApiError(exception);
-              }
-            }
-          });
+        if (servantImages.isEmpty) {
+          Utils.showToast("Please select servant Images", true);
+        } else if (servantCnicFronts.isEmpty) {
+          Utils.showToast("Please select servant cnic front images", true);
+        } else if (servantCnicBacks.isEmpty) {
+          Utils.showToast("Please select servant cnic back images", true);
+        } else if (servantFamilyImages.isEmpty) {
+          Utils.showToast("Please select servant family images", true);
         } else {
-          CustomSnackBar.showCustomErrorToast(
-            message: Strings.noInternetConnection,
-          );
+          if (value) {
+            btnController.start();
+            _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+              log(servantData.toString(), name: "servantData");
+              var dio = _dio.Dio(_dio.BaseOptions(
+                baseUrl: "https://anchorageislamabad.com/api",
+                headers: {
+                  'Authorization': "Bearer $token",
+                },
+              ));
+              try {
+                var response = await dio.post(
+                  "/servant-card",
+                  data: _dio.FormData.fromMap(servantData),
+                  options: _dio.Options(
+                    method: 'POST',
+                    contentType: 'multipart',
+                  ),
+                );
+                if (response.statusCode == 200) {
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  btnController.stop();
+                  log(json.encode(response.data));
+
+                  Get.offAllNamed(AppRoutes.homePage);
+                } else {
+                  btnController.stop();
+
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  log(response.statusMessage.toString());
+                }
+              } on _dio.DioException catch (error) {
+                // dio error (api reach the server but not performed successfully
+                // no response
+                log(error.response?.data["message"].toString() ?? "");
+                log(error.error.toString(), name: "APi Error");
+                log(error.response.toString(), name: "APi Error Response");
+                btnController.stop();
+                Utils.showToast(
+                  error.response?.data["message"].toString() ?? error.error.toString(),
+                  true,
+                );
+                if (error.response == null) {
+                  var exception = ApiException(
+                    url: "https://anchorageislamabad.com/api/servant-card",
+                    message: error.message!,
+                  );
+                  return BaseClient.handleApiError(exception);
+                }
+              }
+            });
+          } else {
+            CustomSnackBar.showCustomErrorToast(
+              message: Strings.noInternetConnection,
+            );
+          }
         }
       });
     }
@@ -516,10 +598,34 @@ class ServentFormsController extends GetxController {
     return null;
   }
 
+  addServantControllers() {
+    serventfullNameControllers.add(TextEditingController());
+    serventfathersControllers.add(TextEditingController());
+    serventcnicControllers.add(TextEditingController());
+    serventmobileControllers.add(TextEditingController());
+    serventhouseControllers.add(TextEditingController());
+    serventroadControllers.add(TextEditingController());
+    serventstreetControllers.add(TextEditingController());
+    serventblockControllers.add(TextEditingController());
+    serventcolonyVillageControllers.add(TextEditingController());
+    serventpostOfficeControllers.add(TextEditingController());
+    serventCityControllers.add(TextEditingController());
+    serventProvinceControllers.add(TextEditingController());
+  }
+
+  addServantFamControllers() {
+    serventfamfullNameControllers.add(TextEditingController());
+    serventfamCnicControllers.add(TextEditingController());
+    serventfamMobControllers.add(TextEditingController());
+    serventfamoccutionControllers.add(TextEditingController());
+    serventfampresentAddControllers.add(TextEditingController());
+  }
+
   @override
   void onInit() {
     super.onInit();
-    getProfileData();
+    addServantFamControllers();
+    addServantControllers();
   }
 }
 

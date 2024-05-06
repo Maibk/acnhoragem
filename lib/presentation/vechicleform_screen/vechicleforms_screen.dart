@@ -540,164 +540,158 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       SizedBox(
                                         height: getVerticalSize(15),
                                       ),
-                                      Form(
-                                        key: _value.addVehicleFormKey,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: getPadding(left: 10),
-                                              child: MyText(
-                                                title: "Vehicles Information",
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                            if (_value.vehicleDataIndex != 0)
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.only(left: 15),
-                                                    padding: EdgeInsets.all(10),
-                                                    decoration:
-                                                        BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                                                    child: MyText(
-                                                      title: _value.vehicleDataIndex.toString(),
-                                                      clr: ColorConstant.whiteA700,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            SizedBox(
-                                              height: getVerticalSize(15),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: CustomTextField(
-                                                    fieldText: "Vehicle No.".tr,
-                                                    controller: controller.vehicleNoController,
-                                                    isFinal: false,
-                                                    keyboardType: TextInputType.emailAddress,
-                                                    limit: HelperFunction.EMAIL_VALIDATION,
-                                                    validator: controller.vehicleDataIndex > 1
-                                                        ? (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          }
-                                                        : null,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: CustomTextField(
-                                                    fieldText: "Make".tr,
-                                                    controller: controller.makeController,
-                                                    isFinal: false,
-                                                    keyboardType: TextInputType.emailAddress,
-                                                    validator: controller.vehicleDataIndex > 1
-                                                        ? (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          }
-                                                        : null,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: getVerticalSize(15),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: CustomTextField(
-                                                    fieldText: "Model".tr,
-                                                    controller: controller.modelController,
-                                                    isFinal: false,
-                                                    keyboardType: TextInputType.emailAddress,
-                                                    limit: HelperFunction.EMAIL_VALIDATION,
-                                                    validator: controller.vehicleDataIndex > 1
-                                                        ? (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          }
-                                                        : null,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: CustomTextField(
-                                                    fieldText: "Color".tr,
-                                                    controller: controller.colorController,
-                                                    isFinal: false,
-                                                    keyboardType: TextInputType.emailAddress,
-                                                    validator: controller.vehicleDataIndex > 1
-                                                        ? (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          }
-                                                        : null,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: getVerticalSize(15),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: CustomTextField(
-                                                    fieldText: "Engine No".tr,
-                                                    controller: controller.engineNoController,
-                                                    isFinal: false,
-                                                    keyboardType: TextInputType.emailAddress,
-                                                    limit: HelperFunction.EMAIL_VALIDATION,
-                                                    validator: controller.vehicleDataIndex > 1
-                                                        ? (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          }
-                                                        : null,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: CustomTextField(
-                                                    fieldText: "Chassis No".tr,
-                                                    controller: controller.chassisController,
-                                                    isFinal: false,
-                                                    keyboardType: TextInputType.emailAddress,
-                                                    validator: controller.vehicleDataIndex > 1
-                                                        ? (value) {
-                                                            return HelperFunction.empthyFieldValidator(value!);
-                                                          }
-                                                        : null,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: getVerticalSize(15),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: getPadding(left: 10, right: 10),
-                                        child: MyAnimatedButton(
-                                          radius: 5.0,
-                                          height: getVerticalSize(50),
-                                          width: getHorizontalSize(400),
-                                          fontSize: 16,
-                                          bgColor: ColorConstant.anbtnBlue,
-                                          controller: controller.btnControllerUseless,
-                                          title: "Add Vehicle".tr,
-                                          onTap: () async {
-                                            _value.addVehicle();
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: getVerticalSize(20),
-                                      ),
+                                      GetBuilder(
+                                          init: controller,
+                                          builder: (context) {
+                                            return Form(
+                                                key: _value.addVehicleFormKey,
+                                                child: ListView.builder(
+                                                  physics: NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  itemCount: controller.vehicleNoControllers.length == 0
+                                                      ? 1
+                                                      : controller.vehicleNoControllers.length,
+                                                  itemBuilder: (context, index) {
+                                                    return Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Padding(
+                                                          padding: getPadding(left: 10),
+                                                          child: MyText(
+                                                            title: "Vehicles Information",
+                                                            fontSize: 20,
+                                                          ),
+                                                        ),
+                                                        // if (_value.vehicleDataIndex != 0)
+                                                        //   Row(
+                                                        //     mainAxisAlignment: MainAxisAlignment.start,
+                                                        //     children: [
+                                                        //       Container(
+                                                        //         margin: EdgeInsets.only(left: 15),
+                                                        //         padding: EdgeInsets.all(10),
+                                                        //         decoration: BoxDecoration(
+                                                        //             color: Colors.green, shape: BoxShape.circle),
+                                                        //         child: MyText(
+                                                        //           title: _value.vehicleDataIndex.toString(),
+                                                        //           clr: ColorConstant.whiteA700,
+                                                        //           fontSize: 16,
+                                                        //         ),
+                                                        //       ),
+                                                        //     ],
+                                                        //   ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(15),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Vehicle No.".tr,
+                                                                  controller: controller.vehicleNoControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  limit: HelperFunction.EMAIL_VALIDATION,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Make".tr,
+                                                                  controller: controller.makeControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(15),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Model".tr,
+                                                                  controller: controller.modelControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  limit: HelperFunction.EMAIL_VALIDATION,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Color".tr,
+                                                                  controller: controller.colorControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(15),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Engine No".tr,
+                                                                  controller: controller.engineNoControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  limit: HelperFunction.EMAIL_VALIDATION,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Chassis No".tr,
+                                                                  controller: controller.chassisControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(15),
+                                                        ),
+                                                        Padding(
+                                                          padding: getPadding(left: 10, right: 10),
+                                                          child: MyAnimatedButton(
+                                                            radius: 5.0,
+                                                            height: getVerticalSize(50),
+                                                            width: getHorizontalSize(400),
+                                                            fontSize: 16,
+                                                            bgColor: ColorConstant.anbtnBlue,
+                                                            controller: controller.btnControllerUseless,
+                                                            title: "Add Vehicle".tr,
+                                                            onTap: () async {
+                                                              _value.addVehicle(index);
+                                                            },
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(20),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ));
+                                          }),
                                     ],
                                   )
                                 ],
@@ -714,198 +708,199 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                     fontSize: 16,
                                   ),
                                   children: <Widget>[
-                                    Column(
-                                      children: [
-                                        if (_value.userInfoDataIndex != 0)
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.only(left: 15),
-                                                padding: EdgeInsets.all(10),
-                                                decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                                                child: MyText(
-                                                  title: _value.userInfoDataIndex.toString(),
-                                                  clr: ColorConstant.whiteA700,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        CustomTextField(
-                                          fieldText: "Full Name".tr,
-                                          controller: controller.userfullNameController,
-                                          isFinal: false,
-                                          keyboardType: TextInputType.emailAddress,
-                                          limit: HelperFunction.EMAIL_VALIDATION,
-                                          validator: controller.userInfoDataIndex > 1
-                                              ? (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
-                                                }
-                                              : null,
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(5),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: controller.userfullNameControllers.length == 0
+                                          ? 1
+                                          : controller.userfullNameControllers.length,
+                                      itemBuilder: (context, index) {
+                                        return Column(
                                           children: [
-                                            Expanded(
-                                              child: CustomTextField(
-                                                fieldText: "CNIC No.".tr,
-                                                controller: controller.userCnicController,
+                                            // if (_value.userInfoDataIndex != 0)
+                                            //   Row(
+                                            //     mainAxisAlignment: MainAxisAlignment.start,
+                                            //     children: [
+                                            //       Container(
+                                            //         margin: EdgeInsets.only(left: 15),
+                                            //         padding: EdgeInsets.all(10),
+                                            //         decoration:
+                                            //             BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                                            //         child: MyText(
+                                            //           title: _value.userInfoDataIndex.toString(),
+                                            //           clr: ColorConstant.whiteA700,
+                                            //           fontSize: 16,
+                                            //         ),
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            CustomTextField(
+                                                fieldText: "Full Name".tr,
+                                                controller: controller.userfullNameControllers[index],
                                                 isFinal: false,
-                                                keyboardType: TextInputType.number,
+                                                keyboardType: TextInputType.emailAddress,
                                                 limit: HelperFunction.EMAIL_VALIDATION,
-                                                inputFormatters: [
-                                                  FilteringTextInputFormatter.digitsOnly,
-                                                  TextInputFormatterWithPattern('#####-#######-#'),
-                                                ],
-                                                validator: controller.userInfoDataIndex > 1
-                                                    ? (value) {
+                                                validator: (value) {
+                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                }),
+                                            SizedBox(
+                                              height: getVerticalSize(5),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: CustomTextField(
+                                                      fieldText: "CNIC No.".tr,
+                                                      controller: controller.userCnicControllers[index],
+                                                      isFinal: false,
+                                                      keyboardType: TextInputType.number,
+                                                      limit: HelperFunction.EMAIL_VALIDATION,
+                                                      inputFormatters: [
+                                                        FilteringTextInputFormatter.digitsOnly,
+                                                        TextInputFormatterWithPattern('#####-#######-#'),
+                                                      ],
+                                                      validator: (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
-                                                      }
-                                                    : null,
+                                                      }),
+                                                ),
+                                                Expanded(
+                                                  child: CustomTextField(
+                                                      fieldText: "Mobile number".tr,
+                                                      controller: controller.userMobileControllers[index],
+                                                      isFinal: false,
+                                                      keyboardType: TextInputType.phone,
+                                                      validator: (value) {
+                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                      }),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: getVerticalSize(5),
+                                            ),
+                                            SizedBox(
+                                              height: getVerticalSize(15),
+                                            ),
+                                            Padding(
+                                              padding: getPadding(left: 10, right: 10),
+                                              child: CustomButton(
+                                                width: getHorizontalSize(350),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: ColorConstant.whiteA700,
+                                                label: "Attach Driving License Front Side Image".tr,
+                                                textColor: ColorConstant.anbtnBlue,
+                                                borderColor: ColorConstant.anbtnBlue,
+                                                prefix: Icon(
+                                                  controller.userDrivingLicenseFrontSideImage != null
+                                                      ? Icons.check_circle_sharp
+                                                      : Icons.add_circle_outline,
+                                                  color: ColorConstant.anbtnBlue,
+                                                ),
+                                                onPressed: () async {
+                                                  controller.userDrivingLicenseFrontSideImage =
+                                                      await controller.imagePicker();
+                                                },
                                               ),
                                             ),
-                                            Expanded(
-                                              child: CustomTextField(
-                                                fieldText: "Mobile number".tr,
-                                                controller: controller.userMobileController,
-                                                isFinal: false,
-                                                keyboardType: TextInputType.phone,
-                                                validator: controller.userInfoDataIndex > 1
-                                                    ? (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
-                                                      }
-                                                    : null,
+                                            SizedBox(
+                                              height: getVerticalSize(15),
+                                            ),
+                                            Padding(
+                                              padding: getPadding(left: 10, right: 10),
+                                              child: CustomButton(
+                                                width: getHorizontalSize(350),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: ColorConstant.whiteA700,
+                                                label: "Attach Driving License Back Side Image".tr,
+                                                textColor: ColorConstant.anbtnBlue,
+                                                borderColor: ColorConstant.anbtnBlue,
+                                                prefix: Icon(
+                                                  controller.userDrivingLicenseBackSideImage != null
+                                                      ? Icons.check_circle_sharp
+                                                      : Icons.add_circle_outline,
+                                                  color: ColorConstant.anbtnBlue,
+                                                ),
+                                                onPressed: () async {
+                                                  controller.userDrivingLicenseBackSideImage =
+                                                      await controller.imagePicker();
+                                                },
                                               ),
+                                            ),
+                                            SizedBox(
+                                              height: getVerticalSize(15),
+                                            ),
+                                            Padding(
+                                              padding: getPadding(left: 10, right: 10),
+                                              child: CustomButton(
+                                                width: getHorizontalSize(350),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: ColorConstant.whiteA700,
+                                                label: "Attach a clear image of your CNIC front side".tr,
+                                                textColor: ColorConstant.anbtnBlue,
+                                                borderColor: ColorConstant.anbtnBlue,
+                                                prefix: Icon(
+                                                  controller.userCnicFrontSideImage != null
+                                                      ? Icons.check_circle_sharp
+                                                      : Icons.add_circle_outline,
+                                                  color: ColorConstant.anbtnBlue,
+                                                ),
+                                                onPressed: () async {
+                                                  controller.userCnicFrontSideImage = await controller.imagePicker();
+                                                },
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: getVerticalSize(15),
+                                            ),
+                                            Padding(
+                                              padding: getPadding(left: 10, right: 10),
+                                              child: CustomButton(
+                                                width: getHorizontalSize(350),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w700,
+                                                color: ColorConstant.whiteA700,
+                                                label: "Attach a clear image of your CNIC back side".tr,
+                                                textColor: ColorConstant.anbtnBlue,
+                                                borderColor: ColorConstant.anbtnBlue,
+                                                prefix: Icon(
+                                                  controller.userCnicBacktSideImage != null
+                                                      ? Icons.check_circle_sharp
+                                                      : Icons.add_circle_outline,
+                                                  color: ColorConstant.anbtnBlue,
+                                                ),
+                                                onPressed: () async {
+                                                  controller.userCnicBacktSideImage = await controller.imagePicker();
+                                                },
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: getVerticalSize(15),
+                                            ),
+                                            Padding(
+                                              padding: getPadding(left: 10, right: 10),
+                                              child: MyAnimatedButton(
+                                                radius: 5.0,
+                                                height: getVerticalSize(50),
+                                                width: getHorizontalSize(400),
+                                                fontSize: 16,
+                                                bgColor: ColorConstant.anbtnBlue,
+                                                controller: controller.btnControllerUseless,
+                                                title: "Add User".tr,
+                                                onTap: () async {
+                                                  controller.addUserInfo(index);
+                                                },
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: getVerticalSize(20),
                                             ),
                                           ],
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(5),
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(15),
-                                        ),
-                                        Padding(
-                                          padding: getPadding(left: 10, right: 10),
-                                          child: CustomButton(
-                                            width: getHorizontalSize(350),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorConstant.whiteA700,
-                                            label: "Attach Driving License Front Side Image".tr,
-                                            textColor: ColorConstant.anbtnBlue,
-                                            borderColor: ColorConstant.anbtnBlue,
-                                            prefix: Icon(
-                                              controller.userDrivingLicenseFrontSideImage != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
-                                              color: ColorConstant.anbtnBlue,
-                                            ),
-                                            onPressed: () async {
-                                              controller.userDrivingLicenseFrontSideImage =
-                                                  await controller.imagePicker();
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(15),
-                                        ),
-                                        Padding(
-                                          padding: getPadding(left: 10, right: 10),
-                                          child: CustomButton(
-                                            width: getHorizontalSize(350),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorConstant.whiteA700,
-                                            label: "Attach Driving License Back Side Image".tr,
-                                            textColor: ColorConstant.anbtnBlue,
-                                            borderColor: ColorConstant.anbtnBlue,
-                                            prefix: Icon(
-                                              controller.userDrivingLicenseBackSideImage != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
-                                              color: ColorConstant.anbtnBlue,
-                                            ),
-                                            onPressed: () async {
-                                              controller.userDrivingLicenseBackSideImage =
-                                                  await controller.imagePicker();
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(15),
-                                        ),
-                                        Padding(
-                                          padding: getPadding(left: 10, right: 10),
-                                          child: CustomButton(
-                                            width: getHorizontalSize(350),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorConstant.whiteA700,
-                                            label: "Attach a clear image of your CNIC front side".tr,
-                                            textColor: ColorConstant.anbtnBlue,
-                                            borderColor: ColorConstant.anbtnBlue,
-                                            prefix: Icon(
-                                              controller.userCnicFrontSideImage != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
-                                              color: ColorConstant.anbtnBlue,
-                                            ),
-                                            onPressed: () async {
-                                              controller.userCnicFrontSideImage = await controller.imagePicker();
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(15),
-                                        ),
-                                        Padding(
-                                          padding: getPadding(left: 10, right: 10),
-                                          child: CustomButton(
-                                            width: getHorizontalSize(350),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w700,
-                                            color: ColorConstant.whiteA700,
-                                            label: "Attach a clear image of your CNIC back side".tr,
-                                            textColor: ColorConstant.anbtnBlue,
-                                            borderColor: ColorConstant.anbtnBlue,
-                                            prefix: Icon(
-                                              controller.userCnicBacktSideImage != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
-                                              color: ColorConstant.anbtnBlue,
-                                            ),
-                                            onPressed: () async {
-                                              controller.userCnicBacktSideImage = await controller.imagePicker();
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(15),
-                                        ),
-                                        Padding(
-                                          padding: getPadding(left: 10, right: 10),
-                                          child: MyAnimatedButton(
-                                            radius: 5.0,
-                                            height: getVerticalSize(50),
-                                            width: getHorizontalSize(400),
-                                            fontSize: 16,
-                                            bgColor: ColorConstant.anbtnBlue,
-                                            controller: controller.btnControllerUseless,
-                                            title: "Add User".tr,
-                                            onTap: () async {
-                                              controller.addUserInfo();
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: getVerticalSize(20),
-                                        ),
-                                      ],
+                                        );
+                                      },
                                     )
                                   ],
                                 ),

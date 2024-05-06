@@ -33,6 +33,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return GetMaterialApp(
+        defaultTransition: Transition.fadeIn,
+
         debugShowCheckedModeBanner: false,
         translations: AppLocalization(),
         locale: Get.deviceLocale, //for setting localization strings
