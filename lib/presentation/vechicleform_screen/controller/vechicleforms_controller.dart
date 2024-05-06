@@ -172,9 +172,7 @@ class VechicleController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             plots.clear();
             for (var element in response.data['data']) {
@@ -642,6 +640,10 @@ class VechicleController extends GetxController {
     userfullNameControllers.add(TextEditingController());
     userCnicControllers.add(TextEditingController());
     userMobileControllers.add(TextEditingController());
+    userDrivingLicenseFrontSideImages.add(File(''));
+    userDrivingLicenseBackSideImages.add(File(''));
+    userCnicFrontSideImages.add(File(''));
+    userCnicBacktSideImages.add(File(''));
   }
 
   @override

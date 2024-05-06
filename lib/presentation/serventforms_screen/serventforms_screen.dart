@@ -2,13 +2,11 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
-import 'package:anchorageislamabad/presentation/login_screen/controller/login_controller.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
@@ -16,7 +14,6 @@ import '../../core/utils/size_utils.dart';
 import '../../core/utils/utils.dart';
 import '../../routes/app_routes.dart';
 import '../../widgets/animated_custom_button.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_expensiontile.dart';
 import '../../widgets/custom_textfield_new.dart';
@@ -50,8 +47,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -368,9 +364,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerImage != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -392,9 +386,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicFront != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerCnicFront != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -416,9 +408,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicBack != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerCnicBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -470,9 +460,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.serventfullNameControllers.length == 0
-                                                ? 1
-                                                : controller.serventfullNameControllers.length,
+                                            itemCount:
+                                                controller.serventfullNameControllers.length == 0 ? 1 : controller.serventfullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
@@ -492,6 +481,28 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   //       ),
                                                   //     ],
                                                   //   ),
+
+                                                  if (index != 0)
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              controller.serventfullNameControllers.removeAt(index);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                              margin: EdgeInsets.only(right: 15),
+                                                              padding: EdgeInsets.all(8),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                              child: Icon(
+                                                                Icons.delete_outlined,
+                                                                color: Colors.white,
+                                                              )),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   CustomTextField(
                                                       fieldText: "Full Name".tr,
                                                       controller: controller.serventfullNameControllers[index],
@@ -610,8 +621,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       Expanded(
                                                         child: CustomTextField(
                                                             fieldText: "Mohalla/Village".tr,
-                                                            controller:
-                                                                controller.serventcolonyVillageControllers[index],
+                                                            controller: controller.serventcolonyVillageControllers[index],
                                                             isFinal: false,
                                                             keyboardType: TextInputType.emailAddress,
                                                             validator: (value) {
@@ -684,20 +694,22 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       label: "Attach a clear image of yours".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix: controller.servantImages[index].path == ""
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.servantImages.add(File(result.path));
+                                                            controller.servantImages[index] = File(result.path);
                                                           });
-
-                                                          Utils.showToast("Image added", false);
                                                         }
                                                       },
                                                     ),
@@ -715,20 +727,22 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       label: "Attach a clear image of your CNIC front side".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix: controller.servantCnicFronts[index].path == ""
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.servantCnicFronts.add(File(result.path));
+                                                            controller.servantCnicFronts[index] = File(result.path);
                                                           });
-
-                                                          Utils.showToast("Image added", false);
                                                         }
                                                       },
                                                     ),
@@ -746,20 +760,22 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       label: "Attach a clear image of your CNIC back side".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix: controller.servantCnicBacks[index].path == ""
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.servantCnicBacks.add(File(result.path));
+                                                            controller.servantCnicBacks[index] = File(result.path);
                                                           });
-
-                                                          Utils.showToast("Image added", false);
                                                         }
                                                       },
                                                     ),
@@ -783,11 +799,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         if (controller.servantImages.isEmpty) {
                                                           Utils.showToast("Please select servant Images", true);
                                                         } else if (controller.servantCnicFronts.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select servant cnic front images", true);
+                                                          Utils.showToast("Please select servant cnic front images", true);
                                                         } else if (controller.servantCnicBacks.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select servant cnic back images", true);
+                                                          Utils.showToast("Please select servant cnic back images", true);
                                                         } else {
                                                           controller.addServant(index);
                                                         }
@@ -846,6 +860,28 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   //       ),
                                                   //     ],
                                                   //   ),
+
+                                                  if (index != 0)
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              controller.serventfamfullNameControllers.removeAt(index);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                              margin: EdgeInsets.only(right: 15),
+                                                              padding: EdgeInsets.all(8),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                              child: Icon(
+                                                                Icons.delete_outlined,
+                                                                color: Colors.white,
+                                                              )),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   CustomTextField(
                                                       fieldText: "Full Name".tr,
                                                       controller: controller.serventfamfullNameControllers[index],
@@ -925,20 +961,23 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       label: "Attach a clear image of servant".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix: controller.servantFamilyImages[index].path == "" ||
+                                                              controller.servantFamilyImages[index].isBlank!
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.servantFamilyImages.add(File(result.path));
+                                                            controller.servantFamilyImages[index] = File(result.path);
                                                           });
-
-                                                          Utils.showToast("Image added", false);
                                                         }
                                                       },
                                                     ),

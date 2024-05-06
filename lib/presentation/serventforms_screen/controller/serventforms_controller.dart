@@ -219,9 +219,7 @@ class ServentFormsController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             for (var element in response.data['data']) {
               plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? ""));
@@ -353,7 +351,7 @@ class ServentFormsController extends GetxController {
       //   contentType: _http.MediaType.parse('image/jpeg'),
       // );
       Utils.showToast(
-        "Servant ${servantDataIndex + 1} Added Successfully",
+        "Servant Added Successfully",
         false,
       );
       log(servantData.toString());
@@ -418,7 +416,7 @@ class ServentFormsController extends GetxController {
         // );
 
         Utils.showToast(
-          "Servant Family ${servantFamilyDataIndex + 1} Added Successfully",
+          "Servant Family Added Successfully",
           false,
         );
         // clearServantFamily();
@@ -611,6 +609,9 @@ class ServentFormsController extends GetxController {
     serventpostOfficeControllers.add(TextEditingController());
     serventCityControllers.add(TextEditingController());
     serventProvinceControllers.add(TextEditingController());
+    servantImages.add(File(""));
+    servantCnicFronts.add(File(""));
+    servantCnicBacks.add(File(""));
   }
 
   addServantFamControllers() {
@@ -619,6 +620,7 @@ class ServentFormsController extends GetxController {
     serventfamMobControllers.add(TextEditingController());
     serventfamoccutionControllers.add(TextEditingController());
     serventfampresentAddControllers.add(TextEditingController());
+    servantFamilyImages.add(File(""));
   }
 
   @override

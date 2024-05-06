@@ -216,9 +216,7 @@ class EntryFormsController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             for (var element in response.data['data']) {
               plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? ""));
@@ -248,7 +246,7 @@ class EntryFormsController extends GetxController {
     final result = await picker.pickImage(source: ImageSource.gallery);
 
     if (result != null) {
-      spouseImages?.add(File(result.path));
+      spouseImages.add(File(result.path));
       update();
       return File(result.path);
     }
@@ -347,7 +345,7 @@ class EntryFormsController extends GetxController {
             // }
 
             Utils.showToast(
-              "Spouse ${spouseDataIndex + 1} Added Successfully",
+              "Spouse Added Successfully",
               false,
             );
             spouseDataIndex = spouseDataIndex + 1;
@@ -491,7 +489,7 @@ class EntryFormsController extends GetxController {
         }
 
         Utils.showToast(
-          "child ${childDataIndex + 1} Added Successfully",
+          "Child Added Successfully",
           false,
         );
         childDataIndex = childDataIndex + 1;
@@ -695,6 +693,10 @@ class EntryFormsController extends GetxController {
     spouseThanaControllers.add(TextEditingController());
     spouseCityControllers.add(TextEditingController());
     spouseProvinceControllers.add(TextEditingController());
+    spouseImages.add(File(""));
+    spouseCnicsfronts.add(File(""));
+    spouseCnicBacks.add(File(""));
+
     update();
   }
 
@@ -712,12 +714,21 @@ class EntryFormsController extends GetxController {
     childThanaControllers.add(TextEditingController());
     childCityControllers.add(TextEditingController());
     childProvinceControllers.add(TextEditingController());
+    childImages.add(File(""));
+    childCnicsfronts.add(File(""));
+    childCnicBacks.add(File(""));
     update();
   }
 
   @override
   void onClose() {
     super.onClose();
+    childImages.clear();
+    childCnicsfronts.clear();
+    childCnicBacks.clear();
+    spouseImages.clear();
+    spouseCnicsfronts.clear();
+    spouseCnicBacks.clear();
     spousefathersControllers.clear();
     spousefullNameControllers.clear();
     spousecnicControllers.clear();

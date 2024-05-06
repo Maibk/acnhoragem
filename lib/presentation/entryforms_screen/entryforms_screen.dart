@@ -35,13 +35,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
     controller.ownerImage = null;
     controller.ownerCnicFront = null;
     controller.ownerCnicBack = null;
-
-    controller.spouseImages.clear();
-
-    // controller.spouseImage = null;
-    // controller.spouseCnicFront = null;
-    // controller.spouseCnicBack = null;
-
     controller.childImage = null;
     controller.childCnicFront = null;
     controller.childCnicBack = null;
@@ -55,8 +48,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -293,9 +285,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       child: DropdownButton<Plots>(
                                                     hint: controller.plotstSelectedValue == null
                                                         ? Text(
-                                                            controller.plots.isEmpty
-                                                                ? "Select Plot"
-                                                                : controller.plotPlaceHolder,
+                                                            controller.plots.isEmpty ? "Select Plot" : controller.plotPlaceHolder,
                                                             style: TextStyle(
                                                               fontSize: 14,
                                                               color: ColorConstant.blackColor.withOpacity(0.5),
@@ -306,9 +296,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         : Text(controller.plotstSelectedValue.toString()),
                                                     value: controller.plotstSelectedValue,
                                                     disabledHint: Text(
-                                                      controller.plots.isEmpty
-                                                          ? "Select Plot"
-                                                          : controller.plotPlaceHolder,
+                                                      controller.plots.isEmpty ? "Select Plot" : controller.plotPlaceHolder,
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: ColorConstant.blackColor.withOpacity(0.5),
@@ -375,9 +363,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerImage != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -399,9 +385,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicFront != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerCnicFront != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -423,9 +407,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicBack != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerCnicBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -493,6 +475,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                       child: CustomExpansionTile(
                                         title: MyText(
                                           title: 'Spouse',
+                                          // title: controller.spouseImages.length.toString(),
                                           clr: ColorConstant.black900,
                                           fontSize: 16,
                                         ),
@@ -500,9 +483,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.spousefathersControllers.length == 0
-                                                ? 1
-                                                : controller.spousefathersControllers.length,
+                                            itemCount:
+                                                controller.spousefathersControllers.length == 0 ? 1 : controller.spousefathersControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
@@ -523,6 +505,28 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   //       ),
                                                   //     ],
                                                   //   ),
+
+                                                  if (index != 0)
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              controller.spousefathersControllers.removeAt(index);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                              margin: EdgeInsets.only(right: 15),
+                                                              padding: EdgeInsets.all(8),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                              child: Icon(
+                                                                Icons.delete_outlined,
+                                                                color: Colors.white,
+                                                              )),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   CustomTextField(
                                                       fieldText: "Full Name".tr,
                                                       controller: controller.spousefullNameControllers[index],
@@ -693,20 +697,22 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of spouse".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix: controller.spouseImages[index].path == ""
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.spouseImages.add(File(result.path));
+                                                            controller.spouseImages[index] = File(result.path);
                                                           });
-
-                                                          Utils.showToast("Image added", false);
                                                         }
 
                                                         log(controller.spouseImages.toString());
@@ -726,23 +732,23 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of spouse CNIC front side".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        // controller.spouseCnicFront != null
-                                                        //     ? Icons.check_circle_sharp
-                                                        //     :
-
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix: controller.spouseCnicsfronts[index].path == "" ||
+                                                              controller.spouseCnicsfronts[index].isBlank!
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.spouseCnicsfronts.add(File(result.path));
+                                                            controller.spouseCnicsfronts[index] = File(result.path);
                                                           });
-                                                          Utils.showToast("Image added", false);
                                                         }
 
                                                         log(controller.spouseCnicsfronts.toString());
@@ -762,23 +768,23 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of Spouse CNIC back side".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        // controller.spouseCnicBack != null
-                                                        //     ? Icons.check_circle_sharp
-                                                        //     :
-
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix:
+                                                          controller.spouseCnicBacks[index].path == "" || controller.spouseCnicBacks[index].isBlank!
+                                                              ? Icon(
+                                                                  Icons.add_circle_outline,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                )
+                                                              : Icon(
+                                                                  Icons.check_circle_sharp,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.spouseCnicBacks.add(File(result.path));
+                                                            controller.spouseCnicBacks[index] = File(result.path);
                                                           });
-                                                          Utils.showToast("Image added", false);
                                                         }
 
                                                         log(controller.spouseCnicBacks.toString());
@@ -811,11 +817,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         if (controller.spouseImages.isEmpty) {
                                                           Utils.showToast("Please select spouse Images", true);
                                                         } else if (controller.spouseCnicsfronts.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select spouse cnic front images", true);
+                                                          Utils.showToast("Please select spouse cnic front images", true);
                                                         } else if (controller.spouseCnicBacks.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select spouse cnic back images", true);
+                                                          Utils.showToast("Please select spouse cnic back images", true);
                                                         } else {
                                                           controller.spouseEntryFormAPi(context, index);
                                                         }
@@ -870,9 +874,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.childfathersControllers.length == 0
-                                                ? 1
-                                                : controller.childfathersControllers.length,
+                                            itemCount: controller.childfathersControllers.length == 0 ? 1 : controller.childfathersControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
@@ -893,6 +895,28 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   //       ),
                                                   //     ],
                                                   //   ),
+
+                                                  if (index != 0)
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              controller.childfathersControllers.removeAt(index);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                              margin: EdgeInsets.only(right: 15),
+                                                              padding: EdgeInsets.all(8),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                              child: Icon(
+                                                                Icons.delete_outlined,
+                                                                color: Colors.white,
+                                                              )),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   CustomTextField(
                                                       fieldText: "Full Name".tr,
                                                       controller: controller.childfullNameControllers[index],
@@ -1067,24 +1091,22 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of child".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        // controller.childImage != null
-                                                        //     ? Icons.check_circle_sharp
-                                                        //     :
-
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix: controller.childImages[index].path == "" || controller.childImages[index].isBlank!
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.childImages.add(File(result.path));
+                                                            controller.childImages[index] = File(result.path);
                                                           });
-
-                                                          Utils.showToast("Image added", false);
                                                         }
                                                       },
                                                     ),
@@ -1102,24 +1124,23 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of child CNIC front sides".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        // controller.childCnicFront != null
-                                                        //     ? Icons.check_circle_sharp
-                                                        //     :
-
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix:
+                                                          controller.childCnicsfronts[index].path == "" || controller.childCnicsfronts[index].isBlank!
+                                                              ? Icon(
+                                                                  Icons.add_circle_outline,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                )
+                                                              : Icon(
+                                                                  Icons.check_circle_sharp,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.childCnicsfronts.add(File(result.path));
+                                                            controller.childCnicsfronts[index] = File(result.path);
                                                           });
-
-                                                          Utils.showToast("Image added", false);
                                                         }
                                                       },
                                                     ),
@@ -1137,24 +1158,22 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of child CNIC back side".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: Icon(
-                                                        // controller.childCnicBack != null
-                                                        //     ? Icons.check_circle_sharp
-                                                        //     :
-
-                                                        Icons.add_circle_outline,
-                                                        color: ColorConstant.anbtnBlue,
-                                                      ),
+                                                      prefix: controller.childCnicBacks[index].path == "" || controller.childCnicBacks[index].isBlank!
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.childCnicBacks.add(File(result.path));
+                                                            controller.childCnicBacks[index] = File(result.path);
                                                           });
-
-                                                          Utils.showToast("Image added", false);
                                                         }
                                                       },
                                                     ),
@@ -1176,8 +1195,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         if (controller.childImages.isEmpty) {
                                                           Utils.showToast("Please select child images", true);
                                                         } else if (controller.childCnicsfronts.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select child cnic front images", true);
+                                                          Utils.showToast("Please select child cnic front images", true);
                                                         } else if (controller.childCnicBacks.isEmpty) {
                                                           Utils.showToast("Please select child cnic back images", true);
                                                         } else {
