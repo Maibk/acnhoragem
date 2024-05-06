@@ -81,6 +81,7 @@ class OwnerFornsScreenController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
 
   final RoundedLoadingButtonController uselessbtnController = RoundedLoadingButtonController();
+  List<String> eTag = [];
 
   //owners controllers
   TextEditingController fullNameController = TextEditingController();
@@ -107,21 +108,20 @@ class OwnerFornsScreenController extends GetxController {
   TextEditingController cellNoController = TextEditingController();
   TextEditingController ptclController = TextEditingController();
   //private arms controller
-  TextEditingController? privateLicenseController;
-  TextEditingController? privateArmsController;
-  TextEditingController? armQuantityController;
-  TextEditingController? privateBoreController;
+  TextEditingController privateLicenseController = TextEditingController();
+  TextEditingController privateArmsController = TextEditingController();
+  TextEditingController armQuantityController = TextEditingController();
+  TextEditingController privateBoreController = TextEditingController();
   //vichicles controller
 
   TextEditingController vehicleStatusController = TextEditingController();
 
-  TextEditingController vehicleTypeController = TextEditingController();
-  TextEditingController vehicleRegisterNoController = TextEditingController();
-  TextEditingController vehicleColorController = TextEditingController();
-  TextEditingController vehicleStikerController = TextEditingController();
-  TextEditingController vehicleEngineNoController = TextEditingController();
-  TextEditingController vehicleEtagController = TextEditingController();
-  String? eTag = "";
+  List<TextEditingController> vehicleTypeControllers = [];
+  List<TextEditingController> vehicleRegisterNoControllers = [];
+  List<TextEditingController> vehicleColorControllers = [];
+  List<TextEditingController> vehicleStikerControllers = [];
+  // TextEditingController vehicleEngineNoController = TextEditingController();
+  // TextEditingController vehicleEtagController = TextEditingController();
   RxBool isInternetAvailable = true.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
@@ -135,16 +135,17 @@ class OwnerFornsScreenController extends GetxController {
   GlobalKey<FormState> vehicleFormKey = GlobalKey();
   int vehicleDataIndex = 0;
 
-  Future<void> addvehicle(context) async {
+  Future<void> addvehicle(contex, index) async {
     final formState = vehicleFormKey.currentState;
 
     if (formState!.validate()) {
       Utils.check().then((value) async {
-        ownerFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController.text;
-        ownerFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController.text;
-        ownerFormdata['color[$vehicleDataIndex]'] = vehicleColorController.text;
-        ownerFormdata['sticker_no[$vehicleDataIndex]'] = vehicleStikerController.text;
-        ownerFormdata['etag[$vehicleDataIndex]'] = eTag == "Yes" ? "Yes" : "No";
+        addvehicleControllers();
+        ownerFormdata['vehicle_type[$index]'] = vehicleTypeControllers[index].text;
+        ownerFormdata['registration[$index]'] = vehicleRegisterNoControllers[index].text;
+        ownerFormdata['color[$index]'] = vehicleColorControllers[index].text;
+        ownerFormdata['sticker_no[$index]'] = vehicleStikerControllers[index].text;
+        ownerFormdata['etag[$index]'] = eTag == "Yes" ? "Yes" : "No";
         Utils.showToast(
           "Vehicle ${vehicleDataIndex + 1} Added Successfully",
           false,
@@ -158,12 +159,24 @@ class OwnerFornsScreenController extends GetxController {
   }
 
   clearVehicleForm() {
-    vehicleTypeController.clear();
-    vehicleRegisterNoController.clear();
-    vehicleColorController.clear();
-    vehicleStikerController.clear();
-    vehicleEtagController.clear();
-    vehicleEngineNoController.clear();
+    vehicleTypeControllers.clear();
+    vehicleRegisterNoControllers.clear();
+    vehicleColorControllers.clear();
+    vehicleStikerControllers.clear();
+    // vehicleEtagController.clear();
+    // vehicleEngineNoController.clear();
+
+    hasVehicle = "";
+    eTag.clear();
+    update();
+  }
+
+  addvehicleControllers() {
+    vehicleTypeControllers.add(TextEditingController());
+    vehicleRegisterNoControllers.add(TextEditingController());
+    vehicleColorControllers.add(TextEditingController());
+    vehicleStikerControllers.add(TextEditingController());
+    eTag.add("No");
   }
 
   Future<void> ownerFormApi(context) async {
@@ -185,25 +198,27 @@ class OwnerFornsScreenController extends GetxController {
           'allotment_letter': alottmentletter,
           'completion_certificate': completionCertificate,
           'construction_status': constructionStatus,
-          'private_arm': privatearms,
+          'private_arm': privatearms == "Yes" ? "Yes" : "No",
           'vehicle_status': hasVehicle,
-          'license_no': privateLicenseController?.text ?? "No",
-          'arm_quantity': armQuantityController?.text ?? "No",
-          'bore_type': privateBoreController?.text ?? "No",
-          'ammunition_quantity': armQuantityController?.text ?? "No",
+          'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+          'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+          'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+          'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
           'status': '0'
         };
 
         ownerFormdata.addAll(data);
 
-        if (allotmentletter != null) {
-          String filePath1 = allotmentletter?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+        if (alottmentletter == "Yes") {
+          if (allotmentletter != null) {
+            String filePath1 = allotmentletter?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
           }
         }
 
@@ -217,14 +232,17 @@ class OwnerFornsScreenController extends GetxController {
             );
           }
         }
-        if (certificate != null) {
-          String filePath1 = certificate?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+
+        if (completionCertificate == "Yes") {
+          if (certificate != null) {
+            String filePath1 = certificate?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
           }
         }
         if (value) {

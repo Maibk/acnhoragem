@@ -44,11 +44,7 @@ class TenantFornsScreenController extends GetxController {
   List<File>? estateCnicFrontBack;
 
   Future<List<File>?> getImages(context) async {
-    final pickedFile = await picker.pickMultiImage(  
-      
-      
-      
-      imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
+    final pickedFile = await picker.pickMultiImage(imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
 
     List<File> selectedImages = [];
 
@@ -115,7 +111,7 @@ class TenantFornsScreenController extends GetxController {
 
   String? privatearms = "";
   String? hasVehicle = "";
-  String? eTag = "";
+  List<String> eTag = [];
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   TextEditingController fullNameController = TextEditingController();
@@ -148,11 +144,11 @@ class TenantFornsScreenController extends GetxController {
   TextEditingController armQuantityController = TextEditingController();
   TextEditingController privateBoreController = TextEditingController();
   //vichicles controller
-  TextEditingController? vehicleTypeController;
-  TextEditingController? vehicleRegisterNoController;
-  TextEditingController? vehicleColorController;
-  TextEditingController? vehicleStikerController;
-  TextEditingController vehicleEngineNoController = TextEditingController();
+  List<TextEditingController> vehicleTypeControllers = [];
+  List<TextEditingController> vehicleRegisterNoControllers = [];
+  List<TextEditingController> vehicleColorControllers = [];
+  List<TextEditingController> vehicleStikerControllers = [];
+  // TextEditingController vehicleEngineNoController = TextEditingController();
   TextEditingController vehicleEtagController = TextEditingController();
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
@@ -176,38 +172,44 @@ class TenantFornsScreenController extends GetxController {
   GlobalKey<FormState> vehicleFormKey = GlobalKey();
   int vehicleDataIndex = 0;
 
-  Future<void> addvehicle(context) async {
+  addvehicleControllers() {
+    vehicleTypeControllers.add(TextEditingController());
+    vehicleRegisterNoControllers.add(TextEditingController());
+    vehicleColorControllers.add(TextEditingController());
+    vehicleStikerControllers.add(TextEditingController());
+    eTag.add("No");
+  }
+
+  Future<void> addvehicle(context, index) async {
     final formState = vehicleFormKey.currentState;
     if (formState!.validate()) {
       Utils.check().then((value) async {
-        tenantFormdata['vehicle_type[$vehicleDataIndex]'] = vehicleTypeController?.text ?? "No";
-        tenantFormdata['registration[$vehicleDataIndex]'] = vehicleRegisterNoController?.text ?? "NO";
-        tenantFormdata['color[$vehicleDataIndex]'] = vehicleColorController?.text ?? "No";
-        tenantFormdata['sticker_no[$vehicleDataIndex]'] = vehicleStikerController?.text ?? "No";
-        tenantFormdata['etag[$vehicleDataIndex]'] = eTag ?? "No";
+        addvehicleControllers();
+        tenantFormdata['vehicle_type[$index]'] = vehicleTypeControllers[index].text;
+        tenantFormdata['registration[$index]'] = vehicleRegisterNoControllers[index].text;
+        tenantFormdata['color[$index]'] = vehicleColorControllers[index].text;
+        tenantFormdata['sticker_no[$index]'] = vehicleStikerControllers[index].text;
+        tenantFormdata['etag[$index]'] = eTag[index];
         Utils.showToast(
           "Vehicle ${vehicleDataIndex + 1} Added Successfully",
           false,
         );
         vehicleDataIndex = vehicleDataIndex + 1;
-
-        clearVehicleForm();
         update();
         log(tenantFormdata.toString());
       });
     }
   }
 
-  clearVehicleForm() {
-    vehicleTypeController?.clear();
-    vehicleRegisterNoController?.clear();
-    vehicleColorController?.clear();
-    vehicleStikerController?.clear();
-    vehicleEtagController.clear();
-    vehicleEngineNoController.clear();
-    hasVehicle = "";
-    eTag = "";
-  }
+  // clearVehicleForm() {
+  //   vehicleTypeControllers?.clear();
+  //   vehicleRegisterNoControllers?.clear();
+  //   vehicleColorControllers?.clear();
+  //   vehicleStikerControllers?.clear();
+  //   vehicleEtagController.clear();
+  //   hasVehicle = "";
+  //   eTag.clear();
+  // }
 
   Future<void> tenantFormApi(context) async {
     final formState = formKey.currentState;
@@ -395,7 +397,7 @@ class TenantFornsScreenController extends GetxController {
                     'Authorization': "Bearer $token",
                   },
                 ),
-                data: data, 
+                data: data,
               );
               if (response.statusCode == 200) {
                 Utils.showToast(
@@ -536,7 +538,7 @@ class TenantFornsScreenController extends GetxController {
   }
 
   updateEtag(value) {
-    eTag = value;
+    eTag.add(value);
     update();
   }
 }

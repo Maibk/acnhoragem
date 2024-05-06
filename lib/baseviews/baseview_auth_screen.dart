@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../core/utils/color_constant.dart';
-import '../widgets/app_status_bar.dart';
 import '../widgets/custom_dialogue.dart';
 
 class BaseviewAuthScreen extends StatelessWidget {
