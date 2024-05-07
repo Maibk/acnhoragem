@@ -23,6 +23,7 @@ class CustomTextField extends StatefulWidget {
   final Function(String)? onChanged;
   bool? isPassword;
   bool? isCaps;
+  FontStyle? fontStyle;
   bool? readOnly;
   double? nameWidth;
   TextEditingController? controller;
@@ -47,6 +48,7 @@ class CustomTextField extends StatefulWidget {
       this.hintText,
       this.isFinal,
       this.validator,
+      this.fontStyle,
       this.enabled = true,
       this.isCaps = false,
       this.inputFormatters,
@@ -125,10 +127,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       widget.controller!.value = TextEditingValue(
                           text: text,
                           selection: TextSelection(
-                              baseOffset: widget.limit!,
-                              extentOffset: widget.limit!,
-                              affinity: TextAffinity.downstream,
-                              isDirectional: false),
+                              baseOffset: widget.limit!, extentOffset: widget.limit!, affinity: TextAffinity.downstream, isDirectional: false),
                           composing: TextRange(start: 0, end: widget.limit!));
                     }
                     if (widget.onChanged != null) {
@@ -137,14 +136,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   },
                   inputFormatters: widget.inputFormatters,
                   onFieldSubmitted: (_) {
-                    widget.isFinal!
-                        ? FocusScope.of(context).unfocus()
-                        : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
+                    widget.isFinal! ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
                   },
                   onEditingComplete: () {
-                    widget.isFinal!
-                        ? FocusScope.of(context).unfocus()
-                        : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
+                    widget.isFinal! ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
                   },
                   textInputAction: widget.isFinal!
                       ? TextInputAction.done // For final fields, show "Done"
@@ -153,7 +148,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                           : TextInputAction.newline,
                   //   style: _setFontStyle,
                   //  decoration: AppStyles.decoration2(widget.fieldText!),
-                  style: AppStyle.txtAgeoSemiBold16WhiteA700.copyWith(
+                  style: AppStyle.txtPoppinsSemiBold16WhiteA700.copyWith(
+                      fontStyle: widget.fontStyle ?? null,
                       fontSize: widget.lableFontSize ?? 16,
                       color: widget.lableColor ?? ColorConstant.blackColor,
                       fontWeight: FontWeight.normal),
@@ -169,28 +165,21 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     hintStyle: _setHintStyle(),
                     alignLabelWithHint: true,
                     errorStyle: TextStyle(
-                      color: Theme.of(context).errorColor, // or any other color
+                      color: Theme.of(context).colorScheme.error, // or any other color
                     ),
                     labelStyle: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
-                        fontSize: widget.lableFontSize ?? 15,
-                        color: widget.lableColor ?? ColorConstant.gray600,
-                        fontWeight: FontWeight.w400),
+                        fontSize: widget.lableFontSize ?? 15, color: widget.lableColor ?? ColorConstant.gray600, fontWeight: FontWeight.w400),
                     contentPadding: EdgeInsets.only(left: 1, right: 10, bottom: 15),
                     errorBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(width: 1.0, color: Theme.of(context).errorColor)),
+                        borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: Theme.of(context).colorScheme.error)),
                     border: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
+                        borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                     enabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
+                        borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                     disabledBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
+                        borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                     focusedBorder: UnderlineInputBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
+                        borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                   ),
                 ),
                 GestureDetector(

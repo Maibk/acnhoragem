@@ -9,6 +9,7 @@ import 'package:anchorageislamabad/presentation/myprofile_screen/controller/mypr
 import 'package:anchorageislamabad/presentation/splash_screen/controller/splash_controller.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:dio/dio.dart' as _dio;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart' as _http;
 
@@ -54,18 +55,25 @@ class ComplaintsController extends GetxController {
   final GlobalKey<PagedViewState> pageKey = GlobalKey();
   RxList<DealsModel> categories = <DealsModel>[].obs;
   GlobalKey<FormState> formKey = new GlobalKey();
+  List<File>? complaintsImages;
 
   final ImagePicker picker = ImagePicker();
+  Future<List<File>?> getImages(context) async {
+    final pickedFile = await picker.pickMultiImage(imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
 
-  Future<File?> imagePicker() async {
-    final result = await picker.pickImage(source: ImageSource.gallery);
+    List<File> selectedImages = [];
 
-    if (result != null) {
+    List<XFile> xfilePick = pickedFile;
+    if (xfilePick.isNotEmpty) {
+      for (var i = 0; i < xfilePick.length; i++) {
+        selectedImages.add(File(xfilePick[i].path));
+      }
+
       update();
-      return File(result.path);
+      return selectedImages;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
     }
-
-    update();
     return null;
   }
 
@@ -141,9 +149,7 @@ class ComplaintsController extends GetxController {
 
             return false;
           });
-        }
-        
-        );
+        });
       } else {
         isInternetAvailable.value = false;
       }
@@ -161,10 +167,11 @@ class ComplaintsController extends GetxController {
         'property_id': '25793',
         'description': descriptionController.text
       };
-      if (complaintPhoto != null) {
-        String filePath1 = complaintPhoto?.path ?? '';
+
+        for (var i = 0; i < complaintsImages!.length; i++) {
+        String filePath1 = complaintsImages![i].path;
         if (filePath1.isNotEmpty) {
-          data['owner_cnic_image[]'] = await _dio.MultipartFile.fromFile(
+          data['attachment[$i]'] = await _dio.MultipartFile.fromFile(
             filePath1,
             filename: filePath1.split('/').last,
             contentType: _http.MediaType.parse('image/jpeg'),
@@ -227,11 +234,7 @@ class ComplaintsController extends GetxController {
 
   Future<void> submitMessge(context, id) async {
     Utils.check().then((value) async {
-      Map<String, dynamic> data = {
-        'complaint_id': id,
-        'user_id': loginResponseModel?.data?.id ?? 0,
-        'message': messageController.text
-      };
+      Map<String, dynamic> data = {'complaint_id': id, 'user_id': loginResponseModel?.data?.id ?? 0, 'message': messageController.text};
 
       if (value) {
         btnController.start();

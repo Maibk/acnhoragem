@@ -25,13 +25,13 @@ class AppbarSearchview extends StatelessWidget {
       padding: margin ?? EdgeInsets.only(left: 1),
       child: CustomSearchView(
         width: size.width,
-      //  isTappable: isTappable,
+        //  isTappable: isTappable,
         focusNode: FocusNode(),
         controller: controller,
         hintText: hintText,
-       // onSubmitted: onSubmitted,
+        // onSubmitted: onSubmitted,
         onChanged: onChanged,
-       // fontStyle: SearchViewFontStyle.AgeoRegular17,
+        // fontStyle: SearchViewFontStyle.PoppinsRegular17,
         prefix: Container(
           child: CustomImageView(
             imagePath: ImageConstant.imgClose,

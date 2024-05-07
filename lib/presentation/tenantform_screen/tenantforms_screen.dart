@@ -1,13 +1,14 @@
 import 'dart:developer';
 
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
-import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
+import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:csc_picker/csc_picker.dart';
+
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/size_utils.dart';
@@ -36,8 +37,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -49,7 +49,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
             title: MyText(
               title: "Tenant Forms",
               clr: ColorConstant.whiteA700,
-              fontSize: 20,
+              fontSize: 20.h,
               customWeight: FontWeight.w500,
             ),
             centerTitle: true,
@@ -109,7 +109,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                 alignment: Alignment.topLeft,
                                 child: MyText(
                                   title: "Record Form",
-                                  fontSize: 16,
+                                  fontSize: 16.h,
                                   clr: ColorConstant.apppWhite,
                                 )),
                             SizedBox(
@@ -121,7 +121,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                               title: MyText(
                                 title: 'PARTICULARS OF TENANT',
                                 clr: ColorConstant.black900,
-                                fontSize: 16,
+                                fontSize: 16.h,
                               ),
                               children: <Widget>[
                                 Column(
@@ -175,7 +175,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             child: CSCPicker(
                                               countryDropdownLabel: "Nationality",
                                               onCountryChanged: (value) {
-                                                controller.natinalityController.text = value!;
+                                                controller.natinalityController.text = value;
                                                 log(controller.natinalityController.text);
                                               },
                                               dropdownHeadingStyle: TextStyle(color: ColorConstant.appBorderGray),
@@ -184,9 +184,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               showCities: false,
                                               showStates: false,
                                               dropdownDecoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom:
-                                                          BorderSide(width: .5, color: ColorConstant.appBorderGray)),
+                                                  border: Border(bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray)),
                                                   color: Colors.transparent,
                                                   borderRadius: BorderRadius.circular(00.0)),
                                             ),
@@ -198,7 +196,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 ? Text(
                                                     "Block/COMM ",
                                                     style: TextStyle(
-                                                      fontSize: 14,
+                                                      fontSize: 14.h,
                                                       color: ColorConstant.blackColor.withOpacity(0.5),
                                                       fontFamily: AppFonts.lucidaBright,
                                                       fontWeight: FontWeight.w400,
@@ -209,7 +207,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             disabledHint: Text(
                                               "  ",
                                               style: TextStyle(
-                                                fontSize: 14,
+                                                fontSize: 14.h,
                                                 color: ColorConstant.blackColor.withOpacity(0.5),
                                                 fontFamily: AppFonts.lucidaBright,
                                                 fontWeight: FontWeight.w400,
@@ -241,14 +239,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       children: [
                                         GetBuilder(
                                             init: controller,
-                                            builder: (context) {
+                                            builder: (_) {
                                               return Expanded(
                                                   child: DropdownButton<Street>(
                                                 hint: controller.streetSelectedValue == null
                                                     ? Text(
                                                         "Select Street",
                                                         style: TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 14.h,
                                                           color: ColorConstant.blackColor.withOpacity(0.5),
                                                           fontFamily: AppFonts.lucidaBright,
                                                           fontWeight: FontWeight.w400,
@@ -259,7 +257,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 disabledHint: Text(
                                                   "Select Street",
                                                   style: TextStyle(
-                                                    fontSize: 14,
+                                                    fontSize: 14.h,
                                                     color: ColorConstant.blackColor.withOpacity(0.5),
                                                     fontFamily: AppFonts.lucidaBright,
                                                     fontWeight: FontWeight.w400,
@@ -282,14 +280,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             }),
                                         GetBuilder(
                                             init: controller,
-                                            builder: (context) {
+                                            builder: (_) {
                                               return Expanded(
                                                   child: DropdownButton<Plots>(
                                                 hint: controller.plotstSelectedValue == null
                                                     ? Text(
                                                         "Select Plot",
                                                         style: TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 14.h,
                                                           color: ColorConstant.blackColor.withOpacity(0.5),
                                                           fontFamily: AppFonts.lucidaBright,
                                                           fontWeight: FontWeight.w400,
@@ -300,7 +298,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 disabledHint: Text(
                                                   "Select Plot",
                                                   style: TextStyle(
-                                                    fontSize: 14,
+                                                    fontSize: 14.h,
                                                     color: ColorConstant.blackColor.withOpacity(0.5),
                                                     fontFamily: AppFonts.lucidaBright,
                                                     fontWeight: FontWeight.w400,
@@ -318,10 +316,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     log(controller.plotstSelectedValue!.id.toString());
                                                     for (var i = 0; i < controller.plots.length; i++) {
                                                       controller.plotstSelectedValue?.id == controller.plots[i].id;
-                                                      if (controller.plotstSelectedValue?.id ==
-                                                          controller.plots[i].id) {
-                                                        controller.sizeHouseAddController.text =
-                                                            controller.plots[i].sq_yards.toString();
+                                                      if (controller.plotstSelectedValue?.id == controller.plots[i].id) {
+                                                        controller.sizeHouseAddController.text = controller.plots[i].sq_yards.toString();
                                                         log("Square yard found ${controller.sizeHouseAddController.text}");
                                                         break;
                                                       }
@@ -392,12 +388,74 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                     SizedBox(
                                       height: getVerticalSize(20),
                                     ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 0.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          MyText(
+                                            title: 'PARTICULARS OF OWNER',
+                                            clr: ColorConstant.black900,
+                                            fontSize: 16.h,
+                                          ).paddingOnly(left: 15),
+                                          SizedBox(
+                                            height: getVerticalSize(5),
+                                          ),
+                                          CustomTextField(
+                                            fieldText: "Name".tr,
+                                            controller: controller.ownerNameController,
+                                            isFinal: false,
+                                            keyboardType: TextInputType.emailAddress,
+                                            limit: HelperFunction.EMAIL_VALIDATION,
+                                            validator: (value) {
+                                              return HelperFunction.empthyFieldValidator(value!);
+                                            },
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(5),
+                                          ),
+                                          CustomTextField(
+                                            fieldText: "Telephone No".tr,
+                                            controller: controller.ownerPhoneController,
+                                            isFinal: false,
+                                            keyboardType: TextInputType.phone,
+                                            limit: HelperFunction.EMAIL_VALIDATION,
+                                            validator: (value) {
+                                              return HelperFunction.empthyFieldValidator(value!);
+                                            },
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(5),
+                                          ),
+                                          CustomTextField(
+                                            fieldText: "CNIC No".tr,
+                                            controller: controller.ownerCNICController,
+                                            isFinal: false,
+                                            keyboardType: TextInputType.number,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter.digitsOnly,
+                                              TextInputFormatterWithPattern('#####-#######-#'),
+                                            ],
+                                            limit: HelperFunction.EMAIL_VALIDATION,
+                                            validator: (value) {
+                                              return HelperFunction.empthyFieldValidator(value!);
+                                            },
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(5),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: getVerticalSize(15),
+                                    ),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         GetBuilder(
                                             init: controller,
-                                            builder: (context) {
+                                            builder: (_) {
                                               return Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -408,7 +466,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         child: MyText(
                                                           title: "Allotment Letter held:",
                                                           clr: ColorConstant.antextlightgray,
-                                                          fontSize: 14,
+                                                          fontSize: 14.h,
                                                         ),
                                                       ),
                                                       SizedBox(
@@ -505,7 +563,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       children: [
                                         GetBuilder(
                                             init: controller,
-                                            builder: (context) {
+                                            builder: (_) {
                                               return Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -516,7 +574,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         child: MyText(
                                                           title: "Completion certificate held:",
                                                           clr: ColorConstant.antextlightgray,
-                                                          fontSize: 14,
+                                                          fontSize: 14.h,
                                                         ),
                                                       ),
                                                       SizedBox(
@@ -594,6 +652,96 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                   SizedBox(
                                                     height: getVerticalSize(20),
                                                   ),
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      await showDialog(
+                                                        context: context,
+                                                        barrierDismissible: false,
+                                                        builder: (_) => SingleChildScrollView(
+                                                          child: AlertDialog(
+                                                            insetPadding: EdgeInsets.symmetric(
+                                                              horizontal: 10,
+                                                            ),
+                                                            backgroundColor: Colors.transparent,
+                                                            shadowColor: Colors.transparent,
+                                                            surfaceTintColor: Colors.transparent,
+                                                            shape: RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius.circular(25),
+                                                            ),
+                                                            actions: [
+                                                              Container(
+                                                                  padding: EdgeInsets.all(15),
+                                                                  // height: MediaQuery.of(context).size.height,
+                                                                  // width: MediaQuery.of(context).size.width,
+                                                                  decoration: BoxDecoration(
+                                                                      border: Border.all(color: Colors.white),
+                                                                      borderRadius: BorderRadius.circular(10),
+                                                                      color: Color(0xffFFFFFF)),
+                                                                  child: Column(
+                                                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Text(
+                                                                            "Declaration by the Tenant",
+                                                                            textAlign: TextAlign.left,
+                                                                            style: TextStyle(fontSize: 18.h, color: ColorConstant.blackColor),
+                                                                          ),
+                                                                          GestureDetector(
+                                                                            onTap: () {
+                                                                              Get.back();
+                                                                            },
+                                                                            child: Icon(
+                                                                              Icons.close_sharp,
+                                                                              color: ColorConstant.gray600,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                      Divider(
+                                                                        height: 30,
+                                                                        color: ColorConstant.appTextGray.withOpacity(.7),
+                                                                      ),
+                                                                      Text(
+                                                                        Constants.agreementText,
+                                                                        textAlign: TextAlign.left,
+                                                                        style: TextStyle(fontSize: 12.h, color: ColorConstant.greyColor),
+                                                                      ),
+                                                                      Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                                        children: [
+                                                                          GestureDetector(
+                                                                            onTap: () {
+                                                                              Get.back();
+                                                                            },
+                                                                            child: Container(
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(7),
+                                                                                color: ColorConstant.gray600,
+                                                                              ),
+                                                                              child: Text(
+                                                                                "Close",
+                                                                                style: TextStyle(fontSize: 16.h, color: Colors.white),
+                                                                              ).paddingSymmetric(horizontal: 15, vertical: 10),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      )
+                                                                    ],
+                                                                  )),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: MyText(
+                                                      title: 'Survey Declaration',
+                                                      clr: Color(0xff007BFF),
+                                                      fontSize: 16.h,
+                                                    ).paddingOnly(left: 15),
+                                                  ),
                                                 ],
                                               );
                                             }),
@@ -603,7 +751,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       height: getVerticalSize(15),
                                     ),
                                   ],
-                                )
+                                ),
                               ],
                             ),
                             SizedBox(
@@ -615,12 +763,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                               title: MyText(
                                 title: 'PRIVATE ARMS',
                                 clr: ColorConstant.black900,
-                                fontSize: 16,
+                                fontSize: 16.h,
                               ),
                               children: <Widget>[
                                 GetBuilder(
                                     init: controller,
-                                    builder: (context) {
+                                    builder: (_) {
                                       return Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -631,7 +779,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 child: MyText(
                                                   title: "PRIVATE ARMS*:",
                                                   clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
+                                                  fontSize: 14.h,
                                                 ),
                                               ),
                                               SizedBox(
@@ -662,6 +810,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         ),
                                                         MyText(
                                                           title: "Yes",
+                                                          fontSize: 16,
                                                           clr: ColorConstant.antextlightgray,
                                                         ),
                                                       ],
@@ -794,12 +943,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                               title: MyText(
                                 title: 'Vehicles Information',
                                 clr: ColorConstant.black900,
-                                fontSize: 16,
+                                fontSize: 16.h,
                               ),
                               children: <Widget>[
                                 GetBuilder(
                                     init: controller,
-                                    builder: (context) {
+                                    builder: (_) {
                                       return Form(
                                         key: controller.vehicleFormKey,
                                         child: Column(
@@ -829,7 +978,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                   child: MyText(
                                                     title: "VEHICLE(s) IN USE",
                                                     clr: ColorConstant.antextlightgray,
-                                                    fontSize: 14,
+                                                    fontSize: 14.h,
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -841,7 +990,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     return GestureDetector(
                                                       behavior: HitTestBehavior.opaque,
                                                       onTap: () {
-                                                        controller.addvehicleControllers();
+                                                        // controller.addvehicleControllers();
                                                         controller.updateVehicle("Yes");
                                                       },
                                                       child: Row(
@@ -913,12 +1062,32 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 ? ListView.builder(
                                                     shrinkWrap: true,
                                                     physics: NeverScrollableScrollPhysics(),
-                                                    itemCount: controller.vehicleTypeControllers.length == 0
-                                                        ? 1
-                                                        : controller.vehicleTypeControllers.length,
+                                                    itemCount:
+                                                        controller.vehicleTypeControllers.length == 0 ? 1 : controller.vehicleTypeControllers.length,
                                                     itemBuilder: (context, index) {
                                                       return Column(
                                                         children: [
+                                                          if (index != 0)
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    setState(() {
+                                                                      controller.vehicleTypeControllers.removeAt(index);
+                                                                    });
+                                                                  },
+                                                                  child: Container(
+                                                                      margin: EdgeInsets.only(right: 15),
+                                                                      padding: EdgeInsets.all(8),
+                                                                      decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                      child: Icon(
+                                                                        Icons.delete_outlined,
+                                                                        color: Colors.white,
+                                                                      )),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                             children: [
@@ -931,8 +1100,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(
-                                                                              value!);
+                                                                          return HelperFunction.empthyFieldValidator(value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -940,14 +1108,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   fieldText: "Registration No.".tr,
-                                                                  controller:
-                                                                      controller.vehicleRegisterNoControllers[index],
+                                                                  controller: controller.vehicleRegisterNoControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(
-                                                                              value!);
+                                                                          return HelperFunction.empthyFieldValidator(value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -969,8 +1135,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(
-                                                                              value!);
+                                                                          return HelperFunction.empthyFieldValidator(value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -978,8 +1143,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   fieldText: "Sticker No.".tr,
-                                                                  controller:
-                                                                      controller.vehicleStikerControllers[index],
+                                                                  controller: controller.vehicleStikerControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                 ),
@@ -996,7 +1160,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                 child: MyText(
                                                                   title: "E-Tag",
                                                                   clr: ColorConstant.antextlightgray,
-                                                                  fontSize: 14,
+                                                                  fontSize: 14.h,
                                                                 ),
                                                               ),
                                                               SizedBox(
@@ -1008,9 +1172,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   return GestureDetector(
                                                                     behavior: HitTestBehavior.opaque,
                                                                     onTap: () {
-                                                                      controller.updateEtag(
-                                                                        "Yes",
-                                                                      );
+                                                                      setState(() {
+                                                                        controller.eTag[index] = "Yes";
+                                                                      });
+                                                                      // controller.updateEtag(
+                                                                      //   "Yes",
+                                                                      // );
                                                                       // controller.eTag.add("Yes");
                                                                       log(controller.eTag.toString());
                                                                     },
@@ -1047,7 +1214,11 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                 builder: (controller) {
                                                                   return GestureDetector(
                                                                     onTap: () {
-                                                                      controller.updateEtag("No");
+                                                                      setState(() {
+                                                                        controller.eTag[index] = "No";
+                                                                      });
+
+                                                                      // controller.updateEtag("No");
                                                                     },
                                                                     child: Row(
                                                                       children: [
@@ -1088,7 +1259,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               radius: 5.0,
                                                               height: getVerticalSize(50),
                                                               width: getHorizontalSize(400),
-                                                              fontSize: 16,
+                                                              fontSize: 16.h,
                                                               bgColor: ColorConstant.anbtnBlue,
                                                               controller: controller.uselessbtnController,
                                                               title: "Add Vehicle".tr,
@@ -1132,7 +1303,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                 alignment: Alignment.topLeft,
                                 child: MyText(
                                   title: "Required Documents",
-                                  fontSize: 22,
+                                  fontSize: 22.h,
                                 )),
                             SizedBox(
                               height: getVerticalSize(10),
@@ -1142,12 +1313,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                               title: MyText(
                                 title: 'Required Documents',
                                 clr: ColorConstant.black900,
-                                fontSize: 16,
+                                fontSize: 16.h,
                               ),
                               children: <Widget>[
                                 GetBuilder(
                                     init: controller,
-                                    builder: (context) {
+                                    builder: (_) {
                                       return Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -1156,7 +1327,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             child: MyText(
                                               title: "Requirements:",
                                               clr: ColorConstant.antextlightgray,
-                                              fontSize: 15,
+                                              fontSize: 15.h,
                                             ),
                                           ),
                                           SizedBox(
@@ -1166,16 +1337,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "CNIC OF OWNER (FRONT & BACK)*".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.ownerCnicFrontBack != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.ownerCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1190,16 +1359,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "CNIC OF TENANT (FRONT & BACK)*".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.tenantCnicFrontBack != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.tenantCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1214,16 +1381,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "CNIC OF ESTATE AGENT (FRONT & BACK)".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.estateCnicFrontBack != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.estateCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1238,16 +1403,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "PHOTOGRAPH OF TENANT*".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.tenantPhoto != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.tenantPhoto != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1262,16 +1425,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "RENT AGREEMENT DULLY SIGNED*".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.rentAgreement != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.rentAgreement != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1286,16 +1447,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "POLICE REGISTRATION FROM *".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.policeForm != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.policeForm != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1310,16 +1469,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12,
+                                              fontSize: 12.h,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "COMPLETION CERTIFICATE (IF APPLICABLE)".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.certificate != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.certificate != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1342,7 +1499,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               radius: 5.0,
                                               height: getVerticalSize(50),
                                               width: getHorizontalSize(400),
-                                              fontSize: 16,
+                                              fontSize: 16.h,
                                               bgColor: ColorConstant.anbtnBlue,
                                               controller: controller.btnController,
                                               title: "Submit".tr,

@@ -34,8 +34,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -95,74 +94,80 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () async {
-                                        controller.complaintPhoto = await controller.imagePicker();
-                                      },
-                                      child: Stack(
-                                        clipBehavior: Clip.none,
-                                        children: [
-                                          CommonImageView(
-                                            imagePath: ImageConstant.complaintImage,
-                                            height: getVerticalSize(120),
-                                            width: double.infinity,
-                                          ),
-                                          controller.complaintPhoto != null
-                                              ? Icon(
+                                    Stack(
+                                      alignment: Alignment.bottomRight,
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        CommonImageView(
+                                          imagePath: ImageConstant.complaintImage,
+                                          height: getVerticalSize(120),
+                                          width: double.infinity,
+                                        ),
+                                        controller.complaintsImages != null
+                                            ? Container(
+                                                decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                                child: Icon(
                                                   Icons.check_circle_outline_outlined,
-                                                  color: Colors.white,
+                                                  color: ColorConstant.anbtnBlue,
                                                   size: 55,
-                                                )
-                                              : Positioned(
-                                                  bottom: 0, // Position halfway up the image
-                                                  right: 5, // Align at the right
-
-                                                  child: GestureDetector(
-                                                    onTap: () async {
-                                                      controller.complaintPhoto = await controller.imagePicker();
-                                                    },
-                                                    child: CommonImageView(
-                                                      imagePath: ImageConstant.complaintAddIcon,
-                                                    ),
-                                                  ),
                                                 ),
-                                        ],
-                                      ),
+                                              )
+                                            : Positioned(
+                                                bottom: -15, // Position halfway up the image
+
+                                                child: GestureDetector(
+                                                    onTap: () async {
+                                                      controller.complaintsImages = await controller.getImages(context);
+                                                    },
+                                                    child: Container(
+                                                      decoration: BoxDecoration(color: ColorConstant.anbtnBlue, shape: BoxShape.circle),
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: ColorConstant.whiteA700,
+                                                        size: 45,
+                                                      ),
+                                                    )),
+                                              ),
+                                      ],
                                     ),
                                     SizedBox(height: getVerticalSize(10)),
-                                    MyText(title: "Complaint Category", fontSize: 12),
+                                    MyText(title: "Complaint Category", fontSize: 12.h),
                                     SizedBox(height: getVerticalSize(10)),
                                     DropdownButton<Complaint>(
                                       value: controller.selectedComplaint,
                                       items: controller.complaints.map((complaint) {
                                         return DropdownMenuItem(
                                           value: complaint,
-                                          child: Text(complaint.title),
+                                          child: Text(
+                                            complaint.title,
+                                            style: TextStyle(fontSize: 12.h),
+                                          ),
                                         );
                                       }).toList(),
                                       onChanged: (newValue) {
                                         setState(() {
-                                          controller.selectedComplaint = newValue as Complaint?;
+                                          controller.selectedComplaint = newValue;
                                           controller.selectedDepartment = null;
                                         });
                                       },
                                     ),
                                     SizedBox(height: 20.0),
-                                    if (controller.selectedComplaint != null)
-                                      MyText(title: "Complaint Type", fontSize: 12),
+                                    if (controller.selectedComplaint != null) MyText(title: "Complaint Type", fontSize: 12.h),
                                     Container(
-                                      width: getHorizontalSize(370),
                                       child: DropdownButton(
                                         value: controller.selectedDepartment,
                                         items: controller.selectedComplaint?.findDepartments.map((department) {
                                           return DropdownMenuItem(
                                             value: department,
-                                            child: Text(department['title']),
+                                            child: Text(
+                                              department['title'],
+                                              style: TextStyle(fontSize: 12.h),
+                                            ),
                                           );
                                         }).toList(),
                                         onChanged: (newValue) {
                                           setState(() {
-                                            controller.selectedDepartment = newValue as Map<String, dynamic>?;
+                                            controller.selectedDepartment = newValue;
                                             log(controller.selectedDepartment!['id'].toString());
                                           });
                                         },
@@ -178,7 +183,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                       keyboardType: TextInputType.emailAddress,
                                       limit: HelperFunction.EMAIL_VALIDATION,
                                       validator: (value) {
-                                        return HelperFunction.fullNameFieldValidator(value!);
+                                        return HelperFunction.empthyFieldValidator(value!);
                                       },
                                     ),
                                     SizedBox(height: getVerticalSize(15)),

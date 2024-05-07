@@ -1023,6 +1023,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                   title: 'Add Signature',
                                   clr: ColorConstant.black900,
                                   fontSize: 16,
+                                  customWeight: FontWeight.w600,
                                 ),
                                 children: <Widget>[
                                   Column(
@@ -1034,6 +1035,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             child: CustomTextField(
                                               fieldText: "SIGNATURE OF OWNER:".tr,
                                               readOnly: true,
+
+                                              fontStyle: FontStyle.italic,
+
                                               controller: controller.fullNameController,
 
                                               // TextEditingController(text: controller.fullNameController.text),

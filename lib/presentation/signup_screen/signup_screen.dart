@@ -91,9 +91,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                       height: 230.h,
                                       width: screenWidth,
                                       decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.white),
-                                          borderRadius: BorderRadius.circular(10),
-                                          color: Color(0xffFFFFFF)),
+                                          border: Border.all(color: Colors.white), borderRadius: BorderRadius.circular(10), color: Color(0xffFFFFFF)),
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +102,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                             style: TextStyle(
                                               fontSize: 25,
                                               color: Color(0xff02045C),
-                                              fontFamily: 'Ageo',
+                                              fontFamily: 'Poppins',
                                             ),
                                           ),
                                           Row(
@@ -128,7 +126,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                                         style: TextStyle(
                                                           fontSize: 16,
                                                           color: Color(0xffFFFFFF),
-                                                          fontFamily: 'Ageo',
+                                                          fontFamily: 'Poppins',
                                                         ),
                                                       ).paddingSymmetric(vertical: 5),
                                                     ),
@@ -155,7 +153,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                                                         style: TextStyle(
                                                           fontSize: 16,
                                                           color: ColorConstant.blackColor,
-                                                          fontFamily: 'Ageo',
+                                                          fontFamily: 'Poppins',
                                                         ),
                                                       ).paddingSymmetric(vertical: 5),
                                                     ),
@@ -182,19 +180,15 @@ class SignUpScreen extends GetWidget<SignUpController> {
                               contentPadding: EdgeInsets.only(left: 18, right: 10, bottom: 15),
                               errorBorder: UnderlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(width: 1.0, color: Theme.of(context).errorColor)),
+                                  borderSide: BorderSide(width: 1.0, color: Theme.of(context).colorScheme.error)),
                               border: UnderlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
+                                  borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                               enabledBorder: UnderlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
+                                  borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                               disabledBorder: UnderlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
+                                  borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                               focusedBorder: UnderlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
+                                  borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: ColorConstant.appBorderGray)),
                             ),
                             style: TextStyle(color: Colors.black, fontSize: 14),
                           ),
@@ -244,12 +238,9 @@ class SignUpScreen extends GetWidget<SignUpController> {
                         ),
                         Obx(
                           () => CustomTextField(
-                            postPixText: controller.isShowPassword.value == true
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off),
+                            postPixText: controller.isShowPassword.value == true ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
                             sufixIconOnTap: () {
-                              controller.isShowPassword.value =
-                                  HelperFunction.showPassword(controller.isShowPassword.value);
+                              controller.isShowPassword.value = HelperFunction.showPassword(controller.isShowPassword.value);
                             },
                             limit: 15,
                             inputFormatters: [

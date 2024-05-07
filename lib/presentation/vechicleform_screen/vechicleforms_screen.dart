@@ -530,8 +530,104 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           ],
                                         ),
                                       ),
+                                      _value.selectedResidential == 2
+                                          ? GetBuilder(
+                                              init: controller,
+                                              builder: (context) {
+                                                return Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Padding(
+                                                          padding: getPadding(left: 10),
+                                                          child: MyText(
+                                                            title: "NOC submitted",
+                                                            clr: ColorConstant.antextlightgray,
+                                                            fontSize: 14,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(20),
+                                                        ),
+                                                        GetBuilder(
+                                                          init: controller,
+                                                          builder: (_) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                controller.updateNocStatus("Yes");
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  controller.nocSubmitted == "Yes"
+                                                                      ? Icon(
+                                                                          Icons.circle,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons.circle_outlined,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(10),
+                                                                  ),
+                                                                  MyText(
+                                                                    title: "Yes",
+                                                                    clr: ColorConstant.antextlightgray,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(20),
+                                                        ),
+                                                        GetBuilder(
+                                                          init: controller,
+                                                          builder: (_) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                controller.updateNocStatus("No");
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  controller.nocSubmitted == "No"
+                                                                      ? Icon(
+                                                                          Icons.circle,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons.circle_outlined,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(10),
+                                                                  ),
+                                                                  MyText(
+                                                                    title: "No",
+                                                                    clr: ColorConstant.antextlightgray,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: getVerticalSize(20),
+                                                    ),
+                                                  ],
+                                                );
+                                              }).paddingOnly(top: 15)
+                                          : SizedBox.shrink(),
                                       SizedBox(
-                                        height: getVerticalSize(15),
+                                        height: getVerticalSize(5),
                                       ),
                                       GetBuilder(
                                           init: controller,

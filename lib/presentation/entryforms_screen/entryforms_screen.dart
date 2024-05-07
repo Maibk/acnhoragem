@@ -356,7 +356,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           padding: getPadding(left: 10, right: 10),
                                           child: CustomButton(
                                             width: getHorizontalSize(350),
-                                            fontSize: 12,
+                                            fontSize: 12.h,
                                             fontWeight: FontWeight.w700,
                                             color: ColorConstant.whiteA700,
                                             label: "Attach a clear image of yours".tr,
@@ -378,7 +378,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           padding: getPadding(left: 10, right: 10),
                                           child: CustomButton(
                                             width: getHorizontalSize(350),
-                                            fontSize: 12,
+                                            fontSize: 12.h,
                                             fontWeight: FontWeight.w700,
                                             color: ColorConstant.whiteA700,
                                             label: "Attach a clear image of your CNIC front side".tr,
@@ -400,7 +400,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           padding: getPadding(left: 10, right: 10),
                                           child: CustomButton(
                                             width: getHorizontalSize(350),
-                                            fontSize: 12,
+                                            fontSize: 12.h,
                                             fontWeight: FontWeight.w700,
                                             color: ColorConstant.whiteA700,
                                             label: "Attach a clear image of your CNIC back side".tr,
@@ -691,7 +691,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12,
+                                                      fontSize: 12.h,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of spouse".tr,
@@ -726,7 +726,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12,
+                                                      fontSize: 12.h,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of spouse CNIC front side".tr,
@@ -762,7 +762,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12,
+                                                      fontSize: 12.h,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of Spouse CNIC back side".tr,
@@ -1085,7 +1085,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12,
+                                                      fontSize: 12.h,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of child".tr,
@@ -1118,7 +1118,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12,
+                                                      fontSize: 12.h,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of child CNIC front sides".tr,
@@ -1152,7 +1152,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12,
+                                                      fontSize: 12.h,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of child CNIC back side".tr,

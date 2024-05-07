@@ -501,7 +501,7 @@ class VechicleController extends GetxController {
             'block': selectedValue ?? 0,
             'cell_no': cellNoController.text,
             'ptcl_no': ptclController.text,
-            'noc': "none",
+            'noc': selectedResidential == 2 ? nocSubmitted : "Not a tenant",
             "residential_status": selectedResidential == 1
                 ? "Civilian"
                 : selectedResidential == 2
@@ -582,6 +582,12 @@ class VechicleController extends GetxController {
                   log(json.encode(response.data));
 
                   Get.offAllNamed(AppRoutes.homePage);
+                } else if (response.statusCode == 500) {
+                  Utils.showToast(
+                    "Internal Server Error",
+                    false,
+                  );
+                  Get.offAllNamed(AppRoutes.homePage);
                 } else {
                   btnController.stop();
 
@@ -592,14 +598,9 @@ class VechicleController extends GetxController {
                   log(response.statusMessage.toString());
                 }
               } on _dio.DioException catch (error) {
-                // dio error (api reach the server but not performed successfully
-                // no response
-                log(error.response?.data["message"].toString() ?? "");
-                log(error.error.toString(), name: "APi Error");
-                log(error.response.toString(), name: "APi Error Response");
                 btnController.stop();
                 Utils.showToast(
-                  error.response?.data["message"].toString() ?? error.error.toString(),
+                  error.response?.toString() ?? error.error.toString(),
                   true,
                 );
                 if (error.response == null) {
@@ -625,6 +626,13 @@ class VechicleController extends GetxController {
         );
       }
     }
+  }
+
+  String nocSubmitted = "";
+
+  updateNocStatus(value) {
+    nocSubmitted = value;
+    update();
   }
 
   addVehicleControllers() {

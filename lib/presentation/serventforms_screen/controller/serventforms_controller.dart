@@ -629,6 +629,13 @@ class ServentFormsController extends GetxController {
     addServantFamControllers();
     addServantControllers();
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+    serventfamfullNameControllers.clear();
+    serventfullNameControllers.clear();
+  }
 }
 
 class Street {

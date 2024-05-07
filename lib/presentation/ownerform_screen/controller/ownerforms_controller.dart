@@ -145,30 +145,16 @@ class OwnerFornsScreenController extends GetxController {
         ownerFormdata['registration[$index]'] = vehicleRegisterNoControllers[index].text;
         ownerFormdata['color[$index]'] = vehicleColorControllers[index].text;
         ownerFormdata['sticker_no[$index]'] = vehicleStikerControllers[index].text;
-        ownerFormdata['etag[$index]'] = eTag == "Yes" ? "Yes" : "No";
+        ownerFormdata['etag[$index]'] = eTag[index].toString();
         Utils.showToast(
           "Vehicle ${vehicleDataIndex + 1} Added Successfully",
           false,
         );
         vehicleDataIndex = vehicleDataIndex + 1;
 
-        clearVehicleForm();
         update();
       });
     }
-  }
-
-  clearVehicleForm() {
-    vehicleTypeControllers.clear();
-    vehicleRegisterNoControllers.clear();
-    vehicleColorControllers.clear();
-    vehicleStikerControllers.clear();
-    // vehicleEtagController.clear();
-    // vehicleEngineNoController.clear();
-
-    hasVehicle = "";
-    eTag.clear();
-    update();
   }
 
   addvehicleControllers() {
@@ -176,7 +162,7 @@ class OwnerFornsScreenController extends GetxController {
     vehicleRegisterNoControllers.add(TextEditingController());
     vehicleColorControllers.add(TextEditingController());
     vehicleStikerControllers.add(TextEditingController());
-    eTag.add("No");
+    eTag.add("");
   }
 
   Future<void> ownerFormApi(context) async {
@@ -350,14 +336,11 @@ class OwnerFornsScreenController extends GetxController {
         apiCallStatus = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             plots.clear;
             for (var element in response.data['data']) {
-              plots.add(
-                  Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
+              plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
             }
             plots;
 
@@ -414,6 +397,7 @@ class OwnerFornsScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    addvehicleControllers();
   }
 }
 

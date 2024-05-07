@@ -143,6 +143,12 @@ class TenantFornsScreenController extends GetxController {
   TextEditingController privateAmmunitionController = TextEditingController();
   TextEditingController armQuantityController = TextEditingController();
   TextEditingController privateBoreController = TextEditingController();
+
+//Owner Controllers
+  TextEditingController ownerNameController = TextEditingController();
+  TextEditingController ownerPhoneController = TextEditingController();
+  TextEditingController ownerCNICController = TextEditingController();
+
   //vichicles controller
   List<TextEditingController> vehicleTypeControllers = [];
   List<TextEditingController> vehicleRegisterNoControllers = [];
@@ -161,13 +167,7 @@ class TenantFornsScreenController extends GetxController {
 
   var tenantFormdata = {};
 
-  Map<String, dynamic> NovehicleFormdata = {
-    'vehicle_type[]': 'No',
-    'registration[]': 'NO',
-    'color[]': 'NO',
-    'sticker_no[]': 'NO',
-    'etag[]': 'NO'
-  };
+  Map<String, dynamic> NovehicleFormdata = {'vehicle_type[]': 'No', 'registration[]': 'NO', 'color[]': 'NO', 'sticker_no[]': 'NO', 'etag[]': 'NO'};
 
   GlobalKey<FormState> vehicleFormKey = GlobalKey();
   int vehicleDataIndex = 0;
@@ -177,7 +177,7 @@ class TenantFornsScreenController extends GetxController {
     vehicleRegisterNoControllers.add(TextEditingController());
     vehicleColorControllers.add(TextEditingController());
     vehicleStikerControllers.add(TextEditingController());
-    eTag.add("No");
+    eTag.add("");
   }
 
   Future<void> addvehicle(context, index) async {
@@ -191,7 +191,7 @@ class TenantFornsScreenController extends GetxController {
         tenantFormdata['sticker_no[$index]'] = vehicleStikerControllers[index].text;
         tenantFormdata['etag[$index]'] = eTag[index];
         Utils.showToast(
-          "Vehicle ${vehicleDataIndex + 1} Added Successfully",
+          "Vehicle Added Successfully",
           false,
         );
         vehicleDataIndex = vehicleDataIndex + 1;
@@ -217,9 +217,9 @@ class TenantFornsScreenController extends GetxController {
       Utils.check().then((value) async {
         var data = _dio.FormData.fromMap({
           'tenant_name': fullNameController.text,
-          'name': fullNameController.text,
-          'phone': telephoneController.text,
-          'cnic': cnicController.text,
+          'name': ownerNameController.text,
+          'phone': ownerPhoneController.text,
+          'cnic': ownerCNICController.text,
           'father_name': fathersController.text,
           'tenant_cnic': cnicController.text,
           'tenant_phone': telephoneController.text,
@@ -258,77 +258,48 @@ class TenantFornsScreenController extends GetxController {
                   data.fields.addAll([MapEntry(key, value)]);
                 })
               };
-
-        // if (ownerCnic != null) {
-        //   String filePath1 = ownerCnic?.path ?? '';
-        //   if (filePath1.isNotEmpty) {
-        //     data['owner_cnic_image[]'] = await _dio.MultipartFile.fromFile(
-        //       filePath1,
-        //       filename: filePath1.split('/').last,
-        //       contentType: _http.MediaType.parse('image/jpeg'),
-        //     );
-        //   }
-        // }
-
-        // if (tenantCnic != null) {
-        //   String filePath1 = tenantCnic?.path ?? '';
-        //   if (filePath1.isNotEmpty) {
-        //     data['tenant_cnic_image[]'] = await _dio.MultipartFile.fromFile(
-        //       filePath1,
-        //       filename: filePath1.split('/').last,
-        //       contentType: _http.MediaType.parse('image/jpeg'),
-        //     );
-        //   }
-        // }
-        // if (estateAgentCnic != null) {
-        //   String filePath1 = estateAgentCnic?.path ?? '';
-        //   if (filePath1.isNotEmpty) {
-        //     for (var file in ownerCnicFrontBack!) {
-        //       NovehicleFormdata['agent_cnic_image[]'] = await _dio.MultipartFile.fromFile(
-        //         filePath1,
-        //         filename: filePath1.split('/').last,
-        //         contentType: _http.MediaType.parse('image/jpeg'),
-        //       );
-        //     }
-
-        //     NovehicleFormdata['agent_cnic_image[]'] = await _dio.MultipartFile.fromFile(
-        //       filePath1,
-        //       filename: filePath1.split('/').last,
-        //       contentType: _http.MediaType.parse('image/jpeg'),
-        //     );
-        //   }
-        // }
-
-        for (var file in ownerCnicFrontBack!) {
+        for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
           data.files.addAll([
             MapEntry(
-                "owner_cnic_image[]",
+                "owner_cnic_image[$i]",
                 await _dio.MultipartFile.fromFile(
-                  file.path,
-                  filename: file.path.split('/').last,
+                  ownerCnicFrontBack![i].path,
+                  filename: ownerCnicFrontBack![i].path.split('/').last,
                   contentType: _http.MediaType.parse('image/jpeg'),
                 )),
           ]);
         }
 
-        for (var file in tenantCnicFrontBack!) {
+        for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
           data.files.addAll([
             MapEntry(
-                "tenant_cnic_image[]",
+                "owner_cnic_image[$i]",
                 await _dio.MultipartFile.fromFile(
-                  file.path,
-                  filename: file.path.split('/').last,
+                  ownerCnicFrontBack![i].path,
+                  filename: ownerCnicFrontBack![i].path.split('/').last,
                   contentType: _http.MediaType.parse('image/jpeg'),
                 )),
           ]);
         }
-        for (var file in ownerCnicFrontBack!) {
+        for (var i = 0; i < tenantCnicFrontBack!.length; i++) {
           data.files.addAll([
             MapEntry(
-                "agent_cnic_image[]",
+                "tenant_cnic_image[$i]",
                 await _dio.MultipartFile.fromFile(
-                  file.path,
-                  filename: file.path.split('/').last,
+                  tenantCnicFrontBack![i].path,
+                  filename: tenantCnicFrontBack![i].path.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                )),
+          ]);
+        }
+
+        for (var i = 0; i < estateCnicFrontBack!.length; i++) {
+          data.files.addAll([
+            MapEntry(
+                "agent_cnic_image[$i]",
+                await _dio.MultipartFile.fromFile(
+                  estateCnicFrontBack![i].path,
+                  filename: estateCnicFrontBack![i].path.split('/').last,
                   contentType: _http.MediaType.parse('image/jpeg'),
                 )),
           ]);
@@ -400,6 +371,7 @@ class TenantFornsScreenController extends GetxController {
                 data: data,
               );
               if (response.statusCode == 200) {
+                log(data.toString());
                 Utils.showToast(
                   response.data['message'],
                   false,
@@ -487,14 +459,11 @@ class TenantFornsScreenController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             plots.clear();
             for (var element in response.data['data']) {
-              plots.add(
-                  Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
+              plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
             }
             plots;
             log(response.data['data'].toString());
@@ -540,6 +509,12 @@ class TenantFornsScreenController extends GetxController {
   updateEtag(value) {
     eTag.add(value);
     update();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    addvehicleControllers();
   }
 }
 

@@ -10,12 +10,7 @@ class CustomDialogue extends StatelessWidget {
   final VoidCallback actionOnYes;
   final VoidCallback actionOnNo;
 
-  CustomDialogue(
-      {Key? key,
-      required this.dialogueBoxHeading,
-      required this.dialogueBoxText,
-      required this.actionOnNo,
-      required this.actionOnYes})
+  CustomDialogue({Key? key, required this.dialogueBoxHeading, required this.dialogueBoxText, required this.actionOnNo, required this.actionOnYes})
       : super(key: key);
 
   Responsive responsive = Responsive();
@@ -34,9 +29,7 @@ class CustomDialogue extends StatelessWidget {
             SizedBox(
               height: responsive.setHeight(3),
             ),
-            Text(dialogueBoxHeading,
-                style: AppStyle
-                    .txtAgeoSemiBold16WhiteA700 /*fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold*/
+            Text(dialogueBoxHeading, style: AppStyle.txtPoppinsSemiBold16WhiteA700 /*fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold*/
                 /*.copyWith(letterSpacing: 0.09),*/
                 ),
 
@@ -45,7 +38,7 @@ class CustomDialogue extends StatelessWidget {
               child: Text(
                 dialogueBoxText,
                 textAlign: TextAlign.center,
-                style: AppStyle.txtAgeoSemiBold16WhiteA700
+                style: AppStyle.txtPoppinsSemiBold16WhiteA700
                     /*     fontSize: 13,
                   color: Colors.black,*/
                     .copyWith(letterSpacing: 0.09),
@@ -68,11 +61,10 @@ class CustomDialogue extends StatelessWidget {
                       onTap: actionOnNo,
                       child: Container(
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0), border: Border.all(color: Colors.transparent)),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0), border: Border.all(color: Colors.transparent)),
                         child: Text(
                           'No',
-                          style: AppStyle.txtAgeoSemiBold16WhiteA700.copyWith(
+                          style: AppStyle.txtPoppinsSemiBold16WhiteA700.copyWith(
                             letterSpacing: getHorizontalSize(
                               0.06,
                             ),
@@ -93,11 +85,10 @@ class CustomDialogue extends StatelessWidget {
                       onTap: actionOnYes,
                       child: Container(
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12.0), border: Border.all(color: Colors.transparent)),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0), border: Border.all(color: Colors.transparent)),
                         child: Text(
                           'Yes',
-                          style: AppStyle.txtAgeoSemiBold16WhiteA700.copyWith(
+                          style: AppStyle.txtPoppinsSemiBold16WhiteA700.copyWith(
                             letterSpacing: getHorizontalSize(
                               0.06,
                             ),
