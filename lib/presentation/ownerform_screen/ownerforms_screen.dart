@@ -874,7 +874,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       Expanded(
                                                         child: CustomTextField(
                                                           fieldText: "Arms Quantity".tr,
-                                                          controller: controller.armQuantityController,
+                                                          controller: controller.privateArmsController,
                                                           isFinal: false,
                                                           keyboardType: TextInputType.number,
                                                           validator: (value) {
