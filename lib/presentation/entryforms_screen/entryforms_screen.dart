@@ -697,7 +697,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of spouse".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: controller.spouseImages[index].path == ""
+                                                      prefix: controller.spouseImages[index].path == "" || controller.spouseImages[index].isBlank!
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
