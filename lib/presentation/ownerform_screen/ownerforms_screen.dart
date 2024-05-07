@@ -1398,19 +1398,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           controller: controller.btnController,
                                           title: "Submit".tr,
                                           onTap: () async {
-                                            if (controller.allotmentletter == null) {
-                                              Utils.showToast(
-                                                "Please select allotment letter",
-                                                true,
-                                              );
-                                            } else if (controller.buildingplan == null) {
+                                            if (controller.buildingplan == null) {
                                               Utils.showToast(
                                                 "Please select building plan",
-                                                true,
-                                              );
-                                            } else if (controller.certificate == null) {
-                                              Utils.showToast(
-                                                "Please select Completion certificate",
                                                 true,
                                               );
                                             } else {
