@@ -4,20 +4,13 @@ import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:anchorageislamabad/widgets/custom_textfield_new.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import '../../baseviews/baseview_process_screen.dart';
-import '../../core/model_classes/deal_model.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/image_constant.dart';
 import '../../core/utils/size_utils.dart';
 import '../../routes/app_routes.dart';
 import '../../widgets/animated_custom_button.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/common_image_view.dart';
-import '../../widgets/custom_textfield_forms.dart';
-import '../../widgets/no_internet_found.dart';
-import '../../widgets/paginations/paged_listview.dart';
 import 'controller/complaints_controller.dart';
 
 class CreateNewComplaintScreen extends StatefulWidget {

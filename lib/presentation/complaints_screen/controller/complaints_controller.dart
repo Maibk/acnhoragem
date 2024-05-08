@@ -30,7 +30,7 @@ import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 import '../../../localization/strings_enum.dart';
 import '../../../widgets/custom_snackbar.dart';
-import '../../../widgets/paginations/paged_view.dart';
+
 import '../models/complaints_model.dart';
 
 /// A controller class for the DiscoverScreen.
@@ -52,7 +52,7 @@ class ComplaintsController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+
   RxList<DealsModel> categories = <DealsModel>[].obs;
   GlobalKey<FormState> formKey = new GlobalKey();
   List<File>? complaintsImages;
@@ -168,7 +168,7 @@ class ComplaintsController extends GetxController {
         'description': descriptionController.text
       };
 
-        for (var i = 0; i < complaintsImages!.length; i++) {
+      for (var i = 0; i < complaintsImages!.length; i++) {
         String filePath1 = complaintsImages![i].path;
         if (filePath1.isNotEmpty) {
           data['attachment[$i]'] = await _dio.MultipartFile.fromFile(
@@ -234,7 +234,11 @@ class ComplaintsController extends GetxController {
 
   Future<void> submitMessge(context, id) async {
     Utils.check().then((value) async {
-      Map<String, dynamic> data = {'complaint_id': id, 'user_id': loginResponseModel?.data?.id ?? 0, 'message': messageController.text};
+      Map<String, dynamic> data = {
+        'complaint_id': id,
+        'user_id': loginResponseModel?.data?.id ?? 0,
+        'message': messageController.text
+      };
 
       if (value) {
         btnController.start();

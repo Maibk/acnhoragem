@@ -16,7 +16,7 @@ import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
-import '../../../widgets/paginations/paged_view.dart';
+
 import '../models/bills_model.dart';
 
 /// A controller class for the DiscoverScreen.
@@ -30,7 +30,7 @@ class BillsController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+
   RxList<DealsModel> categories = <DealsModel>[].obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
 

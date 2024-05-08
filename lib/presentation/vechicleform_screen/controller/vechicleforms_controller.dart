@@ -23,7 +23,6 @@ import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
-import '../../../widgets/paginations/paged_view.dart';
 
 /// A controller class for the DiscoverScreen.
 ///
@@ -34,21 +33,21 @@ class VechicleController extends GetxController {
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController btnControllerUseless = RoundedLoadingButtonController();
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController fathersController = TextEditingController();
-  TextEditingController cnicController = TextEditingController();
-  TextEditingController rankController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
-  TextEditingController servisController = TextEditingController();
-  TextEditingController officeController = TextEditingController();
-  TextEditingController mobileController = TextEditingController();
-  TextEditingController houseController = TextEditingController();
-  TextEditingController roadController = TextEditingController();
-  TextEditingController streetController = TextEditingController();
-  TextEditingController blockController = TextEditingController();
-  TextEditingController colonyController = TextEditingController();
-  TextEditingController cellNoController = TextEditingController();
-  TextEditingController ptclController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController fathersController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController cnicController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController rankController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController dateController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController servisController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController officeController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController mobileController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController houseController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController roadController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController streetController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController blockController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController colonyController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController cellNoController = TextEditingController(text: kDebugMode ? "asdsad" : null);
+  TextEditingController ptclController = TextEditingController(text: kDebugMode ? "asdsad" : null);
 
   // TextEditingController vehicleNoController = TextEditingController();
   // TextEditingController makeController = TextEditingController();
@@ -81,7 +80,7 @@ class VechicleController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+
   RxList<DealsModel> categories = <DealsModel>[].obs;
 
   File? underTakingLicenseFrontSideImage;
@@ -172,7 +171,9 @@ class VechicleController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(
+              headers: {'Authorization': "Bearer $token"},
+              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             plots.clear();
             for (var element in response.data['data']) {
@@ -496,8 +497,7 @@ class VechicleController extends GetxController {
             'office_department': officeController.text,
             'phone': cellNoController.text,
             'house_no': plotstSelectedValue?.id ?? 0,
-            'road_street': "No",
-            'street': streetSelectedValue?.id ?? 0,
+            'road_street': streetSelectedValue?.id ?? 0,
             'block': selectedValue ?? 0,
             'cell_no': cellNoController.text,
             'ptcl_no': ptclController.text,
@@ -559,6 +559,7 @@ class VechicleController extends GetxController {
           );
 
           if (value) {
+            log(vehicalData.toString());
             btnController.start();
             _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
               var dio = _dio.Dio();

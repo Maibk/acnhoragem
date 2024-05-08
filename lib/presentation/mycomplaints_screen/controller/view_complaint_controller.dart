@@ -29,7 +29,6 @@ import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 import '../../../localization/strings_enum.dart';
 import '../../../widgets/custom_snackbar.dart';
-import '../../../widgets/paginations/paged_view.dart';
 
 /// A controller class for the DiscoverScreen.
 ///
@@ -48,7 +47,7 @@ class ViewComplaintController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+
   RxList<DealsModel> categories = <DealsModel>[].obs;
   GlobalKey<FormState> formKey = new GlobalKey();
 

@@ -19,7 +19,7 @@ import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
-import '../../../widgets/paginations/paged_view.dart';
+
 import '../models/downloadble_bcd_forms.dart';
 
 /// A controller class for the DiscoverScreen.
@@ -33,7 +33,7 @@ class DownloadFormsController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+
   RxList<DealsModel> categories = <DealsModel>[].obs;
 
   // LoginModel? userDetails;
@@ -146,9 +146,7 @@ class DownloadFormsController extends GetxController {
     return null;
   }
 
-
-
- DownloadablePecForms? pecForms;
+  DownloadablePecForms? pecForms;
   Future<DownloadablePecForms?> getDownloadablePecForms() async {
     Utils.check().then((value) async {
       if (value) {
@@ -184,8 +182,7 @@ class DownloadFormsController extends GetxController {
     return null;
   }
 
-
- DownloadableAmcForms? amcForms;
+  DownloadableAmcForms? amcForms;
   Future<DownloadableAmcForms?> getDownloadableAmcForms() async {
     Utils.check().then((value) async {
       if (value) {

@@ -18,7 +18,6 @@ import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 import '../../../widgets/custom_toast.dart';
-import '../../../widgets/paginations/paged_view.dart';
 
 /// A controller class for the DiscoverScreen.
 ///
@@ -35,7 +34,7 @@ class MyComplaintsController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+
   RxList<DealsModel> categories = <DealsModel>[].obs;
 
   Complaints? complaints;

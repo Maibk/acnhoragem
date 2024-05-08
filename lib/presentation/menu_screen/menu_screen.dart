@@ -8,7 +8,6 @@ import 'package:anchorageislamabad/data/services/base_client.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/common_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
-import 'package:anchorageislamabad/widgets/paginations/paged_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,7 +27,7 @@ class MenuScreen extends StatelessWidget {
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+
   GlobalKey<FormState> formKey = new GlobalKey();
 
   @override
@@ -450,8 +449,6 @@ class MenuScreen extends StatelessWidget {
                                             Navigator.pop(ct);
                                           },
                                           actionOnYes: () async {
-                               
-
                                             Utils.check().then((value) async {
                                               if (value) {
                                                 isInternetAvailable.value = true;
@@ -468,9 +465,8 @@ class MenuScreen extends StatelessWidget {
                                                     Get.offAllNamed(AppRoutes.loginPage);
                                                     log(response.toString());
 
-
-                                                                  _appPreferences.getAppPreferences().isPreferenceReady;
-                                             _appPreferences.clearPreference();
+                                                    _appPreferences.getAppPreferences().isPreferenceReady;
+                                                    _appPreferences.clearPreference();
 
                                                     return true;
                                                   }, onError: (error) {

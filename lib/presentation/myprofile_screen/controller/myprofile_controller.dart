@@ -15,7 +15,6 @@ import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 import '../../../localization/strings_enum.dart';
-import '../../../widgets/paginations/paged_view.dart';
 import '../models/profile_model.dart';
 
 /// A controller class for the DiscoverScreen.
@@ -38,7 +37,6 @@ class MyprofileController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   final AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
   GlobalKey<FormState> formKey = new GlobalKey();
 
   bool isResponse = false;

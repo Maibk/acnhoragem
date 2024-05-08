@@ -1,25 +1,18 @@
 import 'dart:developer';
-
 import 'package:anchorageislamabad/core/utils/image_constant.dart';
-import 'package:anchorageislamabad/presentation/login_screen/models/login_model.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import '../../baseviews/baseview_process_screen.dart';
-import '../../core/model_classes/deal_model.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/size_utils.dart';
 import '../../routes/app_routes.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/common_image_view.dart';
 import '../../widgets/custom_expensiontile.dart';
-import '../../widgets/no_internet_found.dart';
-import '../../widgets/paginations/paged_listview.dart';
 import 'controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeController controller = Get.put(HomeController());
+  final HomeController controller = Get.put(HomeController());
 
   // const DiscoverScreen({Key? key}) : super(key: key);
 

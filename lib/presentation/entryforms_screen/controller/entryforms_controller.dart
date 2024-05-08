@@ -21,7 +21,6 @@ import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
-import '../../../widgets/paginations/paged_view.dart';
 
 /// A controller class for the DiscoverScreen.
 ///
@@ -103,7 +102,7 @@ class EntryFormsController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-  final GlobalKey<PagedViewState> pageKey = GlobalKey();
+
   RxList<DealsModel> categories = <DealsModel>[].obs;
 
   final ImagePicker picker = ImagePicker();
@@ -216,7 +215,9 @@ class EntryFormsController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(
+              headers: {'Authorization': "Bearer $token"},
+              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             for (var element in response.data['data']) {
               plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? ""));
@@ -652,10 +653,10 @@ class EntryFormsController extends GetxController {
             } on _dio.DioException catch (error) {
               // dio error (api reach the server but not performed successfully
               // no response
-              log(error.response?.data["message"].toString() ?? "", name: "error api");
+
               btnController.stop();
               Utils.showToast(
-                error.response?.data["message"].toString() ?? error.error.toString(),
+                error.response?.data.toString() ?? "Error",
                 true,
               );
 
