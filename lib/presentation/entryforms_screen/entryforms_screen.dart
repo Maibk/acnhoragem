@@ -494,9 +494,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.spousefathersControllers.length == 0
+                                            itemCount: controller.spousefullNameControllers.length == 0
                                                 ? 1
-                                                : controller.spousefathersControllers.length,
+                                                : controller.spousefullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
@@ -525,7 +525,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         GestureDetector(
                                                           onTap: () {
                                                             setState(() {
-                                                              controller.spousefathersControllers.removeAt(index);
+                                                              controller.spousefullNameControllers.removeAt(index);
                                                             });
                                                           },
                                                           child: Container(
@@ -549,21 +549,21 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       validator: (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
                                                       }),
-                                                  SizedBox(
-                                                    height: getVerticalSize(5),
-                                                  ),
-                                                  CustomTextField(
-                                                      fieldText: "Father’s Name".tr,
-                                                      controller: controller.spousefathersControllers[index],
-                                                      isFinal: false,
-                                                      keyboardType: TextInputType.emailAddress,
-                                                      limit: HelperFunction.EMAIL_VALIDATION,
-                                                      validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
-                                                      }),
-                                                  SizedBox(
-                                                    height: getVerticalSize(5),
-                                                  ),
+                                                  // SizedBox(
+                                                  //   height: getVerticalSize(5),
+                                                  // ),
+                                                  // CustomTextField(
+                                                  //     fieldText: "Father’s Name".tr,
+                                                  //     controller: controller.spousefathersControllers[index],
+                                                  //     isFinal: false,
+                                                  //     keyboardType: TextInputType.emailAddress,
+                                                  //     limit: HelperFunction.EMAIL_VALIDATION,
+                                                  //     validator: (value) {
+                                                  //       return HelperFunction.empthyFieldValidator(value!);
+                                                  //     }),
+                                                  // SizedBox(
+                                                  //   height: getVerticalSize(5),
+                                                  // ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
@@ -893,9 +893,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.childfathersControllers.length == 0
+                                            itemCount: controller.childfullNameControllers.length == 0
                                                 ? 1
-                                                : controller.childfathersControllers.length,
+                                                : controller.childfullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
@@ -924,7 +924,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         GestureDetector(
                                                           onTap: () {
                                                             setState(() {
-                                                              controller.childfathersControllers.removeAt(index);
+                                                              controller.childfullNameControllers.removeAt(index);
                                                             });
                                                           },
                                                           child: Container(
@@ -948,21 +948,21 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       validator: (value) {
                                                         return HelperFunction.empthyFieldValidator(value!);
                                                       }),
-                                                  SizedBox(
-                                                    height: getVerticalSize(5),
-                                                  ),
-                                                  CustomTextField(
-                                                      fieldText: "Father’s Name".tr,
-                                                      controller: controller.childfathersControllers[index],
-                                                      isFinal: false,
-                                                      keyboardType: TextInputType.emailAddress,
-                                                      limit: HelperFunction.EMAIL_VALIDATION,
-                                                      validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
-                                                      }),
-                                                  SizedBox(
-                                                    height: getVerticalSize(5),
-                                                  ),
+                                                  // SizedBox(
+                                                  //   height: getVerticalSize(5),
+                                                  // ),
+                                                  // CustomTextField(
+                                                  //     fieldText: "Father’s Name".tr,
+                                                  //     controller: controller.childfathersControllers[index],
+                                                  //     isFinal: false,
+                                                  //     keyboardType: TextInputType.emailAddress,
+                                                  //     limit: HelperFunction.EMAIL_VALIDATION,
+                                                  //     validator: (value) {
+                                                  //       return HelperFunction.empthyFieldValidator(value!);
+                                                  //     }),
+                                                  // SizedBox(
+                                                  //   height: getVerticalSize(5),
+                                                  // ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
@@ -1023,7 +1023,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     ],
                                                   ),
                                                   SizedBox(
-                                                    height: getVerticalSize(15),
+                                                    height: getVerticalSize(5),
                                                   ),
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1041,9 +1041,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       ),
                                                     ],
                                                   ),
-                                                  SizedBox(
-                                                    height: getVerticalSize(15),
-                                                  ),
+
                                                   SizedBox(
                                                     height: getVerticalSize(5),
                                                   ),

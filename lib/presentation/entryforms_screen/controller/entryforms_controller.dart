@@ -29,7 +29,7 @@ import '../../../data/services/base_client.dart';
 ///
 class EntryFormsController extends GetxController {
   List<TextEditingController> spousefullNameControllers = [];
-  List<TextEditingController> spousefathersControllers = [];
+  // List<TextEditingController> spousefathersControllers = [];
   List<TextEditingController> spousecnicControllers = [];
   List<TextEditingController> spousemobileControllers = [];
   List<TextEditingController> spousehouseControllers = [];
@@ -43,7 +43,7 @@ class EntryFormsController extends GetxController {
   List<TextEditingController> spouseProvinceControllers = [];
 
   List<TextEditingController> childfullNameControllers = [];
-  List<TextEditingController> childfathersControllers = [];
+  // List<TextEditingController> childfathersControllers = [];
   List<TextEditingController> childcnicControllers = [];
   List<TextEditingController> childmobileControllers = [];
   List<TextEditingController> childhouseControllers = [];
@@ -269,7 +269,7 @@ class EntryFormsController extends GetxController {
 
         data = {
           'spouse_name': spousefullNameControllers[index].text,
-          "spouse_father_name": spousefathersControllers[index].text,
+          // "spouse_father_name": spousefathersControllers[index].text,
           'spouse_cnic': spousecnicControllers[index].text,
           'spouse_phone': spousemobileControllers[index].text,
           'spouse_house': spousehouseControllers[index].text,
@@ -410,7 +410,7 @@ class EntryFormsController extends GetxController {
 
         data = {
           'child_name': childfullNameControllers[index].text,
-          "child_father_name": childfathersControllers[index].text,
+          // "child_father_name": childfathersControllers[index].text,
           'child_cnic': childcnicControllers[index].text,
           'child_phone': childmobileControllers[index].text,
           'child_house': childhouseControllers[index].text,
@@ -681,7 +681,7 @@ class EntryFormsController extends GetxController {
   }
 
   addSpouse() {
-    spousefathersControllers.add(TextEditingController());
+    // spousefathersControllers.add(TextEditingController());
     spousefullNameControllers.add(TextEditingController());
     spousecnicControllers.add(TextEditingController());
     spousemobileControllers.add(TextEditingController());
@@ -702,7 +702,7 @@ class EntryFormsController extends GetxController {
   }
 
   addChild() {
-    childfathersControllers.add(TextEditingController());
+    // childfathersControllers.add(TextEditingController());
     childfullNameControllers.add(TextEditingController());
     childcnicControllers.add(TextEditingController());
     childmobileControllers.add(TextEditingController());
@@ -730,7 +730,7 @@ class EntryFormsController extends GetxController {
     spouseImages.clear();
     spouseCnicsfronts.clear();
     spouseCnicBacks.clear();
-    spousefathersControllers.clear();
+    // spousefathersControllers.clear();
     spousefullNameControllers.clear();
     spousecnicControllers.clear();
     spousemobileControllers.clear();
