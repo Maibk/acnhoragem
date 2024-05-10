@@ -18,6 +18,7 @@ class ProfileModel {
   String? zip;
   int? status;
   int? appForm;
+  int? appFormApproved;
 
   ProfileModel(
       {this.id,
@@ -38,7 +39,8 @@ class ProfileModel {
       this.cityId,
       this.zip,
       this.status,
-      this.appForm});
+      this.appForm,
+      this.appFormApproved});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -60,6 +62,7 @@ class ProfileModel {
     zip = json['zip'];
     status = json['status'];
     appForm = json['app_form'];
+    appForm = json['app_form_approved'];
   }
 
   Map<String, dynamic> toJson() {
@@ -83,6 +86,7 @@ class ProfileModel {
     data['zip'] = this.zip;
     data['status'] = this.status;
     data['app_form'] = this.appForm;
+    data['app_form_approved'] = this.appFormApproved;
     return data;
   }
 }

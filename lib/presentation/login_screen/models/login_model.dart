@@ -53,6 +53,7 @@ class LoginData {
   String? forgotCode;
   int? status;
   int? appForm;
+  int? appFormApproved;
   String? createdAt;
   String? updatedAt;
   String? deletedAt;
@@ -87,6 +88,7 @@ class LoginData {
       this.forgotCode,
       this.status,
       this.appForm,
+      this.appFormApproved,
       this.createdAt,
       this.updatedAt,
       this.deletedAt,
@@ -121,6 +123,7 @@ class LoginData {
     forgotCode = json['forgot_code'];
     status = json['status'];
     appForm = json['app_form'];
+    appFormApproved = json['app_form_approved'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
@@ -157,6 +160,7 @@ class LoginData {
     data['forgot_code'] = this.forgotCode;
     data['status'] = this.status;
     data['app_form'] = this.appForm;
+    data['app_form_approved'] = this.appFormApproved;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;

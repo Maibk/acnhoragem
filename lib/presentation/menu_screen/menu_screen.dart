@@ -17,12 +17,15 @@ import '../../core/utils/constants.dart';
 import '../../core/utils/size_utils.dart';
 import '../../core/utils/utils.dart';
 import '../../widgets/custom_dialogue.dart';
+import '../home_screen/controller/home_controller.dart';
 
 class MenuScreen extends StatelessWidget {
   // MenuController controller = Get.put(MenuController());
   // const DiscoverScreen({Key? key}) : super(key: key);
 
   AppPreferences _appPreferences = AppPreferences();
+
+  final HomeController controller = Get.put(HomeController());
 
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
@@ -119,7 +122,14 @@ class MenuScreen extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
-                                Get.toNamed(AppRoutes.myComplaintsPage);
+                                if (controller.profileModel?.appFormApproved == 0) {
+                                  Utils.showToast(
+                                    "Your application form is not approved yet,kindly wait for Approval",
+                                    false,
+                                  );
+                                } else {
+                                  Get.toNamed(AppRoutes.myComplaintsPage);
+                                }
                               },
                               child: Row(
                                 children: [
@@ -150,7 +160,14 @@ class MenuScreen extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
-                                Get.toNamed(AppRoutes.billsPage);
+                                if (controller.profileModel?.appFormApproved == 0) {
+                                  Utils.showToast(
+                                    "Your application form is not approved yet,kindly wait for Approval",
+                                    false,
+                                  );
+                                } else {
+                                  Get.toNamed(AppRoutes.billsPage);
+                                }
                               },
                               child: Row(
                                 children: [
@@ -181,7 +198,14 @@ class MenuScreen extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
-                                Get.toNamed(AppRoutes.propertiesPage);
+                                if (controller.profileModel?.appFormApproved == 0) {
+                                  Utils.showToast(
+                                    "Your application form is not approved yet,kindly wait for Approval",
+                                    false,
+                                  );
+                                } else {
+                                  Get.toNamed(AppRoutes.propertiesPage);
+                                }
                               },
                               child: Row(
                                 children: [

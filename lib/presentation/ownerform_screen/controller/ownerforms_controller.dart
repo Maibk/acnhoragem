@@ -193,6 +193,8 @@ class OwnerFornsScreenController extends GetxController {
           'status': '0'
         };
 
+        
+
         ownerFormdata.addAll(data);
 
         if (alottmentletter == "Yes") {

@@ -1,16 +1,13 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
+
 import 'package:anchorageislamabad/presentation/login_screen/models/login_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+
 import '../../../Shared_prefrences/app_prefrences.dart';
-import '../../../core/model_classes/login_model.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
@@ -29,7 +26,7 @@ LoginModel? loginResponseModel;
 ///
 class LoginController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
-  TextEditingController emailController = TextEditingController(text: kDebugMode ? "e@yopmail.com" : null);
+  TextEditingController emailController = TextEditingController(text: kDebugMode ? "hamid@gmail.com" : null);
 
   TextEditingController passwordController = TextEditingController(text: kDebugMode ? "12345678" : null);
   Rx<bool> isShowPassword = true.obs;
@@ -60,9 +57,18 @@ class LoginController extends GetxController {
                 response.data['message'],
                 false,
               );
-              Get.offAllNamed(AppRoutes.homePage);
+
+              if (loginResponseModel?.data?.appForm == 0) {
+                if (loginResponseModel?.data?.userCategory == "Owner") {
+                  Get.offAllNamed(AppRoutes.ownerFormsPage);
+                } else {
+                  Get.offAllNamed(AppRoutes.tenantFormsPage);
+                }
+              } else if (loginResponseModel?.data?.appFormApproved == 0) {
+                Get.offAllNamed(AppRoutes.homePage);
+              }
             } else {
-               Utils.showToast('Incorrect Password or Email', true);
+              Utils.showToast('Incorrect Password or Email', true);
               btnController.stop();
               // Handle the case where data is null in the response
             }

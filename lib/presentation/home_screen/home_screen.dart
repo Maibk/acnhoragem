@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/size_utils.dart';
+import '../../core/utils/utils.dart';
 import '../../routes/app_routes.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/common_image_view.dart';
@@ -96,7 +97,14 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(AppRoutes.myComplaintsPage);
+                                          if (controller.profileModel?.appFormApproved == 0) {
+                                            Utils.showToast(
+                                              "Your application form is not approved yet,kindly wait for Approval",
+                                              false,
+                                            );
+                                          } else {
+                                            Get.toNamed(AppRoutes.myComplaintsPage);
+                                          }
                                         },
                                         child: CommonImageView(
                                           imagePath: ImageConstant.myComplaintIcon,
@@ -120,7 +128,14 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(AppRoutes.billsPage);
+                                          if (controller.profileModel?.appFormApproved == 0) {
+                                            Utils.showToast(
+                                              "Your application form is not approved yet,kindly wait for Approval",
+                                              false,
+                                            );
+                                          } else {
+                                            Get.toNamed(AppRoutes.billsPage);
+                                          }
                                         },
                                         child: CommonImageView(
                                           imagePath: ImageConstant.myBillsIcon,
@@ -152,7 +167,14 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(AppRoutes.propertiesPage);
+                                          if (controller.profileModel?.appFormApproved == 0) {
+                                            Utils.showToast(
+                                              "Your application form is not approved yet,kindly wait for Approval",
+                                              false,
+                                            );
+                                          } else {
+                                            Get.toNamed(AppRoutes.propertiesPage);
+                                          }
                                         },
                                         child: CommonImageView(
                                           imagePath: ImageConstant.mypropertiesIcon,
@@ -330,7 +352,14 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                       InkWell(
                                         onTap: () {
-                                          Get.toNamed(AppRoutes.billsPage);
+                                          if (controller.profileModel?.appFormApproved == 0) {
+                                            Utils.showToast(
+                                              "Your application form is not approved yet,kindly wait for Approval",
+                                              false,
+                                            );
+                                          } else {
+                                            Get.toNamed(AppRoutes.billsPage);
+                                          }
                                         },
                                         child: Center(
                                           child: MyText(
@@ -432,7 +461,14 @@ class HomeScreen extends StatelessWidget {
                                             Center(
                                               child: InkWell(
                                                 onTap: () {
-                                                  Get.toNamed(AppRoutes.myComplaintsPage);
+                                                  if (controller.profileModel?.appFormApproved == 0) {
+                                                    Utils.showToast(
+                                                      "Your application form is not approved yet,kindly wait for Approval",
+                                                      false,
+                                                    );
+                                                  } else {
+                                                    Get.toNamed(AppRoutes.myComplaintsPage);
+                                                  }
                                                 },
                                                 child: Center(
                                                   child: MyText(
