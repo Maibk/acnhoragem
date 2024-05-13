@@ -706,7 +706,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       width: getHorizontalSize(350),
                                                       fontSize: 12.h,
                                                       fontWeight: FontWeight.w700,
-                                                      color: ColorConstant.whiteA700,
+                                                      color: ColorConstant.whiteA700, 
                                                       label: "Attach a clear image of spouse".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
@@ -823,6 +823,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       controller: controller.btnControllerUseLess,
                                                       title: "Add Spouse".tr,
                                                       onTap: () async {
+
+                                                           log(controller.spouseImages.toString() );
                                                         // for (var element in controller.spousefullNameControllers) {
                                                         //   log(element.text);
                                                         // }

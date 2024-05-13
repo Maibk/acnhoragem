@@ -37,7 +37,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image:
+              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -184,7 +185,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               showCities: false,
                                               showStates: false,
                                               dropdownDecoration: BoxDecoration(
-                                                  border: Border(bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray)),
+                                                  border: Border(
+                                                      bottom:
+                                                          BorderSide(width: .5, color: ColorConstant.appBorderGray)),
                                                   color: Colors.transparent,
                                                   borderRadius: BorderRadius.circular(00.0)),
                                             ),
@@ -316,8 +319,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     log(controller.plotstSelectedValue!.id.toString());
                                                     for (var i = 0; i < controller.plots.length; i++) {
                                                       controller.plotstSelectedValue?.id == controller.plots[i].id;
-                                                      if (controller.plotstSelectedValue?.id == controller.plots[i].id) {
-                                                        controller.sizeHouseAddController.text = controller.plots[i].sq_yards.toString();
+                                                      if (controller.plotstSelectedValue?.id ==
+                                                          controller.plots[i].id) {
+                                                        controller.sizeHouseAddController.text =
+                                                            controller.plots[i].sq_yards.toString();
                                                         log("Square yard found ${controller.sizeHouseAddController.text}");
                                                         break;
                                                       }
@@ -682,12 +687,15 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                                     children: [
                                                                       Row(
-                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Text(
                                                                             "Declaration by the Tenant",
                                                                             textAlign: TextAlign.left,
-                                                                            style: TextStyle(fontSize: 18.h, color: ColorConstant.blackColor),
+                                                                            style: TextStyle(
+                                                                                fontSize: 18.h,
+                                                                                color: ColorConstant.blackColor),
                                                                           ),
                                                                           GestureDetector(
                                                                             onTap: () {
@@ -702,12 +710,73 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                       ),
                                                                       Divider(
                                                                         height: 30,
-                                                                        color: ColorConstant.appTextGray.withOpacity(.7),
+                                                                        color:
+                                                                            ColorConstant.appTextGray.withOpacity(.7),
                                                                       ),
                                                                       Text(
-                                                                        Constants.agreementText,
+                                                                        """
+I ${controller.fullNameController.text.capitalize}, S/O or D/O ${controller.fathersController.text.capitalize} CNIC NO: ${controller.cnicController.text} hereby solemnly affirm that the above-mentioned information given by me about business at Naval Anchorage Islamabad is true to the best of my knowledge, if found incorrect at any stage I will be liable to be persecuted under special conditions for residing in Anchorage Society.
+
+I will ensure that utility charges / bills will be paid by me timely. In case of non-compliance owner will be responsible for the same.
+
+I will exercise my utmost efforts to conserve water and will avoid littering in the society.
+
+I will observe good social and moral norms during my stay in Anchorage Society.
+
+I will strictly prohibit employment of child labour at my business.
+
+I will neither provide shelter to anyone who is involved in illegal and criminal activities or required by the law enforcement agencies nor will conduct any activity in violation of the law of Pakistan.
+
+I will not hold any function outside my rented space which can be a source of disturbance for other residents.
+
+I will not hire any private security guard who carries weapon with him in Anchorage society.
+
+I will follow the queue for rectification of minor defects in my house by the maintenance staff.
+
+If I am found involved in any immoral / illegal activity, the Administration has the right to eject me from the society.
+
+I will abide by Naval Anchorage Society terms and conditions and adhere to rules / regulations issued from time to time by Naval Headquarters including NOC.
+
+I shall ensure that conduct of my visitors and my employees always remains above board and in accordance with the established civil norms.
+
+I will register my employee’s and their vehicles at Naval Anchorage Security Office as per the SOPs.
+
+I will give access to Naval Anchorage Administration/ Security to my CCTV if and when required at the earliest convenience without formal writing request.
+
+I fully understand that Administrative Staff of Naval Anchorage is functioning to look after the collective interest of the residents of the Anchorage Society and to whom I shall afford complete co-operation in the execution of their duties and abide by the instructions issued from time to time especially in the terms of security and administration.
+
+Dispute if any shall be mutually resolved in a considerate, thoughtful and understanding manner seeking arbitration of Dy Administrator where felt necessary, and I will not take matters concerning Naval Anchorage dispute to the court but the decision of Dy Administrator as arbitrators will be final. If at all any party opt to go to the court then he will pay all the expenditures incurred during court proceedings till the finalization of the case to the Anchorage Administration. In case the owner wants to serve vacation notice to the tenant prior completion of the contract period the notice has to be processed through Administration Office for approval / consent.
+
+I will handover quiet and peace full possession of subject premises on completion of agreed tenure and before vacating I will submit owner’s NOC in Administration Office.
+
+I will neither accommodate nor allow visit of any foreigner specially INDIAN nationals in the subject premises without prior approval of Anchorage Administration.
+
+I fully understand that even if the Tenancy Agreement is valid but NOC period has expired, I can no longer reside in Naval Anchorage society premises and vice versa.
+
+If the NOC has been cancelled by the issuing authority. I will vacate the rented premises within 30 days of the cancellation of NOC.
+
+In case of any violation/ unbecoming of a law-abiding citizen, the Naval Anchorage Directorate reserves the right to cancel the NOC of the said business.
+
+It is the responsibility of Plaza Owner / nominated Estate Agent to provide rent agreement and filled NOC FORM to the Administration Office before renting out the property/ moving in of tenant. The tenant police registration (Police Service Center F-6 Islamabad) is to be submitted within 15 days of shifting, thereafter fine will be charged on daily basis for 1 x month, failing to which the NOC will be cancelled.
+
+Addition/ alteration in building without obtained revised building plan approval is not allowed. Any construction started/ carried out without prior approval will be removed/ dismantled at risk & cost of the owner(s)/ allotee/ occpants(s) and/ or penalty will be imposed as per policy in vague.
+
+Usage of residential building/ plots for commercial/ industrial use is illegal. Morover, residential buildings usage as regular wirship places like Masjids, Jamat Khanas, Imam Margahs etc. is illegal and not allowed.
+
+Construction of permanent structure of any kind outside the building line is not permitted. Moreover, No temporary structure of any kind outside/ setback of building is allowed without prior approval of BCD.
+
+Service area can be utilized only for plantation/ grass purpose. No wall/ grill/ fence/ hard planter/ fountain/ cages can be constructed in service area. This area should be available for maintenance of services as and when needed by the society.
+
+The ownership rights of green area adjacent to any plot shall remain with the society. Same should not be enclosed by walls, grill and/ or fence in such a manner to restrict public approach/ access.
+
+Allotee(s)/ occupants (s) are required not to throw any waste material in dustbins other than kitchen waste which should be wrapped in plastic bags. No any waste material/ garbage is to be dumped on service area or adjacent plots.
+
+No building, structure, or any part thereof should be occupied or used without obtaining completion certificate (permission to occupy).
+""",
                                                                         textAlign: TextAlign.left,
-                                                                        style: TextStyle(fontSize: 12.h, color: ColorConstant.greyColor),
+                                                                        style: TextStyle(
+                                                                            fontSize: 12.h,
+                                                                            color: ColorConstant.greyColor),
                                                                       ),
                                                                       Row(
                                                                         mainAxisAlignment: MainAxisAlignment.end,
@@ -723,8 +792,11 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                               ),
                                                                               child: Text(
                                                                                 "Close",
-                                                                                style: TextStyle(fontSize: 16.h, color: Colors.white),
-                                                                              ).paddingSymmetric(horizontal: 15, vertical: 10),
+                                                                                style: TextStyle(
+                                                                                    fontSize: 16.h,
+                                                                                    color: Colors.white),
+                                                                              ).paddingSymmetric(
+                                                                                  horizontal: 15, vertical: 10),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -1062,8 +1134,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 ? ListView.builder(
                                                     shrinkWrap: true,
                                                     physics: NeverScrollableScrollPhysics(),
-                                                    itemCount:
-                                                        controller.vehicleTypeControllers.length == 0 ? 1 : controller.vehicleTypeControllers.length,
+                                                    itemCount: controller.vehicleTypeControllers.length == 0
+                                                        ? 1
+                                                        : controller.vehicleTypeControllers.length,
                                                     itemBuilder: (context, index) {
                                                       return Column(
                                                         children: [
@@ -1080,7 +1153,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   child: Container(
                                                                       margin: EdgeInsets.only(right: 15),
                                                                       padding: EdgeInsets.all(8),
-                                                                      decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                      decoration: BoxDecoration(
+                                                                          color: Colors.red, shape: BoxShape.circle),
                                                                       child: Icon(
                                                                         Icons.delete_outlined,
                                                                         color: Colors.white,
@@ -1100,7 +1174,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(value!);
+                                                                          return HelperFunction.empthyFieldValidator(
+                                                                              value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -1108,12 +1183,14 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   fieldText: "Registration No.".tr,
-                                                                  controller: controller.vehicleRegisterNoControllers[index],
+                                                                  controller:
+                                                                      controller.vehicleRegisterNoControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(value!);
+                                                                          return HelperFunction.empthyFieldValidator(
+                                                                              value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -1135,7 +1212,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(value!);
+                                                                          return HelperFunction.empthyFieldValidator(
+                                                                              value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -1143,7 +1221,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   fieldText: "Sticker No.".tr,
-                                                                  controller: controller.vehicleStikerControllers[index],
+                                                                  controller:
+                                                                      controller.vehicleStikerControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                 ),
@@ -1344,7 +1423,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.ownerCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                controller.ownerCnicFrontBack != null
+                                                    ? Icons.check_circle_sharp
+                                                    : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1366,7 +1447,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.tenantCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                controller.tenantCnicFrontBack != null
+                                                    ? Icons.check_circle_sharp
+                                                    : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1388,7 +1471,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.estateCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                controller.estateCnicFrontBack != null
+                                                    ? Icons.check_circle_sharp
+                                                    : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1410,7 +1495,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.tenantPhoto != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                controller.tenantPhoto != null
+                                                    ? Icons.check_circle_sharp
+                                                    : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1432,7 +1519,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.rentAgreement != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                controller.rentAgreement != null
+                                                    ? Icons.check_circle_sharp
+                                                    : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1454,7 +1543,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.policeForm != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                controller.policeForm != null
+                                                    ? Icons.check_circle_sharp
+                                                    : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1476,7 +1567,9 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.certificate != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                controller.certificate != null
+                                                    ? Icons.check_circle_sharp
+                                                    : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {

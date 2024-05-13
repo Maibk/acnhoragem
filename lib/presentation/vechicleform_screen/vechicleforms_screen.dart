@@ -33,7 +33,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image:
+              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -145,7 +146,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Icon(
-                                                    _value.selectedServiceCategory == 1 ? Icons.circle : Icons.circle_outlined,
+                                                    _value.selectedServiceCategory == 1
+                                                        ? Icons.circle
+                                                        : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
@@ -159,7 +162,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                   ),
                                                   Icon(
-                                                    _value.selectedServiceCategory == 2 ? Icons.circle : Icons.circle_outlined,
+                                                    _value.selectedServiceCategory == 2
+                                                        ? Icons.circle
+                                                        : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
@@ -483,12 +488,16 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Icon(
-                                                    _value.selectedResidential == 1 ? Icons.circle : Icons.circle_outlined,
+                                                    _value.selectedResidential == 1
+                                                        ? Icons.circle
+                                                        : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
+                                                      controller.updateNocStatus("");
+
                                                       _value.setselectedResidential(1);
                                                     },
                                                     child: MyText(
@@ -497,7 +506,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                   ),
                                                   Icon(
-                                                    _value.selectedResidential == 2 ? Icons.circle : Icons.circle_outlined,
+                                                    _value.selectedResidential == 2
+                                                        ? Icons.circle
+                                                        : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
@@ -511,12 +522,16 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                   ),
                                                   Icon(
-                                                    _value.selectedResidential == 3 ? Icons.circle : Icons.circle_outlined,
+                                                    _value.selectedResidential == 3
+                                                        ? Icons.circle
+                                                        : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
                                                   GestureDetector(
                                                     onTap: () {
+                                                      controller.updateNocStatus("");
+
                                                       _value.setselectedResidential(3);
                                                     },
                                                     child: MyText(
@@ -637,7 +652,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 child: ListView.builder(
                                                   physics: NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
-                                                  itemCount: controller.vehicleNoControllers.length == 0 ? 1 : controller.vehicleNoControllers.length,
+                                                  itemCount: controller.vehicleNoControllers.length == 0
+                                                      ? 1
+                                                      : controller.vehicleNoControllers.length,
                                                   itemBuilder: (context, index) {
                                                     return Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -680,7 +697,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 child: Container(
                                                                     margin: EdgeInsets.only(right: 15),
                                                                     padding: EdgeInsets.all(8),
-                                                                    decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors.red, shape: BoxShape.circle),
                                                                     child: Icon(
                                                                       Icons.delete_outlined,
                                                                       color: Colors.white,
@@ -823,7 +841,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.userfullNameControllers.length == 0 ? 1 : controller.userfullNameControllers.length,
+                                            itemCount: controller.userfullNameControllers.length == 0
+                                                ? 1
+                                                : controller.userfullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
@@ -858,7 +878,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           child: Container(
                                                               margin: EdgeInsets.only(right: 15),
                                                               padding: EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.red, shape: BoxShape.circle),
                                                               child: Icon(
                                                                 Icons.delete_outlined,
                                                                 color: Colors.white,
@@ -924,21 +945,24 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       label: "Attach Driving License Front Side Image".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: controller.userDrivingLicenseFrontSideImages[index].path == ""
-                                                          ? Icon(
-                                                              Icons.add_circle_outline,
-                                                              color: ColorConstant.anbtnBlue,
-                                                            )
-                                                          : Icon(
-                                                              Icons.check_circle_sharp,
-                                                              color: ColorConstant.anbtnBlue,
-                                                            ),
+                                                      prefix:
+                                                          controller.userDrivingLicenseFrontSideImages[index].path == ""
+                                                              ? Icon(
+                                                                  Icons.add_circle_outline,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                )
+                                                              : Icon(
+                                                                  Icons.check_circle_sharp,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker
+                                                            .pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.userDrivingLicenseFrontSideImages[index] = File(result.path);
+                                                            controller.userDrivingLicenseFrontSideImages[index] =
+                                                                File(result.path);
                                                           });
                                                         }
                                                       },
@@ -957,21 +981,24 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       label: "Attach Driving License Back Side Image".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: controller.userDrivingLicenseBackSideImages[index].path == ""
-                                                          ? Icon(
-                                                              Icons.add_circle_outline,
-                                                              color: ColorConstant.anbtnBlue,
-                                                            )
-                                                          : Icon(
-                                                              Icons.check_circle_sharp,
-                                                              color: ColorConstant.anbtnBlue,
-                                                            ),
+                                                      prefix:
+                                                          controller.userDrivingLicenseBackSideImages[index].path == ""
+                                                              ? Icon(
+                                                                  Icons.add_circle_outline,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                )
+                                                              : Icon(
+                                                                  Icons.check_circle_sharp,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker
+                                                            .pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.userDrivingLicenseBackSideImages[index] = File(result.path);
+                                                            controller.userDrivingLicenseBackSideImages[index] =
+                                                                File(result.path);
                                                             ;
                                                           });
                                                         }
@@ -1001,11 +1028,13 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker
+                                                            .pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.userCnicFrontSideImages[index] = File(result.path);
+                                                            controller.userCnicFrontSideImages[index] =
+                                                                File(result.path);
                                                           });
                                                         }
                                                       },
@@ -1034,11 +1063,13 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker
+                                                            .pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.userCnicBacktSideImages[index] = File(result.path);
+                                                            controller.userCnicBacktSideImages[index] =
+                                                                File(result.path);
                                                           });
                                                         }
                                                       },
@@ -1108,11 +1139,14 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingLicenseFrontSideImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                            controller.underTakingLicenseFrontSideImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
-                                            controller.underTakingLicenseFrontSideImage = await controller.imagePicker();
+                                            controller.underTakingLicenseFrontSideImage =
+                                                await controller.imagePicker();
                                           },
                                         ),
                                       ),
@@ -1130,7 +1164,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingLicenseBackSideImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                            controller.underTakingLicenseBackSideImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1152,7 +1188,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingCnicFrontSideImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                            controller.underTakingCnicFrontSideImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1174,7 +1212,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingCnicBackSideImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                            controller.underTakingCnicBackSideImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1202,7 +1242,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
-                                            controller.underTakingVehicalRegistrationImage = await controller.imagePicker();
+                                            controller.underTakingVehicalRegistrationImage =
+                                                await controller.imagePicker();
                                           },
                                         ),
                                       ),
@@ -1220,7 +1261,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingOwnerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                            controller.underTakingOwnerImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1242,7 +1285,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingAllotmentLetterImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                            controller.underTakingAllotmentLetterImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1264,7 +1309,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingMaintenanceBillImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                            controller.underTakingMaintenanceBillImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1286,7 +1333,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingOldStickerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                            controller.underTakingOldStickerImage != null
+                                                ? Icons.check_circle_sharp
+                                                : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {

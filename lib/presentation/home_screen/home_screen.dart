@@ -167,14 +167,8 @@ class HomeScreen extends StatelessWidget {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          if (controller.profileModel?.appFormApproved == 0) {
-                                            Utils.showToast(
-                                              "Your application form is not approved yet,kindly wait for Approval",
-                                              false,
-                                            );
-                                          } else {
-                                            Get.toNamed(AppRoutes.propertiesPage);
-                                          }
+                                          Get.toNamed(AppRoutes.propertiesPage,
+                                              arguments: controller.profileModel?.appFormApproved == 0 ? false : true);
                                         },
                                         child: CommonImageView(
                                           imagePath: ImageConstant.mypropertiesIcon,

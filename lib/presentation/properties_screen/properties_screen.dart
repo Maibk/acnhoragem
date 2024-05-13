@@ -1,3 +1,4 @@
+import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,8 +12,12 @@ import '../../widgets/custom_button.dart';
 import 'controller/properties_controller.dart';
 
 class PropertiesScreen extends StatelessWidget {
-  PropertiesController controller = Get.put(PropertiesController());
-  // const DiscoverScreen({Key? key}) : super(key: key);
+  bool? isAppFormApproved;
+
+  final bool args = Get.arguments;
+
+  final PropertiesController controller = Get.put(PropertiesController());
+  PropertiesScreen({Key? key, this.isAppFormApproved}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,8 @@ class PropertiesScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image:
+              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -104,7 +110,7 @@ class PropertiesScreen extends StatelessWidget {
                                   customWeight: FontWeight.w500,
                                 ),
                                 MyText(
-                                  title: "Blockt",
+                                  title: "Block",
                                   fontSize: 12,
                                   customWeight: FontWeight.w500,
                                 ),
@@ -125,8 +131,8 @@ class PropertiesScreen extends StatelessWidget {
                                     shrinkWrap: true,
                                     padding: getPadding(top: 5),
                                     scrollDirection: Axis.vertical,
-                                    itemCount:
-                                        controller.properties?.data?.length ?? 0, // Increase the itemCount by 1 to accommodate the "View All" item
+                                    itemCount: controller.properties?.data?.length ??
+                                        0, // Increase the itemCount by 1 to accommodate the "View All" item
                                     itemBuilder: (BuildContext context, int index) {
                                       final iteration = controller.properties!.data![index];
                                       return Padding(
@@ -137,7 +143,7 @@ class PropertiesScreen extends StatelessWidget {
                                             Container(
                                               width: 72,
                                               child: MyText(
-                                                title: iteration.storyType.toString(),
+                                                title: iteration.storyType?.toString() ?? "N/A",
                                                 clr: ColorConstant.antextGrayDark,
                                                 fontSize: 13,
                                               ),
@@ -191,104 +197,111 @@ class PropertiesScreen extends StatelessWidget {
                               borderColor: ColorConstant.anbtnBlue,
                               // prefix: Icon(Icons.abc_rounded,color: ColorConstant.blackColor,),
                               onPressed: () async {
-                                await showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (_) => AlertDialog(
-                                    backgroundColor: Colors.transparent,
-                                    shadowColor: Colors.transparent,
-                                    surfaceTintColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    actions: [
-                                      Container(
-                                          padding: EdgeInsets.all(20),
-                                          height: 230.h,
-                                          width: screenWidth,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(color: Colors.white),
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: Color(0xffFFFFFF)),
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Select User Type",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 25,
-                                                  color: Color(0xff02045C),
-                                                  fontFamily: 'Poppins',
+                                if (args) {
+                                  await showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (_) => AlertDialog(
+                                      backgroundColor: Colors.transparent,
+                                      shadowColor: Colors.transparent,
+                                      surfaceTintColor: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      actions: [
+                                        Container(
+                                            padding: EdgeInsets.all(20),
+                                            height: 230.h,
+                                            width: screenWidth,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(color: Colors.white),
+                                                borderRadius: BorderRadius.circular(10),
+                                                color: Color(0xffFFFFFF)),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Select User Type",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 25,
+                                                    color: Color(0xff02045C),
+                                                    fontFamily: 'Poppins',
+                                                  ),
                                                 ),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Expanded(
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        controller.userTypeContoller.text = "Owner";
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(4),
-                                                          color: Color(0xff0072BC),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Owner",
-                                                            style: TextStyle(
-                                                              fontSize: 16,
-                                                              color: Color(0xffFFFFFF),
-                                                              fontFamily: 'Poppins',
-                                                            ),
-                                                          ).paddingSymmetric(vertical: 5),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: getHorizontalSize(5),
-                                                  ),
-                                                  Expanded(
-                                                    child: GestureDetector(
-                                                      onTap: () {
-                                                        controller.userTypeContoller.text = "Tenant";
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                            border: Border.all(width: 1, color: ColorConstant.anbtnBlue),
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          controller.userTypeContoller.text = "Owner";
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
                                                             borderRadius: BorderRadius.circular(4),
-                                                            color: ColorConstant.whiteA700),
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Tenant",
-                                                            style: TextStyle(
-                                                              fontSize: 16,
-                                                              color: ColorConstant.blackColor,
-                                                              fontFamily: 'Poppins',
-                                                            ),
-                                                          ).paddingSymmetric(vertical: 5),
+                                                            color: Color(0xff0072BC),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              "Owner",
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: Color(0xffFFFFFF),
+                                                                fontFamily: 'Poppins',
+                                                              ),
+                                                            ).paddingSymmetric(vertical: 5),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          )),
-                                    ],
-                                  ),
-                                );
-
-                                controller.userTypeContoller.text == "Owner"
-                                    ? Get.toNamed(AppRoutes.ownerFormsPage)
-                                    : Get.toNamed(AppRoutes.tenantFormsPage);
+                                                    SizedBox(
+                                                      width: getHorizontalSize(5),
+                                                    ),
+                                                    Expanded(
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          controller.userTypeContoller.text = "Tenant";
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              border:
+                                                                  Border.all(width: 1, color: ColorConstant.anbtnBlue),
+                                                              borderRadius: BorderRadius.circular(4),
+                                                              color: ColorConstant.whiteA700),
+                                                          child: Center(
+                                                            child: Text(
+                                                              "Tenant",
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                color: ColorConstant.blackColor,
+                                                                fontFamily: 'Poppins',
+                                                              ),
+                                                            ).paddingSymmetric(vertical: 5),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            )),
+                                      ],
+                                    ),
+                                  );
+                                  controller.userTypeContoller.text == "Owner"
+                                      ? Get.toNamed(AppRoutes.ownerFormsPage)
+                                      : Get.toNamed(AppRoutes.tenantFormsPage);
+                                } else {
+                                  Utils.showToast(
+                                    "Your application form is not approved yet,kindly wait for Approval",
+                                    false,
+                                  );
+                                }
                               },
                             ),
                           ],
