@@ -405,6 +405,14 @@ class TenantFornsScreenController extends GetxController {
                 );
                 return BaseClient.handleApiError(exception);
               }
+
+              if (error.response?.statusCode == 500) {
+                btnController.stop();
+                Utils.showToast(
+                  "Internal Server Error",
+                  true,
+                );
+              }
             }
           });
         } else {

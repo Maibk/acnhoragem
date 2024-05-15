@@ -26,7 +26,7 @@ LoginModel? loginResponseModel;
 ///
 class LoginController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
-  TextEditingController emailController = TextEditingController(text: kDebugMode ? "hamid@gmail.com" : null);
+  TextEditingController emailController = TextEditingController(text: kDebugMode ? "e@yopmail.com" : null);
 
   TextEditingController passwordController = TextEditingController(text: kDebugMode ? "12345678" : null);
   Rx<bool> isShowPassword = true.obs;

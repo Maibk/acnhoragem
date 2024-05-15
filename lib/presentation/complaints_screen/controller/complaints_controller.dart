@@ -23,6 +23,7 @@ import '../../../Shared_prefrences/app_prefrences.dart';
 import '../../../core/model_classes/deal_model.dart';
 import '../../../core/model_classes/login_model.dart';
 import '../../../core/model_classes/page_model.dart';
+import '../../../core/model_classes/properties_model.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
@@ -56,6 +57,44 @@ class ComplaintsController extends GetxController {
   RxList<DealsModel> categories = <DealsModel>[].obs;
   GlobalKey<FormState> formKey = new GlobalKey();
   List<File>? complaintsImages;
+
+  PropertiesModel? properties;
+  Future<PageModel<PropertiesModel>?> getPropertiesApi() async {
+    Utils.check().then((value) async {
+      if (value) {
+        isInternetAvailable.value = true;
+
+        apiCallStatus.value = ApiCallStatus.loading;
+
+        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+          await BaseClient.get(
+              // headers: {'Authorization': "Bearer 15|7zbPqSX0mng6isF9L3iU3v33V6eaoGvEMkE2K7Fg"},
+              headers: {'Authorization': "Bearer $token"},
+              Constants.getProperties, onSuccess: (response) {
+            log(response.toString());
+
+            properties = PropertiesModel.fromJson(response.data);
+
+            update();
+
+            return true;
+          }, onError: (error) {
+            ApiException apiException = error;
+
+            print(apiException.message);
+
+            BaseClient.handleApiError(error);
+
+            apiCallStatus.value = ApiCallStatus.error;
+
+            return false;
+          });
+        });
+      } else {
+        isInternetAvailable.value = false;
+      }
+    });
+  }
 
   final ImagePicker picker = ImagePicker();
   Future<List<File>?> getImages(context) async {

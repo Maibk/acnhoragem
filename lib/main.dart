@@ -35,10 +35,9 @@ class MyApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return ScreenUtilInit(
         minTextAdapt: true,
-        
         child: GetMaterialApp(
           defaultTransition: Transition.fadeIn,
-        
+
           debugShowCheckedModeBanner: false,
           translations: AppLocalization(),
           locale: Get.deviceLocale, //for setting localization strings

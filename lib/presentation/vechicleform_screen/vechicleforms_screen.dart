@@ -1108,10 +1108,139 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                 height: getVerticalSize(10),
                               ),
                               CustomExpansionTile(
-                                title: MyText(
-                                  title: 'View Undertaking ',
-                                  clr: ColorConstant.black900,
-                                  fontSize: 16,
+                                title: GestureDetector(
+                                  onTap: () async {
+                                    await showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (_) => Center(
+                                        child: AlertDialog(
+                                          insetPadding: EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
+                                          backgroundColor: Colors.transparent,
+                                          shadowColor: Colors.transparent,
+                                          surfaceTintColor: Colors.transparent,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(25),
+                                          ),
+                                          actions: [
+                                            Container(
+                                                padding: EdgeInsets.all(15),
+                                                // height: MediaQuery.of(context).size.height,
+                                                // width: MediaQuery.of(context).size.width,
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(color: Colors.white),
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: Color(0xffFFFFFF)),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "Undertaking",
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle(
+                                                              fontSize: 18.h, color: ColorConstant.blackColor),
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Get.back();
+                                                          },
+                                                          child: Icon(
+                                                            Icons.close_sharp,
+                                                            color: ColorConstant.gray600,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Divider(
+                                                      height: 30,
+                                                      color: ColorConstant.appTextGray.withOpacity(.7),
+                                                    ),
+                                                    Text(
+                                                      """I hereby undertake to ensure that no unauthorized person or material will be transported in/out of Naval Anchorage in this vehicle; I will follow the rules/regulations and accept traffic penalties in Naval Anchorage. It is also certified that my vehicles will not be used in any illegitimate activity. I will be responsible for safe custody of the stickers and will be liable to return the stickers upon sale of vehicle/expiry date.
+                                                                                """,
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(fontSize: 12.h, color: ColorConstant.greyColor),
+                                                    ),
+                                                    RichText(
+                                                      text: TextSpan(
+                                                        text: 'NOTE : \n',
+                                                        style: TextStyle(
+                                                          fontSize: 11.h,
+                                                          color: ColorConstant.greyColor,
+                                                          fontWeight: FontWeight.bold,
+                                                          decoration: TextDecoration.none,
+                                                        ),
+                                                        children: <TextSpan>[
+                                                          TextSpan(
+                                                              text: "1. ",
+                                                              style: TextStyle(
+                                                                  fontSize: 11.h,
+                                                                  color: ColorConstant.greyColor,
+                                                                  decoration: TextDecoration.none,
+                                                                  fontWeight: FontWeight.bold)),
+                                                          TextSpan(
+                                                              text: 'Stickers will be issued to original owner only.\n',
+                                                              style: TextStyle(
+                                                                  fontSize: 11.h,
+                                                                  color: ColorConstant.greyColor,
+                                                                  decoration: TextDecoration.none,
+                                                                  fontWeight: FontWeight.normal)),
+                                                          TextSpan(
+                                                              text: "2. ",
+                                                              style: TextStyle(
+                                                                  fontSize: 11.h,
+                                                                  color: ColorConstant.greyColor,
+                                                                  decoration: TextDecoration.none,
+                                                                  fontWeight: FontWeight.bold)),
+                                                          TextSpan(
+                                                              text:
+                                                                  'Vehicles will be driven by applicant and authorized drivers only.',
+                                                              style: TextStyle(
+                                                                  fontSize: 11.h,
+                                                                  color: ColorConstant.greyColor,
+                                                                  decoration: TextDecoration.none,
+                                                                  fontWeight: FontWeight.normal)),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            Get.back();
+                                                          },
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(7),
+                                                              color: ColorConstant.gray600,
+                                                            ),
+                                                            child: Text(
+                                                              "Close",
+                                                              style: TextStyle(fontSize: 16.h, color: Colors.white),
+                                                            ).paddingSymmetric(horizontal: 15, vertical: 10),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: MyText(
+                                    title: 'View Undertaking ',
+                                    clr: ColorConstant.black900,
+                                    fontSize: 16,
+                                  ),
                                 ),
                                 children: <Widget>[
                                   Column(

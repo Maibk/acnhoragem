@@ -198,14 +198,8 @@ class MenuScreen extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
-                                if (controller.profileModel?.appFormApproved == 0) {
-                                  Utils.showToast(
-                                    "Your application form is not approved yet,kindly wait for Approval",
-                                    false,
-                                  );
-                                } else {
-                                  Get.toNamed(AppRoutes.propertiesPage);
-                                }
+                                Get.toNamed(AppRoutes.propertiesPage,
+                                    arguments: controller.profileModel?.appFormApproved == 0 ? false : true);
                               },
                               child: Row(
                                 children: [
@@ -475,6 +469,12 @@ class MenuScreen extends StatelessWidget {
                                           actionOnYes: () async {
                                             Utils.check().then((value) async {
                                               if (value) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return Center(child: CircularProgressIndicator.adaptive());
+                                                  },
+                                                );
                                                 isInternetAvailable.value = true;
 
                                                 apiCallStatus.value = ApiCallStatus.loading;
@@ -485,6 +485,7 @@ class MenuScreen extends StatelessWidget {
                                                   await BaseClient.get(
                                                       headers: {'Authorization': "Bearer $token"},
                                                       Constants.logout, onSuccess: (response) {
+                                                    Get.close(1);
                                                     Utils.showToast(response.data['message'], false);
                                                     Get.offAllNamed(AppRoutes.loginPage);
                                                     log(response.toString());

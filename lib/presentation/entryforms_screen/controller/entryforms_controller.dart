@@ -478,7 +478,7 @@ class EntryFormsController extends GetxController {
         //   }
         // }
 
-        for (var element in spouseCnicBacks) {
+        for (var element in childCnicBacks) {
           String filePath1 = element.path;
           if (filePath1.isNotEmpty) {
             EntryFormData['child_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
@@ -666,6 +666,14 @@ class EntryFormsController extends GetxController {
                   message: error.message!,
                 );
                 return BaseClient.handleApiError(exception);
+              }
+
+              if (error.response?.statusCode == 500) {
+                btnController.stop();
+                Utils.showToast(
+                  "Internal Server Error",
+                  true,
+                );
               }
             }
           });

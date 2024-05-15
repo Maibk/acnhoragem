@@ -100,7 +100,7 @@ class PropertiesScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 MyText(
-                                  title: "Property Type",
+                                  title: "Street",
                                   fontSize: 12,
                                   customWeight: FontWeight.w500,
                                 ),
@@ -138,45 +138,45 @@ class PropertiesScreen extends StatelessWidget {
                                       return Padding(
                                         padding: getPadding(top: 5, bottom: 5),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
-                                              width: 72,
+                                              width: 100,
                                               child: MyText(
-                                                title: iteration.storyType?.toString() ?? "N/A",
+                                                title: iteration.street?.toString() ?? "N/A",
                                                 clr: ColorConstant.antextGrayDark,
                                                 fontSize: 13,
                                               ),
                                             ),
                                             Container(
+                                              width: 120,
                                               child: MyText(
                                                 title: iteration.plotNo ?? "N/A",
                                                 clr: ColorConstant.antextGrayDark,
                                                 fontSize: 12,
                                               ),
                                             ),
-                                            MyText(
-                                              title: iteration.block ?? "N/A",
-                                              clr: ColorConstant.antextGrayDark,
-                                              fontSize: 12,
+                                            Container(
+                                              width: 50,
+                                              child: MyText(
+                                                title: iteration.block ?? "N/A",
+                                                clr: ColorConstant.antextGrayDark,
+                                                fontSize: 12,
+                                              ),
                                             ),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  padding: getPadding(left: 10, right: 10),
-                                                  height: getVerticalSize(20),
-                                                  decoration: BoxDecoration(
-                                                    color: ColorConstant.appgreenColor,
-                                                    borderRadius: BorderRadius.circular(5),
-                                                  ),
-                                                  alignment: Alignment.center,
-                                                  child: MyText(
-                                                    title: iteration.status.toString(),
-                                                    fontSize: 9,
-                                                    clr: ColorConstant.whiteA700,
-                                                  ),
-                                                ),
-                                              ],
+                                            Container(
+                                              padding: getPadding(left: 10, right: 10),
+                                              height: getVerticalSize(20),
+                                              decoration: BoxDecoration(
+                                                color: iteration.status == 1 ? ColorConstant.appgreenColor : Colors.red,
+                                                borderRadius: BorderRadius.circular(5),
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: MyText(
+                                                title: iteration.status == 1 ? "Active " : "Inactive",
+                                                fontSize: 9,
+                                                clr: ColorConstant.whiteA700,
+                                              ),
                                             )
                                           ],
                                         ),

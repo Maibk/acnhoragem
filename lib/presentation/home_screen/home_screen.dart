@@ -326,8 +326,6 @@ class HomeScreen extends StatelessWidget {
                                   ? <Widget>[
                                       if (controller.bills?.data?.isNotEmpty == true)
                                         Container(
-                                          width: getHorizontalSize(320), //
-                                          height: Get.height,
                                           child: ListView.builder(
                                             physics: NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
@@ -409,8 +407,9 @@ class HomeScreen extends StatelessWidget {
                                                 shrinkWrap: true,
                                                 padding: EdgeInsets.zero,
                                                 scrollDirection: Axis.vertical,
-                                                itemCount:
-                                                    3, // Increase the itemCount by 1 to accommodate the "View All" item
+                                                itemCount: controller.complaints!.data!.length < 3
+                                                    ? controller.complaints?.data?.length
+                                                    : 3, // Increase the itemCount by 1 to accommodate the "View All" item
                                                 itemBuilder: (BuildContext context, int index) {
                                                   return Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

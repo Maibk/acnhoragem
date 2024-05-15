@@ -713,9 +713,62 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         color:
                                                                             ColorConstant.appTextGray.withOpacity(.7),
                                                                       ),
+                                                                      RichText(
+                                                                        text: TextSpan(
+                                                                          text: 'I ',
+                                                                          style: TextStyle(
+                                                                            fontSize: 11.h,
+                                                                            color: ColorConstant.greyColor,
+                                                                            decoration: TextDecoration.none,
+                                                                          ),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                                text: controller
+                                                                                    .fullNameController.text.capitalize
+                                                                                    .toString(),
+                                                                                style: TextStyle(
+                                                                                    fontSize: 11.h,
+                                                                                    color: ColorConstant.greyColor,
+                                                                                    decoration: TextDecoration.none,
+                                                                                    fontWeight: FontWeight.bold)),
+                                                                            TextSpan(
+                                                                                text: ' S/O or D/O ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 11.h,
+                                                                                  color: ColorConstant.greyColor,
+                                                                                  decoration: TextDecoration.none,
+                                                                                )),
+                                                                            TextSpan(
+                                                                                text: controller
+                                                                                    .fathersController.text.capitalize
+                                                                                    .toString(),
+                                                                                style: TextStyle(
+                                                                                    fontSize: 11.h,
+                                                                                    color: ColorConstant.greyColor,
+                                                                                    decoration: TextDecoration.none,
+                                                                                    fontWeight: FontWeight.bold)),
+                                                                            TextSpan(
+                                                                                text: ' CNIC NO:! ',
+                                                                                style: TextStyle(
+                                                                                  fontSize: 11.h,
+                                                                                  color: ColorConstant.greyColor,
+                                                                                  decoration: TextDecoration.none,
+                                                                                )),
+                                                                            TextSpan(
+                                                                                text: controller
+                                                                                    .cnicController.text.capitalize
+                                                                                    .toString(),
+                                                                                style: TextStyle(
+                                                                                    fontSize: 11.h,
+                                                                                    color: ColorConstant.greyColor,
+                                                                                    decoration: TextDecoration.none,
+                                                                                    fontWeight: FontWeight.bold)),
+                                                                          ],
+                                                                        ),
+                                                                      ),
                                                                       Text(
-                                                                        """
-I ${controller.fullNameController.text.capitalize}, S/O or D/O ${controller.fathersController.text.capitalize} CNIC NO: ${controller.cnicController.text} hereby solemnly affirm that the above-mentioned information given by me about business at Naval Anchorage Islamabad is true to the best of my knowledge, if found incorrect at any stage I will be liable to be persecuted under special conditions for residing in Anchorage Society.
+                                                                        """ 
+hereby solemnly affirm that the above-mentioned information given by me about business at Naval Anchorage Islamabad is true to the best of my knowledge, if found incorrect at any stage I will be liable to be persecuted under special conditions for residing in Anchorage Society.
 
 I will ensure that utility charges / bills will be paid by me timely. In case of non-compliance owner will be responsible for the same.
 
@@ -1580,12 +1633,12 @@ No building, structure, or any part thereof should be occupied or used without o
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          if (kDebugMode)
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  controller.tenantFormApi(context);
-                                                },
-                                                child: Text("Submit")),
+                                          // if (kDebugMode)
+                                          //   ElevatedButton(
+                                          //       onPressed: () {
+                                          //         controller.tenantFormApi(context);
+                                          //       },
+                                          //       child: Text("Submit")),
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: MyAnimatedButton(
