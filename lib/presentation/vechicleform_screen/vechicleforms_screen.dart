@@ -4,6 +4,7 @@ import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -33,8 +34,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -146,9 +146,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Icon(
-                                                    _value.selectedServiceCategory == 1
-                                                        ? Icons.circle
-                                                        : Icons.circle_outlined,
+                                                    _value.selectedServiceCategory == 1 ? Icons.circle : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
@@ -162,9 +160,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                   ),
                                                   Icon(
-                                                    _value.selectedServiceCategory == 2
-                                                        ? Icons.circle
-                                                        : Icons.circle_outlined,
+                                                    _value.selectedServiceCategory == 2 ? Icons.circle : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
@@ -488,9 +484,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Icon(
-                                                    _value.selectedResidential == 1
-                                                        ? Icons.circle
-                                                        : Icons.circle_outlined,
+                                                    _value.selectedResidential == 1 ? Icons.circle : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
@@ -506,9 +500,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                   ),
                                                   Icon(
-                                                    _value.selectedResidential == 2
-                                                        ? Icons.circle
-                                                        : Icons.circle_outlined,
+                                                    _value.selectedResidential == 2 ? Icons.circle : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
@@ -522,9 +514,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                   ),
                                                   Icon(
-                                                    _value.selectedResidential == 3
-                                                        ? Icons.circle
-                                                        : Icons.circle_outlined,
+                                                    _value.selectedResidential == 3 ? Icons.circle : Icons.circle_outlined,
                                                     color: ColorConstant.blackColor,
                                                     size: 14,
                                                   ),
@@ -652,9 +642,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 child: ListView.builder(
                                                   physics: NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
-                                                  itemCount: controller.vehicleNoControllers.length == 0
-                                                      ? 1
-                                                      : controller.vehicleNoControllers.length,
+                                                  itemCount: controller.vehicleNoControllers.length == 0 ? 1 : controller.vehicleNoControllers.length,
                                                   itemBuilder: (context, index) {
                                                     return Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -697,8 +685,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 child: Container(
                                                                     margin: EdgeInsets.only(right: 15),
                                                                     padding: EdgeInsets.all(8),
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors.red, shape: BoxShape.circle),
+                                                                    decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                                     child: Icon(
                                                                       Icons.delete_outlined,
                                                                       color: Colors.white,
@@ -841,9 +828,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.userfullNameControllers.length == 0
-                                                ? 1
-                                                : controller.userfullNameControllers.length,
+                                            itemCount: controller.userfullNameControllers.length == 0 ? 1 : controller.userfullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
@@ -878,8 +863,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           child: Container(
                                                               margin: EdgeInsets.only(right: 15),
                                                               padding: EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.red, shape: BoxShape.circle),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                               child: Icon(
                                                                 Icons.delete_outlined,
                                                                 color: Colors.white,
@@ -945,24 +929,21 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       label: "Attach Driving License Front Side Image".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix:
-                                                          controller.userDrivingLicenseFrontSideImages[index].path == ""
-                                                              ? Icon(
-                                                                  Icons.add_circle_outline,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                )
-                                                              : Icon(
-                                                                  Icons.check_circle_sharp,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                ),
+                                                      prefix: controller.userDrivingLicenseFrontSideImages[index].path == ""
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.userDrivingLicenseFrontSideImages[index] =
-                                                                File(result.path);
+                                                            controller.userDrivingLicenseFrontSideImages[index] = File(result.path);
                                                           });
                                                         }
                                                       },
@@ -981,24 +962,21 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       label: "Attach Driving License Back Side Image".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix:
-                                                          controller.userDrivingLicenseBackSideImages[index].path == ""
-                                                              ? Icon(
-                                                                  Icons.add_circle_outline,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                )
-                                                              : Icon(
-                                                                  Icons.check_circle_sharp,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                ),
+                                                      prefix: controller.userDrivingLicenseBackSideImages[index].path == ""
+                                                          ? Icon(
+                                                              Icons.add_circle_outline,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            )
+                                                          : Icon(
+                                                              Icons.check_circle_sharp,
+                                                              color: ColorConstant.anbtnBlue,
+                                                            ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.userDrivingLicenseBackSideImages[index] =
-                                                                File(result.path);
+                                                            controller.userDrivingLicenseBackSideImages[index] = File(result.path);
                                                             ;
                                                           });
                                                         }
@@ -1028,13 +1006,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.userCnicFrontSideImages[index] =
-                                                                File(result.path);
+                                                            controller.userCnicFrontSideImages[index] = File(result.path);
                                                           });
                                                         }
                                                       },
@@ -1063,13 +1039,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
-                                                            controller.userCnicBacktSideImages[index] =
-                                                                File(result.path);
+                                                            controller.userCnicBacktSideImages[index] = File(result.path);
                                                           });
                                                         }
                                                       },
@@ -1108,150 +1082,224 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                 height: getVerticalSize(10),
                               ),
                               CustomExpansionTile(
-                                title: GestureDetector(
-                                  onTap: () async {
-                                    await showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (_) => Center(
-                                        child: AlertDialog(
-                                          insetPadding: EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                          ),
-                                          backgroundColor: Colors.transparent,
-                                          shadowColor: Colors.transparent,
-                                          surfaceTintColor: Colors.transparent,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(25),
-                                          ),
-                                          actions: [
-                                            Container(
-                                                padding: EdgeInsets.all(15),
-                                                // height: MediaQuery.of(context).size.height,
-                                                // width: MediaQuery.of(context).size.width,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(color: Colors.white),
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    color: Color(0xffFFFFFF)),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          "Undertaking",
-                                                          textAlign: TextAlign.left,
-                                                          style: TextStyle(
-                                                              fontSize: 18.h, color: ColorConstant.blackColor),
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Get.back();
-                                                          },
-                                                          child: Icon(
-                                                            Icons.close_sharp,
-                                                            color: ColorConstant.gray600,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Divider(
-                                                      height: 30,
-                                                      color: ColorConstant.appTextGray.withOpacity(.7),
-                                                    ),
-                                                    Text(
-                                                      """I hereby undertake to ensure that no unauthorized person or material will be transported in/out of Naval Anchorage in this vehicle; I will follow the rules/regulations and accept traffic penalties in Naval Anchorage. It is also certified that my vehicles will not be used in any illegitimate activity. I will be responsible for safe custody of the stickers and will be liable to return the stickers upon sale of vehicle/expiry date.
-                                                                                """,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(fontSize: 12.h, color: ColorConstant.greyColor),
-                                                    ),
-                                                    RichText(
-                                                      text: TextSpan(
-                                                        text: 'NOTE : \n',
-                                                        style: TextStyle(
-                                                          fontSize: 11.h,
-                                                          color: ColorConstant.greyColor,
-                                                          fontWeight: FontWeight.bold,
-                                                          decoration: TextDecoration.none,
-                                                        ),
-                                                        children: <TextSpan>[
-                                                          TextSpan(
-                                                              text: "1. ",
-                                                              style: TextStyle(
-                                                                  fontSize: 11.h,
-                                                                  color: ColorConstant.greyColor,
-                                                                  decoration: TextDecoration.none,
-                                                                  fontWeight: FontWeight.bold)),
-                                                          TextSpan(
-                                                              text: 'Stickers will be issued to original owner only.\n',
-                                                              style: TextStyle(
-                                                                  fontSize: 11.h,
-                                                                  color: ColorConstant.greyColor,
-                                                                  decoration: TextDecoration.none,
-                                                                  fontWeight: FontWeight.normal)),
-                                                          TextSpan(
-                                                              text: "2. ",
-                                                              style: TextStyle(
-                                                                  fontSize: 11.h,
-                                                                  color: ColorConstant.greyColor,
-                                                                  decoration: TextDecoration.none,
-                                                                  fontWeight: FontWeight.bold)),
-                                                          TextSpan(
-                                                              text:
-                                                                  'Vehicles will be driven by applicant and authorized drivers only.',
-                                                              style: TextStyle(
-                                                                  fontSize: 11.h,
-                                                                  color: ColorConstant.greyColor,
-                                                                  decoration: TextDecoration.none,
-                                                                  fontWeight: FontWeight.normal)),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            Get.back();
-                                                          },
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(7),
-                                                              color: ColorConstant.gray600,
-                                                            ),
-                                                            child: Text(
-                                                              "Close",
-                                                              style: TextStyle(fontSize: 16.h, color: Colors.white),
-                                                            ).paddingSymmetric(horizontal: 15, vertical: 10),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                )),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: MyText(
-                                    title: 'View Undertaking ',
-                                    clr: ColorConstant.black900,
-                                    fontSize: 16,
-                                  ),
+                                title: MyText(
+                                  title: 'Requirements :',
+                                  clr: ColorConstant.black900,
+                                  fontSize: 16,
                                 ),
                                 children: <Widget>[
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: getPadding(left: 10),
-                                        child: MyText(
-                                          title: "Requirements:",
-                                          clr: ColorConstant.antextlightgray,
-                                          fontSize: 15,
+                                      GestureDetector(
+                                        onTap: () async {
+                                          await showDialog(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (_) => Center(
+                                              child: AlertDialog(
+                                                insetPadding: EdgeInsets.symmetric(
+                                                  horizontal: 10,
+                                                ),
+                                                backgroundColor: Colors.transparent,
+                                                shadowColor: Colors.transparent,
+                                                surfaceTintColor: Colors.transparent,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(25),
+                                                ),
+                                                actions: [
+                                                  Container(
+                                                      padding: EdgeInsets.all(15),
+                                                      // height: MediaQuery.of(context).size.height,
+                                                      // width: MediaQuery.of(context).size.width,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(color: Colors.white),
+                                                          borderRadius: BorderRadius.circular(10),
+                                                          color: Color(0xffFFFFFF)),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                "Undertaking",
+                                                                textAlign: TextAlign.left,
+                                                                style: TextStyle(fontSize: 18.h, color: ColorConstant.blackColor),
+                                                              ),
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  Get.back();
+                                                                },
+                                                                child: Icon(
+                                                                  Icons.close_sharp,
+                                                                  color: ColorConstant.gray600,
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                          Divider(
+                                                            height: 30,
+                                                            color: ColorConstant.appTextGray.withOpacity(.7),
+                                                          ),
+                                                          Text(
+                                                            """I hereby undertake to ensure that no unauthorized person or material will be transported in/out of Naval Anchorage in this vehicle; I will follow the rules/regulations and accept traffic penalties in Naval Anchorage. It is also certified that my vehicles will not be used in any illegitimate activity. I will be responsible for safe custody of the stickers and will be liable to return the stickers upon sale of vehicle/expiry date.
+                                                                                """,
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle(fontSize: 12.h, color: ColorConstant.greyColor),
+                                                          ),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              text: 'Name : \n',
+                                                              style: TextStyle(
+                                                                fontSize: 11.h,
+                                                                color: ColorConstant.greyColor,
+                                                                fontWeight: FontWeight.bold,
+                                                                decoration: TextDecoration.none,
+                                                              ),
+                                                              children: <TextSpan>[
+                                                                TextSpan(
+                                                                    text: "1. ",
+                                                                    style: TextStyle(
+                                                                        fontSize: 11.h,
+                                                                        fontStyle: FontStyle.italic,
+                                                                        color: ColorConstant.greyColor,
+                                                                        decoration: TextDecoration.none,
+                                                                        fontWeight: FontWeight.bold)),
+                                                                TextSpan(
+                                                                    text: 'Stickers will be issued to original owner only.\n',
+                                                                    style: TextStyle(
+                                                                        fontSize: 11.h,
+                                                                        color: ColorConstant.greyColor,
+                                                                        decoration: TextDecoration.none,
+                                                                        fontWeight: FontWeight.normal)),
+                                                                TextSpan(
+                                                                    text: "2. ",
+                                                                    style: TextStyle(
+                                                                        fontSize: 11.h,
+                                                                        color: ColorConstant.greyColor,
+                                                                        decoration: TextDecoration.none,
+                                                                        fontWeight: FontWeight.bold)),
+                                                                TextSpan(
+                                                                    text: 'Vehicles will be driven by applicant and authorized drivers only.',
+                                                                    style: TextStyle(
+                                                                        fontSize: 11.h,
+                                                                        color: ColorConstant.greyColor,
+                                                                        decoration: TextDecoration.none,
+                                                                        fontWeight: FontWeight.normal)),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: getVerticalSize(5),
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              RichText(
+                                                                text: TextSpan(
+                                                                  text: 'Name : \n',
+                                                                  style: TextStyle(
+                                                                    fontSize: 11.h,
+                                                                    color: ColorConstant.greyColor,
+                                                                    decoration: TextDecoration.none,
+                                                                  ),
+                                                                  children: <TextSpan>[
+                                                                    TextSpan(
+                                                                        text: controller.fullNameController.text,
+                                                                        style: TextStyle(
+                                                                            fontSize: 13.h,
+                                                                            fontStyle: FontStyle.italic,
+                                                                            color: ColorConstant.greyColor,
+                                                                            decoration: TextDecoration.none,
+                                                                            fontWeight: FontWeight.bold)),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: getVerticalSize(5),
+                                                              ),
+                                                              RichText(
+                                                                text: TextSpan(
+                                                                  text: 'Signature of owner : \n',
+                                                                  style: TextStyle(
+                                                                    fontSize: 11.h,
+                                                                    color: ColorConstant.greyColor,
+                                                                    decoration: TextDecoration.none,
+                                                                  ),
+                                                                  children: <TextSpan>[
+                                                                    TextSpan(
+                                                                        text: controller.fullNameController.text,
+                                                                        style: TextStyle(
+                                                                            fontSize: 11.h,
+                                                                            color: ColorConstant.greyColor,
+                                                                            fontStyle: FontStyle.italic,
+                                                                            decoration: TextDecoration.none,
+                                                                            fontWeight: FontWeight.bold)),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: getVerticalSize(5),
+                                                              ),
+                                                              RichText(
+                                                                text: TextSpan(
+                                                                  text: 'CNIC : \n',
+                                                                  style: TextStyle(
+                                                                    fontSize: 11.h,
+                                                                    color: ColorConstant.greyColor,
+                                                                    decoration: TextDecoration.none,
+                                                                  ),
+                                                                  children: <TextSpan>[
+                                                                    TextSpan(
+                                                                        text: controller.cnicController.text,
+                                                                        style: TextStyle(
+                                                                            fontSize: 11.h,
+                                                                            color: ColorConstant.greyColor,
+                                                                            decoration: TextDecoration.none,
+                                                                            fontStyle: FontStyle.italic,
+                                                                            fontWeight: FontWeight.bold)),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                            children: [
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  Get.back();
+                                                                },
+                                                                child: Container(
+                                                                  decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular(7),
+                                                                    color: ColorConstant.gray600,
+                                                                  ),
+                                                                  child: Text(
+                                                                    "Close",
+                                                                    style: TextStyle(fontSize: 16.h, color: Colors.white),
+                                                                  ).paddingSymmetric(horizontal: 15, vertical: 10),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Padding(
+                                          padding: getPadding(left: 10),
+                                          child: MyText(
+                                            title: "View Undertaking:",
+                                            under: true,
+                                            clr: ColorConstant.antextlightgray,
+                                            fontSize: 15,
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -1268,14 +1316,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingLicenseFrontSideImage != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.underTakingLicenseFrontSideImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
-                                            controller.underTakingLicenseFrontSideImage =
-                                                await controller.imagePicker();
+                                            controller.underTakingLicenseFrontSideImage = await controller.imagePicker();
                                           },
                                         ),
                                       ),
@@ -1293,9 +1338,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingLicenseBackSideImage != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.underTakingLicenseBackSideImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1317,9 +1360,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingCnicFrontSideImage != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.underTakingCnicFrontSideImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1341,9 +1382,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingCnicBackSideImage != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.underTakingCnicBackSideImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1371,8 +1410,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
-                                            controller.underTakingVehicalRegistrationImage =
-                                                await controller.imagePicker();
+                                            controller.underTakingVehicalRegistrationImage = await controller.imagePicker();
                                           },
                                         ),
                                       ),
@@ -1390,9 +1428,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingOwnerImage != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.underTakingOwnerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1414,9 +1450,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingAllotmentLetterImage != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.underTakingAllotmentLetterImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1438,9 +1472,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingMaintenanceBillImage != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.underTakingMaintenanceBillImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1462,9 +1494,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.underTakingOldStickerImage != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.underTakingOldStickerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {

@@ -37,8 +37,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -185,9 +184,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               showCities: false,
                                               showStates: false,
                                               dropdownDecoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom:
-                                                          BorderSide(width: .5, color: ColorConstant.appBorderGray)),
+                                                  border: Border(bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray)),
                                                   color: Colors.transparent,
                                                   borderRadius: BorderRadius.circular(00.0)),
                                             ),
@@ -319,10 +316,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     log(controller.plotstSelectedValue!.id.toString());
                                                     for (var i = 0; i < controller.plots.length; i++) {
                                                       controller.plotstSelectedValue?.id == controller.plots[i].id;
-                                                      if (controller.plotstSelectedValue?.id ==
-                                                          controller.plots[i].id) {
-                                                        controller.sizeHouseAddController.text =
-                                                            controller.plots[i].sq_yards.toString();
+                                                      if (controller.plotstSelectedValue?.id == controller.plots[i].id) {
+                                                        controller.sizeHouseAddController.text = controller.plots[i].sq_yards.toString();
                                                         log("Square yard found ${controller.sizeHouseAddController.text}");
                                                         break;
                                                       }
@@ -687,15 +682,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                                     children: [
                                                                       Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
+                                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                         children: [
                                                                           Text(
                                                                             "Declaration by the Tenant",
                                                                             textAlign: TextAlign.left,
-                                                                            style: TextStyle(
-                                                                                fontSize: 18.h,
-                                                                                color: ColorConstant.blackColor),
+                                                                            style: TextStyle(fontSize: 18.h, color: ColorConstant.blackColor),
                                                                           ),
                                                                           GestureDetector(
                                                                             onTap: () {
@@ -710,8 +702,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                       ),
                                                                       Divider(
                                                                         height: 30,
-                                                                        color:
-                                                                            ColorConstant.appTextGray.withOpacity(.7),
+                                                                        color: ColorConstant.appTextGray.withOpacity(.7),
                                                                       ),
                                                                       RichText(
                                                                         text: TextSpan(
@@ -723,9 +714,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                           ),
                                                                           children: <TextSpan>[
                                                                             TextSpan(
-                                                                                text: controller
-                                                                                    .fullNameController.text.capitalize
-                                                                                    .toString(),
+                                                                                text: controller.fullNameController.text.capitalize.toString(),
                                                                                 style: TextStyle(
                                                                                     fontSize: 11.h,
                                                                                     color: ColorConstant.greyColor,
@@ -739,25 +728,21 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                                   decoration: TextDecoration.none,
                                                                                 )),
                                                                             TextSpan(
-                                                                                text: controller
-                                                                                    .fathersController.text.capitalize
-                                                                                    .toString(),
+                                                                                text: controller.fathersController.text.capitalize.toString(),
                                                                                 style: TextStyle(
                                                                                     fontSize: 11.h,
                                                                                     color: ColorConstant.greyColor,
                                                                                     decoration: TextDecoration.none,
                                                                                     fontWeight: FontWeight.bold)),
                                                                             TextSpan(
-                                                                                text: ' CNIC NO:! ',
+                                                                                text: ' CNIC NO: ',
                                                                                 style: TextStyle(
                                                                                   fontSize: 11.h,
                                                                                   color: ColorConstant.greyColor,
                                                                                   decoration: TextDecoration.none,
                                                                                 )),
                                                                             TextSpan(
-                                                                                text: controller
-                                                                                    .cnicController.text.capitalize
-                                                                                    .toString(),
+                                                                                text: controller.cnicController.text.capitalize.toString(),
                                                                                 style: TextStyle(
                                                                                     fontSize: 11.h,
                                                                                     color: ColorConstant.greyColor,
@@ -767,7 +752,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         ),
                                                                       ),
                                                                       Text(
-                                                                        """ 
+                                                                        """
 hereby solemnly affirm that the above-mentioned information given by me about business at Naval Anchorage Islamabad is true to the best of my knowledge, if found incorrect at any stage I will be liable to be persecuted under special conditions for residing in Anchorage Society.
 
 I will ensure that utility charges / bills will be paid by me timely. In case of non-compliance owner will be responsible for the same.
@@ -827,9 +812,7 @@ Allotee(s)/ occupants (s) are required not to throw any waste material in dustbi
 No building, structure, or any part thereof should be occupied or used without obtaining completion certificate (permission to occupy).
 """,
                                                                         textAlign: TextAlign.left,
-                                                                        style: TextStyle(
-                                                                            fontSize: 12.h,
-                                                                            color: ColorConstant.greyColor),
+                                                                        style: TextStyle(fontSize: 12.h, color: ColorConstant.greyColor),
                                                                       ),
                                                                       Row(
                                                                         mainAxisAlignment: MainAxisAlignment.end,
@@ -845,11 +828,8 @@ No building, structure, or any part thereof should be occupied or used without o
                                                                               ),
                                                                               child: Text(
                                                                                 "Close",
-                                                                                style: TextStyle(
-                                                                                    fontSize: 16.h,
-                                                                                    color: Colors.white),
-                                                                              ).paddingSymmetric(
-                                                                                  horizontal: 15, vertical: 10),
+                                                                                style: TextStyle(fontSize: 16.h, color: Colors.white),
+                                                                              ).paddingSymmetric(horizontal: 15, vertical: 10),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -1187,9 +1167,8 @@ No building, structure, or any part thereof should be occupied or used without o
                                                 ? ListView.builder(
                                                     shrinkWrap: true,
                                                     physics: NeverScrollableScrollPhysics(),
-                                                    itemCount: controller.vehicleTypeControllers.length == 0
-                                                        ? 1
-                                                        : controller.vehicleTypeControllers.length,
+                                                    itemCount:
+                                                        controller.vehicleTypeControllers.length == 0 ? 1 : controller.vehicleTypeControllers.length,
                                                     itemBuilder: (context, index) {
                                                       return Column(
                                                         children: [
@@ -1206,8 +1185,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                                   child: Container(
                                                                       margin: EdgeInsets.only(right: 15),
                                                                       padding: EdgeInsets.all(8),
-                                                                      decoration: BoxDecoration(
-                                                                          color: Colors.red, shape: BoxShape.circle),
+                                                                      decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                                       child: Icon(
                                                                         Icons.delete_outlined,
                                                                         color: Colors.white,
@@ -1227,8 +1205,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(
-                                                                              value!);
+                                                                          return HelperFunction.empthyFieldValidator(value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -1236,14 +1213,12 @@ No building, structure, or any part thereof should be occupied or used without o
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   fieldText: "Registration No.".tr,
-                                                                  controller:
-                                                                      controller.vehicleRegisterNoControllers[index],
+                                                                  controller: controller.vehicleRegisterNoControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(
-                                                                              value!);
+                                                                          return HelperFunction.empthyFieldValidator(value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -1265,8 +1240,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
                                                                   validator: controller.vehicleDataIndex < 1
                                                                       ? (value) {
-                                                                          return HelperFunction.empthyFieldValidator(
-                                                                              value!);
+                                                                          return HelperFunction.empthyFieldValidator(value!);
                                                                         }
                                                                       : null,
                                                                 ),
@@ -1274,8 +1248,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   fieldText: "Sticker No.".tr,
-                                                                  controller:
-                                                                      controller.vehicleStikerControllers[index],
+                                                                  controller: controller.vehicleStikerControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                 ),
@@ -1476,9 +1449,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.ownerCnicFrontBack != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.ownerCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1500,9 +1471,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.tenantCnicFrontBack != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.tenantCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1524,9 +1493,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.estateCnicFrontBack != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.estateCnicFrontBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1548,9 +1515,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.tenantPhoto != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.tenantPhoto != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1572,9 +1537,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.rentAgreement != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.rentAgreement != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1596,9 +1559,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.policeForm != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.policeForm != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {
@@ -1620,9 +1581,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
-                                                controller.certificate != null
-                                                    ? Icons.check_circle_sharp
-                                                    : Icons.add_circle_outline,
+                                                controller.certificate != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                                 color: ColorConstant.anbtnBlue,
                                               ),
                                               onPressed: () async {

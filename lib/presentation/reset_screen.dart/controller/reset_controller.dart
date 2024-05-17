@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 
 import '../../../Shared_prefrences/app_prefrences.dart';
 import '../../../core/utils/constants.dart';
@@ -64,11 +64,7 @@ class ResetController extends GetxController {
             BaseClient.handleApiError(error);
             btnController.stop();
             apiCallStatus = ApiCallStatus.error;
-          }, data: {
-            "email": args.toString(),
-            "code": int.tryParse(otpController.text),
-            "new_password": passwordController.text
-          });
+          }, data: {"email": args.toString(), "code": int.tryParse(otpController.text), "new_password": passwordController.text});
         } else {
           CustomSnackBar.showCustomErrorToast(
             message: Strings.noInternetConnection.tr,

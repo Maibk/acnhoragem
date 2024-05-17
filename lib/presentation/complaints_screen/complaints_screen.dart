@@ -27,8 +27,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -104,8 +103,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                                   controller.complaintsImages = await controller.getImages(context);
                                                 },
                                                 child: Container(
-                                                  decoration:
-                                                      BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                                                  decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                                                   child: Icon(
                                                     Icons.check_circle_outline_outlined,
                                                     color: ColorConstant.anbtnBlue,
@@ -121,8 +119,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                                       controller.complaintsImages = await controller.getImages(context);
                                                     },
                                                     child: Container(
-                                                      decoration: BoxDecoration(
-                                                          color: ColorConstant.anbtnBlue, shape: BoxShape.circle),
+                                                      decoration: BoxDecoration(color: ColorConstant.anbtnBlue, shape: BoxShape.circle),
                                                       child: Icon(
                                                         Icons.add,
                                                         color: ColorConstant.whiteA700,
@@ -131,6 +128,28 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                                     )),
                                               ),
                                       ],
+                                    ),
+                                    SizedBox(height: getVerticalSize(10)),
+                                    MyText(title: "Select Property", fontSize: 12.h),
+                                    SizedBox(height: getVerticalSize(10)),
+                                    DropdownButton<PropertyName>(
+                                      value: controller.selectedProperty,
+                                      items: controller.propertyNames.map((property) {
+                                        return DropdownMenuItem(
+                                          value: property,
+                                          child: Text(
+                                            property.name,
+                                            style: TextStyle(fontSize: 12.h),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          controller.selectedProperty = newValue;
+
+                                          controller.propertyId = newValue?.id ?? 0;
+                                        });
+                                      },
                                     ),
                                     SizedBox(height: getVerticalSize(10)),
                                     MyText(title: "Complaint Category", fontSize: 12.h),
@@ -154,8 +173,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                       },
                                     ),
                                     SizedBox(height: 20.0),
-                                    if (controller.selectedComplaint != null)
-                                      MyText(title: "Complaint Type", fontSize: 12.h),
+                                    if (controller.selectedComplaint != null) MyText(title: "Complaint Type", fontSize: 12.h),
                                     Container(
                                       child: DropdownButton(
                                         value: controller.selectedDepartment,
@@ -199,7 +217,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                       controller: controller.btnController,
                                       title: "Submit".tr,
                                       onTap: () async {
-                                        controller.submitComplaint(context);
+                                        controller.submitComplaint(context, controller.propertyId);
                                       },
                                     ),
                                   ],

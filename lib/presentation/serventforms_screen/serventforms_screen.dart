@@ -1066,31 +1066,31 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                       SizedBox(
                                         height: getVerticalSize(5),
                                       ),
-                                      SizedBox(
-                                        height: getVerticalSize(15),
-                                      ),
-                                      Padding(
-                                        padding: getPadding(left: 10, right: 10),
-                                        child: MyAnimatedButton(
-                                          radius: 5.0,
-                                          height: getVerticalSize(50),
-                                          width: getHorizontalSize(400),
-                                          fontSize: 16,
-                                          bgColor: ColorConstant.anbtnBlue,
-                                          controller: _value.btnController,
-                                          title: "Submit".tr,
-                                          onTap: () async {
-                                            _value.submitServantApi(context);
-                                            log(_value.servantData.toString());
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: getVerticalSize(20),
-                                      ),
                                     ],
                                   )
                                 ],
+                              ),
+                              SizedBox(
+                                height: getVerticalSize(15),
+                              ),
+                              Padding(
+                                padding: getPadding(left: 10, right: 10),
+                                child: MyAnimatedButton(
+                                  radius: 5.0,
+                                  height: getVerticalSize(50),
+                                  width: getHorizontalSize(400),
+                                  fontSize: 16,
+                                  bgColor: ColorConstant.anbtnBlue,
+                                  controller: _value.btnController,
+                                  title: "Submit".tr,
+                                  onTap: () async {
+                                    _value.submitServantApi(context);
+                                    log(_value.servantData.toString());
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: getVerticalSize(20),
                               ),
                             ],
                           ),

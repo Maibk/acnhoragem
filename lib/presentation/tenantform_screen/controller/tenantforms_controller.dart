@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart' as _http;
 import 'package:image_picker/image_picker.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 
 import '../../../Shared_prefrences/app_prefrences.dart';
 import '../../../core/model_classes/deal_model.dart';
@@ -31,7 +31,7 @@ import '../../../widgets/custom_snackbar.dart';
 class TenantFornsScreenController extends GetxController {
   File? ownerCnic;
   File? tenantCnic;
-  File? estateAgentCnic;
+  // File? estateAgentCnic;
   File? tenantPhoto;
   File? rentAgreement;
   File? policeForm;
@@ -166,13 +166,7 @@ class TenantFornsScreenController extends GetxController {
 
   var tenantFormdata = {};
 
-  Map<String, dynamic> NovehicleFormdata = {
-    'vehicle_type[]': 'No',
-    'registration[]': 'NO',
-    'color[]': 'NO',
-    'sticker_no[]': 'NO',
-    'etag[]': 'NO'
-  };
+  Map<String, dynamic> NovehicleFormdata = {'vehicle_type[]': 'No', 'registration[]': 'NO', 'color[]': 'NO', 'sticker_no[]': 'NO', 'etag[]': 'NO'};
 
   GlobalKey<FormState> vehicleFormKey = GlobalKey();
   int vehicleDataIndex = 0;
@@ -298,18 +292,19 @@ class TenantFornsScreenController extends GetxController {
           ]);
         }
 
-        for (var i = 0; i < estateCnicFrontBack!.length; i++) {
-          data.files.addAll([
-            MapEntry(
-                "agent_cnic_image[$i]",
-                await _dio.MultipartFile.fromFile(
-                  estateCnicFrontBack![i].path,
-                  filename: estateCnicFrontBack![i].path.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                )),
-          ]);
+        if (estateCnicFrontBack != null) {
+          for (var i = 0; i < estateCnicFrontBack!.length; i++) {
+            data.files.addAll([
+              MapEntry(
+                  "agent_cnic_image[$i]",
+                  await _dio.MultipartFile.fromFile(
+                    estateCnicFrontBack![i].path,
+                    filename: estateCnicFrontBack![i].path.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )),
+            ]);
+          }
         }
-
         if (tenantPhoto != null) {
           String filePath1 = tenantPhoto?.path ?? '';
           if (filePath1.isNotEmpty) {
@@ -472,14 +467,11 @@ class TenantFornsScreenController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             plots.clear();
             for (var element in response.data['data']) {
-              plots.add(
-                  Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
+              plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
             }
             plots;
             log(response.data['data'].toString());

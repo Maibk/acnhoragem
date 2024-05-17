@@ -53,13 +53,13 @@ class CustomDialogue extends StatelessWidget {
 
             // Row()
             Container(
-              height: responsive.setHeight(6),
               child: Row(
                 children: [
                   Expanded(
                     child: GestureDetector(
                       onTap: actionOnNo,
                       child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 15),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0), border: Border.all(color: Colors.transparent)),
                         child: Text(

@@ -47,7 +47,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   another_stepper: ^1.2.2
   flutter_animated_button: ^2.0.3
-  rounded_loading_button:
+  # rounded_loading_button:
+  rounded_loading_button_plus: ^3.0.1
   onboarding_intro_screen: ^0.0.8
   flutter_onboarding_slider: ^1.0.11
   circular_reveal_animation: ^2.0.1

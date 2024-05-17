@@ -11,18 +11,24 @@ import '../../widgets/animated_custom_button.dart';
 import '../complaints_screen/complaints_screen.dart';
 import 'controller/mycomplaints_controller.dart';
 
-class MyComplaintsScreen extends StatelessWidget {
-  MyComplaintsController controller = Get.put(MyComplaintsController());
-  ViewComplaintController viewCompplaincontroller = Get.put(ViewComplaintController());
-  // const DiscoverScreen({Key? key}) : super(key: key);7
+class MyComplaintsScreen extends StatefulWidget {
+  @override
+  State<MyComplaintsScreen> createState() => _MyComplaintsScreenState();
+}
 
+class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
+  final ViewComplaintController viewCompplaincontroller = Get.put(ViewComplaintController());
+
+  final MyComplaintsController controller = Get.put(MyComplaintsController());
+
+
+  // const DiscoverScreen({Key? key}) : super(key: key);7
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -113,8 +119,7 @@ class MyComplaintsScreen extends StatelessWidget {
                                     shrinkWrap: true,
                                     padding: getPadding(top: 5),
                                     scrollDirection: Axis.vertical,
-                                    itemCount: controller.complaints!.data!
-                                        .length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                    itemCount: controller.complaints!.data!.length, // Increase the itemCount by 1 to accommodate the "View All" item
                                     itemBuilder: (BuildContext context, int index) {
                                       return Column(
                                         children: [
@@ -123,17 +128,13 @@ class MyComplaintsScreen extends StatelessWidget {
                                             child: GestureDetector(
                                               behavior: HitTestBehavior.opaque,
                                               onTap: () {
-                                                viewCompplaincontroller
-                                                    .getViewComplain(controller.complaints!.data![index].id ?? 0);
+                                                viewCompplaincontroller.getViewComplain(controller.complaints!.data![index].id ?? 0);
 
-                                                viewCompplaincontroller
-                                                    .getMessagesOnComplain(controller.complaints!.data![index].id ?? 0);
+                                                viewCompplaincontroller.getMessagesOnComplain(controller.complaints!.data![index].id ?? 0);
                                                 Get.to(() => VIewComplaintsScreen(
-                                                      description:
-                                                          controller.complaints!.data![index].description ?? "",
+                                                      description: controller.complaints!.data![index].description ?? "",
                                                       status: controller.complaints!.data![index].status ?? "",
-                                                      complainType:
-                                                          controller.complaints!.data![index].complaintType ?? "",
+                                                      complainType: controller.complaints!.data![index].complaintType ?? "",
                                                       complaintID: controller.complaints!.data![index].id ?? 0,
                                                     ));
                                               },
@@ -154,8 +155,7 @@ class MyComplaintsScreen extends StatelessWidget {
                                                         padding: getPadding(left: 10, right: 10),
                                                         height: getVerticalSize(20),
                                                         decoration: BoxDecoration(
-                                                          color: controller.complaints!.data![index].status! ==
-                                                                  "Resolved"
+                                                          color: controller.complaints!.data![index].status! == "Resolved"
                                                               ? ColorConstant.appgreenColor
                                                               : controller.complaints!.data![index].status! == "Pending"
                                                                   ? ColorConstant.pendingColor

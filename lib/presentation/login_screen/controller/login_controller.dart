@@ -5,7 +5,7 @@ import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 
 import '../../../Shared_prefrences/app_prefrences.dart';
 import '../../../core/utils/constants.dart';
@@ -65,6 +65,8 @@ class LoginController extends GetxController {
                   Get.offAllNamed(AppRoutes.tenantFormsPage);
                 }
               } else if (loginResponseModel?.data?.appFormApproved == 0) {
+                Get.offAllNamed(AppRoutes.homePage);
+              } else {
                 Get.offAllNamed(AppRoutes.homePage);
               }
             } else {

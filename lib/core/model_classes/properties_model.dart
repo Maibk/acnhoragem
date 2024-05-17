@@ -48,6 +48,7 @@ class Data {
   String? block;
   int? amount;
   int? status;
+  String? propertyName;
   String? createdAt;
   String? updatedAt;
   String? deletedAt;
@@ -73,6 +74,7 @@ class Data {
       this.block,
       this.amount,
       this.status,
+      this.propertyName,
       this.createdAt,
       this.updatedAt,
       this.deletedAt});
@@ -98,6 +100,7 @@ class Data {
     block = json['block'];
     amount = json['amount'];
     status = json['status'];
+    propertyName = json['property_name'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
@@ -125,6 +128,7 @@ class Data {
     data['block'] = this.block;
     data['amount'] = this.amount;
     data['status'] = this.status;
+    data['property_name'] = this.propertyName;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     data['deleted_at'] = this.deletedAt;

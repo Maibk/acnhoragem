@@ -8,6 +8,6 @@ import 'package:get/get.dart';
 class MyComplaintsBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => MyComplaintsController());
+    Get.put(() => MyComplaintsController());
   }
 }

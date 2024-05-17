@@ -4,26 +4,20 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:anchorageislamabad/core/model_classes/properties_model.dart';
+import 'package:anchorageislamabad/core/model_classes/user_model.dart';
 import 'package:anchorageislamabad/presentation/login_screen/controller/login_controller.dart';
 import 'package:anchorageislamabad/presentation/myprofile_screen/controller/myprofile_controller.dart';
-import 'package:anchorageislamabad/presentation/splash_screen/controller/splash_controller.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart' as _http;
-
-import 'package:flutter/cupertino.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 
 import '../../../Shared_prefrences/app_prefrences.dart';
 import '../../../core/model_classes/deal_model.dart';
-import '../../../core/model_classes/login_model.dart';
-import '../../../core/model_classes/page_model.dart';
-import '../../../core/model_classes/properties_model.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
@@ -31,7 +25,6 @@ import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 import '../../../localization/strings_enum.dart';
 import '../../../widgets/custom_snackbar.dart';
-
 import '../models/complaints_model.dart';
 
 /// A controller class for the DiscoverScreen.
@@ -49,17 +42,19 @@ class ComplaintsController extends GetxController {
 
   String complaintType = '';
 
+  int propertyId = 0;
+
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
-
+  List<PropertyName> propertyNames = [];
+  PropertyName? selectedProperty;
   RxList<DealsModel> categories = <DealsModel>[].obs;
   GlobalKey<FormState> formKey = new GlobalKey();
   List<File>? complaintsImages;
-
   PropertiesModel? properties;
-  Future<PageModel<PropertiesModel>?> getPropertiesApi() async {
+  Future<PropertiesModel?> getPropertiesApi() async {
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
@@ -74,6 +69,10 @@ class ComplaintsController extends GetxController {
             log(response.toString());
 
             properties = PropertiesModel.fromJson(response.data);
+
+            for (var element in properties!.data!) {
+              propertyNames.add(PropertyName(id: element.id!, name: element.propertyName!));
+            }
 
             update();
 
@@ -94,6 +93,7 @@ class ComplaintsController extends GetxController {
         isInternetAvailable.value = false;
       }
     });
+    return null;
   }
 
   final ImagePicker picker = ImagePicker();
@@ -196,25 +196,27 @@ class ComplaintsController extends GetxController {
     return null;
   }
 
-  Future<void> submitComplaint(context) async {
+  Future<void> submitComplaint(context, int id) async {
     Utils.check().then((value) async {
       Map<String, dynamic> data = {};
 
       data = {
-        'member_id': loginResponseModel!.data!.id,
+        'member_id': UserModel().id,
         'complaint_type_id': selectedDepartment!['id'].toString(),
-        'property_id': '25793',
+        'property_id': id,
         'description': descriptionController.text
       };
 
-      for (var i = 0; i < complaintsImages!.length; i++) {
-        String filePath1 = complaintsImages![i].path;
-        if (filePath1.isNotEmpty) {
-          data['attachment[$i]'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
+      if (complaintsImages != null) {
+        for (var i = 0; i < complaintsImages!.length; i++) {
+          String filePath1 = complaintsImages![i].path;
+          if (filePath1.isNotEmpty) {
+            data['attachment[$i]'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
         }
       }
 
@@ -273,11 +275,7 @@ class ComplaintsController extends GetxController {
 
   Future<void> submitMessge(context, id) async {
     Utils.check().then((value) async {
-      Map<String, dynamic> data = {
-        'complaint_id': id,
-        'user_id': loginResponseModel?.data?.id ?? 0,
-        'message': messageController.text
-      };
+      Map<String, dynamic> data = {'complaint_id': id, 'user_id': loginResponseModel?.data?.id ?? 0, 'message': messageController.text};
 
       if (value) {
         btnController.start();
@@ -340,8 +338,18 @@ class ComplaintsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    getPropertiesApi();
     // getComplainTypes();
   }
+}
+
+class PropertyName {
+  final int id;
+  final String name;
+  PropertyName({
+    required this.id,
+    required this.name,
+  });
 }
 
 class Complaint {

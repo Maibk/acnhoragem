@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 
 import '../../../Shared_prefrences/app_prefrences.dart';
 import '../../../core/utils/constants.dart';
@@ -51,8 +51,7 @@ class MyprofileController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getProfileUrl,
-              onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getProfileUrl, onSuccess: (response) {
             getProfileModel = ProfileModel.fromJson(response.data);
             log(response.toString());
 
@@ -99,8 +98,7 @@ class MyprofileController extends GetxController {
           btnController.start();
 
           _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-            await BaseClient.post(headers: {'Authorization': "Bearer $token"}, Constants.updateProfileUrl,
-                onSuccess: (response) async {
+            await BaseClient.post(headers: {'Authorization': "Bearer $token"}, Constants.updateProfileUrl, onSuccess: (response) async {
               btnController.stop();
               apiCallStatus.value = ApiCallStatus.success;
               getProfile();

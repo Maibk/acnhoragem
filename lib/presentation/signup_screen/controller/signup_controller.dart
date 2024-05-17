@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import '../../../Shared_prefrences/app_prefrences.dart';
 import '../../../core/model_classes/login_model.dart';
 import '../../../core/utils/constants.dart';
@@ -58,9 +58,7 @@ class SignUpController extends GetxController {
                 false,
               );
 
-              userTypeContoller.text == "Owner"
-                  ? Get.offAllNamed(AppRoutes.ownerFormsPage)
-                  : Get.offAllNamed(AppRoutes.tenantFormsPage);
+              userTypeContoller.text == "Owner" ? Get.offAllNamed(AppRoutes.ownerFormsPage) : Get.offAllNamed(AppRoutes.tenantFormsPage);
             } else {
               Utils.showToast('Incorrect Password or Email', true);
               // Handle the case where data is null in the response
