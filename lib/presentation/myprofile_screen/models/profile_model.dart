@@ -62,7 +62,7 @@ class ProfileModel {
     zip = json['zip'];
     status = json['status'];
     appForm = json['app_form'];
-    appForm = json['app_form_approved'];
+    appFormApproved = json['app_form_approved'];
   }
 
   Map<String, dynamic> toJson() {

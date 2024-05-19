@@ -47,7 +47,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image:
+              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -364,7 +365,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                              controller.ownerImage != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -386,7 +389,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicFront != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                              controller.ownerCnicFront != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -408,7 +413,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                              controller.ownerCnicBack != null
+                                                  ? Icons.check_circle_sharp
+                                                  : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -460,8 +467,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount:
-                                                controller.serventfullNameControllers.length == 0 ? 1 : controller.serventfullNameControllers.length,
+                                            itemCount: controller.serventfullNameControllers.length == 0
+                                                ? 1
+                                                : controller.serventfullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
@@ -495,7 +503,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: Container(
                                                               margin: EdgeInsets.only(right: 15),
                                                               padding: EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.red, shape: BoxShape.circle),
                                                               child: Icon(
                                                                 Icons.delete_outlined,
                                                                 color: Colors.white,
@@ -621,7 +630,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       Expanded(
                                                         child: CustomTextField(
                                                             fieldText: "Mohalla/Village".tr,
-                                                            controller: controller.serventcolonyVillageControllers[index],
+                                                            controller:
+                                                                controller.serventcolonyVillageControllers[index],
                                                             isFinal: false,
                                                             keyboardType: TextInputType.emailAddress,
                                                             validator: (value) {
@@ -704,7 +714,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker
+                                                            .pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -737,7 +748,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker
+                                                            .pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -770,7 +782,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker
+                                                            .pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -799,9 +812,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         if (controller.servantImages.isEmpty) {
                                                           Utils.showToast("Please select servant Images", true);
                                                         } else if (controller.servantCnicFronts.isEmpty) {
-                                                          Utils.showToast("Please select servant cnic front images", true);
+                                                          Utils.showToast(
+                                                              "Please select servant cnic front images", true);
                                                         } else if (controller.servantCnicBacks.isEmpty) {
-                                                          Utils.showToast("Please select servant cnic back images", true);
+                                                          Utils.showToast(
+                                                              "Please select servant cnic back images", true);
                                                         } else {
                                                           controller.addServant(index);
                                                         }
@@ -874,7 +889,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: Container(
                                                               margin: EdgeInsets.only(right: 15),
                                                               padding: EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.red, shape: BoxShape.circle),
                                                               child: Icon(
                                                                 Icons.delete_outlined,
                                                                 color: Colors.white,
@@ -926,10 +942,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       ),
                                                       Expanded(
                                                         child: CustomTextField(
-                                                            fieldText: "Mobile number’".tr,
+                                                            fieldText: "Mobile number".tr,
                                                             controller: controller.serventfamMobControllers[index],
                                                             isFinal: false,
-                                                            keyboardType: TextInputType.emailAddress,
+                                                            keyboardType: TextInputType.phone,
                                                             validator: (value) {
                                                               return HelperFunction.empthyFieldValidator(value!);
                                                             }),
@@ -972,7 +988,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker
+                                                            .pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {

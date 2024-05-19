@@ -451,6 +451,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         return GestureDetector(
                                                           onTap: () {
                                                             controller.updateAllotmentLetter("No");
+                                                            controller.allotmentletter = null;
                                                           },
                                                           child: Row(
                                                             children: [
@@ -559,6 +560,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         return GestureDetector(
                                                           onTap: () {
                                                             controller.updateCompletionCertificate("No");
+                                                            controller.certificate = null;
                                                           },
                                                           child: Row(
                                                             children: [

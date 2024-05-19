@@ -30,7 +30,8 @@ class PropertiesScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image:
+              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -130,8 +131,8 @@ class PropertiesScreen extends StatelessWidget {
                                     shrinkWrap: true,
                                     padding: getPadding(top: 5),
                                     scrollDirection: Axis.vertical,
-                                    itemCount:
-                                        controller.properties?.data?.length ?? 0, // Increase the itemCount by 1 to accommodate the "View All" item
+                                    itemCount: controller.properties?.data?.length ??
+                                        0, // Increase the itemCount by 1 to accommodate the "View All" item
                                     itemBuilder: (BuildContext context, int index) {
                                       final iteration = controller.properties!.data![index];
                                       return Padding(
@@ -268,7 +269,8 @@ class PropertiesScreen extends StatelessWidget {
                                                         },
                                                         child: Container(
                                                           decoration: BoxDecoration(
-                                                              border: Border.all(width: 1, color: ColorConstant.anbtnBlue),
+                                                              border:
+                                                                  Border.all(width: 1, color: ColorConstant.anbtnBlue),
                                                               borderRadius: BorderRadius.circular(4),
                                                               color: ColorConstant.whiteA700),
                                                           child: Center(
@@ -296,7 +298,7 @@ class PropertiesScreen extends StatelessWidget {
                                       : Get.toNamed(AppRoutes.tenantFormsPage);
                                 } else {
                                   Utils.showToast(
-                                    "Your application form is not approved yet,kindly wait for Approval",
+                                    "Your application form is not approved yet, kindly wait for Approval",
                                     false,
                                   );
                                 }

@@ -124,7 +124,7 @@ class MenuScreen extends StatelessWidget {
                               onTap: () {
                                 if (controller.profileModel?.appFormApproved == 0) {
                                   Utils.showToast(
-                                    "Your application form is not approved yet,kindly wait for Approval",
+                                    "Your application form is not approved yet, kindly wait for Approval",
                                     false,
                                   );
                                 } else {
@@ -162,7 +162,7 @@ class MenuScreen extends StatelessWidget {
                               onTap: () {
                                 if (controller.profileModel?.appFormApproved == 0) {
                                   Utils.showToast(
-                                    "Your application form is not approved yet,kindly wait for Approval",
+                                    "Your application form is not approved yet, kindly wait for Approval",
                                     false,
                                   );
                                 } else {
