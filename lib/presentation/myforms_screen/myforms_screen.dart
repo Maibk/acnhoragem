@@ -6,13 +6,12 @@ import '../../core/utils/color_constant.dart';
 import '../../core/utils/image_constant.dart';
 import '../../core/utils/size_utils.dart';
 import '../../routes/app_routes.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/common_image_view.dart';
 import '../../widgets/custom_expensiontile.dart';
 import 'controller/myforms_controller.dart';
 
 class MyFormsScreen extends StatelessWidget {
-  MyFormsController controller = Get.put(MyFormsController());
+  final MyFormsController controller = Get.put(MyFormsController());
   // const DiscoverScreen({Key? key}) : super(key: key);
 
   @override
@@ -157,7 +156,7 @@ class MyFormsScreen extends StatelessWidget {
                         height: getVerticalSize(10),
                       ),
                       CustomExpansionTile(
-                        expand: false,
+                        expand: false,               iconColor: Colors.transparent,
                         leading: MyText(
                           title: "Owner",
                           clr: ColorConstant.black900,
@@ -168,12 +167,12 @@ class MyFormsScreen extends StatelessWidget {
                           clr: ColorConstant.antextlightgray,
                           fontSize: 10,
                         ),
-                        subtitle: Align(
-                          alignment: Alignment.topRight,
-                          child: CommonImageView(
-                            imagePath: ImageConstant.viewIcon,
-                          ),
-                        ),
+                        // subtitle: Align(
+                        //   alignment: Alignment.topRight,
+                        //   child: CommonImageView(
+                        //     imagePath: ImageConstant.viewIcon,
+                        //   ),
+                        // ),
                         children: <Widget>[
                           Align(
                             alignment: Alignment.topLeft,
@@ -407,23 +406,24 @@ class MyFormsScreen extends StatelessWidget {
                         height: getVerticalSize(10),
                       ),
                       CustomExpansionTile(
-                        expand: false,
+                        expand: false,               iconColor: Colors.transparent,
                         leading: MyText(
                           title: "Spouse",
                           clr: ColorConstant.black900,
                           fontSize: 18,
                         ),
                         title: MyText(
-                          title: 'Monday Mon-04-2024 04:52 PM',
+            // title: 'Monday Mon-04-2024 04:52 PM',
+                          title: '',
                           clr: ColorConstant.antextlightgray,
                           fontSize: 10,
                         ),
-                        subtitle: Align(
-                          alignment: Alignment.topRight,
-                          child: CommonImageView(
-                            imagePath: ImageConstant.viewIcon,
-                          ),
-                        ),
+                        // subtitle: Align(
+                        //   alignment: Alignment.topRight,
+                        //   child: CommonImageView(
+                        //     imagePath: ImageConstant.viewIcon,
+                        //   ),
+                        // ),
                         children: <Widget>[
                           Align(
                             alignment: Alignment.topLeft,
@@ -657,23 +657,24 @@ class MyFormsScreen extends StatelessWidget {
                         height: getVerticalSize(10),
                       ),
                       CustomExpansionTile(
-                        expand: false,
+                        expand: false,               iconColor: Colors.transparent,
                         leading: MyText(
                           title: "Child",
                           clr: ColorConstant.black900,
                           fontSize: 18,
                         ),
                         title: MyText(
-                          title: 'Monday Mon-04-2024 04:52 PM',
+                  // title: 'Monday Mon-04-2024 04:52 PM',
+                          title: '',
                           clr: ColorConstant.antextlightgray,
                           fontSize: 10,
                         ),
-                        subtitle: Align(
-                          alignment: Alignment.topRight,
-                          child: CommonImageView(
-                            imagePath: ImageConstant.viewIcon,
-                          ),
-                        ),
+                        // subtitle: Align(
+                        //   alignment: Alignment.topRight,
+                        //   child: CommonImageView(
+                        //     imagePath: ImageConstant.viewIcon,
+                        //   ),
+                        // ),
                         children: <Widget>[
                           Align(
                             alignment: Alignment.topLeft,
@@ -907,23 +908,24 @@ class MyFormsScreen extends StatelessWidget {
                         height: getVerticalSize(10),
                       ),
                       CustomExpansionTile(
-                        expand: false,
+                        expand: false,               iconColor: Colors.transparent,
                         leading: MyText(
                           title: "Servant ",
                           clr: ColorConstant.black900,
                           fontSize: 18,
                         ),
                         title: MyText(
-                          title: 'Monday Mon-04-2024 04:52 PM',
+                   // title: 'Monday Mon-04-2024 04:52 PM',
+                          title: '',
                           clr: ColorConstant.antextlightgray,
                           fontSize: 10,
                         ),
-                        subtitle: Align(
-                          alignment: Alignment.topRight,
-                          child: CommonImageView(
-                            imagePath: ImageConstant.viewIcon,
-                          ),
-                        ),
+                        // subtitle: Align(
+                        //   alignment: Alignment.topRight,
+                        //   child: CommonImageView(
+                        //     imagePath: ImageConstant.viewIcon,
+                        //   ),
+                        // ),
                         children: <Widget>[
                           Align(
                             alignment: Alignment.topLeft,
@@ -1158,22 +1160,26 @@ class MyFormsScreen extends StatelessWidget {
                       ),
                       CustomExpansionTile(
                         expand: false,
+                        iconColor: Colors.transparent,
                         leading: MyText(
+
+                        
                           title: "Guest",
                           clr: ColorConstant.black900,
                           fontSize: 18,
                         ),
                         title: MyText(
-                          title: 'Monday Mon-04-2024 04:52 PM',
+                          // title: 'Monday Mon-04-2024 04:52 PM',
+                          title: '',
                           clr: ColorConstant.antextlightgray,
                           fontSize: 10,
                         ),
-                        subtitle: Align(
-                          alignment: Alignment.topRight,
-                          child: CommonImageView(
-                            imagePath: ImageConstant.viewIcon,
-                          ),
-                        ),
+                        // subtitle: Align(
+                        //   alignment: Alignment.topRight,
+                        //   child: CommonImageView(
+                        //     imagePath: ImageConstant.viewIcon,
+                        //   ),
+                        // ),
                         children: <Widget>[
                           Align(
                             alignment: Alignment.topLeft,

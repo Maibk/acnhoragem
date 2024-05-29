@@ -45,12 +45,13 @@ class CustomExpansionTile extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(5)),
         child: ExpansionTile(
-          leading: leading != null
-              ? IconTheme(
-                  data: IconThemeData(color: iconColor),
-                  child: leading!,
-                )
-              : null,
+
+
+          collapsedIconColor:iconColor,
+        
+
+          iconColor: iconColor,
+          leading: leading ,
           title: DefaultTextStyle(
             style: TextStyle(color: titleColor),
             child: title,

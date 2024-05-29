@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,11 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/utils/color_constant.dart';
-import '../../core/utils/image_constant.dart';
 import '../../core/utils/size_utils.dart';
 import '../../routes/app_routes.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
-import '../../widgets/common_image_view.dart';
 import '../../widgets/custom_button.dart';
 import 'controller/bills_controller.dart';
 

@@ -414,6 +414,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       init: controller,
                                                       builder: (controller) {
                                                         return GestureDetector(
+                                                                         behavior: HitTestBehavior.opaque,
                                                           onTap: () {
                                                             controller.updateAllotmentLetter("Yes");
                                                           },
@@ -449,6 +450,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       init: controller,
                                                       builder: (controller) {
                                                         return GestureDetector(
+                                                                         behavior: HitTestBehavior.opaque,
                                                           onTap: () {
                                                             controller.updateAllotmentLetter("No");
                                                             controller.allotmentletter = null;
@@ -523,6 +525,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       init: controller,
                                                       builder: (controller) {
                                                         return GestureDetector(
+                                                                         behavior: HitTestBehavior.opaque,
                                                           onTap: () {
                                                             controller.updateCompletionCertificate("Yes");
                                                           },
@@ -558,6 +561,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       init: controller,
                                                       builder: (controller) {
                                                         return GestureDetector(
+                                                                         behavior: HitTestBehavior.opaque,
                                                           onTap: () {
                                                             controller.updateCompletionCertificate("No");
                                                             controller.certificate = null;
@@ -663,6 +667,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           init: controller,
                                                           builder: (controller) {
                                                             return GestureDetector(
+                                                                             behavior: HitTestBehavior.opaque,
                                                               onTap: () {
                                                                 controller
                                                                     .updateConstructionStatus("Under Construction");
@@ -703,6 +708,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           init: controller,
                                                           builder: (controller) {
                                                             return GestureDetector(
+                                                                             behavior: HitTestBehavior.opaque,
                                                               onTap: () {
                                                                 controller.updateConstructionStatus("Complete");
                                                                 log(controller.constructionStatus);
@@ -791,6 +797,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               init: controller,
                                               builder: (_) {
                                                 return GestureDetector(
+                                                  behavior: HitTestBehavior.opaque,
                                                   onTap: () {
                                                     controller.updatePrivatearms("Yes");
                                                   },
@@ -826,6 +833,8 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               init: controller,
                                               builder: (_) {
                                                 return GestureDetector(
+                                                  behavior: HitTestBehavior.opaque,
+
                                                   onTap: () {
                                                     controller.updatePrivatearms("No");
                                                   },
@@ -1219,6 +1228,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               init: controller,
                                                               builder: (controller) {
                                                                 return GestureDetector(
+                                                                                 behavior: HitTestBehavior.opaque,
                                                                   onTap: () {
                                                                     setState(() {
                                                                       controller.eTag[index] = "No";

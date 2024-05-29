@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           fallbackLocale: Locale('en', 'US'),
           title: 'Anchorage Islamabad',
           initialBinding: InitialBindings(),
-          initialRoute: AppRoutes.splashScreen,
+          initialRoute: AppRoutes.entryFormsPage,
           getPages: AppRoutes.pages,
         ),
       );
