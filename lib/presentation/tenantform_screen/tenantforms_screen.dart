@@ -7,6 +7,7 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../core/utils/color_constant.dart';
@@ -49,7 +50,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
             title: MyText(
               title: "Tenant Forms",
               clr: ColorConstant.whiteA700,
-              fontSize: 20.h,
+              fontSize: 20.sp,
               customWeight: FontWeight.w500,
             ),
             centerTitle: true,
@@ -109,7 +110,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                 alignment: Alignment.topLeft,
                                 child: MyText(
                                   title: "Record Form",
-                                  fontSize: 16.h,
+                                  fontSize: 16.sp,
                                   clr: ColorConstant.apppWhite,
                                 )),
                             SizedBox(
@@ -121,7 +122,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                               title: MyText(
                                 title: 'PARTICULARS OF TENANT',
                                 clr: ColorConstant.black900,
-                                fontSize: 16.h,
+                                fontSize: 16.sp,
                               ),
                               children: <Widget>[
                                 Column(
@@ -196,7 +197,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 ? Text(
                                                     "Block/COMM ",
                                                     style: TextStyle(
-                                                      fontSize: 14.h,
+                                                      fontSize: 14.sp,
                                                       color: ColorConstant.blackColor.withOpacity(0.5),
                                                       fontFamily: AppFonts.lucidaBright,
                                                       fontWeight: FontWeight.w400,
@@ -207,7 +208,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             disabledHint: Text(
                                               "  ",
                                               style: TextStyle(
-                                                fontSize: 14.h,
+                                                fontSize: 14.sp,
                                                 color: ColorConstant.blackColor.withOpacity(0.5),
                                                 fontFamily: AppFonts.lucidaBright,
                                                 fontWeight: FontWeight.w400,
@@ -246,7 +247,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     ? Text(
                                                         "Select Street",
                                                         style: TextStyle(
-                                                          fontSize: 14.h,
+                                                          fontSize: 14.sp,
                                                           color: ColorConstant.blackColor.withOpacity(0.5),
                                                           fontFamily: AppFonts.lucidaBright,
                                                           fontWeight: FontWeight.w400,
@@ -257,7 +258,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 disabledHint: Text(
                                                   "Select Street",
                                                   style: TextStyle(
-                                                    fontSize: 14.h,
+                                                    fontSize: 14.sp,
                                                     color: ColorConstant.blackColor.withOpacity(0.5),
                                                     fontFamily: AppFonts.lucidaBright,
                                                     fontWeight: FontWeight.w400,
@@ -287,7 +288,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     ? Text(
                                                         "Select Plot",
                                                         style: TextStyle(
-                                                          fontSize: 14.h,
+                                                          fontSize: 14.sp,
                                                           color: ColorConstant.blackColor.withOpacity(0.5),
                                                           fontFamily: AppFonts.lucidaBright,
                                                           fontWeight: FontWeight.w400,
@@ -298,7 +299,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 disabledHint: Text(
                                                   "Select Plot",
                                                   style: TextStyle(
-                                                    fontSize: 14.h,
+                                                    fontSize: 14.sp,
                                                     color: ColorConstant.blackColor.withOpacity(0.5),
                                                     fontFamily: AppFonts.lucidaBright,
                                                     fontWeight: FontWeight.w400,
@@ -396,7 +397,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                           MyText(
                                             title: 'PARTICULARS OF OWNER',
                                             clr: ColorConstant.black900,
-                                            fontSize: 16.h,
+                                            fontSize: 16.sp,
                                           ).paddingOnly(left: 15),
                                           SizedBox(
                                             height: getVerticalSize(5),
@@ -466,7 +467,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         child: MyText(
                                                           title: "Allotment Letter held:",
                                                           clr: ColorConstant.antextlightgray,
-                                                          fontSize: 14.h,
+                                                          fontSize: 14.sp,
                                                         ),
                                                       ),
                                                       SizedBox(
@@ -569,16 +570,19 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      Padding(
-                                                        padding: getPadding(left: 10),
-                                                        child: MyText(
-                                                          title: "Completion certificate held:",
-                                                          clr: ColorConstant.antextlightgray,
-                                                          fontSize: 14.h,
+                                                      Container(
+                                                        width: .5.sw,
+                                                        child: Padding(
+                                                          padding: getPadding(left: 10.w),
+                                                          child: MyText(
+                                                            title: "Completion certificate held:",
+                                                            clr: ColorConstant.antextlightgray,
+                                                            fontSize: 14.sp,
+                                                          ),
                                                         ),
                                                       ),
                                                       SizedBox(
-                                                        width: getHorizontalSize(20),
+                                                        width: getHorizontalSize(20.w),
                                                       ),
                                                       GetBuilder(
                                                         init: controller,
@@ -593,7 +597,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                     ? Icon(
                                                                         Icons.circle,
                                                                         color: ColorConstant.blackColor,
-                                                                        size: 14,
+                                                                        size: 14.r,
                                                                       )
                                                                     : Icon(
                                                                         Icons.circle_outlined,
@@ -601,7 +605,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         size: 14,
                                                                       ),
                                                                 SizedBox(
-                                                                  width: getHorizontalSize(10),
+                                                                  width: getHorizontalSize(10.w),
                                                                 ),
                                                                 MyText(
                                                                   title: "Yes",
@@ -671,7 +675,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                             actions: [
                                                               Container(
                                                                   padding: EdgeInsets.all(15),
-                                                                  // height: MediaQuery.of(context).size.height,
+                                                                  // height: MediaQuery.of(context).size.speight,
                                                                   // width: MediaQuery.of(context).size.width,
                                                                   decoration: BoxDecoration(
                                                                       border: Border.all(color: Colors.white),
@@ -687,7 +691,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                           Text(
                                                                             "Declaration by the Tenant",
                                                                             textAlign: TextAlign.left,
-                                                                            style: TextStyle(fontSize: 18.h, color: ColorConstant.blackColor),
+                                                                            style: TextStyle(fontSize: 18.sp, color: ColorConstant.blackColor),
                                                                           ),
                                                                           GestureDetector(
                                                                             onTap: () {
@@ -708,7 +712,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         text: TextSpan(
                                                                           text: 'I ',
                                                                           style: TextStyle(
-                                                                            fontSize: 11.h,
+                                                                            fontSize: 11.sp,
                                                                             color: ColorConstant.greyColor,
                                                                             decoration: TextDecoration.none,
                                                                           ),
@@ -716,35 +720,35 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                             TextSpan(
                                                                                 text: controller.fullNameController.text.capitalize.toString(),
                                                                                 style: TextStyle(
-                                                                                    fontSize: 11.h,
+                                                                                    fontSize: 11.sp,
                                                                                     color: ColorConstant.greyColor,
                                                                                     decoration: TextDecoration.none,
                                                                                     fontWeight: FontWeight.bold)),
                                                                             TextSpan(
                                                                                 text: ' S/O or D/O ',
                                                                                 style: TextStyle(
-                                                                                  fontSize: 11.h,
+                                                                                  fontSize: 11.sp,
                                                                                   color: ColorConstant.greyColor,
                                                                                   decoration: TextDecoration.none,
                                                                                 )),
                                                                             TextSpan(
                                                                                 text: controller.fathersController.text.capitalize.toString(),
                                                                                 style: TextStyle(
-                                                                                    fontSize: 11.h,
+                                                                                    fontSize: 11.sp,
                                                                                     color: ColorConstant.greyColor,
                                                                                     decoration: TextDecoration.none,
                                                                                     fontWeight: FontWeight.bold)),
                                                                             TextSpan(
                                                                                 text: ' CNIC NO: ',
                                                                                 style: TextStyle(
-                                                                                  fontSize: 11.h,
+                                                                                  fontSize: 11.sp,
                                                                                   color: ColorConstant.greyColor,
                                                                                   decoration: TextDecoration.none,
                                                                                 )),
                                                                             TextSpan(
                                                                                 text: controller.cnicController.text.capitalize.toString(),
                                                                                 style: TextStyle(
-                                                                                    fontSize: 11.h,
+                                                                                    fontSize: 11.sp,
                                                                                     color: ColorConstant.greyColor,
                                                                                     decoration: TextDecoration.none,
                                                                                     fontWeight: FontWeight.bold)),
@@ -812,7 +816,7 @@ Allotee(s)/ occupants (s) are required not to throw any waste material in dustbi
 No building, structure, or any part thereof should be occupied or used without obtaining completion certificate (permission to occupy).
 """,
                                                                         textAlign: TextAlign.left,
-                                                                        style: TextStyle(fontSize: 12.h, color: ColorConstant.greyColor),
+                                                                        style: TextStyle(fontSize: 12.sp, color: ColorConstant.greyColor),
                                                                       ),
                                                                       Row(
                                                                         mainAxisAlignment: MainAxisAlignment.end,
@@ -828,7 +832,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                                               ),
                                                                               child: Text(
                                                                                 "Close",
-                                                                                style: TextStyle(fontSize: 16.h, color: Colors.white),
+                                                                                style: TextStyle(fontSize: 16.sp, color: Colors.white),
                                                                               ).paddingSymmetric(horizontal: 15, vertical: 10),
                                                                             ),
                                                                           ),
@@ -844,7 +848,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                     child: MyText(
                                                       title: 'Survey Declaration',
                                                       clr: Color(0xff007BFF),
-                                                      fontSize: 16.h,
+                                                      fontSize: 16.sp,
                                                     ).paddingOnly(left: 15),
                                                   ),
                                                 ],
@@ -868,7 +872,7 @@ No building, structure, or any part thereof should be occupied or used without o
                               title: MyText(
                                 title: 'PRIVATE ARMS',
                                 clr: ColorConstant.black900,
-                                fontSize: 16.h,
+                                fontSize: 16.sp,
                               ),
                               children: <Widget>[
                                 GetBuilder(
@@ -884,7 +888,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                 child: MyText(
                                                   title: "PRIVATE ARMS*:",
                                                   clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14.h,
+                                                  fontSize: 14.sp,
                                                 ),
                                               ),
                                               SizedBox(
@@ -1048,7 +1052,7 @@ No building, structure, or any part thereof should be occupied or used without o
                               title: MyText(
                                 title: 'Vehicles Information',
                                 clr: ColorConstant.black900,
-                                fontSize: 16.h,
+                                fontSize: 16.sp,
                               ),
                               children: <Widget>[
                                 GetBuilder(
@@ -1083,7 +1087,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                   child: MyText(
                                                     title: "VEHICLE(s) IN USE",
                                                     clr: ColorConstant.antextlightgray,
-                                                    fontSize: 14.h,
+                                                    fontSize: 14.sp,
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -1265,7 +1269,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                                 child: MyText(
                                                                   title: "E-Tag",
                                                                   clr: ColorConstant.antextlightgray,
-                                                                  fontSize: 14.h,
+                                                                  fontSize: 14.sp,
                                                                 ),
                                                               ),
                                                               SizedBox(
@@ -1364,7 +1368,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                                               radius: 5.0,
                                                               height: getVerticalSize(50),
                                                               width: getHorizontalSize(400),
-                                                              fontSize: 16.h,
+                                                              fontSize: 16.sp,
                                                               bgColor: ColorConstant.anbtnBlue,
                                                               controller: controller.uselessbtnController,
                                                               title: "Add Vehicle".tr,
@@ -1408,7 +1412,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                 alignment: Alignment.topLeft,
                                 child: MyText(
                                   title: "Required Documents",
-                                  fontSize: 22.h,
+                                  fontSize: 22.sp,
                                 )),
                             SizedBox(
                               height: getVerticalSize(10),
@@ -1418,7 +1422,7 @@ No building, structure, or any part thereof should be occupied or used without o
                               title: MyText(
                                 title: 'Required Documents',
                                 clr: ColorConstant.black900,
-                                fontSize: 16.h,
+                                fontSize: 16.sp,
                               ),
                               children: <Widget>[
                                 GetBuilder(
@@ -1432,7 +1436,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                             child: MyText(
                                               title: "Requirements:",
                                               clr: ColorConstant.antextlightgray,
-                                              fontSize: 15.h,
+                                              fontSize: 15.sp,
                                             ),
                                           ),
                                           SizedBox(
@@ -1442,7 +1446,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12.h,
+                                              fontSize: 12.sp,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "CNIC OF OWNER (FRONT & BACK)*".tr,
@@ -1464,7 +1468,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12.h,
+                                              fontSize: 12.sp,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "CNIC OF TENANT (FRONT & BACK)*".tr,
@@ -1486,7 +1490,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12.h,
+                                              fontSize: 12.sp,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "CNIC OF ESTATE AGENT (FRONT & BACK)".tr,
@@ -1508,7 +1512,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12.h,
+                                              fontSize: 12.sp,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "PHOTOGRAPH OF TENANT*".tr,
@@ -1530,7 +1534,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12.h,
+                                              fontSize: 12.sp,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "RENT AGREEMENT DULLY SIGNED*".tr,
@@ -1552,7 +1556,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12.h,
+                                              fontSize: 12.sp,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "POLICE REGISTRATION FROM *".tr,
@@ -1574,7 +1578,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
                                               width: getHorizontalSize(350),
-                                              fontSize: 12.h,
+                                              fontSize: 12.sp,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
                                               label: "COMPLETION CERTIFICATE (IF APPLICABLE)".tr,
@@ -1604,7 +1608,7 @@ No building, structure, or any part thereof should be occupied or used without o
                                               radius: 5.0,
                                               height: getVerticalSize(50),
                                               width: getHorizontalSize(400),
-                                              fontSize: 16.h,
+                                              fontSize: 16.sp,
                                               bgColor: ColorConstant.anbtnBlue,
                                               controller: controller.btnController,
                                               title: "Submit".tr,

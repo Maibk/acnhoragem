@@ -5,6 +5,7 @@ import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -361,7 +362,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           padding: getPadding(left: 10, right: 10),
                                           child: CustomButton(
                                             width: getHorizontalSize(350),
-                                            fontSize: 12.h,
+                                            fontSize: 12.sp,
                                             fontWeight: FontWeight.w700,
                                             color: ColorConstant.whiteA700,
                                             label: "Attach a clear image of yours".tr,
@@ -372,6 +373,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   ? Icons.check_circle_sharp
                                                   : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
                                             ),
                                             onPressed: () async {
                                               controller.ownerImage = await controller.imagePicker();
@@ -385,7 +387,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           padding: getPadding(left: 10, right: 10),
                                           child: CustomButton(
                                             width: getHorizontalSize(350),
-                                            fontSize: 12.h,
+                                            fontSize: 12.sp,
                                             fontWeight: FontWeight.w700,
                                             color: ColorConstant.whiteA700,
                                             label: "Attach a clear image of your CNIC front side".tr,
@@ -396,6 +398,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   ? Icons.check_circle_sharp
                                                   : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                             ),
                                             onPressed: () async {
                                               controller.ownerCnicFront = await controller.imagePicker();
@@ -409,7 +413,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           padding: getPadding(left: 10, right: 10),
                                           child: CustomButton(
                                             width: getHorizontalSize(350),
-                                            fontSize: 12.h,
+                                            fontSize: 12.sp,
                                             fontWeight: FontWeight.w700,
                                             color: ColorConstant.whiteA700,
                                             label: "Attach a clear image of your CNIC back side".tr,
@@ -420,6 +424,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   ? Icons.check_circle_sharp
                                                   : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+                                              
                                             ),
                                             onPressed: () async {
                                               controller.ownerCnicBack = await controller.imagePicker();
@@ -704,7 +710,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12.h,
+                                                      fontSize: 12.sp,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700, 
                                                       label: "Attach a clear image of spouse".tr,
@@ -715,10 +721,14 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             ),
                                                       onPressed: () async {
                                                         final result = await controller.picker
@@ -741,7 +751,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12.h,
+                                                      fontSize: 12.sp,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of spouse CNIC front side".tr,
@@ -752,10 +762,14 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             ),
                                                       onPressed: () async {
                                                         final result = await controller.picker
@@ -778,7 +792,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12.h,
+                                                      fontSize: 12.sp,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of Spouse CNIC back side".tr,
@@ -788,11 +802,14 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               controller.spouseCnicBacks[index].isBlank!
                                                           ? Icon(
                                                               Icons.add_circle_outline,
+                                              size: 19.r,
                                                               color: ColorConstant.anbtnBlue,
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             ),
                                                       onPressed: () async {
                                                         final result = await controller.picker
@@ -1107,7 +1124,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12.h,
+                                                      fontSize: 12.sp,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of child".tr,
@@ -1118,9 +1135,12 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
+                                              size: 19.r,
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
@@ -1142,7 +1162,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12.h,
+                                                      fontSize: 12.sp,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of child CNIC front sides".tr,
@@ -1153,9 +1173,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
+                                              size: 19.r,
+
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
@@ -1177,7 +1201,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: CustomButton(
                                                       width: getHorizontalSize(350),
-                                                      fontSize: 12.h,
+                                                      fontSize: 12.sp,
                                                       fontWeight: FontWeight.w700,
                                                       color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of child CNIC back side".tr,
@@ -1188,10 +1212,14 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
                                                               color: ColorConstant.anbtnBlue,
+                                              size: 19.r,
+
                                                             ),
                                                       onPressed: () async {
                                                         final result = await controller.picker

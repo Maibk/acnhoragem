@@ -47,6 +47,7 @@ class MenuScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           toolbarHeight: 70.0,
+          surfaceTintColor: Colors.transparent,
           backgroundColor: Colors.transparent,
           title: MyText(
             title: "Menu",

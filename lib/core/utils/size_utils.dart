@@ -32,7 +32,7 @@ get height {
 
 ///This method is used to set padding/margin (for the left and Right side) & width of the screen or widget according to the Viewport width.
 double getHorizontalSize(double px) {
-  return ((px * width) / FIGMA_DESIGN_WIDTH);
+  return ((px * width ) / FIGMA_DESIGN_WIDTH);
 }
 
 ///This method is used to set padding/margin (for the top and bottom side) & height of the screen or widget according to the Viewport height.
