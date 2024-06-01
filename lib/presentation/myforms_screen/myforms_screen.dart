@@ -152,1263 +152,1265 @@ class MyFormsScreen extends StatelessWidget {
                       SizedBox(
                         height: getVerticalSize(10),
                       ),
-                      SizedBox(
-                        height: getVerticalSize(10),
-                      ),
-                      CustomExpansionTile(
-                        expand: false,               iconColor: Colors.transparent,
-                        leading: MyText(
-                          title: "Owner",
-                          clr: ColorConstant.black900,
-                          fontSize: 18,
-                        ),
-                        title: MyText(
-                          title: "",
-                          clr: ColorConstant.antextlightgray,
-                          fontSize: 10,
-                        ),
-                        // subtitle: Align(
-                        //   alignment: Alignment.topRight,
-                        //   child: CommonImageView(
-                        //     imagePath: ImageConstant.viewIcon,
-                        //   ),
-                        // ),
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: getPadding(left: 20, right: 5, bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MyText(
-                                    title: "Full Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "David Hamza",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //           SizedBox(
+            //             height: getVerticalSize(10),
+            //           ),
+            //           CustomExpansionTile(
+            //             expand: false,               iconColor: Colors.transparent,
+            //             leading: MyText(
+            //               title: "Owner",
+            //               clr: ColorConstant.black900,
+            //               fontSize: 18,
+            //             ),
+            //             title: MyText(
+            //               title: "",
+            //               clr: ColorConstant.antextlightgray,
+            //               fontSize: 10,
+            //             ),
+            //             // subtitle: Align(
+            //             //   alignment: Alignment.topRight,
+            //             //   child: CommonImageView(
+            //             //     imagePath: ImageConstant.viewIcon,
+            //             //   ),
+            //             // ),
+            //             children: <Widget>[
+            //               Align(
+            //                 alignment: Alignment.topLeft,
+            //                 child: Padding(
+            //                   padding: getPadding(left: 20, right: 5, bottom: 10),
+            //                   child: Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       MyText(
+            //                         title: "Full Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "David Hamza",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  MyText(
-                                    title: "Father’s Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "Hamza David Warner",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //                       MyText(
+            //                         title: "Father’s Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "Hamza David Warner",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  // Wrap the Row widget in a SizedBox or Container with a specific width
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "NIC Number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "xxxxx-xxxxxxx-x",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          // Divider(color: ColorConstant.antextGrayDark,height: 20,),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Mobile number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "0000-0000000",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  MyText(
-                                    title: "House/Plot No.",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "House No. 156, Street Block Residential Plot",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Road",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "9",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Streetr",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "21",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Block",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "A",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: getHorizontalSize(2),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Colony/Residential Area Name",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "Area Name",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                      // Container(
-                                      //   color: ColorConstant.antextlightgray,
-                                      //   height: 1,
-                                      // ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: getVerticalSize(10),
-                      ),
-                      CustomExpansionTile(
-                        expand: false,               iconColor: Colors.transparent,
-                        leading: MyText(
-                          title: "Spouse",
-                          clr: ColorConstant.black900,
-                          fontSize: 18,
-                        ),
-                        title: MyText(
-            // title: 'Monday Mon-04-2024 04:52 PM',
-                          title: '',
-                          clr: ColorConstant.antextlightgray,
-                          fontSize: 10,
-                        ),
-                        // subtitle: Align(
-                        //   alignment: Alignment.topRight,
-                        //   child: CommonImageView(
-                        //     imagePath: ImageConstant.viewIcon,
-                        //   ),
-                        // ),
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: getPadding(left: 20, right: 5, bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MyText(
-                                    title: "Full Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "David Hamza",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //                       // Wrap the Row widget in a SizedBox or Container with a specific width
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "NIC Number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "xxxxx-xxxxxxx-x",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               // Divider(color: ColorConstant.antextGrayDark,height: 20,),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Mobile number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "0000-0000000",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       MyText(
+            //                         title: "House/Plot No.",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "House No. 156, Street Block Residential Plot",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Road",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "9",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Streetr",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "21",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       Column(
+            //                         crossAxisAlignment: CrossAxisAlignment.start,
+            //                         children: [
+            //                           Row(
+            //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                             children: [
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Block",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "A",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                               SizedBox(
+            //                                 width: getHorizontalSize(2),
+            //                               ),
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Colony/Residential Area Name",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "Area Name",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                           // Container(
+            //                           //   color: ColorConstant.antextlightgray,
+            //                           //   height: 1,
+            //                           // ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //           SizedBox(
+            //             height: getVerticalSize(10),
+            //           ),
+            //           CustomExpansionTile(
+            //             expand: false,               iconColor: Colors.transparent,
+            //             leading: MyText(
+            //               title: "Spouse",
+            //               clr: ColorConstant.black900,
+            //               fontSize: 18,
+            //             ),
+            //             title: MyText(
+            // // title: 'Monday Mon-04-2024 04:52 PM',
+            //               title: '',
+            //               clr: ColorConstant.antextlightgray,
+            //               fontSize: 10,
+            //             ),
+            //             // subtitle: Align(
+            //             //   alignment: Alignment.topRight,
+            //             //   child: CommonImageView(
+            //             //     imagePath: ImageConstant.viewIcon,
+            //             //   ),
+            //             // ),
+            //             children: <Widget>[
+            //               Align(
+            //                 alignment: Alignment.topLeft,
+            //                 child: Padding(
+            //                   padding: getPadding(left: 20, right: 5, bottom: 10),
+            //                   child: Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       MyText(
+            //                         title: "Full Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "David Hamza",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  MyText(
-                                    title: "Father’s Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "Hamza David Warner",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //                       MyText(
+            //                         title: "Father’s Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "Hamza David Warner",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  // Wrap the Row widget in a SizedBox or Container with a specific width
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "NIC Number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "xxxxx-xxxxxxx-x",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          // Divider(color: ColorConstant.antextGrayDark,height: 20,),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Mobile number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "0000-0000000",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  MyText(
-                                    title: "House/Plot No.",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "House No. 156, Street Block Residential Plot",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Road",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "9",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Streetr",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "21",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Block",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "A",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: getHorizontalSize(2),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Colony/Residential Area Name",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "Area Name",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                      // Container(
-                                      //   color: ColorConstant.antextlightgray,
-                                      //   height: 1,
-                                      // ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: getVerticalSize(10),
-                      ),
-                      CustomExpansionTile(
-                        expand: false,               iconColor: Colors.transparent,
-                        leading: MyText(
-                          title: "Child",
-                          clr: ColorConstant.black900,
-                          fontSize: 18,
-                        ),
-                        title: MyText(
-                  // title: 'Monday Mon-04-2024 04:52 PM',
-                          title: '',
-                          clr: ColorConstant.antextlightgray,
-                          fontSize: 10,
-                        ),
-                        // subtitle: Align(
-                        //   alignment: Alignment.topRight,
-                        //   child: CommonImageView(
-                        //     imagePath: ImageConstant.viewIcon,
-                        //   ),
-                        // ),
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: getPadding(left: 20, right: 5, bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MyText(
-                                    title: "Full Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "David Hamza",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //                       // Wrap the Row widget in a SizedBox or Container with a specific width
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "NIC Number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "xxxxx-xxxxxxx-x",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               // Divider(color: ColorConstant.antextGrayDark,height: 20,),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Mobile number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "0000-0000000",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       MyText(
+            //                         title: "House/Plot No.",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "House No. 156, Street Block Residential Plot",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Road",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "9",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Streetr",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "21",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       Column(
+            //                         crossAxisAlignment: CrossAxisAlignment.start,
+            //                         children: [
+            //                           Row(
+            //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                             children: [
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Block",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "A",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                               SizedBox(
+            //                                 width: getHorizontalSize(2),
+            //                               ),
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Colony/Residential Area Name",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "Area Name",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                           // Container(
+            //                           //   color: ColorConstant.antextlightgray,
+            //                           //   height: 1,
+            //                           // ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //           SizedBox(
+            //             height: getVerticalSize(10),
+            //           ),
+            //           CustomExpansionTile(
+            //             expand: false,               iconColor: Colors.transparent,
+            //             leading: MyText(
+            //               title: "Child",
+            //               clr: ColorConstant.black900,
+            //               fontSize: 18,
+            //             ),
+            //             title: MyText(
+            //       // title: 'Monday Mon-04-2024 04:52 PM',
+            //               title: '',
+            //               clr: ColorConstant.antextlightgray,
+            //               fontSize: 10,
+            //             ),
+            //             // subtitle: Align(
+            //             //   alignment: Alignment.topRight,
+            //             //   child: CommonImageView(
+            //             //     imagePath: ImageConstant.viewIcon,
+            //             //   ),
+            //             // ),
+            //             children: <Widget>[
+            //               Align(
+            //                 alignment: Alignment.topLeft,
+            //                 child: Padding(
+            //                   padding: getPadding(left: 20, right: 5, bottom: 10),
+            //                   child: Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       MyText(
+            //                         title: "Full Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "David Hamza",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  MyText(
-                                    title: "Father’s Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "Hamza David Warner",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //                       MyText(
+            //                         title: "Father’s Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "Hamza David Warner",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  // Wrap the Row widget in a SizedBox or Container with a specific width
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "NIC Number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "xxxxx-xxxxxxx-x",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          // Divider(color: ColorConstant.antextGrayDark,height: 20,),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Mobile number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "0000-0000000",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  MyText(
-                                    title: "House/Plot No.",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "House No. 156, Street Block Residential Plot",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Road",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "9",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Streetr",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "21",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Block",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "A",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: getHorizontalSize(2),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Colony/Residential Area Name",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "Area Name",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                      // Container(
-                                      //   color: ColorConstant.antextlightgray,
-                                      //   height: 1,
-                                      // ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: getVerticalSize(10),
-                      ),
-                      CustomExpansionTile(
-                        expand: false,               iconColor: Colors.transparent,
-                        leading: MyText(
-                          title: "Servant ",
-                          clr: ColorConstant.black900,
-                          fontSize: 18,
-                        ),
-                        title: MyText(
-                   // title: 'Monday Mon-04-2024 04:52 PM',
-                          title: '',
-                          clr: ColorConstant.antextlightgray,
-                          fontSize: 10,
-                        ),
-                        // subtitle: Align(
-                        //   alignment: Alignment.topRight,
-                        //   child: CommonImageView(
-                        //     imagePath: ImageConstant.viewIcon,
-                        //   ),
-                        // ),
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: getPadding(left: 20, right: 5, bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MyText(
-                                    title: "Full Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "David Hamza",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //                       // Wrap the Row widget in a SizedBox or Container with a specific width
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "NIC Number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "xxxxx-xxxxxxx-x",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               // Divider(color: ColorConstant.antextGrayDark,height: 20,),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Mobile number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "0000-0000000",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       MyText(
+            //                         title: "House/Plot No.",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "House No. 156, Street Block Residential Plot",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Road",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "9",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Streetr",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "21",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       Column(
+            //                         crossAxisAlignment: CrossAxisAlignment.start,
+            //                         children: [
+            //                           Row(
+            //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                             children: [
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Block",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "A",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                               SizedBox(
+            //                                 width: getHorizontalSize(2),
+            //                               ),
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Colony/Residential Area Name",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "Area Name",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                           // Container(
+            //                           //   color: ColorConstant.antextlightgray,
+            //                           //   height: 1,
+            //                           // ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //           SizedBox(
+            //             height: getVerticalSize(10),
+            //           ),
+            //           CustomExpansionTile(
+            //             expand: false,               iconColor: Colors.transparent,
+            //             leading: MyText(
+            //               title: "Servant ",
+            //               clr: ColorConstant.black900,
+            //               fontSize: 18,
+            //             ),
+            //             title: MyText(
+            //        // title: 'Monday Mon-04-2024 04:52 PM',
+            //               title: '',
+            //               clr: ColorConstant.antextlightgray,
+            //               fontSize: 10,
+            //             ),
+            //             // subtitle: Align(
+            //             //   alignment: Alignment.topRight,
+            //             //   child: CommonImageView(
+            //             //     imagePath: ImageConstant.viewIcon,
+            //             //   ),
+            //             // ),
+            //             children: <Widget>[
+            //               Align(
+            //                 alignment: Alignment.topLeft,
+            //                 child: Padding(
+            //                   padding: getPadding(left: 20, right: 5, bottom: 10),
+            //                   child: Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       MyText(
+            //                         title: "Full Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "David Hamza",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  MyText(
-                                    title: "Father’s Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "Hamza David Warner",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //                       MyText(
+            //                         title: "Father’s Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "Hamza David Warner",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  // Wrap the Row widget in a SizedBox or Container with a specific width
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "NIC Number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "xxxxx-xxxxxxx-x",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          // Divider(color: ColorConstant.antextGrayDark,height: 20,),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Mobile number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "0000-0000000",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  MyText(
-                                    title: "House/Plot No.",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "House No. 156, Street Block Residential Plot",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Road",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "9",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Streetr",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "21",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Block",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "A",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: getHorizontalSize(2),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Colony/Residential Area Name",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "Area Name",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                      // Container(
-                                      //   color: ColorConstant.antextlightgray,
-                                      //   height: 1,
-                                      // ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: getVerticalSize(10),
-                      ),
-                      CustomExpansionTile(
-                        expand: false,
-                        iconColor: Colors.transparent,
-                        leading: MyText(
+            //                       // Wrap the Row widget in a SizedBox or Container with a specific width
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "NIC Number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "xxxxx-xxxxxxx-x",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               // Divider(color: ColorConstant.antextGrayDark,height: 20,),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Mobile number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "0000-0000000",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       MyText(
+            //                         title: "House/Plot No.",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "House No. 156, Street Block Residential Plot",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Road",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "9",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Streetr",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "21",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       Column(
+            //                         crossAxisAlignment: CrossAxisAlignment.start,
+            //                         children: [
+            //                           Row(
+            //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                             children: [
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Block",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "A",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                               SizedBox(
+            //                                 width: getHorizontalSize(2),
+            //                               ),
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Colony/Residential Area Name",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "Area Name",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                           // Container(
+            //                           //   color: ColorConstant.antextlightgray,
+            //                           //   height: 1,
+            //                           // ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //           SizedBox(
+            //             height: getVerticalSize(10),
+            //           ),
+            //           CustomExpansionTile(
+            //             expand: false,
+            //             iconColor: Colors.transparent,
+            //             leading: MyText(
 
                         
-                          title: "Guest",
-                          clr: ColorConstant.black900,
-                          fontSize: 18,
-                        ),
-                        title: MyText(
-                          // title: 'Monday Mon-04-2024 04:52 PM',
-                          title: '',
-                          clr: ColorConstant.antextlightgray,
-                          fontSize: 10,
-                        ),
-                        // subtitle: Align(
-                        //   alignment: Alignment.topRight,
-                        //   child: CommonImageView(
-                        //     imagePath: ImageConstant.viewIcon,
-                        //   ),
-                        // ),
-                        children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: getPadding(left: 20, right: 5, bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MyText(
-                                    title: "Full Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "David Hamza",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //               title: "Guest",
+            //               clr: ColorConstant.black900,
+            //               fontSize: 18,
+            //             ),
+            //             title: MyText(
+            //               // title: 'Monday Mon-04-2024 04:52 PM',
+            //               title: '',
+            //               clr: ColorConstant.antextlightgray,
+            //               fontSize: 10,
+            //             ),
+            //             // subtitle: Align(
+            //             //   alignment: Alignment.topRight,
+            //             //   child: CommonImageView(
+            //             //     imagePath: ImageConstant.viewIcon,
+            //             //   ),
+            //             // ),
+            //             children: <Widget>[
+            //               Align(
+            //                 alignment: Alignment.topLeft,
+            //                 child: Padding(
+            //                   padding: getPadding(left: 20, right: 5, bottom: 10),
+            //                   child: Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.start,
+            //                     children: [
+            //                       MyText(
+            //                         title: "Full Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "David Hamza",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  MyText(
-                                    title: "Father’s Name",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "Hamza David Warner",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
+            //                       MyText(
+            //                         title: "Father’s Name",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "Hamza David Warner",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
 
-                                  // Wrap the Row widget in a SizedBox or Container with a specific width
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "NIC Number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "xxxxx-xxxxxxx-x",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          // Divider(color: ColorConstant.antextGrayDark,height: 20,),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Mobile number",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "0000-0000000",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  MyText(
-                                    title: "House/Plot No.",
-                                    clr: ColorConstant.black900,
-                                    fontSize: 14,
-                                  ),
-                                  SizedBox(height: getVerticalSize(5)),
-                                  MyText(
-                                    title: "House No. 156, Street Block Residential Plot",
-                                    clr: ColorConstant.antextlightgray,
-                                    fontSize: 14,
-                                  ),
-                                  Divider(color: ColorConstant.antextGrayDark),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Road",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "9",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(width: 2,),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          MyText(
-                                            title: "Streetr",
-                                            clr: ColorConstant.black900,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(height: getVerticalSize(5)),
-                                          MyText(
-                                            title: "21",
-                                            clr: ColorConstant.antextlightgray,
-                                            fontSize: 14,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                          Container(
-                                            color: ColorConstant.antextlightgray,
-                                            height: 1,
-                                            width: 150,
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(8),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Block",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "A",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: getHorizontalSize(2),
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                MyText(
-                                                  title: "Colony/Residential Area Name",
-                                                  clr: ColorConstant.black900,
-                                                  fontSize: 14,
-                                                ),
-                                                SizedBox(height: getVerticalSize(5)),
-                                                MyText(
-                                                  title: "Area Name",
-                                                  clr: ColorConstant.antextlightgray,
-                                                  fontSize: 14,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                      // Container(
-                                      //   color: ColorConstant.antextlightgray,
-                                      //   height: 1,
-                                      // ),
-                                      // SizedBox(height: getVerticalSize(8)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+            //                       // Wrap the Row widget in a SizedBox or Container with a specific width
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "NIC Number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "xxxxx-xxxxxxx-x",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               // Divider(color: ColorConstant.antextGrayDark,height: 20,),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Mobile number",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "0000-0000000",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       MyText(
+            //                         title: "House/Plot No.",
+            //                         clr: ColorConstant.black900,
+            //                         fontSize: 14,
+            //                       ),
+            //                       SizedBox(height: getVerticalSize(5)),
+            //                       MyText(
+            //                         title: "House No. 156, Street Block Residential Plot",
+            //                         clr: ColorConstant.antextlightgray,
+            //                         fontSize: 14,
+            //                       ),
+            //                       Divider(color: ColorConstant.antextGrayDark),
+            //                       Row(
+            //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                         children: [
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Road",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "9",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(width: 2,),
+            //                           Column(
+            //                             crossAxisAlignment: CrossAxisAlignment.start,
+            //                             children: [
+            //                               MyText(
+            //                                 title: "Streetr",
+            //                                 clr: ColorConstant.black900,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(height: getVerticalSize(5)),
+            //                               MyText(
+            //                                 title: "21",
+            //                                 clr: ColorConstant.antextlightgray,
+            //                                 fontSize: 14,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                               Container(
+            //                                 color: ColorConstant.antextlightgray,
+            //                                 height: 1,
+            //                                 width: 150,
+            //                               ),
+            //                               SizedBox(
+            //                                 height: getVerticalSize(8),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         ],
+            //                       ),
+            //                       Column(
+            //                         crossAxisAlignment: CrossAxisAlignment.start,
+            //                         children: [
+            //                           Row(
+            //                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                             children: [
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Block",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "A",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                               SizedBox(
+            //                                 width: getHorizontalSize(2),
+            //                               ),
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     MyText(
+            //                                       title: "Colony/Residential Area Name",
+            //                                       clr: ColorConstant.black900,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                     SizedBox(height: getVerticalSize(5)),
+            //                                     MyText(
+            //                                       title: "Area Name",
+            //                                       clr: ColorConstant.antextlightgray,
+            //                                       fontSize: 14,
+            //                                     ),
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                             ],
+            //                           ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                           // Container(
+            //                           //   color: ColorConstant.antextlightgray,
+            //                           //   height: 1,
+            //                           // ),
+            //                           // SizedBox(height: getVerticalSize(8)),
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+                   
+                   
                     ],
                   ),
                 ),
