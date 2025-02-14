@@ -18,6 +18,28 @@ class HelperFunction {
     }
   }
 
+  static String? validateAlphabetsOnly(String? value) {
+    final RegExp alphabetRegex = RegExp(r'^[a-zA-Z ]+$');
+
+    if (value == null || value.isEmpty) {
+      return "Field cannot be empty";
+    } else if (!alphabetRegex.hasMatch(value)) {
+      return 'Only alphabets are allowed';
+    }
+    return null; // Valid input
+  }
+
+  static String? validatePakistaniPhoneNumber(String? value) {
+    final RegExp phoneRegex = RegExp(r'^03\d{9}$');
+
+    if (value == null || value.isEmpty) {
+      return "Field cannot be empty";
+    } else if (!phoneRegex.hasMatch(value)) {
+      return 'Enter a valid phone number (e.g., 03001234567)';
+    }
+    return null; // Valid input
+  }
+
   static String? otpvalidate(String val) {
     if (val.isEmpty) {
       return 'OTP is required';
@@ -85,15 +107,16 @@ class HelperFunction {
     if (value.isEmpty || value == "") {
       return "Password is required";
     }
-    if (value.length < 6) {
-      return "Password is really short please enter at least 6 character.";
+    if (value.length < 8) {
+      return "Password is really short please enter at least 8 character.";
+    }
+    if (!regex.hasMatch(value)) {
+      return 'Please enter at least one character uppercase,\none lower case,one special character and one digit';
+      // return 'Weak password please enter at least one character uppercase,\none lower case,one special character and one digit';
     }
     if (isConfirmPassword) {
       if (value != password) {
         return "Password and confirm password do not match";
-      } else if (!regex.hasMatch(value)) {
-        return 'Please enter at least one character uppercase,\none lower case,one special character and one digit';
-        // return 'Weak password please enter at least one character uppercase,\none lower case,one special character and one digit';
       } else {
         return null;
       }
@@ -135,17 +158,11 @@ class HelperFunction {
   }
 
   static void showBottomSheet(context,
-      {double? bottomSheetHeight,
-      double? spaceBetween,
-      double? radius,
-      String? screenTitle,
-      Widget? save,
-      Widget? widget}) {
+      {double? bottomSheetHeight, double? spaceBetween, double? radius, String? screenTitle, Widget? save, Widget? widget}) {
     showModalBottomSheet(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.only(topRight: Radius.circular(radius ?? 30.0), topLeft: Radius.circular(radius ?? 30.0)),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(radius ?? 30.0), topLeft: Radius.circular(radius ?? 30.0)),
         ),
         context: context,
         builder: (BuildContext bc) {
@@ -227,8 +244,7 @@ class HelperFunction {
     storage.clear();
   }
 
-  static showBottomSheet2(context,
-      {double? bottomSheetHeight, String? screenTitle, Widget? save, Widget? apply, Widget? widget}) {
+  static showBottomSheet2(context, {double? bottomSheetHeight, String? screenTitle, Widget? save, Widget? apply, Widget? widget}) {
     showModalBottomSheet(
         backgroundColor: Colors.white,
         context: context,

@@ -49,8 +49,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -128,10 +127,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           fieldText: "Full Name".tr,
                                           controller: controller.fullNameController,
                                           isFinal: false,
+                                      
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
+                                            return HelperFunction.validateAlphabetsOnly(value!);
                                           },
                                         ),
                                         SizedBox(
@@ -141,10 +141,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           fieldText: "Father’s Name".tr,
                                           controller: controller.fathersController,
                                           isFinal: false,
+                                        
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
+                                            return HelperFunction.validateAlphabetsOnly(value!);
                                           },
                                         ),
                                         SizedBox(
@@ -176,7 +177,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 isFinal: false,
                                                 keyboardType: TextInputType.phone,
                                                 validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                  return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                 },
                                               ),
                                             ),
@@ -232,7 +233,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             ),
                                           ],
                                         ),
-
                                         SizedBox(
                                           height: getVerticalSize(5),
                                         ),
@@ -287,9 +287,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       child: DropdownButton<Plots>(
                                                     hint: controller.plotstSelectedValue == null
                                                         ? Text(
-                                                            controller.plots.isEmpty
-                                                                ? "Select Plot"
-                                                                : controller.plotPlaceHolder,
+                                                            controller.plots.isEmpty ? "Select Plot" : controller.plotPlaceHolder,
                                                             style: TextStyle(
                                                               fontSize: 14,
                                                               color: ColorConstant.blackColor.withOpacity(0.5),
@@ -300,9 +298,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         : Text(controller.plotstSelectedValue.toString()),
                                                     value: controller.plotstSelectedValue,
                                                     disabledHint: Text(
-                                                      controller.plots.isEmpty
-                                                          ? "Select Plot"
-                                                          : controller.plotPlaceHolder,
+                                                      controller.plots.isEmpty ? "Select Plot" : controller.plotPlaceHolder,
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: ColorConstant.blackColor.withOpacity(0.5),
@@ -369,9 +365,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerImage != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                               size: 19.r,
                                             ),
@@ -394,12 +388,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicFront != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerCnicFront != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                               size: 19.r,
-
                                             ),
                                             onPressed: () async {
                                               controller.ownerCnicFront = await controller.imagePicker();
@@ -420,12 +411,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicBack != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerCnicBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                               size: 19.r,
-                                              
                                             ),
                                             onPressed: () async {
                                               controller.ownerCnicBack = await controller.imagePicker();
@@ -435,44 +423,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        // Padding(
-                                        //   padding: getPadding(left: 10, right: 10),
-                                        //   child: MyAnimatedButton(
-                                        //     radius: 5.0,
-                                        //     height: getVerticalSize(50),
-                                        //     width: getHorizontalSize(400),
-                                        //     fontSize: 16,
-                                        //     bgColor: ColorConstant.anbtnBlue,
-                                        //     controller: controller.btnController,
-                                        //     title: "Add Owner Information".tr,
-                                        //     // onTap: () async {
-                                        //     //   // controller.loginAPI(context);
-                                        //     // },
-
-                                        //     onTap: () async {
-                                        //       if (controller.ownerImage == null) {
-                                        //         Utils.showToast(
-                                        //           "Please select image of yours",
-                                        //           true,
-                                        //         );
-                                        //       } else if (controller.ownerCnicFront ==
-                                        //           null) {
-                                        //         Utils.showToast(
-                                        //           "Please select image of your CNIC front side",
-                                        //           true,
-                                        //         );
-                                        //       } else if (controller.ownerCnicBack ==
-                                        //           null) {
-                                        //         Utils.showToast(
-                                        //           "Please select image of your CNIC back side",
-                                        //           true,
-                                        //         );
-                                        //       } else {
-                                        //         controller.SubmitEntryFormApi(context);
-                                        //       }
-                                        //     },
-                                        //   ),
-                                        // ),
                                         SizedBox(
                                           height: getVerticalSize(20),
                                         ),
@@ -492,7 +442,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                       child: CustomExpansionTile(
                                         title: MyText(
                                           title: 'Spouse',
-                                          // title: controller.spouseImages.length.toString(),
                                           clr: ColorConstant.black900,
                                           fontSize: 16,
                                         ),
@@ -500,30 +449,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.spousefullNameControllers.length == 0
-                                                ? 1
-                                                : controller.spousefullNameControllers.length,
+                                            itemCount:
+                                                controller.spousefullNameControllers.length == 0 ? 1 : controller.spousefullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
-                                                  // if (controller.spouseDataIndex != 0)
-                                                  //   Row(
-                                                  //     mainAxisAlignment: MainAxisAlignment.start,
-                                                  //     children: [
-                                                  //       Container(
-                                                  //         margin: EdgeInsets.only(left: 15),
-                                                  //         padding: EdgeInsets.all(10),
-                                                  //         decoration: BoxDecoration(
-                                                  //             color: Colors.green, shape: BoxShape.circle),
-                                                  //         child: MyText(
-                                                  //           title: controller.spouseDataIndex.toString(),
-                                                  //           clr: ColorConstant.whiteA700,
-                                                  //           fontSize: 16,
-                                                  //         ),
-                                                  //       ),
-                                                  //     ],
-                                                  //   ),
-
                                                   if (index != 0)
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -537,8 +467,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           child: Container(
                                                               margin: EdgeInsets.only(right: 15),
                                                               padding: EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.red, shape: BoxShape.circle),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                               child: Icon(
                                                                 Icons.delete_outlined,
                                                                 color: Colors.white,
@@ -548,28 +477,15 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     ),
                                                   CustomTextField(
                                                       fieldText: "Full Name".tr,
+                                                    
                                                       controller: controller.spousefullNameControllers[index],
                                                       isFinal: false,
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                        return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
-                                                  // SizedBox(
-                                                  //   height: getVerticalSize(5),
-                                                  // ),
-                                                  // CustomTextField(
-                                                  //     fieldText: "Father’s Name".tr,
-                                                  //     controller: controller.spousefathersControllers[index],
-                                                  //     isFinal: false,
-                                                  //     keyboardType: TextInputType.emailAddress,
-                                                  //     limit: HelperFunction.EMAIL_VALIDATION,
-                                                  //     validator: (value) {
-                                                  //       return HelperFunction.empthyFieldValidator(value!);
-                                                  //     }),
-                                                  // SizedBox(
-                                                  //   height: getVerticalSize(5),
-                                                  // ),
+                                               
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
@@ -594,7 +510,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                             isFinal: false,
                                                             keyboardType: TextInputType.phone,
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                             }),
                                                       ),
                                                     ],
@@ -712,27 +628,23 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       width: getHorizontalSize(350),
                                                       fontSize: 12.sp,
                                                       fontWeight: FontWeight.w700,
-                                                      color: ColorConstant.whiteA700, 
+                                                      color: ColorConstant.whiteA700,
                                                       label: "Attach a clear image of spouse".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: controller.spouseImages[index].path == "" ||
-                                                              controller.spouseImages[index].isBlank!
+                                                      prefix: controller.spouseImages[index].path == "" || controller.spouseImages[index].isBlank!
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
+                                                              size: 19.r,
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
                                                               color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
+                                                              size: 19.r,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -762,19 +674,15 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
+                                                              size: 19.r,
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
                                                               color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
+                                                              size: 19.r,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
-
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
                                                         if (result != null) {
                                                           setState(() {
                                                             controller.spouseCnicsfronts[index] = File(result.path);
@@ -798,22 +706,20 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of Spouse CNIC back side".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: controller.spouseCnicBacks[index].path == "" ||
-                                                              controller.spouseCnicBacks[index].isBlank!
-                                                          ? Icon(
-                                                              Icons.add_circle_outline,
-                                              size: 19.r,
-                                                              color: ColorConstant.anbtnBlue,
-                                                            )
-                                                          : Icon(
-                                                              Icons.check_circle_sharp,
-                                                              color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
-                                                            ),
+                                                      prefix:
+                                                          controller.spouseCnicBacks[index].path == "" || controller.spouseCnicBacks[index].isBlank!
+                                                              ? Icon(
+                                                                  Icons.add_circle_outline,
+                                                                  size: 19.r,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                )
+                                                              : Icon(
+                                                                  Icons.check_circle_sharp,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                  size: 19.r,
+                                                                ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -840,46 +746,18 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       controller: controller.btnControllerUseLess,
                                                       title: "Add Spouse".tr,
                                                       onTap: () async {
-
-                                                           log(controller.spouseImages.toString() );
-                                                        // for (var element in controller.spousefullNameControllers) {
-                                                        //   log(element.text);
-                                                        // }
-
-                                                        // for (var i = 0; i < controller.spousefullNameControllers.length; i++) {
-                                                        //   log("spouse[$i]" + controller.spousefullNameControllers[i].text);
-                                                        // }
-                                                        // controller.addSpouse();
+                    
                                                         if (controller.spouseImages.isEmpty) {
                                                           Utils.showToast("Please select spouse Images", true);
                                                         } else if (controller.spouseCnicsfronts.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select spouse cnic front images", true);
+                                                          Utils.showToast("Please select spouse cnic front images", true);
                                                         } else if (controller.spouseCnicBacks.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select spouse cnic back images", true);
+                                                          Utils.showToast("Please select spouse cnic back images", true);
                                                         } else {
                                                           controller.spouseEntryFormAPi(context, index);
                                                         }
 
-                                                        // if (controller.spouseImage == null) {
-                                                        //   Utils.showToast(
-                                                        //     "Please select image of spouse",
-                                                        //     true,
-                                                        //   );
-                                                        // } else if (controller.spouseCnicFront == null) {
-                                                        //   Utils.showToast(
-                                                        //     "Please select image of spouse CNIC front side",
-                                                        //     true,
-                                                        //   );
-                                                        // } else if (controller.spouseCnicBack == null) {
-                                                        //   Utils.showToast(
-                                                        //     "Please select image of spouse CNIC back side",
-                                                        //     true,
-                                                        //   );
-                                                        // } else {
-                                                        //   controller.spouseEntryFormAPi(context);
-                                                        // }
+                                                      
                                                       },
                                                     ),
                                                   ),
@@ -912,30 +790,12 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.childfullNameControllers.length == 0
-                                                ? 1
-                                                : controller.childfullNameControllers.length,
+                                            itemCount:
+                                                controller.childfullNameControllers.length == 0 ? 1 : controller.childfullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
-                                                  // if (controller.childDataIndex != 0)
-                                                  //   Row(
-                                                  //     mainAxisAlignment: MainAxisAlignment.end,
-                                                  //     children: [
-                                                  //       Container(
-                                                  //         margin: EdgeInsets.only(left: 15),
-                                                  //         padding: EdgeInsets.all(10),
-                                                  //         decoration: BoxDecoration(
-                                                  //             color: Colors.green, shape: BoxShape.circle),
-                                                  //         child: MyText(
-                                                  //           title: controller.childDataIndex.toString(),
-                                                  //           clr: ColorConstant.whiteA700,
-                                                  //           fontSize: 16,
-                                                  //         ),
-                                                  //       ),
-                                                  //     ],
-                                                  //   ),
-
+                                               
                                                   if (index != 0)
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -949,8 +809,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           child: Container(
                                                               margin: EdgeInsets.only(right: 15),
                                                               padding: EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.red, shape: BoxShape.circle),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                               child: Icon(
                                                                 Icons.delete_outlined,
                                                                 color: Colors.white,
@@ -965,23 +824,12 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                        return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
-                                                  // SizedBox(
-                                                  //   height: getVerticalSize(5),
-                                                  // ),
-                                                  // CustomTextField(
-                                                  //     fieldText: "Father’s Name".tr,
-                                                  //     controller: controller.childfathersControllers[index],
-                                                  //     isFinal: false,
-                                                  //     keyboardType: TextInputType.emailAddress,
-                                                  //     limit: HelperFunction.EMAIL_VALIDATION,
-                                                  //     validator: (value) {
-                                                  //       return HelperFunction.empthyFieldValidator(value!);
-                                                  //     }),
-                                                  // SizedBox(
-                                                  //   height: getVerticalSize(5),
-                                                  // ),
+                                                
+                                         
+                                         
+                                  
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
@@ -1007,7 +855,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                             isFinal: false,
                                                             keyboardType: TextInputType.phone,
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                             }),
                                                       ),
                                                     ],
@@ -1130,22 +978,19 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of child".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: controller.childImages[index].path == "" ||
-                                                              controller.childImages[index].isBlank!
+                                                      prefix: controller.childImages[index].path == "" || controller.childImages[index].isBlank!
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
+                                                              size: 19.r,
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
-                                              size: 19.r,
+                                                              size: 19.r,
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -1168,23 +1013,20 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of child CNIC front sides".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: controller.childCnicsfronts[index].path == "" ||
-                                                              controller.childCnicsfronts[index].isBlank!
-                                                          ? Icon(
-                                                              Icons.add_circle_outline,
-                                                              color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
-                                                            )
-                                                          : Icon(
-                                                              Icons.check_circle_sharp,
-                                              size: 19.r,
-
-                                                              color: ColorConstant.anbtnBlue,
-                                                            ),
+                                                      prefix:
+                                                          controller.childCnicsfronts[index].path == "" || controller.childCnicsfronts[index].isBlank!
+                                                              ? Icon(
+                                                                  Icons.add_circle_outline,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                  size: 19.r,
+                                                                )
+                                                              : Icon(
+                                                                  Icons.check_circle_sharp,
+                                                                  size: 19.r,
+                                                                  color: ColorConstant.anbtnBlue,
+                                                                ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -1207,23 +1049,19 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       label: "Attach a clear image of child CNIC back side".tr,
                                                       textColor: ColorConstant.anbtnBlue,
                                                       borderColor: ColorConstant.anbtnBlue,
-                                                      prefix: controller.childCnicBacks[index].path == "" ||
-                                                              controller.childCnicBacks[index].isBlank!
+                                                      prefix: controller.childCnicBacks[index].path == "" || controller.childCnicBacks[index].isBlank!
                                                           ? Icon(
                                                               Icons.add_circle_outline,
                                                               color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
+                                                              size: 19.r,
                                                             )
                                                           : Icon(
                                                               Icons.check_circle_sharp,
                                                               color: ColorConstant.anbtnBlue,
-                                              size: 19.r,
-
+                                                              size: 19.r,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -1250,8 +1088,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         if (controller.childImages.isEmpty) {
                                                           Utils.showToast("Please select child images", true);
                                                         } else if (controller.childCnicsfronts.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select child cnic front images", true);
+                                                          Utils.showToast("Please select child cnic front images", true);
                                                         } else if (controller.childCnicBacks.isEmpty) {
                                                           Utils.showToast("Please select child cnic back images", true);
                                                         } else {

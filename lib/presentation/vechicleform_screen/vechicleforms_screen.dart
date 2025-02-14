@@ -113,7 +113,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               keyboardType: TextInputType.emailAddress,
                                               limit: HelperFunction.EMAIL_VALIDATION,
                                               validator: (value) {
-                                                return HelperFunction.empthyFieldValidator(value!);
+                                                return HelperFunction.validateAlphabetsOnly(value!);
                                               },
                                             ),
                                             SizedBox(
@@ -126,13 +126,12 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               keyboardType: TextInputType.emailAddress,
                                               limit: HelperFunction.EMAIL_VALIDATION,
                                               validator: (value) {
-                                                return HelperFunction.empthyFieldValidator(value!);
+                                                return HelperFunction.validateAlphabetsOnly(value!);
                                               },
                                             ),
                                             SizedBox(
                                               height: getVerticalSize(10),
                                             ),
-
                                             Padding(
                                               padding: getPadding(left: 10),
                                               child: MyText(
@@ -173,16 +172,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       clr: ColorConstant.antextlightgray,
                                                     ),
                                                   ),
-                                                  // Icon(
-                                                  //   Icons.circle_outlined,
-                                                  //   color: ColorConstant.blackColor,
-                                                  //   size: 14,
-                                                  // ),
-                                                  // MyText(
-                                                  //   title: " mm/dd/yy",
-                                                  //   clr:
-                                                  //       ColorConstant.antextlightgray,
-                                                  // ),
                                                 ],
                                               ),
                                             ),
@@ -198,10 +187,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             SizedBox(
                                               height: getVerticalSize(5),
                                             ),
-                                            // if (_value
-                                            //         .selectedServiceCategory ==
-                                            //     2)
-
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
@@ -447,7 +432,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     keyboardType: TextInputType.phone,
                                                     limit: HelperFunction.EMAIL_VALIDATION,
                                                     validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
+                                                      return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                     },
                                                   ),
                                                 ),
@@ -458,7 +443,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     isFinal: false,
                                                     keyboardType: TextInputType.phone,
                                                     validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
+                                                      return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                     },
                                                   ),
                                                 ),
@@ -477,7 +462,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             SizedBox(
                                               height: getVerticalSize(15),
                                             ),
-
                                             Padding(
                                               padding: getPadding(left: 10, top: 10, right: 10),
                                               child: Row(
@@ -654,24 +638,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             fontSize: 20,
                                                           ),
                                                         ),
-                                                        // if (_value.vehicleDataIndex != 0)
-                                                        //   Row(
-                                                        //     mainAxisAlignment: MainAxisAlignment.start,
-                                                        //     children: [
-                                                        //       Container(
-                                                        //         margin: EdgeInsets.only(left: 15),
-                                                        //         padding: EdgeInsets.all(10),
-                                                        //         decoration: BoxDecoration(
-                                                        //             color: Colors.green, shape: BoxShape.circle),
-                                                        //         child: MyText(
-                                                        //           title: _value.vehicleDataIndex.toString(),
-                                                        //           clr: ColorConstant.whiteA700,
-                                                        //           fontSize: 16,
-                                                        //         ),
-                                                        //       ),
-                                                        //     ],
-                                                        //   ),
-
                                                         if (index != 0)
                                                           Row(
                                                             mainAxisAlignment: MainAxisAlignment.end,
@@ -832,24 +798,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
-                                                  // if (_value.userInfoDataIndex != 0)
-                                                  //   Row(
-                                                  //     mainAxisAlignment: MainAxisAlignment.start,
-                                                  //     children: [
-                                                  //       Container(
-                                                  //         margin: EdgeInsets.only(left: 15),
-                                                  //         padding: EdgeInsets.all(10),
-                                                  //         decoration:
-                                                  //             BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                                                  //         child: MyText(
-                                                  //           title: _value.userInfoDataIndex.toString(),
-                                                  //           clr: ColorConstant.whiteA700,
-                                                  //           fontSize: 16,
-                                                  //         ),
-                                                  //       ),
-                                                  //     ],
-                                                  //   ),
-
                                                   if (index != 0)
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -878,7 +826,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                        return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
                                                   SizedBox(
                                                     height: getVerticalSize(5),
@@ -908,7 +856,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             isFinal: false,
                                                             keyboardType: TextInputType.phone,
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                             }),
                                                       ),
                                                     ],

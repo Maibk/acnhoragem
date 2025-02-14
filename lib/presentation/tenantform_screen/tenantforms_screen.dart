@@ -135,7 +135,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       keyboardType: TextInputType.emailAddress,
                                       limit: HelperFunction.EMAIL_VALIDATION,
                                       validator: (value) {
-                                        return HelperFunction.empthyFieldValidator(value!);
+                                        return HelperFunction.validateAlphabetsOnly(value!);
                                       },
                                     ),
                                     SizedBox(
@@ -148,7 +148,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       keyboardType: TextInputType.emailAddress,
                                       limit: HelperFunction.EMAIL_VALIDATION,
                                       validator: (value) {
-                                        return HelperFunction.empthyFieldValidator(value!);
+                                        return HelperFunction.validateAlphabetsOnly(value!);
                                       },
                                     ),
                                     SizedBox(
@@ -161,7 +161,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       keyboardType: TextInputType.phone,
                                       limit: HelperFunction.EMAIL_VALIDATION,
                                       validator: (value) {
-                                        return HelperFunction.empthyFieldValidator(value!);
+                                        return HelperFunction.validatePakistaniPhoneNumber(value!);
                                       },
                                     ),
                                     SizedBox(
@@ -409,7 +409,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             keyboardType: TextInputType.emailAddress,
                                             limit: HelperFunction.EMAIL_VALIDATION,
                                             validator: (value) {
-                                              return HelperFunction.empthyFieldValidator(value!);
+                                              return HelperFunction.validateAlphabetsOnly(value!);
                                             },
                                           ),
                                           SizedBox(
@@ -422,7 +422,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             keyboardType: TextInputType.phone,
                                             limit: HelperFunction.EMAIL_VALIDATION,
                                             validator: (value) {
-                                              return HelperFunction.empthyFieldValidator(value!);
+                                              return HelperFunction.validatePakistaniPhoneNumber(value!);
                                             },
                                           ),
                                           SizedBox(

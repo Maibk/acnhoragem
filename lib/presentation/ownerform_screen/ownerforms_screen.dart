@@ -33,8 +33,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -127,9 +126,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                     controller: controller.fullNameController,
                                     isFinal: false,
                                     keyboardType: TextInputType.emailAddress,
+                                  
                                     limit: HelperFunction.EMAIL_VALIDATION,
                                     validator: (value) {
-                                      return HelperFunction.empthyFieldValidator(value!);
+                                      return HelperFunction.validateAlphabetsOnly(value!);
                                     },
                                   ),
                                   SizedBox(
@@ -140,9 +140,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                     controller: controller.fathersController,
                                     isFinal: false,
                                     keyboardType: TextInputType.emailAddress,
+                                   
                                     limit: HelperFunction.EMAIL_VALIDATION,
                                     validator: (value) {
-                                      return HelperFunction.empthyFieldValidator(value!);
+                                      return HelperFunction.validateAlphabetsOnly(value!);
                                     },
                                   ),
                                   SizedBox(
@@ -155,7 +156,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                     keyboardType: TextInputType.phone,
                                     limit: HelperFunction.EMAIL_VALIDATION,
                                     validator: (value) {
-                                      return HelperFunction.empthyFieldValidator(value!);
+                                      return HelperFunction.validatePakistaniPhoneNumber(value!);
                                     },
                                   ),
                                   SizedBox(
@@ -178,8 +179,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             showCities: false,
                                             showStates: false,
                                             dropdownDecoration: BoxDecoration(
-                                                border: Border(
-                                                    bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray)),
+                                                border: Border(bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray)),
                                                 color: Colors.transparent,
                                                 borderRadius: BorderRadius.circular(00.0)),
                                           ),
@@ -312,8 +312,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                   for (var i = 0; i < controller.plots.length; i++) {
                                                     controller.plotstSelectedValue?.id == controller.plots[i].id;
                                                     if (controller.plotstSelectedValue?.id == controller.plots[i].id) {
-                                                      controller.sizeHouseAddController.text =
-                                                          controller.plots[i].sq_yards.toString();
+                                                      controller.sizeHouseAddController.text = controller.plots[i].sq_yards.toString();
                                                       log("Square yard found ${controller.sizeHouseAddController.text}");
                                                       break;
                                                     }
@@ -414,7 +413,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       init: controller,
                                                       builder: (controller) {
                                                         return GestureDetector(
-                                                                         behavior: HitTestBehavior.opaque,
+                                                          behavior: HitTestBehavior.opaque,
                                                           onTap: () {
                                                             controller.updateAllotmentLetter("Yes");
                                                           },
@@ -450,7 +449,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       init: controller,
                                                       builder: (controller) {
                                                         return GestureDetector(
-                                                                         behavior: HitTestBehavior.opaque,
+                                                          behavior: HitTestBehavior.opaque,
                                                           onTap: () {
                                                             controller.updateAllotmentLetter("No");
                                                             controller.allotmentletter = null;
@@ -525,7 +524,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       init: controller,
                                                       builder: (controller) {
                                                         return GestureDetector(
-                                                                         behavior: HitTestBehavior.opaque,
+                                                          behavior: HitTestBehavior.opaque,
                                                           onTap: () {
                                                             controller.updateCompletionCertificate("Yes");
                                                           },
@@ -561,7 +560,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       init: controller,
                                                       builder: (controller) {
                                                         return GestureDetector(
-                                                                         behavior: HitTestBehavior.opaque,
+                                                          behavior: HitTestBehavior.opaque,
                                                           onTap: () {
                                                             controller.updateCompletionCertificate("No");
                                                             controller.certificate = null;
@@ -667,10 +666,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           init: controller,
                                                           builder: (controller) {
                                                             return GestureDetector(
-                                                                             behavior: HitTestBehavior.opaque,
+                                                              behavior: HitTestBehavior.opaque,
                                                               onTap: () {
-                                                                controller
-                                                                    .updateConstructionStatus("Under Construction");
+                                                                controller.updateConstructionStatus("Under Construction");
                                                                 log(controller.constructionStatus);
                                                               },
                                                               child: Row(
@@ -708,7 +706,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           init: controller,
                                                           builder: (controller) {
                                                             return GestureDetector(
-                                                                             behavior: HitTestBehavior.opaque,
+                                                              behavior: HitTestBehavior.opaque,
                                                               onTap: () {
                                                                 controller.updateConstructionStatus("Complete");
                                                                 log(controller.constructionStatus);
@@ -834,7 +832,6 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               builder: (_) {
                                                 return GestureDetector(
                                                   behavior: HitTestBehavior.opaque,
-
                                                   onTap: () {
                                                     controller.updatePrivatearms("No");
                                                   },
@@ -1071,9 +1068,8 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               ? ListView.builder(
                                                   shrinkWrap: true,
                                                   physics: NeverScrollableScrollPhysics(),
-                                                  itemCount: controller.vehicleTypeControllers.length == 0
-                                                      ? 1
-                                                      : controller.vehicleTypeControllers.length,
+                                                  itemCount:
+                                                      controller.vehicleTypeControllers.length == 0 ? 1 : controller.vehicleTypeControllers.length,
                                                   itemBuilder: (context, index) {
                                                     return Column(
                                                       children: [
@@ -1090,8 +1086,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 child: Container(
                                                                     margin: EdgeInsets.only(right: 15),
                                                                     padding: EdgeInsets.all(8),
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors.red, shape: BoxShape.circle),
+                                                                    decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                                     child: Icon(
                                                                       Icons.delete_outlined,
                                                                       color: Colors.white,
@@ -1111,8 +1106,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 limit: HelperFunction.EMAIL_VALIDATION,
                                                                 validator: controller.vehicleDataIndex < 1
                                                                     ? (value) {
-                                                                        return HelperFunction.empthyFieldValidator(
-                                                                            value!);
+                                                                        return HelperFunction.empthyFieldValidator(value!);
                                                                       }
                                                                     : null,
                                                               ),
@@ -1120,14 +1114,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             Expanded(
                                                               child: CustomTextField(
                                                                 fieldText: "Registration No.".tr,
-                                                                controller:
-                                                                    controller.vehicleRegisterNoControllers[index],
+                                                                controller: controller.vehicleRegisterNoControllers[index],
                                                                 isFinal: false,
                                                                 keyboardType: TextInputType.emailAddress,
                                                                 validator: controller.vehicleDataIndex < 1
                                                                     ? (value) {
-                                                                        return HelperFunction.empthyFieldValidator(
-                                                                            value!);
+                                                                        return HelperFunction.empthyFieldValidator(value!);
                                                                       }
                                                                     : null,
                                                               ),
@@ -1149,8 +1141,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 limit: HelperFunction.EMAIL_VALIDATION,
                                                                 validator: controller.vehicleDataIndex < 1
                                                                     ? (value) {
-                                                                        return HelperFunction.empthyFieldValidator(
-                                                                            value!);
+                                                                        return HelperFunction.empthyFieldValidator(value!);
                                                                       }
                                                                     : null,
                                                               ),
@@ -1228,7 +1219,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               init: controller,
                                                               builder: (controller) {
                                                                 return GestureDetector(
-                                                                                 behavior: HitTestBehavior.opaque,
+                                                                  behavior: HitTestBehavior.opaque,
                                                                   onTap: () {
                                                                     setState(() {
                                                                       controller.eTag[index] = "No";
@@ -1349,15 +1340,11 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             fontSize: 12,
                                             fontWeight: FontWeight.w700,
                                             color: ColorConstant.whiteA700,
-                                            label: controller.allotmentletter != null
-                                                ? "Allotment Letter"
-                                                : "Attach Allotment Letter".tr,
+                                            label: controller.allotmentletter != null ? "Allotment Letter" : "Attach Allotment Letter".tr,
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.allotmentletter != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.allotmentletter != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -1375,15 +1362,11 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           fontSize: 12,
                                           fontWeight: FontWeight.w700,
                                           color: ColorConstant.whiteA700,
-                                          label: controller.allotmentletter != null
-                                              ? "Building Plan"
-                                              : "Attach Approval of Building Plan".tr,
+                                          label: controller.allotmentletter != null ? "Building Plan" : "Attach Approval of Building Plan".tr,
                                           textColor: ColorConstant.anbtnBlue,
                                           borderColor: ColorConstant.anbtnBlue,
                                           prefix: Icon(
-                                            controller.buildingplan != null
-                                                ? Icons.check_circle_sharp
-                                                : Icons.add_circle_outline,
+                                            controller.buildingplan != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                             color: ColorConstant.anbtnBlue,
                                           ),
                                           onPressed: () async {
@@ -1406,9 +1389,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.certificate != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.certificate != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {

@@ -2,20 +2,14 @@ import 'package:anchorageislamabad/core/utils/size_utils.dart';
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
+
 import '../../baseviews/baseview_auth_screen.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/image_constant.dart';
-import '../../routes/app_routes.dart';
-import '../../theme/custom_button_style.dart';
 import '../../widgets/animated_custom_button.dart';
 import '../../widgets/common_image_view.dart';
-import '../../widgets/custom_outlined_button.dart';
-import '../../widgets/custom_radio_button.dart';
 import '../../widgets/custom_text.dart';
 import '../../widgets/custom_textfield_new.dart';
 import 'controller/signup_controller.dart';
@@ -196,7 +190,6 @@ class SignUpScreen extends GetWidget<SignUpController> {
                         SizedBox(
                           height: getVerticalSize(5),
                         ),
-
                         CustomTextField(
                           fieldText: "First Name".tr,
                           controller: controller.firstNameController,
@@ -204,7 +197,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                           keyboardType: TextInputType.emailAddress,
                           limit: HelperFunction.EMAIL_VALIDATION,
                           validator: (value) {
-                            return HelperFunction.empthyFieldValidator(value!);
+                            return HelperFunction.validateAlphabetsOnly(value!);
                           },
                         ),
                         SizedBox(
@@ -217,7 +210,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                           keyboardType: TextInputType.emailAddress,
                           limit: HelperFunction.EMAIL_VALIDATION,
                           validator: (value) {
-                            return HelperFunction.empthyFieldValidator(value!);
+                            return HelperFunction.validateAlphabetsOnly(value!);
                           },
                         ),
                         SizedBox(
@@ -266,7 +259,7 @@ class SignUpScreen extends GetWidget<SignUpController> {
                           keyboardType: TextInputType.phone,
                           limit: HelperFunction.EMAIL_VALIDATION,
                           validator: (value) {
-                            return HelperFunction.empthyFieldValidator(value!);
+                            return HelperFunction.validatePakistaniPhoneNumber(value!);
                           },
                         ),
                         SizedBox(
@@ -275,11 +268,6 @@ class SignUpScreen extends GetWidget<SignUpController> {
                         SizedBox(
                           height: getVerticalSize(16),
                         ),
-                        // ElevatedButton(
-                        //     onPressed: () {
-                        //       controller.signupAPI(context);
-                        //     },
-                        //     child: Text("Sunmit")),
                         MyAnimatedButton(
                           radius: 15.0,
                           height: getVerticalSize(50),

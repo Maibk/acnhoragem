@@ -47,8 +47,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -126,10 +125,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           fieldText: "Full Name".tr,
                                           controller: controller.fullNameController,
                                           isFinal: false,
+                                       
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
+                                            return HelperFunction.validateAlphabetsOnly(value!);
                                           },
                                         ),
                                         SizedBox(
@@ -139,10 +139,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           fieldText: "Father’s Name".tr,
                                           controller: controller.fathersController,
                                           isFinal: false,
+                                        
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
+                                            return HelperFunction.validateAlphabetsOnly(value!);
                                           },
                                         ),
                                         SizedBox(
@@ -174,7 +175,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 isFinal: false,
                                                 keyboardType: TextInputType.phone,
                                                 validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                  return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                 },
                                               ),
                                             ),
@@ -183,7 +184,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                         SizedBox(
                                           height: getVerticalSize(5),
                                         ),
-
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
@@ -231,7 +231,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             ),
                                           ],
                                         ),
-
                                         SizedBox(
                                           height: getVerticalSize(5),
                                         ),
@@ -365,9 +364,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerImage != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -389,9 +386,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicFront != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerCnicFront != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -413,9 +408,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             textColor: ColorConstant.anbtnBlue,
                                             borderColor: ColorConstant.anbtnBlue,
                                             prefix: Icon(
-                                              controller.ownerCnicBack != null
-                                                  ? Icons.check_circle_sharp
-                                                  : Icons.add_circle_outline,
+                                              controller.ownerCnicBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
                                               color: ColorConstant.anbtnBlue,
                                             ),
                                             onPressed: () async {
@@ -426,21 +419,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        // Padding(
-                                        //   padding: getPadding(left: 10,right: 10),
-                                        //   child: MyAnimatedButton(
-                                        //     radius: 5.0,
-                                        //     height: getVerticalSize(50),
-                                        //     width: getHorizontalSize(400),
-                                        //     fontSize: 16 ,
-                                        //     bgColor: ColorConstant.anbtnBlue,
-                                        //     controller: controller.btnController,
-                                        //     title: "Add Owner Information".tr,
-                                        //     onTap: () async {
-                                        //       // controller.loginAPI(context);
-                                        //     },
-                                        //   ),
-                                        // ),
                                         SizedBox(
                                           height: getVerticalSize(20),
                                         ),
@@ -467,29 +445,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           ListView.builder(
                                             shrinkWrap: true,
                                             physics: NeverScrollableScrollPhysics(),
-                                            itemCount: controller.serventfullNameControllers.length == 0
-                                                ? 1
-                                                : controller.serventfullNameControllers.length,
+                                            itemCount:
+                                                controller.serventfullNameControllers.length == 0 ? 1 : controller.serventfullNameControllers.length,
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
-                                                  // if (_value.servantDataIndex != 0)
-                                                  //   Row(
-                                                  //     mainAxisAlignment: MainAxisAlignment.start,
-                                                  //     children: [
-                                                  //       Container(
-                                                  //         margin: EdgeInsets.only(left: 15),
-                                                  //         padding: EdgeInsets.all(10),
-                                                  //         decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                                                  //         child: MyText(
-                                                  //           title: _value.servantDataIndex.toString(),
-                                                  //           clr: ColorConstant.whiteA700,
-                                                  //           fontSize: 16,
-                                                  //         ),
-                                                  //       ),
-                                                  //     ],
-                                                  //   ),
-
                                                   if (index != 0)
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -503,8 +463,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: Container(
                                                               margin: EdgeInsets.only(right: 15),
                                                               padding: EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.red, shape: BoxShape.circle),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                               child: Icon(
                                                                 Icons.delete_outlined,
                                                                 color: Colors.white,
@@ -516,6 +475,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fieldText: "Full Name".tr,
                                                       controller: controller.serventfullNameControllers[index],
                                                       isFinal: false,
+                                                
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
@@ -528,10 +488,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fieldText: "Father’s Name".tr,
                                                       controller: controller.serventfathersControllers[index],
                                                       isFinal: false,
+                                                 
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                        return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
                                                   SizedBox(
                                                     height: getVerticalSize(5),
@@ -561,7 +522,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             isFinal: false,
                                                             keyboardType: TextInputType.phone,
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                             }),
                                                       ),
                                                     ],
@@ -630,8 +591,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       Expanded(
                                                         child: CustomTextField(
                                                             fieldText: "Mohalla/Village".tr,
-                                                            controller:
-                                                                controller.serventcolonyVillageControllers[index],
+                                                            controller: controller.serventcolonyVillageControllers[index],
                                                             isFinal: false,
                                                             keyboardType: TextInputType.emailAddress,
                                                             validator: (value) {
@@ -714,8 +674,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -748,8 +707,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -782,8 +740,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -812,11 +769,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         if (controller.servantImages.isEmpty) {
                                                           Utils.showToast("Please select servant Images", true);
                                                         } else if (controller.servantCnicFronts.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select servant cnic front images", true);
+                                                          Utils.showToast("Please select servant cnic front images", true);
                                                         } else if (controller.servantCnicBacks.isEmpty) {
-                                                          Utils.showToast(
-                                                              "Please select servant cnic back images", true);
+                                                          Utils.showToast("Please select servant cnic back images", true);
                                                         } else {
                                                           controller.addServant(index);
                                                         }
@@ -858,24 +813,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
-                                                  // if (_value.servantFamilyDataIndex != 0)
-                                                  //   Row(
-                                                  //     mainAxisAlignment: MainAxisAlignment.start,
-                                                  //     children: [
-                                                  //       Container(
-                                                  //         margin: EdgeInsets.only(left: 15),
-                                                  //         padding: EdgeInsets.all(10),
-                                                  //         decoration: BoxDecoration(
-                                                  //             color: Colors.green, shape: BoxShape.circle),
-                                                  //         child: MyText(
-                                                  //           title: _value.servantFamilyDataIndex.toString(),
-                                                  //           clr: ColorConstant.whiteA700,
-                                                  //           fontSize: 16,
-                                                  //         ),
-                                                  //       ),
-                                                  //     ],
-                                                  //   ),
-
                                                   if (index != 0)
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -889,8 +826,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: Container(
                                                               margin: EdgeInsets.only(right: 15),
                                                               padding: EdgeInsets.all(8),
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors.red, shape: BoxShape.circle),
+                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                               child: Icon(
                                                                 Icons.delete_outlined,
                                                                 color: Colors.white,
@@ -902,10 +838,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fieldText: "Full Name".tr,
                                                       controller: controller.serventfamfullNameControllers[index],
                                                       isFinal: false,
+                                                    
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                        return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
                                                   SizedBox(
                                                     height: getVerticalSize(5),
@@ -914,10 +851,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fieldText: "Occupation".tr,
                                                       controller: controller.serventfamoccutionControllers[index],
                                                       isFinal: false,
+                                                   
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                        return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
                                                   SizedBox(
                                                     height: getVerticalSize(5),
@@ -947,7 +885,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             isFinal: false,
                                                             keyboardType: TextInputType.phone,
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.validatePakistaniPhoneNumber(value!);
                                                             }),
                                                       ),
                                                     ],
@@ -988,8 +926,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               color: ColorConstant.anbtnBlue,
                                                             ),
                                                       onPressed: () async {
-                                                        final result = await controller.picker
-                                                            .pickImage(source: ImageSource.gallery);
+                                                        final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
                                                         if (result != null) {
                                                           setState(() {
@@ -1052,12 +989,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             child: CustomTextField(
                                               fieldText: "SIGNATURE OF OWNER:".tr,
                                               readOnly: true,
-
                                               fontStyle: FontStyle.italic,
-
                                               controller: controller.fullNameController,
-
-                                              // TextEditingController(text: controller.fullNameController.text),
                                               isFinal: false,
                                               keyboardType: TextInputType.emailAddress,
                                               limit: HelperFunction.EMAIL_VALIDATION,
