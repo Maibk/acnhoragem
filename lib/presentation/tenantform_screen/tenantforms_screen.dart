@@ -347,7 +347,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             ],
                                             limit: HelperFunction.EMAIL_VALIDATION,
                                             validator: (value) {
-                                              return HelperFunction.empthyFieldValidator(value!);
+                                              return HelperFunction.cnicValidator(value!);
                                             },
                                           ),
                                         ),
@@ -439,7 +439,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                             ],
                                             limit: HelperFunction.EMAIL_VALIDATION,
                                             validator: (value) {
-                                              return HelperFunction.empthyFieldValidator(value!);
+                                              return HelperFunction.cnicValidator(value!);
                                             },
                                           ),
                                           SizedBox(

@@ -102,6 +102,14 @@ class HelperFunction {
     }
   }
 
+  static String? cnicValidator(String value) {
+    if (value.isEmpty || value == "") {
+      return "Field cannot be empty";
+    } else if (value.length < 15) {
+      return 'CNIC must have 13 digits';
+    }
+  }
+
   static String? passwordValidate(String value, {bool isConfirmPassword = false, String? password}) {
     RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$');
     if (value.isEmpty || value == "") {

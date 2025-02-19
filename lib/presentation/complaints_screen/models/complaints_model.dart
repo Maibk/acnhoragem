@@ -34,12 +34,7 @@ class ComplaintsData {
   String? status;
   String? property;
 
-  ComplaintsData(
-      {this.id,
-      this.complaintType,
-      this.description,
-      this.status,
-      this.property});
+  ComplaintsData({this.id, this.complaintType, this.description, this.status, this.property});
 
   ComplaintsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -60,10 +55,9 @@ class ComplaintsData {
   }
 }
 
-
 class ComplaintTypes {
   bool? success;
-  List<ComplaintsData>? data;
+  List<CompliantTypesData>? data;
   String? message;
 
   ComplaintTypes({this.success, this.data, this.message});
@@ -71,9 +65,9 @@ class ComplaintTypes {
   ComplaintTypes.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     if (json['data'] != null) {
-      data = <ComplaintsData>[];
+      data = <CompliantTypesData>[];
       json['data'].forEach((v) {
-        data!.add(new ComplaintsData.fromJson(v));
+        data!.add(new CompliantTypesData.fromJson(v));
       });
     }
     message = json['message'];
@@ -90,23 +84,17 @@ class ComplaintTypes {
   }
 }
 
-class Data {
+class CompliantTypesData {
   int? id;
   String? title;
   int? status;
   String? createdAt;
-  String? updatedAt;
+  Null? updatedAt;
   List<FindDepartments>? findDepartments;
 
-  Data(
-      {this.id,
-      this.title,
-      this.status,
-      this.createdAt,
-      this.updatedAt,
-      this.findDepartments});
+  CompliantTypesData({this.id, this.title, this.status, this.createdAt, this.updatedAt, this.findDepartments});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  CompliantTypesData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     status = json['status'];
@@ -128,8 +116,7 @@ class Data {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.findDepartments != null) {
-      data['find_departments'] =
-          this.findDepartments!.map((v) => v.toJson()).toList();
+      data['find_departments'] = this.findDepartments!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -144,14 +131,7 @@ class FindDepartments {
   String? updatedAt;
   String? deletedAt;
 
-  FindDepartments(
-      {this.id,
-      this.title,
-      this.depTypeId,
-      this.status,
-      this.createdAt,
-      this.updatedAt,
-      this.deletedAt});
+  FindDepartments({this.id, this.title, this.depTypeId, this.status, this.createdAt, this.updatedAt, this.deletedAt});
 
   FindDepartments.fromJson(Map<String, dynamic> json) {
     id = json['id'];

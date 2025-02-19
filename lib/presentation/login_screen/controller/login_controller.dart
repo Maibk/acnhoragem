@@ -26,9 +26,9 @@ LoginModel? loginResponseModel;
 ///
 class LoginController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
-  TextEditingController emailController = TextEditingController(text: kDebugMode ? "e@yopmail.com" : null);
+  TextEditingController emailController = TextEditingController(text: kDebugMode ? "pat.cummins2003@gmail.com" : null);
 
-  TextEditingController passwordController = TextEditingController(text: kDebugMode ? "12345678" : null);
+  TextEditingController passwordController = TextEditingController(text: kDebugMode ? "Test@1234" : null);
   Rx<bool> isShowPassword = true.obs;
   GlobalKey<FormState> formKey = new GlobalKey();
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;

@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:anchorageislamabad/core/model_classes/page_model.dart';
-import 'package:anchorageislamabad/core/model_classes/properties_model.dart';
 import 'package:anchorageislamabad/presentation/complaints_screen/models/complaints_model.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -16,13 +14,7 @@ import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 
-/// A controller class for the DiscoverScreen.
-///
-/// This class manages the state of the DiscoverScreen, including the
-/// current discoverModelObj
-///
 class MyComplaintsController extends GetxController {
-  // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
 
   bool isNewComplaint = false;
@@ -33,7 +25,6 @@ class MyComplaintsController extends GetxController {
   AppPreferences appPreferences = AppPreferences();
 
   RxList<DealsModel> categories = <DealsModel>[].obs;
-
 
   Complaints? complaints;
   Future<Complaints?> getComplaints() async {
@@ -74,11 +65,5 @@ class MyComplaintsController extends GetxController {
       }
     });
     return null;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    getComplaints();
   }
 }

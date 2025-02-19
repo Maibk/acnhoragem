@@ -341,7 +341,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             TextInputFormatterWithPattern('#####-#######-#'),
                                           ],
                                           validator: (value) {
-                                            return HelperFunction.empthyFieldValidator(value!);
+                                            return HelperFunction.cnicValidator(value!);
                                           },
                                         ),
                                       ),

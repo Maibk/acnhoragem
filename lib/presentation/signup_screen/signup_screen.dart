@@ -222,8 +222,8 @@ class SignUpScreen extends GetWidget<SignUpController> {
                           isFinal: false,
                           keyboardType: TextInputType.emailAddress,
                           limit: HelperFunction.EMAIL_VALIDATION,
-                          validator: (value) {
-                            return HelperFunction.emailValidate(value!);
+                           validator: (value) {
+                            return HelperFunction.validateAlphabetsOnly(value!);
                           },
                         ),
                         SizedBox(

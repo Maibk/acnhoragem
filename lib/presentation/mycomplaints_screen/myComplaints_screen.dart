@@ -21,6 +21,11 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
 
   final MyComplaintsController controller = Get.put(MyComplaintsController());
 
+  @override
+  initState() {
+    super.initState();
+    controller.getComplaints();
+  }
 
   // const DiscoverScreen({Key? key}) : super(key: key);7
   @override

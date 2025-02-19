@@ -120,60 +120,23 @@ class ComplaintsController extends GetxController {
 
   List<String> indoorComplaints = [];
 
-  Complaint? selectedComplaint;
-  Map<String, dynamic>? selectedDepartment;
+  CompliantTypesData? selectedComplaint;
+  FindDepartments? selectedDepartment;
 
-  final List<Complaint> complaints = [
-    Complaint(
-      id: 2,
-      title: "Indoor Complaint",
-      findDepartments: [
-        {"id": 16, "title": "Maids/Servants"},
-        {"id": 17, "title": "SNGPL"},
-        {"id": 18, "title": "Electrical"},
-        {"id": 19, "title": "Plumbing"},
-        {"id": 20, "title": "Carpenter"},
-        {"id": 22, "title": "BIlling Department"},
-        {"id": 23, "title": "Civil Engineering Department"},
-      ],
-    ),
-    Complaint(
-      id: 1,
-      title: "Outdoor Complaints",
-      findDepartments: [
-        {"id": 5, "title": "Security"},
-        {"id": 7, "title": "Road/Street Infrastructure"},
-        {"id": 8, "title": "Sewerage/Rain Drainage"},
-        {"id": 10, "title": "Waste Management/Garbage Bins"},
-        {"id": 11, "title": "Street Lights"},
-        {"id": 12, "title": "Water Supply & Maintenance Department"},
-        {"id": 13, "title": "Misc"},
-        {"id": 14, "title": "Advertisement"},
-        {"id": 15, "title": "Society Janitorial Services"},
-        {"id": 25, "title": "Horticulture Department"},
-        {"id": 26, "title": "Commercial Area"},
-        {"id": 27, "title": "Price Control"},
-      ],
-    ),
-  ];
+  final List<CompliantTypesData> complaints = [];
 
   ComplaintTypes? complaintTypes;
-  Future<Complaints?> getComplainTypes() async {
+  Future<void> getComplainTypes() async {
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
-
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              // headers: {'Authorization': "Bearer 15|7zbPqSX0mng6isF9L3iU3v33V6eaoGvEMkE2K7Fg"},
-              headers: {'Authorization': "Bearer $token"},
-              Constants.complaintTypeUrl, onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.complaintTypeUrl, onSuccess: (response) {
             log(response.toString());
-
             complaintTypes = ComplaintTypes.fromJson(response.data);
-
+            complaints.addAll(complaintTypes!.data!);
             update();
 
             return true;
@@ -202,7 +165,7 @@ class ComplaintsController extends GetxController {
 
       data = {
         'member_id': UserModel().id,
-        'complaint_type_id': selectedDepartment!['id'].toString(),
+        'complaint_type_id': selectedDepartment!.id.toString(),
         'property_id': id,
         'description': descriptionController.text
       };
@@ -244,6 +207,7 @@ class ComplaintsController extends GetxController {
               log(json.encode(response.data));
 
               Get.offNamed(AppRoutes.myComplaintsPage);
+            
             } else {
               btnController.stop();
 
@@ -311,8 +275,6 @@ class ComplaintsController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            // dio error (api reach the server but not performed successfully
-            // no response
             if (error.response == null) {
               var exception = ApiException(
                 url: 'https://anchorageislamabad.com/api/owner-application',
@@ -339,7 +301,6 @@ class ComplaintsController extends GetxController {
   void onInit() {
     super.onInit();
     getPropertiesApi();
-    // getComplainTypes();
   }
 }
 

@@ -24,8 +24,7 @@ class billsScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -61,24 +60,6 @@ class billsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         body: Column(
           children: [
-            // Padding(
-            //   padding: getPadding(left: 10),
-            //   child: CustomAppBar(
-            //     title: MyText(
-            //       title: "My Bills",
-            //       clr: ColorConstant.whiteA700,
-            //       fontSize: 20,
-            //       customWeight: FontWeight.w500,
-            //     ),
-            //     centerTitle: true,
-            //     trailing: IconButton(
-            //       icon: const Icon(Icons.menu),
-            //       onPressed: () {
-            //         Get.toNamed(AppRoutes.menuPage);
-            //       },
-            //     ),
-            //   ),
-            // ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -141,8 +122,7 @@ class billsScreen extends StatelessWidget {
                                     shrinkWrap: true,
                                     padding: getPadding(top: 5),
                                     scrollDirection: Axis.vertical,
-                                    itemCount: controller.bills?.data
-                                        ?.length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                    itemCount: controller.bills?.data?.length, // Increase the itemCount by 1 to accommodate the "View All" item
                                     itemBuilder: (BuildContext context, int index) {
                                       return Padding(
                                         padding: getPadding(top: 5, bottom: 5),
@@ -170,7 +150,6 @@ class billsScreen extends StatelessWidget {
                                                   width: getHorizontalSize(4),
                                                 ),
                                                 InkWell(
-                                               
                                                     onTap: () {
                                                       launchUrl(
                                                         Uri.parse(controller.bills!.data![index].downloadBill!),
@@ -227,26 +206,11 @@ class billsScreen extends StatelessWidget {
                                       );
                                     },
                                   );
+                                } else {
+                                  return Center(child: CircularProgressIndicator());
                                 }
-
-                                return SizedBox.shrink();
                               },
                             ),
-                            // SizedBox(
-                            //   height: getVerticalSize(10),
-                            // ),
-                            // MyAnimatedButton(
-                            //   radius: 5.0,
-                            //   height: getVerticalSize(45),
-                            //   width: getHorizontalSize(400),
-                            //   fontSize: 16,
-                            //   bgColor: ColorConstant.anbtnBlue,
-                            //   controller: controller.btnController,
-                            //   title: "Print bill".tr,
-                            //   onTap: () async {
-                            //     log(DateTime.now().toString());
-                            //   },
-                            // ),
                             SizedBox(
                               height: getVerticalSize(10),
                             ),

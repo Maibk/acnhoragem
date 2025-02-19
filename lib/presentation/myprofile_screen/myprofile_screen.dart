@@ -25,8 +25,7 @@ class MyprofileScreen extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                'assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+            image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
             fit: BoxFit.cover, // Adjust as needed
           ),
         ),
@@ -119,10 +118,7 @@ class MyprofileScreen extends StatelessWidget {
                                           SizedBox(
                                             height: getVerticalSize(10),
                                           ),
-                                          MyText(
-                                              title: controller.getProfileModel?.name ?? " ",
-                                              fontSize: 30,
-                                              weight: "Bold"),
+                                          MyText(title: controller.getProfileModel?.name ?? " ", fontSize: 30, weight: "Bold"),
                                           MyText(
                                             title: controller.getProfileModel?.email ?? "",
                                             clr: ColorConstant.antextlightgray,
@@ -156,7 +152,7 @@ class MyprofileScreen extends StatelessWidget {
                                       keyboardType: TextInputType.name,
                                       limit: 80,
                                       validator: (value) {
-                                        return HelperFunction.fullNameFieldValidator(value!);
+                                        return HelperFunction.validateAlphabetsOnly(value!);
                                       },
                                     ),
                                     SizedBox(
@@ -176,7 +172,7 @@ class MyprofileScreen extends StatelessWidget {
                                       keyboardType: TextInputType.name,
                                       limit: 80,
                                       validator: (value) {
-                                        return HelperFunction.empthyFieldValidator(value!);
+                                        return HelperFunction.validateAlphabetsOnly(value!);
                                       },
                                     ),
                                     SizedBox(
@@ -196,6 +192,9 @@ class MyprofileScreen extends StatelessWidget {
                                       isFinal: false,
                                       keyboardType: TextInputType.emailAddress,
                                       limit: 80,
+                                      validator: (value) {
+                                        return HelperFunction.validateAlphabetsOnly(value!);
+                                      },
                                     ),
                                     SizedBox(
                                       height: getVerticalSize(10),
@@ -216,6 +215,9 @@ class MyprofileScreen extends StatelessWidget {
                                         FilteringTextInputFormatter.digitsOnly,
                                         TextInputFormatterWithPattern('#####-#######-#'),
                                       ],
+                                      validator: (value) {
+                                        return HelperFunction.cnicValidator(value!);
+                                      },
                                       limit: 80,
                                     ),
                                     SizedBox(
@@ -246,13 +248,24 @@ class MyprofileScreen extends StatelessWidget {
                                     SizedBox(
                                       height: getVerticalSize(10),
                                     ),
-                                    CustomTextFieldForms(
-                                      controller: controller.newPassController,
-                                      isFinal: false,
-                                      keyboardType: TextInputType.streetAddress,
-                                      limit: 80,
-                                      //  maxLines: 8,
-                                    ),
+                                    GetBuilder(
+                                        init: controller,
+                                        builder: (context) {
+                                          return CustomTextFieldForms(
+                                            controller: controller.newPassController,
+                                            isFinal: false,
+                                            keyboardType: TextInputType.streetAddress,
+                                            limit: 80,
+                                            isPassword: controller.isShowPassword.value,
+                                            postPixText:
+                                                controller.isShowPassword.value == true ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+                                            sufixIconOnTap: () {
+                                              controller.isShowPassword.value = HelperFunction.showPassword(controller.isShowPassword.value);
+                                              controller.update();
+                                            },
+                                            //  maxLines: 8,
+                                          );
+                                        }),
                                     SizedBox(
                                       height: getVerticalSize(16),
                                     ),

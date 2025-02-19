@@ -249,7 +249,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     keyboardType: TextInputType.phone,
                                                     limit: HelperFunction.EMAIL_VALIDATION,
                                                     validator: (value) {
-                                                      return HelperFunction.empthyFieldValidator(value!);
+                                                      return HelperFunction.cnicValidator(value!);
                                                     },
                                                   ),
                                                 ),
@@ -846,7 +846,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               TextInputFormatterWithPattern('#####-#######-#'),
                                                             ],
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.cnicValidator(value!);
                                                             }),
                                                       ),
                                                       Expanded(

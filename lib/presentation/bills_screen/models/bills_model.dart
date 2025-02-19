@@ -30,22 +30,15 @@ class Bills {
 class Data {
   int? id;
   String? billMonth;
-  int? beforeDueDateAmount;
+  num? beforeDueDateAmount;
   String? dueDate;
-  double? afterDueDateAmount;
+  num? afterDueDateAmount;
   String? status;
   String? downloadBill;
   String? billIssueDate;
 
   Data(
-      {this.id,
-      this.billMonth,
-      this.beforeDueDateAmount,
-      this.dueDate,
-      this.afterDueDateAmount,
-      this.status,
-      this.downloadBill,
-      this.billIssueDate});
+      {this.id, this.billMonth, this.beforeDueDateAmount, this.dueDate, this.afterDueDateAmount, this.status, this.downloadBill, this.billIssueDate});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];

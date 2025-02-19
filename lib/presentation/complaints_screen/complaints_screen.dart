@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:anchorageislamabad/presentation/complaints_screen/models/complaints_model.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:anchorageislamabad/widgets/custom_textfield_new.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,12 @@ class CreateNewComplaintScreen extends StatefulWidget {
 class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
   ComplaintsController controller = Get.put(ComplaintsController());
 
-  // const DiscoverScreen({Key? key}) : super(key: key);
+  @override
+  initState() {
+    controller.getComplainTypes();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -154,13 +160,13 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                     SizedBox(height: getVerticalSize(10)),
                                     MyText(title: "Complaint Category", fontSize: 12.h),
                                     SizedBox(height: getVerticalSize(10)),
-                                    DropdownButton<Complaint>(
+                                    DropdownButton<CompliantTypesData>(
                                       value: controller.selectedComplaint,
                                       items: controller.complaints.map((complaint) {
                                         return DropdownMenuItem(
                                           value: complaint,
                                           child: Text(
-                                            complaint.title,
+                                            complaint.title ?? "",
                                             style: TextStyle(fontSize: 12.h),
                                           ),
                                         );
@@ -175,21 +181,22 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                     SizedBox(height: 20.0),
                                     if (controller.selectedComplaint != null) MyText(title: "Complaint Type", fontSize: 12.h),
                                     Container(
-                                      child: DropdownButton(
+                                      child: DropdownButton<FindDepartments>(
+                                        isExpanded: true,
                                         value: controller.selectedDepartment,
-                                        items: controller.selectedComplaint?.findDepartments.map((department) {
+                                        items: controller.selectedComplaint?.findDepartments!.map((department) {
                                           return DropdownMenuItem(
                                             value: department,
                                             child: Text(
-                                              department['title'],
+                                              department.title ?? "",
                                               style: TextStyle(fontSize: 12.h),
                                             ),
                                           );
                                         }).toList(),
-                                        onChanged: (newValue) {
+                                        onChanged: (FindDepartments? newValue) {
                                           setState(() {
                                             controller.selectedDepartment = newValue;
-                                            log(controller.selectedDepartment!['id'].toString());
+                                            log(newValue!.id.toString());
                                           });
                                         },
                                       ),

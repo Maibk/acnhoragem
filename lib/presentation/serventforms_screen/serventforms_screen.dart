@@ -125,7 +125,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           fieldText: "Full Name".tr,
                                           controller: controller.fullNameController,
                                           isFinal: false,
-                                       
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
@@ -139,7 +138,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           fieldText: "Father’s Name".tr,
                                           controller: controller.fathersController,
                                           isFinal: false,
-                                        
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
@@ -164,7 +162,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 ],
                                                 limit: HelperFunction.EMAIL_VALIDATION,
                                                 validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                  return HelperFunction.cnicValidator(value!);
                                                 },
                                               ),
                                             ),
@@ -475,11 +473,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fieldText: "Full Name".tr,
                                                       controller: controller.serventfullNameControllers[index],
                                                       isFinal: false,
-                                                
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
+                                                        return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
                                                   SizedBox(
                                                     height: getVerticalSize(5),
@@ -488,7 +485,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fieldText: "Father’s Name".tr,
                                                       controller: controller.serventfathersControllers[index],
                                                       isFinal: false,
-                                                 
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
@@ -512,7 +508,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             ],
                                                             limit: HelperFunction.EMAIL_VALIDATION,
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.cnicValidator(value!);
                                                             }),
                                                       ),
                                                       Expanded(
@@ -838,7 +834,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fieldText: "Full Name".tr,
                                                       controller: controller.serventfamfullNameControllers[index],
                                                       isFinal: false,
-                                                    
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
@@ -851,7 +846,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fieldText: "Occupation".tr,
                                                       controller: controller.serventfamoccutionControllers[index],
                                                       isFinal: false,
-                                                   
                                                       keyboardType: TextInputType.emailAddress,
                                                       limit: HelperFunction.EMAIL_VALIDATION,
                                                       validator: (value) {
@@ -875,7 +869,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             ],
                                                             limit: HelperFunction.EMAIL_VALIDATION,
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.cnicValidator(value!);
                                                             }),
                                                       ),
                                                       Expanded(

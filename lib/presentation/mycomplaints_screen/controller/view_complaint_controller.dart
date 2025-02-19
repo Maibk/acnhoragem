@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:anchorageislamabad/presentation/complaints_screen/models/complaints_model.dart';
 import 'package:anchorageislamabad/presentation/mycomplaints_screen/models/complain_messages.dart';
 import 'package:anchorageislamabad/presentation/mycomplaints_screen/models/view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -114,9 +115,38 @@ class ViewComplaintController extends GetxController {
     return null;
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    // getComplainTypes();
+  ComplaintTypes? complaintTypes;
+
+  Future<Complaints?> getComplainTypes() async {
+    Utils.check().then((value) async {
+      if (value) {
+        isInternetAvailable.value = true;
+        apiCallStatus.value = ApiCallStatus.loading;
+
+        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.complaintTypeUrl, onSuccess: (response) {
+            log(response.toString());
+            complaintTypes = ComplaintTypes.fromJson(response.data);
+            update();
+
+            return true;
+          }, onError: (error) {
+            ApiException apiException = error;
+
+            print(apiException.message);
+
+            BaseClient.handleApiError(error);
+
+            apiCallStatus.value = ApiCallStatus.error;
+
+            return false;
+          });
+        });
+      } else {
+        isInternetAvailable.value = false;
+      }
+    });
+    return null;
   }
+
 }

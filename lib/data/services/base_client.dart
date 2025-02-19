@@ -152,8 +152,7 @@ class BaseClient {
             )) ??
             _handleError('server not responding');
       } catch (error) {
-        // unexpected error for example (parsing json error)
-        print(' api excpection Erorrrrrrr here');
+        print(' api excpection Erorrrrrrr  $error');
         onError?.call(ApiException(
               message: error.toString(),
               url: url,
@@ -195,9 +194,7 @@ class BaseClient {
         onSendProgress: onSendProgress,
         queryParameters: queryParameters,
         options: Options(
-            headers: headers,
-            receiveTimeout: Duration(milliseconds: TIME_OUT_DURATION),
-            sendTimeout: Duration(milliseconds: TIME_OUT_DURATION)),
+            headers: headers, receiveTimeout: Duration(milliseconds: TIME_OUT_DURATION), sendTimeout: Duration(milliseconds: TIME_OUT_DURATION)),
       );
 
       // 3) return response (api done successfully)
@@ -341,9 +338,7 @@ class BaseClient {
         onSendProgress: onSendProgress,
         queryParameters: queryParameters,
         options: Options(
-            headers: headers,
-            receiveTimeout: Duration(milliseconds: TIME_OUT_DURATION),
-            sendTimeout: Duration(milliseconds: TIME_OUT_DURATION)),
+            headers: headers, receiveTimeout: Duration(milliseconds: TIME_OUT_DURATION), sendTimeout: Duration(milliseconds: TIME_OUT_DURATION)),
       );
       // 3) return response (api done successfully)
       await onSuccess.call(response);
@@ -453,9 +448,7 @@ class BaseClient {
         data: data,
         queryParameters: queryParameters,
         options: Options(
-            headers: headers,
-            receiveTimeout: Duration(milliseconds: TIME_OUT_DURATION),
-            sendTimeout: Duration(milliseconds: TIME_OUT_DURATION)),
+            headers: headers, receiveTimeout: Duration(milliseconds: TIME_OUT_DURATION), sendTimeout: Duration(milliseconds: TIME_OUT_DURATION)),
       );
       // 3) return response (api done successfully)
       await onSuccess.call(response);

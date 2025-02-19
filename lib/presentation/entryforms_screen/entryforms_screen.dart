@@ -127,7 +127,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           fieldText: "Full Name".tr,
                                           controller: controller.fullNameController,
                                           isFinal: false,
-                                      
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
@@ -141,7 +140,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           fieldText: "Father’s Name".tr,
                                           controller: controller.fathersController,
                                           isFinal: false,
-                                        
                                           keyboardType: TextInputType.emailAddress,
                                           limit: HelperFunction.EMAIL_VALIDATION,
                                           validator: (value) {
@@ -166,7 +164,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   TextInputFormatterWithPattern('#####-#######-#'),
                                                 ],
                                                 validator: (value) {
-                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                  return HelperFunction.cnicValidator(value!);
                                                 },
                                               ),
                                             ),
@@ -477,7 +475,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     ),
                                                   CustomTextField(
                                                       fieldText: "Full Name".tr,
-                                                    
                                                       controller: controller.spousefullNameControllers[index],
                                                       isFinal: false,
                                                       keyboardType: TextInputType.emailAddress,
@@ -485,7 +482,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       validator: (value) {
                                                         return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
-                                               
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
@@ -500,7 +496,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               TextInputFormatterWithPattern('#####-#######-#'),
                                                             ],
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.cnicValidator(value!);
                                                             }),
                                                       ),
                                                       Expanded(
@@ -734,7 +730,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   SizedBox(
                                                     height: getVerticalSize(15),
                                                   ),
-
                                                   Padding(
                                                     padding: getPadding(left: 10, right: 10),
                                                     child: MyAnimatedButton(
@@ -746,7 +741,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       controller: controller.btnControllerUseLess,
                                                       title: "Add Spouse".tr,
                                                       onTap: () async {
-                    
                                                         if (controller.spouseImages.isEmpty) {
                                                           Utils.showToast("Please select spouse Images", true);
                                                         } else if (controller.spouseCnicsfronts.isEmpty) {
@@ -756,8 +750,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         } else {
                                                           controller.spouseEntryFormAPi(context, index);
                                                         }
-
-                                                      
                                                       },
                                                     ),
                                                   ),
@@ -795,7 +787,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             itemBuilder: (context, index) {
                                               return Column(
                                                 children: [
-                                               
                                                   if (index != 0)
                                                     Row(
                                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -826,10 +817,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       validator: (value) {
                                                         return HelperFunction.validateAlphabetsOnly(value!);
                                                       }),
-                                                
-                                         
-                                         
-                                  
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
@@ -845,7 +832,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                             keyboardType: TextInputType.number,
                                                             limit: HelperFunction.EMAIL_VALIDATION,
                                                             validator: (value) {
-                                                              return HelperFunction.empthyFieldValidator(value!);
+                                                              return HelperFunction.cnicValidator(value!);
                                                             }),
                                                       ),
                                                       Expanded(
@@ -908,7 +895,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       ),
                                                     ],
                                                   ),
-
                                                   SizedBox(
                                                     height: getVerticalSize(5),
                                                   ),
