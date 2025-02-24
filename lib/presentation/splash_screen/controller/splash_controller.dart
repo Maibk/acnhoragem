@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:anchorageislamabad/data/services/base_client.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
@@ -33,19 +35,6 @@ class SplashController extends GetxController {
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
-
-  // Rx<PackageInfo> packageInfo = PackageInfo(
-  //   appName: 'autoapp',
-  //   packageName: 'Unknown',
-  //   version: '1.0.1',
-  //   buildNumber: 'Unknown',
-  // ).obs;
-
-  // Future<void> initPackageInfo() async {
-  //   final PackageInfo info = await PackageInfo.fromPlatform();
-  //   packageInfo.value = info;
-  // }
-
   Future<ProfileModel?> getProfile() async {
     Utils.check().then((value) async {
       if (value) {
@@ -54,8 +43,7 @@ class SplashController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getProfileUrl,
-              onSuccess: (response) async {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getProfileUrl, onSuccess: (response) async {
             profileModel = ProfileModel.fromJson(response.data);
             log(response.toString());
 
@@ -112,9 +100,17 @@ class SplashController extends GetxController {
     });
   }
 
+  getFCMtoken() {
+    FirebaseMessaging.instance.getToken().then((value) async {
+      appPreferences.setDeviceToken(deviceId: value ?? "");
+      Constants.device_token = value ?? "";
+    });
+  }
+
   @override
   void onInit() {
     super.onInit();
     getRoute();
+    getFCMtoken();
   }
 }

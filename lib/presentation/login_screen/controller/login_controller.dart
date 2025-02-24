@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 
 import 'package:anchorageislamabad/presentation/login_screen/models/login_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
@@ -15,18 +17,12 @@ import '../../../data/services/base_client.dart';
 import '../../../localization/strings_enum.dart';
 import '../../../widgets/custom_snackbar.dart';
 
-/// A controller class for the LoginScreen.
-///
-/// This class manages the state of the LoginScreen, including the
-/// current loginModelObj
-///
-///
 LoginModel? loginResponseModel;
 
-///
 class LoginController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   TextEditingController emailController = TextEditingController(text: kDebugMode ? "pat.cummins2003@gmail.com" : null);
+  AppPreferences appPreferences = AppPreferences();
 
   TextEditingController passwordController = TextEditingController(text: kDebugMode ? "Test@1234" : null);
   Rx<bool> isShowPassword = true.obs;
@@ -72,7 +68,6 @@ class LoginController extends GetxController {
             } else {
               Utils.showToast('Incorrect Password or Email', true);
               btnController.stop();
-              // Handle the case where data is null in the response
             }
           }, onError: (error) {
             BaseClient.handleApiError(error);
@@ -81,6 +76,8 @@ class LoginController extends GetxController {
           }, data: {
             'email': emailController.text,
             'password': passwordController.text,
+            'device_token': Constants.device_token,
+            'device_type': Platform.isAndroid ? "Android" : "iOS",
           });
         } else {
           CustomSnackBar.showCustomErrorToast(

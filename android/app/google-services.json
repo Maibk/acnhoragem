@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1013224307390",
+    "project_id": "anchorage-islamabad",
+    "storage_bucket": "anchorage-islamabad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1013224307390:android:7abf2e3d28fe36489cbcef",
+        "android_client_info": {
+          "package_name": "com.example.acnhoragem"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABWIsIY11d3G-snoR1YM1tIWUERiwQLMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

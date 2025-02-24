@@ -4,9 +4,10 @@ class Constants {
   static const String map_static_url = "https://maps.googleapis.com/maps/api/staticmap?location=";
 
   static const String not_implment_msg = "Will be implement in next release";
+  static String device_token = "";
+  static String device_type = "";
 
-  static const String userImagePlaceholder =
-      "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?20170328184010";
+  static const String userImagePlaceholder = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png?20170328184010";
 
   static const roleId = 3; //Customer Role Id
 
@@ -49,12 +50,9 @@ class Constants {
   static const shareBaseUrl = 'spotFindrApp://share';
 
   //API ENDPOINTS
-  // static const baseUrl = 'https://spotfinder-backend.tekstagearea.com/api/v1';
   static const baseUrl = 'https://anchorageislamabad.com/api/';
-  static const preSignedBaseUrl = 'https://s3-presigned-svc.tekstagearea.com/api/v1/';
 
   //S3 presigned url
-  static const preSignedUrl = '${preSignedBaseUrl}files';
   static const preSignedHeaderValue = "ehK2wPZR54qDHNJKNtw5";
 
   static const registerUrl = '${baseUrl}register';
@@ -78,10 +76,6 @@ class Constants {
   static const updateProfileUrl = '${baseUrl}update-profile';
   static const getProperties = '${baseUrl}properties';
   static const logout = '${baseUrl}logout';
- 
-
-
-
 
   static const updatePassUrl = baseUrl + 'user/updatePassword';
   static const updateOldPassUrl = baseUrl + 'user/update-old-password';
@@ -109,11 +103,14 @@ class Constants {
 
   static const socialLoginUrl = baseUrl + '/social_login';
   static const updateUserUrl = baseUrl + '/users';
+  static const entryCardUrl = baseUrl + 'entry-card/';
+  static const entryCardUpdateUrl = baseUrl + 'entry-card/update';
+  static const servantFormUrl = baseUrl + 'servant-card/';
+  static const vehicleFormUrl = baseUrl + 'vehicle/';
 
   static const forgotPasswordUrl = baseUrl + '/forget-password';
 
-
-static const String agreementText = """
+  static const String agreementText = """
 I, S/O or D/O CNIC NO. hereby solemnly affirm that the above-mentioned information given by me about business at Naval Anchorage Islamabad is true to the best of my knowledge, if found incorrect at any stage I will be liable to be persecuted under special conditions for residing in Anchorage Society.
 
 I will ensure that utility charges / bills will be paid by me timely. In case of non-compliance owner will be responsible for the same.
@@ -172,8 +169,4 @@ Allotee(s)/ occupants (s) are required not to throw any waste material in dustbi
 
 No building, structure, or any part thereof should be occupied or used without obtaining completion certificate (permission to occupy).
 """;
-
-
-
-
 }

@@ -54,7 +54,7 @@ class ForgotPassController extends GetxController {
               Get.toNamed(AppRoutes.resetPass, arguments: emailController.text);
             } else {
               Utils.showToast('Incorrect Password or Email', true);
-              // Handle the case where data is null in the response
+         
             }
           }, onError: (error) {
             BaseClient.handleApiError(error);

@@ -75,7 +75,9 @@ class SignUpController extends GetxController {
             "phone": phoneController.text,
             "present_address": "Karachi Pakistan",
             "password": passwordController.text,
-            "c_password": passwordController.text
+            "c_password": passwordController.text,
+            'device_token': Constants.device_token,
+            'device_type': Platform.isAndroid ? "Android" : "iOS",
           });
         } else {
           CustomSnackBar.showCustomErrorToast(

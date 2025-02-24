@@ -27,17 +27,11 @@ class SplashScreen extends GetWidget<SplashController> {
           child: Stack(
             children: [
               Align(
-                alignment: Alignment.center,
-                child: CommonImageView(
-                  imagePath: ImageConstant.imgSplash,
-                  width: double.infinity,
-
-                )
-
-             
-              ),
-
-
+                  alignment: Alignment.center,
+                  child: CommonImageView(
+                    imagePath: ImageConstant.imgSplash,
+                    width: double.infinity,
+                  )),
             ],
           ),
         ),

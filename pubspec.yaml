@@ -34,6 +34,8 @@ dependencies:
   csc_picker: ^0.2.7
   flutter_launcher_icons: ^0.14.3
   flutter_screenutil: ^5.9.0
+  firebase_core: ^3.12.0
+  firebase_messaging: ^15.2.3
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:anchorageislamabad/routes/app_routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +20,8 @@ void main() async {
     SystemUiOverlayStyle.light,
   );
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   await Permission.location.request();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

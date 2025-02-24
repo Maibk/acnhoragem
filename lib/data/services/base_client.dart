@@ -50,9 +50,8 @@ class BaseClient {
     bool check = await checkInternetConnection();
     if (check == true) {
       try {
-        // 1) indicate loading state
         onLoading?.call();
-        // 2) add Accept header
+
         Map<String, dynamic> map = {'Accept': 'application/json'};
         if (headers != null) {
           headers.addEntries(map.entries);
@@ -75,8 +74,7 @@ class BaseClient {
         // 3) return response (api done successfully)
         await onSuccess(response);
       } on DioException catch (error) {
-        // dio error (api reach the server but not performed successfully
-        // no response
+      
         if (error.response == null && error.message == null) {
           var exception = ApiException(
             url: url,

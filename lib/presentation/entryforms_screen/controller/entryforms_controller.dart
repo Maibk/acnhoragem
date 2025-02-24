@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
+import 'package:anchorageislamabad/presentation/entryforms_screen/models/entry_form_data_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
 import 'package:dio/dio.dart' as _dio;
@@ -12,7 +13,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart' as _http;
 import 'package:image_picker/image_picker.dart';
-import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
 
 import '../../../Shared_prefrences/app_prefrences.dart';
@@ -23,12 +23,9 @@ import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 
-/// A controller class for the DiscoverScreen.
-///
-/// This class manages the state of the DiscoverScreen, including the
-/// current discoverModelObj
-///
 class EntryFormsController extends GetxController {
+  EntryFormDataModel entryFormDataModel = EntryFormDataModel();
+
   List<TextEditingController> spousefullNameControllers = [];
   // List<TextEditingController> spousefathersControllers = [];
   List<TextEditingController> spousecnicControllers = [];
@@ -70,37 +67,9 @@ class EntryFormsController extends GetxController {
   TextEditingController blockController = TextEditingController();
   TextEditingController colonyController = TextEditingController();
 
-  // TextEditingController spousefullNameController = TextEditingController();
-  // TextEditingController spousefathersController = TextEditingController();
-  // TextEditingController spousecnicController = TextEditingController();
-  // TextEditingController spousemobileController = TextEditingController();
-  // TextEditingController spousehouseController = TextEditingController();
-  // TextEditingController spouseroadController = TextEditingController();
-  // TextEditingController spousestreetController = TextEditingController();
-  // TextEditingController spouseblockController = TextEditingController();
-  // TextEditingController spousecolonyController = TextEditingController();
-  // TextEditingController spouseMohallaController = TextEditingController();
-  // TextEditingController spouseThanaController = TextEditingController();
-  // TextEditingController spouseCityController = TextEditingController();
-  // TextEditingController spouseProvinceController = TextEditingController();
-
-  TextEditingController childfullNameController = TextEditingController();
-  TextEditingController childfathersController = TextEditingController();
-  TextEditingController childcnicController = TextEditingController();
-  TextEditingController childmobileController = TextEditingController();
-  TextEditingController childhouseController = TextEditingController();
-  TextEditingController childroadController = TextEditingController();
-  TextEditingController childstreetController = TextEditingController();
-  TextEditingController childblockController = TextEditingController();
-  TextEditingController childcolonyController = TextEditingController();
-
-  TextEditingController childMohallaController = TextEditingController();
-  TextEditingController childThanaController = TextEditingController();
-  TextEditingController childCityController = TextEditingController();
-  TextEditingController childProvinceController = TextEditingController();
-
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
+  Rx<ApiCallStatus> formsLoadingStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
 
@@ -116,10 +85,6 @@ class EntryFormsController extends GetxController {
   List<File> spouseImages = [];
   List<File> spouseCnicsfronts = [];
   List<File> spouseCnicBacks = [];
-
-  // File? spouseImage;
-  // File? spouseCnicFront;
-  // File? spouseCnicBack;
 
   List<File> childImages = [];
   List<File> childCnicsfronts = [];
@@ -138,7 +103,7 @@ class EntryFormsController extends GetxController {
   List<Street> childstreets = [];
   List<Plots> childplots = [];
 
-  int? selectedValue;
+  dynamic selectedValue;
   Street? streetSelectedValue;
   Plots? plotstSelectedValue;
 
@@ -171,25 +136,118 @@ class EntryFormsController extends GetxController {
     {"id": 18, "title": "NS-3"},
   ];
 
+  @override
+  void onInit() {
+    super.onInit();
+    // addSpouse();
+    // addChild();
+  }
+
+  void setSelectedBlock(String blockTitle) {
+    var matchingBlock = block.firstWhere(
+      (item) => item['title'] == blockTitle,
+      orElse: () => {},
+    );
+    if (matchingBlock.isNotEmpty) {
+      selectedValue = matchingBlock['id'];
+    } else {
+      selectedValue = null; // Handle cases where blockTitle is not found
+    }
+  }
+
+  getEntryFormsDetails(id) {
+    Utils.check().then((value) async {
+      if (value) {
+        isInternetAvailable.value = true;
+        formsLoadingStatus.value = ApiCallStatus.loading;
+        update();
+        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.entryCardUrl + id.toString(), onSuccess: (response) {
+            entryFormDataModel = EntryFormDataModel.fromJson(response.data);
+
+            //Owners Information:
+
+            fullNameController.text = entryFormDataModel.data?.name ?? "";
+            fathersController.text = entryFormDataModel.data?.fatherName ?? "";
+            cnicController.text = entryFormDataModel.data?.cnic ?? "";
+            mobileController.text = entryFormDataModel.data?.phone ?? "";
+            setSelectedBlock(entryFormDataModel.data?.block.toString() ?? "");
+            streetSelectedValue = Street(title: entryFormDataModel.data?.street ?? "");
+            plotstSelectedValue = Plots(title: entryFormDataModel.data?.houseNo ?? "");
+            roadController.text = entryFormDataModel.data?.road ?? "";
+            colonyController.text = entryFormDataModel.data?.residentialArea ?? "";
+            ownerImage = File(entryFormDataModel.data?.image ?? "");
+            ownerCnicFront = File(entryFormDataModel.data?.cnicImageFront ?? "");
+            ownerCnicBack = File(entryFormDataModel.data?.cnicImageBack ?? "");
+
+            //Spouse Information
+
+            for (var element in entryFormDataModel.data!.spouseDetail!) {
+              spousefullNameControllers.add(TextEditingController(text: element.spouseName));
+              spousecnicControllers.add(TextEditingController(text: element.spouseCnic));
+              spousemobileControllers.add(TextEditingController(text: element.spousePhone));
+              spousehouseControllers.add(TextEditingController(text: element.spouseHouse));
+              spouseroadControllers.add(TextEditingController(text: element.spouseRoad));
+              spousestreetControllers.add(TextEditingController(text: element.spouseStreet));
+              spouseMohallaControllers.add(TextEditingController(text: element.spouseVillage));
+              spouseThanaControllers.add(TextEditingController(text: element.spousePo));
+              spouseCityControllers.add(TextEditingController(text: element.spouseCity));
+              spouseProvinceControllers.add(TextEditingController(text: element.spouseProvince));
+              spouseImages.add(File(element.spouseImage ?? ""));
+              spouseCnicsfronts.add(File(element.spouseCnicFront ?? ""));
+              spouseCnicBacks.add(File(element.spouseCnicBack ?? ""));
+            }
+            spouseDataIndex = entryFormDataModel.data?.spouseDetail?.length ?? 0;
+
+            for (var element in entryFormDataModel.data!.childDetail!) {
+              childfullNameControllers.add(TextEditingController(text: element.childName));
+              childcnicControllers.add(TextEditingController(text: element.childCnic));
+              childmobileControllers.add(TextEditingController(text: element.childPhone));
+              childhouseControllers.add(TextEditingController(text: element.childHouse));
+              childroadControllers.add(TextEditingController(text: element.childRoad));
+              childstreetControllers.add(TextEditingController(text: element.childStreet));
+              childMohallaControllers.add(TextEditingController(text: element.childVillage));
+              childThanaControllers.add(TextEditingController(text: element.childPo));
+              childCityControllers.add(TextEditingController(text: element.childCity));
+              childProvinceControllers.add(TextEditingController(text: element.childProvince));
+              childImages.add(File(element.childImage ?? ""));
+              childCnicsfronts.add(File(element.childCnicFront ?? ""));
+              childCnicBacks.add(File(element.childCnicBack ?? ""));
+            }
+            childDataIndex = entryFormDataModel.data?.childDetail?.length ?? 0;
+            formsLoadingStatus.value = ApiCallStatus.success;
+
+            update();
+
+            return true;
+          }, onError: (error) {
+            ApiException apiException = error;
+            print(apiException.message);
+            BaseClient.handleApiError(error);
+            formsLoadingStatus.value = ApiCallStatus.error;
+            return false;
+          });
+        });
+      } else {
+        isInternetAvailable.value = false;
+      }
+    });
+    return null;
+  }
+
   getStreetByBlock(id) async {
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
-
         apiCallStatus.value = ApiCallStatus.loading;
-
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              // headers: {'Authorization': "Bearer 15|7zbPqSX0mng6isF9L3iU3v33V6eaoGvEMkE2K7Fg"},
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getStreetByBlockUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getStreetByBlockUrl + id.toString(), onSuccess: (response) {
             update();
             log(response.data['data'].toString(), name: "Street data>>");
             for (var element in response.data['data']) {
               streets.add(Street(id: element["id"] ?? 0, title: element["title"] ?? ""));
             }
             streets;
-
             update();
 
             return true;
@@ -212,9 +270,7 @@ class EntryFormsController extends GetxController {
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
-
         apiCallStatus.value = ApiCallStatus.loading;
-
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
           await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
@@ -265,7 +321,6 @@ class EntryFormsController extends GetxController {
       addSpouse();
       Utils.check().then((value) async {
         Map<String, dynamic> data = {};
-
         data = {
           'spouse_name': spousefullNameControllers[index].text,
           // "spouse_father_name": spousefathersControllers[index].text,
@@ -294,16 +349,7 @@ class EntryFormsController extends GetxController {
             );
           }
         }
-        // if (spouseImage != null) {
-        //   String filePath1 = spouseImage?.path ?? '';
-        //   if (filePath1.isNotEmpty) {
-        //     EntryFormData['spouse_image[$spouseDataIndex]'] = await _dio.MultipartFile.fromFile(
-        //       filePath1,
-        //       filename: filePath1.split('/').last,
-        //       contentType: _http.MediaType.parse('image/jpeg'),
-        //     );
-        //   }
-        // }
+
         for (var element in spouseCnicsfronts) {
           String filePath1 = element.path;
           if (filePath1.isNotEmpty) {
@@ -314,16 +360,7 @@ class EntryFormsController extends GetxController {
             );
           }
         }
-        // if (spouseCnicFront != null) {
-        //   String filePath1 = spouseCnicFront?.path ?? '';
-        //   if (filePath1.isNotEmpty) {
-        //     EntryFormData['spouse_cnic_front[$spouseDataIndex]'] = await _dio.MultipartFile.fromFile(
-        //       filePath1,
-        //       filename: filePath1.split('/').last,
-        //       contentType: _http.MediaType.parse('image/jpeg'),
-        //     );
-        //   }
-        // }
+
         for (var element in spouseCnicBacks) {
           String filePath1 = element.path;
           if (filePath1.isNotEmpty) {
@@ -332,17 +369,6 @@ class EntryFormsController extends GetxController {
               filename: filePath1.split('/').last,
               contentType: _http.MediaType.parse('image/jpeg'),
             );
-
-            // if (spouseCnicBack != null) {
-            //   String filePath1 = spouseCnicBack?.path ?? '';
-            //   if (filePath1.isNotEmpty) {
-            //     EntryFormData['spouse_cnic_back[$spouseDataIndex]'] = await _dio.MultipartFile.fromFile(
-            //       filePath1,
-            //       filename: filePath1.split('/').last,
-            //       contentType: _http.MediaType.parse('image/jpeg'),
-            //     );
-            //   }
-            // }
 
             Utils.showToast(
               "Spouse Added Successfully",
@@ -358,27 +384,50 @@ class EntryFormsController extends GetxController {
     }
   }
 
-  // clearSpouseForm() {
-  //   spousefullNameController.clear();
-  //   spousefathersController.clear();
-  //   spousecnicController.clear();
-  //   spousemobileController.clear();
-  //   spousehouseController.clear();
-  //   spouseroadController.clear();
-  //   spousestreetController.clear();
-  //   spouseblockController.clear();
-  //   spousecolonyController.clear();
-  //   spouseProvinceController.clear();
-  //   spouseCityController.clear();
-  //   spouseProvinceController.clear();
-  //   spouseMohallaController.clear();
-  //   spouseselectedValue = null;
-  //   spousestreetSelectedValue = null;
-  //   spouseplotstSelectedValue = null;
-  //   spouseCnicFront = null;
-  //   spouseCnicBack = null;
-  //   spouseImage = null;
-  // }
+  Future<void> spouseEditEntryFormAPi(context) async {
+    Map<String, dynamic> data = {};
+
+    for (int i = 0; i < spousefullNameControllers.length; i++) {
+      // Add Text Data
+      data.addAll({
+        'spouse_name[$i]': spousefullNameControllers[i].text,
+        'spouse_cnic[$i]': spousecnicControllers[i].text,
+        'spouse_phone[$i]': spousemobileControllers[i].text,
+        'spouse_house[$i]': spousehouseControllers[i].text,
+        'spouse_road[$i]': spouseroadControllers[i].text,
+        'spouse_street[$i]': spousestreetControllers[i].text,
+        'spouse_block[$i]': "0",
+        "spouse_po[$i]": spouseProvinceControllers[i].text,
+        "spouse_city[$i]": spouseCityControllers[i].text,
+        "spouse_province[$i]": spouseProvinceControllers[i].text,
+        'spouse_village[$i]': spouseMohallaControllers[i].text,
+      });
+    }
+    ;
+
+    EntryFormData.addAll(data);
+
+    for (var i = 0; i < spouseImages.length; i++) {
+      String filePath1 = spouseImages[i].path;
+      if (filePath1.isNotEmpty) {
+        EntryFormData['spouse_image[$i]'] = await _dio.MultipartFile.fromString(spouseImages[i].path);
+      }
+    }
+
+    for (var i = 0; i < spouseCnicsfronts.length; i++) {
+      String filePath1 = spouseCnicsfronts[i].path;
+      if (filePath1.isNotEmpty) {
+        EntryFormData['spouse_cnic_front[$i]'] = await _dio.MultipartFile.fromString(spouseCnicsfronts[i].path);
+      }
+    }
+
+    for (var i = 0; i < spouseCnicBacks.length; i++) {
+      String filePath1 = spouseCnicBacks[i].path;
+      if (filePath1.isNotEmpty) {
+        EntryFormData['spouse_cnic_back[$i]'] = await _dio.MultipartFile.fromString(spouseCnicBacks[i].path);
+      }
+    }
+  }
 
   GlobalKey<FormState> childEntryFormKey = GlobalKey();
 
@@ -386,22 +435,7 @@ class EntryFormsController extends GetxController {
 
   Future<void> childEntryFormAPi(context, index) async {
     final formState = childEntryFormKey.currentState;
-    // if (childImages[index] == ) {
-    //   Utils.showToast(
-    //     "Please select image of child",
-    //     true,
-    //   );
-    // } else if (childCnicFront == null) {
-    //   Utils.showToast(
-    //     "Please select image of child CNIC front side",
-    //     true,
-    //   );
-    // } else if (childCnicBack == null) {
-    //   Utils.showToast(
-    //     "Please select image of child CNIC back side",
-    //     true,
-    //   );
-    // } else
+
     if (formState!.validate()) {
       addChild();
       Utils.check().then((value) async {
@@ -456,27 +490,6 @@ class EntryFormsController extends GetxController {
           }
         }
 
-        // if (childCnicFront != null) {
-        //   String filePath1 = childCnicFront?.path ?? '';
-        //   if (filePath1.isNotEmpty) {
-        //     EntryFormData['child_cnic_front[$childDataIndex]'] = await _dio.MultipartFile.fromFile(
-        //       filePath1,
-        //       filename: filePath1.split('/').last,
-        //       contentType: _http.MediaType.parse('image/jpeg'),
-        //     );
-        //   }
-        // }
-        // if (childCnicBack != null) {
-        //   String filePath1 = childCnicBack?.path ?? '';
-        //   if (filePath1.isNotEmpty) {
-        //     EntryFormData['child_cnic_back[$childDataIndex]'] = await _dio.MultipartFile.fromFile(
-        //       filePath1,
-        //       filename: filePath1.split('/').last,
-        //       contentType: _http.MediaType.parse('image/jpeg'),
-        //     );
-        //   }
-        // }
-
         for (var element in childCnicBacks) {
           String filePath1 = element.path;
           if (filePath1.isNotEmpty) {
@@ -500,29 +513,48 @@ class EntryFormsController extends GetxController {
     }
   }
 
-  // clearchildForm() {
-  //   childfullNameController.clear();
-  //   childfathersController.clear();
-  //   childcnicController.clear();
-  //   childmobileController.clear();
-  //   childhouseController.clear();
-  //   childroadController.clear();
-  //   childstreetController.clear();
-  //   childblockController.clear();
-  //   childcolonyController.clear();
+  Future<void> childEditEntryFormAPi(context) async {
+    Map<String, dynamic> data = {};
 
-  //   childThanaController.clear();
-  //   childCityController.clear();
-  //   childProvinceController.clear();
-  //   childMohallaController.clear();
+    for (int i = 0; i < childfullNameControllers.length; i++) {
+      data.addAll({
+        'child_name[$i]': childfullNameControllers[i].text,
+        'child_cnic[$i]': childcnicControllers[i].text,
+        'child_phone[$i]': childmobileControllers[i].text,
+        'child_house[$i]': childhouseControllers[i].text,
+        'child_road[$i]': childroadControllers[i].text,
+        'child_street[$i]': childstreetControllers[i].text,
+        'child_block[$i]': "0",
+        "child_po[$i]": childProvinceControllers[i].text,
+        "child_city[$i]": childCityControllers[i].text,
+        "child_province[$i]": childProvinceControllers[i].text,
+        'child_village[$i]': childMohallaControllers[i].text,
+      });
+    }
+    ;
+    EntryFormData.addAll(data);
 
-  //   childselectedValue = null;
-  //   childstreetSelectedValue = null;
-  //   childplotstSelectedValue = null;
-  //   childCnicFront = null;
-  //   childCnicBack = null;
-  //   childImage = null;
-  // }
+    for (var i = 0; i < childImages.length; i++) {
+      String filePath1 = childImages[i].path;
+      if (filePath1.isNotEmpty) {
+        EntryFormData['child_image[$i]'] = await _dio.MultipartFile.fromString(childImages[i].path);
+      }
+    }
+
+    for (var i = 0; i < childCnicsfronts.length; i++) {
+      String filePath1 = childCnicsfronts[i].path;
+      if (filePath1.isNotEmpty) {
+        EntryFormData['child_cnic_front[$i]'] = await _dio.MultipartFile.fromString(childCnicsfronts[i].path);
+      }
+    }
+
+    for (var i = 0; i < childCnicBacks.length; i++) {
+      String filePath1 = childCnicBacks[i].path;
+      if (filePath1.isNotEmpty) {
+        EntryFormData['child_cnic_back[$i]'] = await _dio.MultipartFile.fromString(childCnicBacks[i].path);
+      }
+    }
+  }
 
   GlobalKey<FormState> EntryCardFormKey = GlobalKey();
 
@@ -687,8 +719,105 @@ class EntryFormsController extends GetxController {
     }
   }
 
+  Future<void> SubmitEdittedEntryFormApi(context, id) async {
+    Utils.check().then((value) async {
+      Map<String, dynamic> ownerInfoData = {
+        'name': fullNameController.text,
+        "father_name": fathersController.text,
+        'cnic': cnicController.text,
+        'phone': mobileController.text,
+        'house_no': plotstSelectedValue?.id ?? 0,
+        'road': roadController.text,
+        'street': streetSelectedValue?.id ?? 0,
+        'block': selectedValue ?? 0,
+        'residential_area': colonyController.text,
+        "date": DateTime.now().format("yyyy-MM-dd").toString(),
+        "id": id
+      };
+      EntryFormData.addAll(ownerInfoData);
+
+      EntryFormData['image'] = await _dio.MultipartFile.fromString(ownerImage?.path ?? "");
+
+      EntryFormData['cnic_image_front'] = await _dio.MultipartFile.fromString(ownerCnicFront?.path ?? "");
+
+      EntryFormData['cnic_image_back'] = await _dio.MultipartFile.fromString(ownerCnicBack?.path ?? "");
+
+      log(EntryFormData.toString(), name: "EntryFormData");
+
+      await spouseEditEntryFormAPi(context);
+
+      await childEditEntryFormAPi(context);
+      if (value) {
+        btnController.start();
+        log(Constants.entryCardUpdateUrl, name: "URL -----------------------------------");
+        log(EntryFormData.toString(), name: "DATA -----------------------------------");
+        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+          var dio = _dio.Dio();
+          try {
+            var response = await dio.request(
+              Constants.entryCardUpdateUrl,
+              options: _dio.Options(
+                method: 'POST',
+                contentType: "multipart",
+                headers: {
+                  'Authorization': "Bearer $token",
+                },
+              ),
+              data: _dio.FormData.fromMap(
+                EntryFormData,
+              ),
+            );
+            if (response.statusCode == 200) {
+              Utils.showToast(
+                response.data['message'],
+                false,
+              );
+              btnController.stop();
+              log(json.encode(response.data));
+
+              Get.offAllNamed(AppRoutes.homePage);
+            } else {
+              btnController.stop();
+              log(response.data['message'].toString(), name: "eeror api");
+              Utils.showToast(
+                response.data['message'],
+                false,
+              );
+              log(response.statusMessage.toString());
+            }
+          } on _dio.DioException catch (error) {
+            btnController.stop();
+            Utils.showToast(
+              error.response?.data.toString() ?? "Error",
+              true,
+            );
+
+            if (error.response == null) {
+              var exception = ApiException(
+                url: Constants.entryCardUpdateUrl,
+                message: error.message!,
+              );
+              return BaseClient.handleApiError(exception);
+            }
+
+            if (error.response?.statusCode == 500) {
+              btnController.stop();
+              Utils.showToast(
+                "Internal Server Error",
+                true,
+              );
+            }
+          }
+        });
+      } else {
+        CustomSnackBar.showCustomErrorToast(
+          message: Strings.noInternetConnection,
+        );
+      }
+    });
+  }
+
   addSpouse() {
-    // spousefathersControllers.add(TextEditingController());
     spousefullNameControllers.add(TextEditingController());
     spousecnicControllers.add(TextEditingController());
     spousemobileControllers.add(TextEditingController());
@@ -709,7 +838,6 @@ class EntryFormsController extends GetxController {
   }
 
   addChild() {
-    // childfathersControllers.add(TextEditingController());
     childfullNameControllers.add(TextEditingController());
     childcnicControllers.add(TextEditingController());
     childmobileControllers.add(TextEditingController());
@@ -751,25 +879,16 @@ class EntryFormsController extends GetxController {
     spouseCityControllers.clear();
     spouseProvinceControllers.clear();
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-    addSpouse();
-    addChild();
-  }
 }
 
 class Street {
   int? id;
   String? title;
-
-  Street({required this.id, required this.title});
+  Street({this.id, required this.title});
 }
 
 class Plots {
   int? id;
   String? title;
-
-  Plots({required this.id, required this.title});
+  Plots({this.id, required this.title});
 }

@@ -1,3 +1,5 @@
+import 'package:anchorageislamabad/presentation/forms_list/binding/forms_list_binding.dart';
+import 'package:anchorageislamabad/presentation/forms_list/forms_list_screen.dart';
 import 'package:anchorageislamabad/presentation/pay_bill_screen/pay_bill_screen.dart';
 import 'package:anchorageislamabad/presentation/reset_screen.dart/reset_screen.dart';
 import 'package:anchorageislamabad/presentation/reset_screen.dart/rest_binding.dart/reset_binding.dart';
@@ -57,6 +59,7 @@ class AppRoutes {
   static const String menuPage = '/menu_screen';
   static const String myComplaintsPage = '/mycomplaints_screen';
   static const String myformsPage = '/myforms_screen';
+  static const String formsList = '/forms_list_screen';
   static const String payBillPage = '/pay_bill_screen';
   static const String myProfilePage = '/myprofile_screen';
   static const String propertiesPage = '/properties_screen';
@@ -74,6 +77,7 @@ class AppRoutes {
     GetPage(
       name: splashScreen,
       page: () => SplashScreen(),
+      
       bindings: [
         SplashBinding(),
       ],
@@ -153,6 +157,13 @@ class AppRoutes {
       page: () => MyFormsScreen(),
       bindings: [
         MyFormsBinding(),
+      ],
+    ),
+    GetPage(
+      name: formsList,
+      page: () => FormsListScreen(),
+      bindings: [
+        FormsListBinding(),
       ],
     ),
     GetPage(
