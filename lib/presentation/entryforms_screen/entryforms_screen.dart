@@ -39,9 +39,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
     controller.ownerImage = null;
     controller.ownerCnicFront = null;
     controller.ownerCnicBack = null;
-    controller.childImage = null;
-    controller.childCnicFront = null;
-    controller.childCnicBack = null;
 
     args['status'] == "Pending" ? controller.getEntryFormsDetails(args['id']) : null;
     args['status'] != "Pending" ? controller.addSpouse() : null;
@@ -50,7 +47,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
     super.initState();
   }
 
-  // const DiscoverScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -126,7 +122,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                   height: getVerticalSize(10),
                                 ),
                                 Form(
-                                  key: controller.EntryCardFormKey,
+                                  // key: controller.EntryCardFormKey,
                                   child: CustomExpansionTile(
                                     title: MyText(
                                       title: 'OWNER INFORMATION',
@@ -356,14 +352,16 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     MyText(title: "Image").paddingOnly(left: 10),
                                                     5.verticalSpace,
                                                     GestureDetector(
-                                                      onTap: () {},
+                                                      onTap: () async {
+                                                        controller.ownerImage = await controller.imagePicker();
+                                                      },
                                                       child: Padding(
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: Container(
                                                           width: getHorizontalSize(350),
                                                           color: ColorConstant.whiteA700,
                                                           child: CustomImageView(
-                                                            url: controller.ownerImage?.path ?? "",
+                                                            url: controller.entryFormDataModel.data?.image ?? "",
                                                           ),
                                                         ),
                                                       ),
@@ -407,7 +405,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           width: getHorizontalSize(350),
                                                           color: ColorConstant.whiteA700,
                                                           child: CustomImageView(
-                                                            url: controller.ownerCnicFront?.path ?? "",
+                                                            url: controller.entryFormDataModel.data?.cnicImageFront ?? "",
                                                           ),
                                                         ),
                                                       ),
@@ -451,7 +449,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           width: getHorizontalSize(350),
                                                           color: ColorConstant.whiteA700,
                                                           child: CustomImageView(
-                                                            url: controller.ownerImage?.path ?? "",
+                                                            url: controller.entryFormDataModel.data?.cnicImageBack ?? "",
                                                           ),
                                                         ),
                                                       ),
@@ -496,7 +494,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return Form(
-                                        key: controller.spouseEntryFormKey,
+                                        // key: controller.spouseEntryFormKey,
                                         child: CustomExpansionTile(
                                           title: MyText(
                                             title: 'Spouse',
@@ -695,7 +693,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
-                                                                      url: controller.spouseImages[index].path,
+                                                                      url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseImage ?? "",
                                                                     ),
                                                                   ),
                                                                 ),
@@ -754,7 +752,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
-                                                                      url: controller.spouseCnicsfronts[index].path,
+                                                                      url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicFront ??
+                                                                          "",
                                                                     ),
                                                                   ),
                                                                 ),
@@ -812,7 +811,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
-                                                                      url: controller.spouseCnicBacks[index].path,
+                                                                      url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicBack ??
+                                                                          "",
                                                                     ),
                                                                   ),
                                                                 ),
@@ -899,7 +899,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return Form(
-                                        key: controller.childEntryFormKey,
+                                        // key: controller.childEntryFormKey,
                                         child: CustomExpansionTile(
                                           title: MyText(
                                             title: 'Child',
@@ -910,8 +910,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             ListView.builder(
                                               shrinkWrap: true,
                                               physics: NeverScrollableScrollPhysics(),
-                                              itemCount:
-                                                  controller.childfullNameControllers.length == 0 ? 1 : controller.childfullNameControllers.length,
+                                              itemCount: args['status'] == "Pending"
+                                                  ? controller.entryFormDataModel.data?.childDetail?.length ?? 0
+                                                  : controller.childfullNameControllers.length == 0
+                                                      ? 1
+                                                      : controller.childfullNameControllers.length,
                                               itemBuilder: (context, index) {
                                                 return Column(
                                                   children: [
@@ -1096,7 +1099,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
-                                                                      url: controller.childImages[index].path,
+                                                                      url: controller.entryFormDataModel.data?.childDetail?[index].childImage ?? "",
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1139,60 +1142,60 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    args['status'] == "Pending"
-                                                        ? Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              MyText(title: "Attachment").paddingOnly(left: 10),
-                                                              5.verticalSpace,
-                                                              GestureDetector(
-                                                                onTap: () {},
-                                                                child: Padding(
-                                                                  padding: getPadding(left: 10, right: 10),
-                                                                  child: Container(
-                                                                    width: getHorizontalSize(350),
-                                                                    color: ColorConstant.whiteA700,
-                                                                    child: CustomImageView(
-                                                                      url: controller.childCnicsfronts[index].path,
-                                                                    ),
-                                                                  ),
+                                                    if (args['status'] == "Pending")
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          5.verticalSpace,
+                                                          GestureDetector(
+                                                            onTap: () {},
+                                                            child: Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childCnicFront ?? "",
                                                                 ),
                                                               ),
-                                                            ],
-                                                          )
-                                                        : Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: CustomButton(
-                                                              width: getHorizontalSize(350),
-                                                              fontSize: 12.sp,
-                                                              fontWeight: FontWeight.w700,
-                                                              color: ColorConstant.whiteA700,
-                                                              label: "Attach a clear image of child CNIC front sides".tr,
-                                                              textColor: ColorConstant.anbtnBlue,
-                                                              borderColor: ColorConstant.anbtnBlue,
-                                                              prefix: controller.childCnicsfronts[index].path == "" ||
-                                                                      controller.childCnicsfronts[index].isBlank!
-                                                                  ? Icon(
-                                                                      Icons.add_circle_outline,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                      size: 19.r,
-                                                                    )
-                                                                  : Icon(
-                                                                      Icons.check_circle_sharp,
-                                                                      size: 19.r,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                    ),
-                                                              onPressed: () async {
-                                                                final result = await controller.picker.pickImage(source: ImageSource.gallery);
-
-                                                                if (result != null) {
-                                                                  setState(() {
-                                                                    controller.childCnicsfronts[index] = File(result.path);
-                                                                  });
-                                                                }
-                                                              },
                                                             ),
                                                           ),
+                                                        ],
+                                                      ),
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: CustomButton(
+                                                        width: getHorizontalSize(350),
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorConstant.whiteA700,
+                                                        label: "Attach a clear image of child CNIC front sides".tr,
+                                                        textColor: ColorConstant.anbtnBlue,
+                                                        borderColor: ColorConstant.anbtnBlue,
+                                                        prefix: controller.childCnicsfronts[index].path == "" ||
+                                                                controller.childCnicsfronts[index].isBlank!
+                                                            ? Icon(
+                                                                Icons.add_circle_outline,
+                                                                color: ColorConstant.anbtnBlue,
+                                                                size: 19.r,
+                                                              )
+                                                            : Icon(
+                                                                Icons.check_circle_sharp,
+                                                                size: 19.r,
+                                                                color: ColorConstant.anbtnBlue,
+                                                              ),
+                                                        onPressed: () async {
+                                                          final result = await controller.picker.pickImage(source: ImageSource.gallery);
+
+                                                          if (result != null) {
+                                                            setState(() {
+                                                              controller.childCnicsfronts[index] = File(result.path);
+                                                            });
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
@@ -1210,7 +1213,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
-                                                                      url: controller.childCnicBacks[index].path,
+                                                                      url:
+                                                                          controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1299,7 +1303,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                     width: getHorizontalSize(400),
                                     fontSize: 16,
                                     bgColor: ColorConstant.anbtnBlue,
-                                    controller: _value.btnController,
+                                    controller: args['status'] == "Pending" ? _value.submitEdittedFormButtonController : _value.btnController,
                                     title: "Submit".tr,
                                     onTap: () async {
                                       args['status'] == "Pending"

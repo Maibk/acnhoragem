@@ -1,18 +1,21 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-import 'package:anchorageislamabad/core/utils/constants.dart';
+
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
-import 'package:dio/dio.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as gttt;
 // import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+
 import '../../Shared_prefrences/app_prefrences.dart';
 import '../../core/utils/utils.dart';
 import '../../localization/strings_enum.dart';
-import '../../routes/app_routes.dart';
 import '../../widgets/custom_toast.dart';
 import 'api_exceptions.dart';
 
@@ -74,7 +77,6 @@ class BaseClient {
         // 3) return response (api done successfully)
         await onSuccess(response);
       } on DioException catch (error) {
-      
         if (error.response == null && error.message == null) {
           var exception = ApiException(
             url: url,
@@ -159,6 +161,26 @@ class BaseClient {
       }
     } else {
       return false;
+    }
+  }
+
+
+
+
+  static Future<MultipartFile> getMultipartFileFromUrl(String imageUrl) async {
+    try {
+      var response = await http.get(Uri.parse(imageUrl));
+      if (response.statusCode == 200) {
+        Directory tempDir = await getTemporaryDirectory();
+        String fileName = basename(imageUrl);
+        File file = File('${tempDir.path}/$fileName');
+        await file.writeAsBytes(response.bodyBytes);
+        return await MultipartFile.fromFile(file.path, filename: fileName);
+      } else {
+        throw Exception('Failed to load image');
+      }
+    } catch (e) {
+      throw Exception('Error fetching image: $e');
     }
   }
 

@@ -57,6 +57,7 @@ class EntryFormsController extends GetxController {
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController btnControllerUseLess = RoundedLoadingButtonController();
+  final RoundedLoadingButtonController submitEdittedFormButtonController = RoundedLoadingButtonController();
   TextEditingController fullNameController = TextEditingController();
   TextEditingController fathersController = TextEditingController();
   TextEditingController cnicController = TextEditingController();
@@ -89,10 +90,6 @@ class EntryFormsController extends GetxController {
   List<File> childImages = [];
   List<File> childCnicsfronts = [];
   List<File> childCnicBacks = [];
-
-  File? childImage;
-  File? childCnicFront;
-  File? childCnicBack;
 
   List<Street> streets = [];
   List<Plots> plots = [];
@@ -176,9 +173,6 @@ class EntryFormsController extends GetxController {
             plotstSelectedValue = Plots(title: entryFormDataModel.data?.houseNo ?? "");
             roadController.text = entryFormDataModel.data?.road ?? "";
             colonyController.text = entryFormDataModel.data?.residentialArea ?? "";
-            ownerImage = File(entryFormDataModel.data?.image ?? "");
-            ownerCnicFront = File(entryFormDataModel.data?.cnicImageFront ?? "");
-            ownerCnicBack = File(entryFormDataModel.data?.cnicImageBack ?? "");
 
             //Spouse Information
 
@@ -193,9 +187,6 @@ class EntryFormsController extends GetxController {
               spouseThanaControllers.add(TextEditingController(text: element.spousePo));
               spouseCityControllers.add(TextEditingController(text: element.spouseCity));
               spouseProvinceControllers.add(TextEditingController(text: element.spouseProvince));
-              spouseImages.add(File(element.spouseImage ?? ""));
-              spouseCnicsfronts.add(File(element.spouseCnicFront ?? ""));
-              spouseCnicBacks.add(File(element.spouseCnicBack ?? ""));
             }
             spouseDataIndex = entryFormDataModel.data?.spouseDetail?.length ?? 0;
 
@@ -210,9 +201,7 @@ class EntryFormsController extends GetxController {
               childThanaControllers.add(TextEditingController(text: element.childPo));
               childCityControllers.add(TextEditingController(text: element.childCity));
               childProvinceControllers.add(TextEditingController(text: element.childProvince));
-              childImages.add(File(element.childImage ?? ""));
-              childCnicsfronts.add(File(element.childCnicFront ?? ""));
-              childCnicBacks.add(File(element.childCnicBack ?? ""));
+              childCnicsfronts.add(File(""));
             }
             childDataIndex = entryFormDataModel.data?.childDetail?.length ?? 0;
             formsLoadingStatus.value = ApiCallStatus.success;
@@ -388,7 +377,6 @@ class EntryFormsController extends GetxController {
     Map<String, dynamic> data = {};
 
     for (int i = 0; i < spousefullNameControllers.length; i++) {
-      // Add Text Data
       data.addAll({
         'spouse_name[$i]': spousefullNameControllers[i].text,
         'spouse_cnic[$i]': spousecnicControllers[i].text,
@@ -407,25 +395,47 @@ class EntryFormsController extends GetxController {
 
     EntryFormData.addAll(data);
 
-    for (var i = 0; i < spouseImages.length; i++) {
-      String filePath1 = spouseImages[i].path;
-      if (filePath1.isNotEmpty) {
-        EntryFormData['spouse_image[$i]'] = await _dio.MultipartFile.fromString(spouseImages[i].path);
+    if (spouseImages.isNotEmpty) {
+      for (var i = 0; i < spouseImages.length; i++) {
+        EntryFormData['spouse_image[$i]'] = await _dio.MultipartFile.fromFile(
+          spouseImages[i].path,
+          filename: spouseImages[i].path.split('/').last,
+          contentType: _http.MediaType.parse('image/jpeg'),
+        );
       }
     }
 
-    for (var i = 0; i < spouseCnicsfronts.length; i++) {
-      String filePath1 = spouseCnicsfronts[i].path;
-      if (filePath1.isNotEmpty) {
-        EntryFormData['spouse_cnic_front[$i]'] = await _dio.MultipartFile.fromString(spouseCnicsfronts[i].path);
+    for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
+      EntryFormData['spouse_image[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseImage ?? "");
+    }
+
+    if (spouseCnicsfronts.isNotEmpty) {
+      for (var i = 0; i < spouseCnicsfronts.length; i++) {
+        EntryFormData['spouse_image[$i]'] = await _dio.MultipartFile.fromFile(
+          spouseCnicsfronts[i].path,
+          filename: spouseCnicsfronts[i].path.split('/').last,
+          contentType: _http.MediaType.parse('image/jpeg'),
+        );
       }
     }
 
-    for (var i = 0; i < spouseCnicBacks.length; i++) {
-      String filePath1 = spouseCnicBacks[i].path;
-      if (filePath1.isNotEmpty) {
-        EntryFormData['spouse_cnic_back[$i]'] = await _dio.MultipartFile.fromString(spouseCnicBacks[i].path);
+    for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
+      EntryFormData['spouse_cnic_front[$i]'] =
+          await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseCnicFront ?? "");
+    }
+
+    if (spouseCnicBacks.isNotEmpty) {
+      for (var i = 0; i < spouseCnicBacks.length; i++) {
+        EntryFormData['spouse_image[$i]'] = await _dio.MultipartFile.fromFile(
+          spouseCnicBacks[i].path,
+          filename: spouseCnicBacks[i].path.split('/').last,
+          contentType: _http.MediaType.parse('image/jpeg'),
+        );
       }
+    }
+    for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
+      EntryFormData['spouse_cnic_back[$i]'] =
+          await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseCnicBack ?? "");
     }
   }
 
@@ -458,16 +468,6 @@ class EntryFormsController extends GetxController {
         data.forEach((key, value) {
           EntryFormData["$key[$index]"] = value;
         });
-        // if (childImage != null) {
-        //   String filePath1 = childImage?.path ?? '';
-        //   if (filePath1.isNotEmpty) {
-        //     EntryFormData['child_image[$childDataIndex]'] = await _dio.MultipartFile.fromFile(
-        //       filePath1,
-        //       filename: filePath1.split('/').last,
-        //       contentType: _http.MediaType.parse('image/jpeg'),
-        //     );
-        //   }
-        // }
 
         for (var element in childImages) {
           String filePath1 = element.path;
@@ -534,25 +534,46 @@ class EntryFormsController extends GetxController {
     ;
     EntryFormData.addAll(data);
 
-    for (var i = 0; i < childImages.length; i++) {
-      String filePath1 = childImages[i].path;
-      if (filePath1.isNotEmpty) {
-        EntryFormData['child_image[$i]'] = await _dio.MultipartFile.fromString(childImages[i].path);
+    if (childImages.isNotEmpty) {
+      for (var i = 0; i < childImages.length; i++) {
+        EntryFormData['child_image[$i]'] = await _dio.MultipartFile.fromFile(
+          childImages[i].path,
+          filename: childImages[i].path.split('/').last,
+          contentType: _http.MediaType.parse('image/jpeg'),
+        );
       }
     }
 
-    for (var i = 0; i < childCnicsfronts.length; i++) {
-      String filePath1 = childCnicsfronts[i].path;
-      if (filePath1.isNotEmpty) {
-        EntryFormData['child_cnic_front[$i]'] = await _dio.MultipartFile.fromString(childCnicsfronts[i].path);
+    for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
+      EntryFormData['child_image[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childImage ?? "");
+    }
+
+    if (childCnicsfronts.isNotEmpty) {
+      for (var i = 0; i < childCnicsfronts.length; i++) {
+        EntryFormData['child_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
+          childCnicsfronts[i].path,
+          filename: childCnicsfronts[i].path.split('/').last,
+          contentType: _http.MediaType.parse('image/jpeg'),
+        );
       }
     }
 
-    for (var i = 0; i < childCnicBacks.length; i++) {
-      String filePath1 = childCnicBacks[i].path;
-      if (filePath1.isNotEmpty) {
-        EntryFormData['child_cnic_back[$i]'] = await _dio.MultipartFile.fromString(childCnicBacks[i].path);
+    for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
+      EntryFormData['child_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childCnicFront ?? "");
+    }
+
+    if (childCnicBacks.isNotEmpty) {
+      for (var i = 0; i < childCnicBacks.length; i++) {
+        EntryFormData['child_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
+          childCnicBacks[i].path,
+          filename: childCnicBacks[i].path.split('/').last,
+          contentType: _http.MediaType.parse('image/jpeg'),
+        );
       }
+    }
+
+    for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
+      EntryFormData['child_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childCnicBack ?? "");
     }
   }
 
@@ -616,7 +637,7 @@ class EntryFormsController extends GetxController {
         if (ownerImage != null) {
           String filePath1 = ownerImage?.path ?? '';
           if (filePath1.isNotEmpty) {
-            EntryFormData['image'] = await _dio.MultipartFile.fromFile(
+            EntryFormData['image'] = _dio.MultipartFile.fromFile(
               filePath1,
               filename: filePath1.split('/').last,
               contentType: _http.MediaType.parse('image/jpeg'),
@@ -720,6 +741,7 @@ class EntryFormsController extends GetxController {
   }
 
   Future<void> SubmitEdittedEntryFormApi(context, id) async {
+    submitEdittedFormButtonController.start();
     Utils.check().then((value) async {
       Map<String, dynamic> ownerInfoData = {
         'name': fullNameController.text,
@@ -736,17 +758,53 @@ class EntryFormsController extends GetxController {
       };
       EntryFormData.addAll(ownerInfoData);
 
-      EntryFormData['image'] = await _dio.MultipartFile.fromString(ownerImage?.path ?? "");
+      if (ownerImage == null) {
+        EntryFormData['image'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.image ?? "");
+      } else {
+        String filePath1 = ownerImage?.path ?? '';
+        if (filePath1.isNotEmpty) {
+          EntryFormData['image'] = _dio.MultipartFile.fromFile(
+            filePath1,
+            filename: filePath1.split('/').last,
+            contentType: _http.MediaType.parse('image/jpeg'),
+          );
+        }
+      }
 
-      EntryFormData['cnic_image_front'] = await _dio.MultipartFile.fromString(ownerCnicFront?.path ?? "");
+      if (ownerCnicFront == null) {
+        EntryFormData['cnic_image_front'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.cnicImageFront ?? "");
+      } else {
+        String filePath1 = ownerCnicFront?.path ?? '';
+        if (filePath1.isNotEmpty) {
+          EntryFormData['cnic_image_front'] = _dio.MultipartFile.fromFile(
+            filePath1,
+            filename: filePath1.split('/').last,
+            contentType: _http.MediaType.parse('image/jpeg'),
+          );
+        }
+      }
+      if (ownerCnicBack == null) {
+        EntryFormData['cnic_image_back'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.cnicImageBack ?? "");
+      } else {
+        String filePath1 = ownerCnicBack?.path ?? '';
+        if (filePath1.isNotEmpty) {
+          EntryFormData['cnic_image_back'] = _dio.MultipartFile.fromFile(
+            filePath1,
+            filename: filePath1.split('/').last,
+            contentType: _http.MediaType.parse('image/jpeg'),
+          );
+        }
+      }
 
-      EntryFormData['cnic_image_back'] = await _dio.MultipartFile.fromString(ownerCnicBack?.path ?? "");
+      // EntryFormData['cnic_image_front'] = await BaseClient.getMultipartFileFromUrl(ownerCnicFront);
+
+      // EntryFormData['cnic_image_back'] = await BaseClient.getMultipartFileFromUrl(ownerCnicBack);
 
       log(EntryFormData.toString(), name: "EntryFormData");
 
+      await childEditEntryFormAPi(context);
       await spouseEditEntryFormAPi(context);
 
-      await childEditEntryFormAPi(context);
       if (value) {
         btnController.start();
         log(Constants.entryCardUpdateUrl, name: "URL -----------------------------------");
@@ -772,7 +830,7 @@ class EntryFormsController extends GetxController {
                 response.data['message'],
                 false,
               );
-              btnController.stop();
+              submitEdittedFormButtonController.stop();
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
@@ -786,7 +844,7 @@ class EntryFormsController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            btnController.stop();
+            submitEdittedFormButtonController.stop();
             Utils.showToast(
               error.response?.data.toString() ?? "Error",
               true,
@@ -801,7 +859,7 @@ class EntryFormsController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
-              btnController.stop();
+              submitEdittedFormButtonController.stop();
               Utils.showToast(
                 "Internal Server Error",
                 true,
