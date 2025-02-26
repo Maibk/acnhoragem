@@ -122,7 +122,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                   height: getVerticalSize(10),
                                 ),
                                 Form(
-                                  // key: controller.EntryCardFormKey,
+                                  key: controller.EntryCardFormKey,
                                   child: CustomExpansionTile(
                                     title: MyText(
                                       title: 'OWNER INFORMATION',
@@ -343,139 +343,140 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-
-                                          // if()
-                                          args['status'] == "Pending"
-                                              ? Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    MyText(title: "Image").paddingOnly(left: 10),
-                                                    5.verticalSpace,
-                                                    GestureDetector(
-                                                      onTap: () async {
-                                                        controller.ownerImage = await controller.imagePicker();
-                                                      },
-                                                      child: Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: Container(
-                                                          width: getHorizontalSize(350),
-                                                          color: ColorConstant.whiteA700,
-                                                          child: CustomImageView(
-                                                            url: controller.entryFormDataModel.data?.image ?? "",
-                                                          ),
-                                                        ),
+                                          if (args['status'] == "Pending")
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                MyText(title: "Image").paddingOnly(left: 10),
+                                                5.verticalSpace,
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    controller.ownerImage = await controller.imagePicker();
+                                                  },
+                                                  child: Padding(
+                                                    padding: getPadding(left: 10, right: 10),
+                                                    child: Container(
+                                                      width: getHorizontalSize(350),
+                                                      color: ColorConstant.whiteA700,
+                                                      child: CustomImageView(
+                                                        url: controller.entryFormDataModel.data?.image ?? "",
                                                       ),
                                                     ),
-                                                  ],
-                                                )
-                                              : Padding(
-                                                  padding: getPadding(left: 10, right: 10),
-                                                  child: CustomButton(
-                                                    width: getHorizontalSize(350),
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorConstant.whiteA700,
-                                                    label: "Attach a clear image of yours".tr,
-                                                    textColor: ColorConstant.anbtnBlue,
-                                                    borderColor: ColorConstant.anbtnBlue,
-                                                    prefix: Icon(
-                                                      controller.ownerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
-                                                      color: ColorConstant.anbtnBlue,
-                                                      size: 19.r,
-                                                    ),
-                                                    onPressed: () async {
-                                                      controller.ownerImage = await controller.imagePicker();
-                                                    },
                                                   ),
                                                 ),
+                                                5.verticalSpace,
+                                              ],
+                                            ),
+                                          Padding(
+                                            padding: getPadding(left: 10, right: 10),
+                                            child: CustomButton(
+                                              width: getHorizontalSize(350),
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorConstant.whiteA700,
+                                              label: "Attach a clear image of yours".tr,
+                                              textColor: ColorConstant.anbtnBlue,
+                                              borderColor: ColorConstant.anbtnBlue,
+                                              prefix: Icon(
+                                                controller.ownerImage != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                color: ColorConstant.anbtnBlue,
+                                                size: 19.r,
+                                              ),
+                                              onPressed: () async {
+                                                controller.ownerImage = await controller.imagePicker();
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          args['status'] == "Pending"
-                                              ? Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    MyText(title: "CNIC Image Front").paddingOnly(left: 10),
-                                                    5.verticalSpace,
-                                                    GestureDetector(
-                                                      onTap: () {},
-                                                      child: Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: Container(
-                                                          width: getHorizontalSize(350),
-                                                          color: ColorConstant.whiteA700,
-                                                          child: CustomImageView(
-                                                            url: controller.entryFormDataModel.data?.cnicImageFront ?? "",
-                                                          ),
-                                                        ),
+                                          if (args['status'] == "Pending")
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                MyText(title: "CNIC Image Front").paddingOnly(left: 10),
+                                                5.verticalSpace,
+                                                GestureDetector(
+                                                  onTap: () {},
+                                                  child: Padding(
+                                                    padding: getPadding(left: 10, right: 10),
+                                                    child: Container(
+                                                      width: getHorizontalSize(350),
+                                                      color: ColorConstant.whiteA700,
+                                                      child: CustomImageView(
+                                                        url: controller.entryFormDataModel.data?.cnicImageFront ?? "",
                                                       ),
                                                     ),
-                                                  ],
-                                                )
-                                              : Padding(
-                                                  padding: getPadding(left: 10, right: 10),
-                                                  child: CustomButton(
-                                                    width: getHorizontalSize(350),
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorConstant.whiteA700,
-                                                    label: "Attach a clear image of your CNIC front side".tr,
-                                                    textColor: ColorConstant.anbtnBlue,
-                                                    borderColor: ColorConstant.anbtnBlue,
-                                                    prefix: Icon(
-                                                      controller.ownerCnicFront != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
-                                                      color: ColorConstant.anbtnBlue,
-                                                      size: 19.r,
-                                                    ),
-                                                    onPressed: () async {
-                                                      controller.ownerCnicFront = await controller.imagePicker();
-                                                    },
                                                   ),
                                                 ),
+                                                5.verticalSpace
+                                              ],
+                                            ),
+                                          Padding(
+                                            padding: getPadding(left: 10, right: 10),
+                                            child: CustomButton(
+                                              width: getHorizontalSize(350),
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorConstant.whiteA700,
+                                              label: "Attach a clear image of your CNIC front side".tr,
+                                              textColor: ColorConstant.anbtnBlue,
+                                              borderColor: ColorConstant.anbtnBlue,
+                                              prefix: Icon(
+                                                controller.ownerCnicFront != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                color: ColorConstant.anbtnBlue,
+                                                size: 19.r,
+                                              ),
+                                              onPressed: () async {
+                                                controller.ownerCnicFront = await controller.imagePicker();
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          args['status'] == "Pending"
-                                              ? Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    MyText(title: "CNIC Image Back").paddingOnly(left: 10),
-                                                    5.verticalSpace,
-                                                    GestureDetector(
-                                                      onTap: () {},
-                                                      child: Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: Container(
-                                                          width: getHorizontalSize(350),
-                                                          color: ColorConstant.whiteA700,
-                                                          child: CustomImageView(
-                                                            url: controller.entryFormDataModel.data?.cnicImageBack ?? "",
-                                                          ),
-                                                        ),
+                                          if (args['status'] == "Pending")
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                MyText(title: "CNIC Image Back").paddingOnly(left: 10),
+                                                5.verticalSpace,
+                                                GestureDetector(
+                                                  onTap: () {},
+                                                  child: Padding(
+                                                    padding: getPadding(left: 10, right: 10),
+                                                    child: Container(
+                                                      width: getHorizontalSize(350),
+                                                      color: ColorConstant.whiteA700,
+                                                      child: CustomImageView(
+                                                        url: controller.entryFormDataModel.data?.cnicImageBack ?? "",
                                                       ),
                                                     ),
-                                                  ],
-                                                )
-                                              : Padding(
-                                                  padding: getPadding(left: 10, right: 10),
-                                                  child: CustomButton(
-                                                    width: getHorizontalSize(350),
-                                                    fontSize: 12.sp,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorConstant.whiteA700,
-                                                    label: "Attach a clear image of your CNIC back side".tr,
-                                                    textColor: ColorConstant.anbtnBlue,
-                                                    borderColor: ColorConstant.anbtnBlue,
-                                                    prefix: Icon(
-                                                      controller.ownerCnicBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
-                                                      color: ColorConstant.anbtnBlue,
-                                                      size: 19.r,
-                                                    ),
-                                                    onPressed: () async {
-                                                      controller.ownerCnicBack = await controller.imagePicker();
-                                                    },
                                                   ),
                                                 ),
+                                                5.verticalSpace,
+                                              ],
+                                            ),
+                                          Padding(
+                                            padding: getPadding(left: 10, right: 10),
+                                            child: CustomButton(
+                                              width: getHorizontalSize(350),
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w700,
+                                              color: ColorConstant.whiteA700,
+                                              label: "Attach a clear image of your CNIC back side".tr,
+                                              textColor: ColorConstant.anbtnBlue,
+                                              borderColor: ColorConstant.anbtnBlue,
+                                              prefix: Icon(
+                                                controller.ownerCnicBack != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                color: ColorConstant.anbtnBlue,
+                                                size: 19.r,
+                                              ),
+                                              onPressed: () async {
+                                                controller.ownerCnicBack = await controller.imagePicker();
+                                              },
+                                            ),
+                                          ),
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
@@ -494,7 +495,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return Form(
-                                        // key: controller.spouseEntryFormKey,
+                                        key: controller.spouseEntryFormKey,
                                         child: CustomExpansionTile(
                                           title: MyText(
                                             title: 'Spouse',
@@ -679,181 +680,181 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(5),
                                                     ),
-                                                    args['status'] == "Pending"
-                                                        ? Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              MyText(title: "Attachment").paddingOnly(left: 10),
-                                                              5.verticalSpace,
-                                                              GestureDetector(
-                                                                onTap: () {},
-                                                                child: Padding(
-                                                                  padding: getPadding(left: 10, right: 10),
-                                                                  child: Container(
-                                                                    width: getHorizontalSize(350),
-                                                                    color: ColorConstant.whiteA700,
-                                                                    child: CustomImageView(
-                                                                      url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseImage ?? "",
-                                                                    ),
-                                                                  ),
+                                                    if (args['status'] == "Pending")
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          5.verticalSpace,
+                                                          GestureDetector(
+                                                            onTap: () {},
+                                                            child: Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseImage ?? "",
                                                                 ),
                                                               ),
-                                                            ],
-                                                          )
-                                                        : Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: CustomButton(
-                                                              width: getHorizontalSize(350),
-                                                              fontSize: 12.sp,
-                                                              fontWeight: FontWeight.w700,
-                                                              color: ColorConstant.whiteA700,
-                                                              label: "Attach a clear image of spouse".tr,
-                                                              textColor: ColorConstant.anbtnBlue,
-                                                              borderColor: ColorConstant.anbtnBlue,
-                                                              prefix:
-                                                                  controller.spouseImages[index].path == "" || controller.spouseImages[index].isBlank!
-                                                                      ? Icon(
-                                                                          Icons.add_circle_outline,
-                                                                          color: ColorConstant.anbtnBlue,
-                                                                          size: 19.r,
-                                                                        )
-                                                                      : Icon(
-                                                                          Icons.check_circle_sharp,
-                                                                          color: ColorConstant.anbtnBlue,
-                                                                          size: 19.r,
-                                                                        ),
-                                                              onPressed: () async {
-                                                                final result = await controller.picker.pickImage(source: ImageSource.gallery);
-
-                                                                if (result != null) {
-                                                                  setState(() {
-                                                                    controller.spouseImages[index] = File(result.path);
-                                                                  });
-                                                                }
-
-                                                                log(controller.spouseImages.toString());
-                                                              },
                                                             ),
                                                           ),
+                                                          5.verticalSpace,
+                                                        ],
+                                                      ),
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: CustomButton(
+                                                        width: getHorizontalSize(350),
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorConstant.whiteA700,
+                                                        label: "Attach a clear image of spouse".tr,
+                                                        textColor: ColorConstant.anbtnBlue,
+                                                        borderColor: ColorConstant.anbtnBlue,
+                                                        prefix: controller.spouseImages[index].path == "" || controller.spouseImages[index].isBlank!
+                                                            ? Icon(
+                                                                Icons.add_circle_outline,
+                                                                color: ColorConstant.anbtnBlue,
+                                                                size: 19.r,
+                                                              )
+                                                            : Icon(
+                                                                Icons.check_circle_sharp,
+                                                                color: ColorConstant.anbtnBlue,
+                                                                size: 19.r,
+                                                              ),
+                                                        onPressed: () async {
+                                                          final result = await controller.picker.pickImage(source: ImageSource.gallery);
+
+                                                          if (result != null) {
+                                                            setState(() {
+                                                              controller.spouseImages[index] = File(result.path);
+                                                            });
+                                                          }
+
+                                                          log(controller.spouseImages.toString());
+                                                        },
+                                                      ),
+                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    args['status'] == "Pending"
-                                                        ? Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              MyText(title: "Attachment").paddingOnly(left: 10),
-                                                              5.verticalSpace,
-                                                              GestureDetector(
-                                                                onTap: () {},
-                                                                child: Padding(
-                                                                  padding: getPadding(left: 10, right: 10),
-                                                                  child: Container(
-                                                                    width: getHorizontalSize(350),
-                                                                    color: ColorConstant.whiteA700,
-                                                                    child: CustomImageView(
-                                                                      url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicFront ??
-                                                                          "",
-                                                                    ),
-                                                                  ),
+                                                    if (args['status'] == "Pending")
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          5.verticalSpace,
+                                                          GestureDetector(
+                                                            onTap: () {},
+                                                            child: Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicFront ?? "",
                                                                 ),
                                                               ),
-                                                            ],
-                                                          )
-                                                        : Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: CustomButton(
-                                                              width: getHorizontalSize(350),
-                                                              fontSize: 12.sp,
-                                                              fontWeight: FontWeight.w700,
-                                                              color: ColorConstant.whiteA700,
-                                                              label: "Attach a clear image of spouse CNIC front side".tr,
-                                                              textColor: ColorConstant.anbtnBlue,
-                                                              borderColor: ColorConstant.anbtnBlue,
-                                                              prefix: controller.spouseCnicsfronts[index].path == "" ||
-                                                                      controller.spouseCnicsfronts[index].isBlank!
-                                                                  ? Icon(
-                                                                      Icons.add_circle_outline,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                      size: 19.r,
-                                                                    )
-                                                                  : Icon(
-                                                                      Icons.check_circle_sharp,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                      size: 19.r,
-                                                                    ),
-                                                              onPressed: () async {
-                                                                final result = await controller.picker.pickImage(source: ImageSource.gallery);
-                                                                if (result != null) {
-                                                                  setState(() {
-                                                                    controller.spouseCnicsfronts[index] = File(result.path);
-                                                                  });
-                                                                }
-
-                                                                log(controller.spouseCnicsfronts.toString());
-                                                              },
                                                             ),
                                                           ),
+                                                          5.verticalSpace,
+                                                        ],
+                                                      ),
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: CustomButton(
+                                                        width: getHorizontalSize(350),
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorConstant.whiteA700,
+                                                        label: "Attach a clear image of spouse CNIC front side".tr,
+                                                        textColor: ColorConstant.anbtnBlue,
+                                                        borderColor: ColorConstant.anbtnBlue,
+                                                        prefix: controller.spouseCnicsfronts[index].path == "" ||
+                                                                controller.spouseCnicsfronts[index].isBlank!
+                                                            ? Icon(
+                                                                Icons.add_circle_outline,
+                                                                color: ColorConstant.anbtnBlue,
+                                                                size: 19.r,
+                                                              )
+                                                            : Icon(
+                                                                Icons.check_circle_sharp,
+                                                                color: ColorConstant.anbtnBlue,
+                                                                size: 19.r,
+                                                              ),
+                                                        onPressed: () async {
+                                                          final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                          if (result != null) {
+                                                            setState(() {
+                                                              controller.spouseCnicsfronts[index] = File(result.path);
+                                                            });
+                                                          }
+
+                                                          log(controller.spouseCnicsfronts.toString());
+                                                        },
+                                                      ),
+                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    args['status'] == "Pending"
-                                                        ? Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              MyText(title: "Attachment").paddingOnly(left: 10),
-                                                              5.verticalSpace,
-                                                              GestureDetector(
-                                                                onTap: () {},
-                                                                child: Padding(
-                                                                  padding: getPadding(left: 10, right: 10),
-                                                                  child: Container(
-                                                                    width: getHorizontalSize(350),
-                                                                    color: ColorConstant.whiteA700,
-                                                                    child: CustomImageView(
-                                                                      url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicBack ??
-                                                                          "",
-                                                                    ),
-                                                                  ),
+                                                    if (args['status'] == "Pending")
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          5.verticalSpace,
+                                                          GestureDetector(
+                                                            onTap: () {},
+                                                            child: Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicBack ?? "",
                                                                 ),
                                                               ),
-                                                            ],
-                                                          )
-                                                        : Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: CustomButton(
-                                                              width: getHorizontalSize(350),
-                                                              fontSize: 12.sp,
-                                                              fontWeight: FontWeight.w700,
-                                                              color: ColorConstant.whiteA700,
-                                                              label: "Attach a clear image of Spouse CNIC back side".tr,
-                                                              textColor: ColorConstant.anbtnBlue,
-                                                              borderColor: ColorConstant.anbtnBlue,
-                                                              prefix: controller.spouseCnicBacks[index].path == "" ||
-                                                                      controller.spouseCnicBacks[index].isBlank!
-                                                                  ? Icon(
-                                                                      Icons.add_circle_outline,
-                                                                      size: 19.r,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                    )
-                                                                  : Icon(
-                                                                      Icons.check_circle_sharp,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                      size: 19.r,
-                                                                    ),
-                                                              onPressed: () async {
-                                                                final result = await controller.picker.pickImage(source: ImageSource.gallery);
-
-                                                                if (result != null) {
-                                                                  setState(() {
-                                                                    controller.spouseCnicBacks[index] = File(result.path);
-                                                                  });
-                                                                }
-
-                                                                log(controller.spouseCnicBacks.toString());
-                                                              },
                                                             ),
                                                           ),
+                                                          5.verticalSpace,
+                                                        ],
+                                                      ),
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: CustomButton(
+                                                        width: getHorizontalSize(350),
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorConstant.whiteA700,
+                                                        label: "Attach a clear image of Spouse CNIC back side".tr,
+                                                        textColor: ColorConstant.anbtnBlue,
+                                                        borderColor: ColorConstant.anbtnBlue,
+                                                        prefix:
+                                                            controller.spouseCnicBacks[index].path == "" || controller.spouseCnicBacks[index].isBlank!
+                                                                ? Icon(
+                                                                    Icons.add_circle_outline,
+                                                                    size: 19.r,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                  )
+                                                                : Icon(
+                                                                    Icons.check_circle_sharp,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                    size: 19.r,
+                                                                  ),
+                                                        onPressed: () async {
+                                                          final result = await controller.picker.pickImage(source: ImageSource.gallery);
+
+                                                          if (result != null) {
+                                                            setState(() {
+                                                              controller.spouseCnicBacks[index] = File(result.path);
+                                                            });
+                                                          }
+
+                                                          log(controller.spouseCnicBacks.toString());
+                                                        },
+                                                      ),
+                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
@@ -899,7 +900,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return Form(
-                                        // key: controller.childEntryFormKey,
+                                        key: controller.childEntryFormKey,
                                         child: CustomExpansionTile(
                                           title: MyText(
                                             title: 'Child',
@@ -1085,60 +1086,60 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(5),
                                                     ),
-                                                    args['status'] == "Pending"
-                                                        ? Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              MyText(title: "Attachment").paddingOnly(left: 10),
-                                                              5.verticalSpace,
-                                                              GestureDetector(
-                                                                onTap: () {},
-                                                                child: Padding(
-                                                                  padding: getPadding(left: 10, right: 10),
-                                                                  child: Container(
-                                                                    width: getHorizontalSize(350),
-                                                                    color: ColorConstant.whiteA700,
-                                                                    child: CustomImageView(
-                                                                      url: controller.entryFormDataModel.data?.childDetail?[index].childImage ?? "",
-                                                                    ),
-                                                                  ),
+                                                    if (args['status'] == "Pending")
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          5.verticalSpace,
+                                                          GestureDetector(
+                                                            onTap: () {},
+                                                            child: Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childImage ?? "",
                                                                 ),
                                                               ),
-                                                            ],
-                                                          )
-                                                        : Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: CustomButton(
-                                                              width: getHorizontalSize(350),
-                                                              fontSize: 12.sp,
-                                                              fontWeight: FontWeight.w700,
-                                                              color: ColorConstant.whiteA700,
-                                                              label: "Attach a clear image of child".tr,
-                                                              textColor: ColorConstant.anbtnBlue,
-                                                              borderColor: ColorConstant.anbtnBlue,
-                                                              prefix:
-                                                                  controller.childImages[index].path == "" || controller.childImages[index].isBlank!
-                                                                      ? Icon(
-                                                                          Icons.add_circle_outline,
-                                                                          color: ColorConstant.anbtnBlue,
-                                                                          size: 19.r,
-                                                                        )
-                                                                      : Icon(
-                                                                          Icons.check_circle_sharp,
-                                                                          size: 19.r,
-                                                                          color: ColorConstant.anbtnBlue,
-                                                                        ),
-                                                              onPressed: () async {
-                                                                final result = await controller.picker.pickImage(source: ImageSource.gallery);
-
-                                                                if (result != null) {
-                                                                  setState(() {
-                                                                    controller.childImages[index] = File(result.path);
-                                                                  });
-                                                                }
-                                                              },
                                                             ),
                                                           ),
+                                                          5.verticalSpace,
+                                                        ],
+                                                      ),
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: CustomButton(
+                                                        width: getHorizontalSize(350),
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorConstant.whiteA700,
+                                                        label: "Attach a clear image of child".tr,
+                                                        textColor: ColorConstant.anbtnBlue,
+                                                        borderColor: ColorConstant.anbtnBlue,
+                                                        prefix: controller.childImages[index].path == "" || controller.childImages[index].isBlank!
+                                                            ? Icon(
+                                                                Icons.add_circle_outline,
+                                                                color: ColorConstant.anbtnBlue,
+                                                                size: 19.r,
+                                                              )
+                                                            : Icon(
+                                                                Icons.check_circle_sharp,
+                                                                size: 19.r,
+                                                                color: ColorConstant.anbtnBlue,
+                                                              ),
+                                                        onPressed: () async {
+                                                          final result = await controller.picker.pickImage(source: ImageSource.gallery);
+
+                                                          if (result != null) {
+                                                            setState(() {
+                                                              controller.childImages[index] = File(result.path);
+                                                            });
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
@@ -1161,6 +1162,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               ),
                                                             ),
                                                           ),
+                                                          5.verticalSpace,
                                                         ],
                                                       ),
                                                     Padding(
@@ -1199,61 +1201,61 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    args['status'] == "Pending"
-                                                        ? Column(
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              MyText(title: "Attachment").paddingOnly(left: 10),
-                                                              5.verticalSpace,
-                                                              GestureDetector(
-                                                                onTap: () {},
-                                                                child: Padding(
-                                                                  padding: getPadding(left: 10, right: 10),
-                                                                  child: Container(
-                                                                    width: getHorizontalSize(350),
-                                                                    color: ColorConstant.whiteA700,
-                                                                    child: CustomImageView(
-                                                                      url:
-                                                                          controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
-                                                                    ),
-                                                                  ),
+                                                    if (args['status'] == "Pending")
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          5.verticalSpace,
+                                                          GestureDetector(
+                                                            onTap: () {},
+                                                            child: Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
                                                                 ),
                                                               ),
-                                                            ],
-                                                          )
-                                                        : Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: CustomButton(
-                                                              width: getHorizontalSize(350),
-                                                              fontSize: 12.sp,
-                                                              fontWeight: FontWeight.w700,
-                                                              color: ColorConstant.whiteA700,
-                                                              label: "Attach a clear image of child CNIC back side".tr,
-                                                              textColor: ColorConstant.anbtnBlue,
-                                                              borderColor: ColorConstant.anbtnBlue,
-                                                              prefix: controller.childCnicBacks[index].path == "" ||
-                                                                      controller.childCnicBacks[index].isBlank!
-                                                                  ? Icon(
-                                                                      Icons.add_circle_outline,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                      size: 19.r,
-                                                                    )
-                                                                  : Icon(
-                                                                      Icons.check_circle_sharp,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                      size: 19.r,
-                                                                    ),
-                                                              onPressed: () async {
-                                                                final result = await controller.picker.pickImage(source: ImageSource.gallery);
-
-                                                                if (result != null) {
-                                                                  setState(() {
-                                                                    controller.childCnicBacks[index] = File(result.path);
-                                                                  });
-                                                                }
-                                                              },
                                                             ),
                                                           ),
+                                                          5.verticalSpace,
+                                                        ],
+                                                      ),
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: CustomButton(
+                                                        width: getHorizontalSize(350),
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: ColorConstant.whiteA700,
+                                                        label: "Attach a clear image of child CNIC back side".tr,
+                                                        textColor: ColorConstant.anbtnBlue,
+                                                        borderColor: ColorConstant.anbtnBlue,
+                                                        prefix:
+                                                            controller.childCnicBacks[index].path == "" || controller.childCnicBacks[index].isBlank!
+                                                                ? Icon(
+                                                                    Icons.add_circle_outline,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                    size: 19.r,
+                                                                  )
+                                                                : Icon(
+                                                                    Icons.check_circle_sharp,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                    size: 19.r,
+                                                                  ),
+                                                        onPressed: () async {
+                                                          final result = await controller.picker.pickImage(source: ImageSource.gallery);
+
+                                                          if (result != null) {
+                                                            setState(() {
+                                                              controller.childCnicBacks[index] = File(result.path);
+                                                            });
+                                                          }
+                                                        },
+                                                      ),
+                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),

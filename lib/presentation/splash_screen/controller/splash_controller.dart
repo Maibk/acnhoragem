@@ -1,13 +1,10 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:anchorageislamabad/data/services/base_client.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
 // import 'package:package_info/package_info.dart';
 
 import '../../../Shared_prefrences/app_prefrences.dart';
@@ -15,19 +12,12 @@ import '../../../core/utils/constants.dart';
 import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
-import '../../../service/local_database.dart';
 import '../../myprofile_screen/models/profile_model.dart';
 import '../models/splash_model.dart';
 
-/// A controller class for the SplashScreen.
-///
-/// This class manages the state of the SplashScreen, including the
-/// current splashModelObj
-///
 ///
 ProfileModel? profileModel;
 
-///
 class SplashController extends GetxController {
   Rx<SplashModel> splashModelObj = SplashModel().obs;
   AppPreferences appPreferences = AppPreferences();

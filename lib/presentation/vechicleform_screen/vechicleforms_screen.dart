@@ -4,17 +4,14 @@ import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/size_utils.dart';
-import '../../core/utils/utils.dart';
 import '../../routes/app_routes.dart';
 import '../../widgets/animated_custom_button.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/custom_button.dart';
 import '../../widgets/custom_expensiontile.dart';
 import '../../widgets/custom_textfield_new.dart';
@@ -23,12 +20,24 @@ import 'controller/vechicleforms_controller.dart';
 class VechicleScreen extends StatefulWidget {
   @override
   State<VechicleScreen> createState() => _VechicleScreenState();
+
+  
 }
 
 class _VechicleScreenState extends State<VechicleScreen> {
   VechicleController controller = Get.put(VechicleController());
 
-  // const DiscoverScreen({Key? key}) : super(key: key);
+  final args = Get.arguments;
+
+  @override
+  initState() {
+    args['status'] == "Pending" ? controller.getEntryFormsDetails(args['id']) : null;
+    args['status'] != "Pending" ? controller.addUserControllers() : null;
+    args['status'] != "Pending" ? controller.addVehicleControllers() : null;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

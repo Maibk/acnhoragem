@@ -140,10 +140,22 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                         5.verticalSpace,
                                         GestureDetector(
                                           onTap: () {
-                                            Get.toNamed(AppRoutes.entryFormsPage, arguments: {
-                                              "id": controller.formsListModel.data?[index].id ?? "",
-                                              "status": controller.formsListModel.data?[index].status ?? ""
-                                            });
+                                            if (args.toString() == "Entry Form") {
+                                              Get.toNamed(AppRoutes.entryFormsPage, arguments: {
+                                                "id": controller.formsListModel.data?[index].id ?? "",
+                                                "status": controller.formsListModel.data?[index].status ?? ""
+                                              });
+                                            } else if (args.toString() == "Servant Form") {
+                                              Get.toNamed(AppRoutes.serventFormsPage, arguments: {
+                                                "id": controller.formsListModel.data?[index].id ?? "",
+                                                "status": controller.formsListModel.data?[index].status ?? ""
+                                              });
+                                            } else {
+                                              Get.toNamed(AppRoutes.vechicleFormsPage, arguments: {
+                                                "id": controller.formsListModel.data?[index].id ?? "",
+                                                "status": controller.formsListModel.data?[index].status ?? ""
+                                              });
+                                            }
                                           },
                                           child: Center(
                                             child: Container(

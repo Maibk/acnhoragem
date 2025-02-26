@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
+import 'package:anchorageislamabad/presentation/vechicleform_screen/models/Vehicle_form_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
 import 'package:dio/dio.dart' as _dio;
@@ -22,37 +23,24 @@ import '../../../data/services/api_call_status.dart';
 import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 
-/// A controller class for the DiscoverScreen.
-///
-/// This class manages the state of the DiscoverScreen, including the
-/// current discoverModelObj
-///
 class VechicleController extends GetxController {
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController btnControllerUseless = RoundedLoadingButtonController();
-  TextEditingController fullNameController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController fathersController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController cnicController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController rankController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController dateController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController servisController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController officeController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController mobileController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController houseController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController roadController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController streetController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController blockController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController colonyController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController cellNoController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-  TextEditingController ptclController = TextEditingController(text: kDebugMode ? "asdsad" : null);
-
-  // TextEditingController vehicleNoController = TextEditingController();
-  // TextEditingController makeController = TextEditingController();
-  // TextEditingController modelController = TextEditingController();
-  // TextEditingController colorController = TextEditingController();
-  // TextEditingController engineNoController = TextEditingController();
-  // TextEditingController chassisController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController fathersController = TextEditingController();
+  TextEditingController cnicController = TextEditingController();
+  TextEditingController rankController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController servisController = TextEditingController();
+  TextEditingController officeController = TextEditingController();
+  TextEditingController houseController = TextEditingController();
+  TextEditingController roadController = TextEditingController();
+  TextEditingController streetController = TextEditingController();
+  TextEditingController blockController = TextEditingController();
+  TextEditingController colonyController = TextEditingController();
+  TextEditingController cellNoController = TextEditingController();
+  TextEditingController ptclController = TextEditingController();
 
   List<TextEditingController> vehicleNoControllers = [];
   List<TextEditingController> makeControllers = [];
@@ -60,10 +48,6 @@ class VechicleController extends GetxController {
   List<TextEditingController> colorControllers = [];
   List<TextEditingController> engineNoControllers = [];
   List<TextEditingController> chassisControllers = [];
-  //user controller
-  // TextEditingController userfullNameController = TextEditingController();
-  // TextEditingController userCnicController = TextEditingController();
-  // TextEditingController userMobileController = TextEditingController();
 
   List<TextEditingController> userfullNameControllers = [];
   List<TextEditingController> userCnicControllers = [];
@@ -78,6 +62,8 @@ class VechicleController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
+
+  VehicleFormDataModel vehicleFormDataModel = VehicleFormDataModel();
 
   RxList<DealsModel> categories = <DealsModel>[].obs;
 
@@ -121,8 +107,11 @@ class VechicleController extends GetxController {
   List<Street> streets = [];
   List<Plots> plots = [];
 
+  Rx<ApiCallStatus> formsLoadingStatus = ApiCallStatus.success.obs;
+
   List<Street> servantstreets = [];
   List<Plots> servantplots = [];
+
   getStreetByBlock(id) async {
     Utils.check().then((value) async {
       if (value) {
@@ -213,7 +202,80 @@ class VechicleController extends GetxController {
     update();
   }
 
-  // LoginModel? userDetails;
+  void setSelectedBlock(String blockTitle) {
+    var matchingBlock = block.firstWhere(
+      (item) => item['title'] == blockTitle,
+      orElse: () => {},
+    );
+    if (matchingBlock.isNotEmpty) {
+      selectedValue = matchingBlock['id'];
+    } else {
+      selectedValue = null; // Handle cases where blockTitle is not found
+    }
+  }
+
+  getEntryFormsDetails(id) {
+    Utils.check().then((value) async {
+      if (value) {
+        isInternetAvailable.value = true;
+        formsLoadingStatus.value = ApiCallStatus.loading;
+        update();
+        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.vehicleFormUrl + id.toString(), onSuccess: (response) {
+            vehicleFormDataModel = VehicleFormDataModel.fromJson(response.data);
+            fullNameController.text = vehicleFormDataModel.data?.name ?? "";
+            fathersController.text = vehicleFormDataModel.data?.fatherName ?? "";
+            cnicController.text = vehicleFormDataModel.data?.cnic ?? "";
+            cellNoController.text = vehicleFormDataModel.data?.cellNo ?? "";
+            ptclController.text = vehicleFormDataModel.data?.ptclNo ?? "";
+            selectedServiceCategory = vehicleFormDataModel.data?.category.toString() == "civilian" ? setServiceCategory(1) : setServiceCategory(2);
+            dateController.text = vehicleFormDataModel.data?.date ?? "";
+            setSelectedBlock(vehicleFormDataModel.data?.block.toString() ?? "");
+            streetSelectedValue = Street(title: vehicleFormDataModel.data?.roadStreet ?? "");
+            plotstSelectedValue = Plots(title: vehicleFormDataModel.data?.houseNo ?? "");
+            roadController.text = vehicleFormDataModel.data?.roadStreet ?? "";
+            colonyController.text = vehicleFormDataModel.data?.roadStreet ?? "";
+
+            //Spouse Information
+
+            for (var element in vehicleFormDataModel.data!.vehicleDetail!) {
+              vehicleNoControllers.add(TextEditingController(text: element.vehicleNo.toString()));
+              makeControllers.add(TextEditingController(text: element.vehicleMake));
+              modelControllers.add(TextEditingController(text: element.vehicleModel));
+              colorControllers.add(TextEditingController(text: element.vehicleColor));
+              engineNoControllers.add(TextEditingController(text: element.vehicleEngine));
+              chassisControllers.add(TextEditingController(text: element.vehicleChassis));
+            }
+
+            for (var element in vehicleFormDataModel.data!.vehicleUserDetail!) {
+              userfullNameControllers.add(TextEditingController(text: element.userName));
+              userCnicControllers.add(TextEditingController(text: element.userNic));
+              userMobileControllers.add(TextEditingController(text: element.userPhone));
+              userDrivingLicenseFrontSideImages.add(File(''));
+              userDrivingLicenseBackSideImages.add(File(''));
+              userCnicFrontSideImages.add(File(''));
+              userCnicBacktSideImages.add(File(''));
+            }
+
+            formsLoadingStatus.value = ApiCallStatus.success;
+
+            update();
+
+            return true;
+          }, onError: (error) {
+            ApiException apiException = error;
+            print(apiException.message);
+            BaseClient.handleApiError(error);
+            formsLoadingStatus.value = ApiCallStatus.error;
+            return false;
+          });
+        });
+      } else {
+        isInternetAvailable.value = false;
+      }
+    });
+    return null;
+  }
 
   Future<dynamic> getProfileData() async {
     await appPreferences.isPreferenceReady;
@@ -240,24 +302,6 @@ class VechicleController extends GetxController {
   int userInfoDataIndex = 0;
 
   int vehicleDataIndex = 0;
-  // clearAddUserInfo() {
-  //   userfullNameController.clear();
-  //   userCnicController.clear();
-  //   userMobileController.clear();
-  //   userDrivingLicenseFrontSideImage = null;
-  //   userDrivingLicenseBackSideImage = null;
-  //   userCnicFrontSideImage = null;
-  //   userCnicBacktSideImage = null;
-  // }
-
-  // clearAddVehicle() {
-  //   vehicleNoController.clear();
-  //   makeController.clear();
-  //   modelController.clear();
-  //   colorController.clear();
-  //   engineNoController.clear();
-  //   chassisController.clear();
-  // }
 
   addVehicle(index) async {
     final formState = addVehicleFormKey.currentState;
@@ -321,11 +365,6 @@ class VechicleController extends GetxController {
             );
           }
         }
-        // vehicalData['user_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
-        //   userCnicFrontSideImage!.path,
-        //   filename: userCnicFrontSideImage!.path.split('/').last,
-        //   contentType: _http.MediaType.parse('image/jpeg'),
-        // );
 
         for (var element in userDrivingLicenseBackSideImages) {
           String filePath1 = element.path;
@@ -337,11 +376,6 @@ class VechicleController extends GetxController {
             );
           }
         }
-        // vehicalData['user_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
-        //   userCnicBacktSideImage!.path,
-        //   filename: userCnicBacktSideImage!.path.split('/').last,
-        //   contentType: _http.MediaType.parse('image/jpeg'),
-        // );
 
         for (var element in userCnicFrontSideImages) {
           String filePath1 = element.path;
@@ -353,11 +387,6 @@ class VechicleController extends GetxController {
             );
           }
         }
-        // vehicalData['user_license_front[$index]'] = await _dio.MultipartFile.fromFile(
-        //   userDrivingLicenseFrontSideImage!.path,
-        //   filename: userDrivingLicenseFrontSideImage!.path.split('/').last,
-        //   contentType: _http.MediaType.parse('image/jpeg'),
-        // );
 
         for (var element in userCnicBacktSideImages) {
           String filePath1 = element.path;
@@ -369,11 +398,6 @@ class VechicleController extends GetxController {
             );
           }
         }
-        // vehicalData['user_license_back[$index]'] = await _dio.MultipartFile.fromFile(
-        //   userDrivingLicenseBackSideImage!.path,
-        //   filename: userDrivingLicenseBackSideImage!.path.split('/').last,
-        //   contentType: _http.MediaType.parse('image/jpeg'),
-        // );
 
         Utils.showToast(
           "User Info ${userInfoDataIndex + 1} Added Successfully",
@@ -658,25 +682,18 @@ class VechicleController extends GetxController {
     userCnicFrontSideImages.add(File(''));
     userCnicBacktSideImages.add(File(''));
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-    addUserControllers();
-    addVehicleControllers();
-  }
 }
 
 class Street {
   int? id;
   String? title;
 
-  Street({required this.id, required this.title});
+  Street({this.id, required this.title});
 }
 
 class Plots {
   int? id;
   String? title;
 
-  Plots({required this.id, required this.title});
+  Plots({this.id, required this.title});
 }
