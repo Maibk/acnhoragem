@@ -61,7 +61,7 @@ class BaseClient {
         } else {
           headers = map;
         }
-        // 3) try to perform http request
+
         var response = await _dio
             .get(
               url,
@@ -163,9 +163,6 @@ class BaseClient {
       return false;
     }
   }
-
-
-
 
   static Future<MultipartFile> getMultipartFileFromUrl(String imageUrl) async {
     try {

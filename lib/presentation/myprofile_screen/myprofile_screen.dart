@@ -192,9 +192,6 @@ class MyprofileScreen extends StatelessWidget {
                                       isFinal: false,
                                       keyboardType: TextInputType.emailAddress,
                                       limit: 80,
-                                      validator: (value) {
-                                        return HelperFunction.validateAlphabetsOnly(value!);
-                                      },
                                     ),
                                     SizedBox(
                                       height: getVerticalSize(10),

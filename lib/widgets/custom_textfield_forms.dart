@@ -129,7 +129,7 @@ class _CustomTextFieldFormsState extends State<CustomTextFieldForms> {
                   },
                   inputFormatters: widget.inputFormatters,
                   onFieldSubmitted: (_) {
-                    widget.isFinal! ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
+                  widget.isFinal! ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
                   },
                   onEditingComplete: () {
                     widget.isFinal! ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(widget.nextFocusNode!);

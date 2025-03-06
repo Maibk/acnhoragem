@@ -166,6 +166,9 @@ class AppPreferences {
 
   void setRole({required String role}) => _setPreference(prefName: prefRole, prefValue: role, prefType: prefTypeString);
 
+  Future<String> getRole() async => await _getPreference(prefName: prefRole);
+
+
   void setUserPhoneNumber({required String phoneNumber}) =>
       _setPreference(prefName: prefUserPhoneNumber, prefValue: phoneNumber, prefType: prefTypeString);
 
@@ -175,7 +178,6 @@ class AppPreferences {
 
   Future<String> getUserCity() async => await _getPreference(prefName: prefUserCity);
 
-  Future<String> getRole() async => await _getPreference(prefName: prefRole);
 
   void setBrandId({required String brandId}) => _setPreference(prefName: prefBrandId, prefValue: brandId, prefType: prefTypeString);
 

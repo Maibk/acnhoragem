@@ -75,11 +75,15 @@ class SplashController extends GetxController {
               else
                 {
                   if (profileModel!.appForm == 0 && profileModel!.userCategory == "Owner")
-                    {Get.offAllNamed(AppRoutes.ownerFormsPage)}
+                    {
+                      Get.offAllNamed(AppRoutes.ownerFormsPage, arguments: {'status': "", 'id': ""})
+                    }
                   else
                     {Get.offAllNamed(AppRoutes.homePage)},
                   if (profileModel!.appForm == 0 && profileModel!.userCategory == "Tenant")
-                    {Get.offAllNamed(AppRoutes.tenantFormsPage)}
+                    {
+                      Get.offAllNamed(AppRoutes.tenantFormsPage, arguments: {'status': "", 'id': ""})
+                    }
                   else
                     {Get.offAllNamed(AppRoutes.homePage)}
                 }

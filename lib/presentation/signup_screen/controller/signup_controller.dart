@@ -53,12 +53,15 @@ class SignUpController extends GetxController {
             if (response.data['data'] != null) {
               singupResponseModel = SignUpModel.fromJson(response.data);
               _appPreferences.setAccessToken(token: singupResponseModel!.data!.token!);
+              _appPreferences.setRole(role: singupResponseModel!.data!.userCategory!);
               Utils.showToast(
                 response.data['message'],
                 false,
               );
 
-              userTypeContoller.text == "Owner" ? Get.offAllNamed(AppRoutes.ownerFormsPage) : Get.offAllNamed(AppRoutes.tenantFormsPage);
+              userTypeContoller.text == "Owner"
+                  ? Get.offAllNamed(AppRoutes.ownerFormsPage, arguments: {'status': "", 'id': ""})
+                  : Get.offAllNamed(AppRoutes.tenantFormsPage, arguments: {'status': "", 'id': ""});
             } else {
               Utils.showToast('Incorrect Password or Email', true);
               // Handle the case where data is null in the response

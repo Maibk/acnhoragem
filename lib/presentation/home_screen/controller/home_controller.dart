@@ -43,8 +43,7 @@ class HomeController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getProfileUrl,
-              onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getProfileUrl, onSuccess: (response) {
             profileModel = ProfileModel.fromJson(response.data);
             log(response.toString());
 
@@ -118,17 +117,12 @@ class HomeController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              // headers: {'Authorization': "Bearer 15|7zbPqSX0mng6isF9L3iU3v33V6eaoGvEMkE2K7Fg"},
-              headers: {'Authorization': "Bearer $token"},
-              Constants.complaintUrl, onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.complaintUrl, onSuccess: (response) {
             log(response.toString());
 
             complaints = Complaints.fromJson(response.data);
 
             update();
-
-            log(complaints!.data!.first.description!);
 
             return true;
           }, onError: (error) {

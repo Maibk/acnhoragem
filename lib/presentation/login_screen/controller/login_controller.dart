@@ -46,6 +46,7 @@ class LoginController extends GetxController {
               _appPreferences.setIsLoggedIn(loggedIn: true);
               _appPreferences.setAccessToken(token: loginResponseModel!.data!.token!);
               _appPreferences.setProfileData(data: jsonEncode(loginResponseModel));
+              _appPreferences.setRole(role: loginResponseModel!.data!.userCategory!);
 
               await _appPreferences.isPreferenceReady;
 
@@ -56,7 +57,10 @@ class LoginController extends GetxController {
 
               if (loginResponseModel?.data?.appForm == 0) {
                 if (loginResponseModel?.data?.userCategory == "Owner") {
-                  Get.offAllNamed(AppRoutes.ownerFormsPage);
+                  Get.offAllNamed(AppRoutes.ownerFormsPage, arguments:{
+                    'status' : "", 
+                    'id' : ""
+                  } );
                 } else {
                   Get.offAllNamed(AppRoutes.tenantFormsPage);
                 }

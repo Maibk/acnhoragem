@@ -21,7 +21,9 @@ class FormsListsController extends GetxController {
         ? Constants.entryCardUrl
         : cardName == "Servant Form"
             ? Constants.servantFormUrl
-            : Constants.vehicleFormUrl;
+            : cardName == "Owner Form"
+                ? Constants.ownerFormUrl
+                : Constants.tenantFormUrl;
 
     Utils.check().then((value) async {
       if (value) {

@@ -26,17 +26,21 @@ class Data {
   String? houseNo;
   String? status;
   String? rank;
+  String? house_no;
+  String? present_address;
 
-  Data({this.id, this.name, this.fatherName, this.cnic, this.phone, this.houseNo, this.status, this.rank});
+  Data({this.id, this.name, this.fatherName, this.cnic, this.phone, this.houseNo, this.status, this.rank, this.house_no, this.present_address});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
+    name = json['name'] ?? json['tenant_name'];
     fatherName = json['father_name'];
-    cnic = json['cnic'];
-    phone = json['phone'];
-    houseNo = json['house_no'];
+    cnic = json['cnic'] ?? json['tenant_cnic'];
+    phone = json['phone'] ?? json['tenant_phone'];
+    houseNo = json['house_no'] ?? json['tenant_house_no']; ;
     status = json['status'];
     rank = json['rank'];
+    house_no = json['house_no'];
+    present_address = json['present_address'];
   }
 }

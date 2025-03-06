@@ -39,7 +39,7 @@ class MyprofileController extends GetxController {
   AppPreferences appPreferences = AppPreferences();
   GlobalKey<FormState> formKey = new GlobalKey();
 
-  Rx<bool> isShowPassword = false.obs;
+  Rx<bool> isShowPassword = true.obs;
 
   bool isResponse = false;
 

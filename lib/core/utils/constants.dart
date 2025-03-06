@@ -55,6 +55,13 @@ class Constants {
   //S3 presigned url
   static const preSignedHeaderValue = "ehK2wPZR54qDHNJKNtw5";
 
+
+
+
+  static const String formStatusPending = "Pending";
+  static const String formStatusApproved = "Approved";
+  static const String formStatusRejected = "Rejected";
+
   static const registerUrl = '${baseUrl}register';
   static const loginUrl = '${baseUrl}login';
   static const forgotPassUrl = '${baseUrl}forgot-password';
@@ -107,6 +114,8 @@ class Constants {
   static const entryCardUpdateUrl = baseUrl + 'entry-card/update';
   static const servantFormUrl = baseUrl + 'servant-card/';
   static const vehicleFormUrl = baseUrl + 'vehicle/';
+  static const ownerFormUrl = baseUrl + 'owner-application/';
+  static const tenantFormUrl = baseUrl + 'tenant-application/';
 
   static const forgotPasswordUrl = baseUrl + '/forget-password';
 
@@ -170,3 +179,5 @@ Allotee(s)/ occupants (s) are required not to throw any waste material in dustbi
 No building, structure, or any part thereof should be occupied or used without obtaining completion certificate (permission to occupy).
 """;
 }
+
+

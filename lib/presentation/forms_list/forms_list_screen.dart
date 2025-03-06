@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:anchorageislamabad/Shared_prefrences/app_prefrences.dart';
 import 'package:anchorageislamabad/core/utils/size_utils.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/forms_list/controller/forms_lists_controller.dart';
@@ -19,6 +20,8 @@ class FormsListScreen extends StatefulWidget {
 class _FormsListScreenState extends State<FormsListScreen> {
   final args = Get.arguments;
   FormsListsController controller = Get.put(FormsListsController());
+
+  AppPreferences appPreferences = AppPreferences();
   @override
   initState() {
     controller.getAllFormsList(args);
@@ -96,15 +99,20 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Row(
+                                          // crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Container(
                                               width: .3.sw,
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   MyText(title: "Name:"),
                                                   2.verticalSpace,
-                                                  MyText(title: "Father Name:"),
+                                                  if (args == "Owner Form" || args == "Tenant Form")
+                                                    MyText(title: "House No:")
+                                                  else
+                                                    MyText(title: "Father Name:"),
                                                   2.verticalSpace,
                                                   MyText(title: "CNIC:"),
                                                   2.verticalSpace,
@@ -122,7 +130,10 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                                 children: [
                                                   MyText(title: controller.formsListModel.data?[index].name ?? ""),
                                                   2.verticalSpace,
-                                                  MyText(line: 10, title: controller.formsListModel.data?[index].fatherName ?? ""),
+                                                  if (args == "Owner Form" || args == "Tenant Form")
+                                                    MyText(line: 10, title: controller.formsListModel.data?[index].houseNo ?? "")
+                                                  else
+                                                    MyText(line: 10, title: controller.formsListModel.data?[index].fatherName ?? ""),
                                                   2.verticalSpace,
                                                   MyText(title: controller.formsListModel.data?[index].cnic ?? ""),
                                                   2.verticalSpace,
@@ -140,20 +151,32 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                         5.verticalSpace,
                                         GestureDetector(
                                           onTap: () {
+                                            int? id = controller.formsListModel.data?[index].id ?? 0;
+                                            String? status = controller.formsListModel.data?[index].status ?? "";
                                             if (args.toString() == "Entry Form") {
                                               Get.toNamed(AppRoutes.entryFormsPage, arguments: {
-                                                "id": controller.formsListModel.data?[index].id ?? "",
-                                                "status": controller.formsListModel.data?[index].status ?? ""
+                                                "id": id,
+                                                "status": status,
                                               });
                                             } else if (args.toString() == "Servant Form") {
                                               Get.toNamed(AppRoutes.serventFormsPage, arguments: {
-                                                "id": controller.formsListModel.data?[index].id ?? "",
-                                                "status": controller.formsListModel.data?[index].status ?? ""
+                                                "id": id,
+                                                "status": status,
+                                              });
+                                            } else if (args.toString() == "Owner Form") {
+                                              Get.toNamed(AppRoutes.ownerFormsPage, arguments: {
+                                                "id": id,
+                                                "status": status,
+                                              });
+                                            } else if (args.toString() == "Tenant Form") {
+                                              Get.toNamed(AppRoutes.tenantFormsPage, arguments: {
+                                                "id": id,
+                                                "status": "Rejected",
                                               });
                                             } else {
                                               Get.toNamed(AppRoutes.vechicleFormsPage, arguments: {
-                                                "id": controller.formsListModel.data?[index].id ?? "",
-                                                "status": controller.formsListModel.data?[index].status ?? ""
+                                                "id": id,
+                                                "status": status,
                                               });
                                             }
                                           },

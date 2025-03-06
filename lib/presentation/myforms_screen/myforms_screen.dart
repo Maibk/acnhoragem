@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:anchorageislamabad/Shared_prefrences/app_prefrences.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,12 +13,22 @@ import '../../widgets/common_image_view.dart';
 import '../../widgets/custom_expensiontile.dart';
 import 'controller/myforms_controller.dart';
 
-class MyFormsScreen extends StatelessWidget {
-  final MyFormsController controller = Get.put(MyFormsController());
-  // const DiscoverScreen({Key? key}) : super(key: key);
+class MyFormsScreen extends StatefulWidget {
+  @override
+  State<MyFormsScreen> createState() => _MyFormsScreenState();
+}
+
+class _MyFormsScreenState extends State<MyFormsScreen> {
+  AppPreferences appPreferences = AppPreferences();
+
+  String role = '';
 
   @override
   Widget build(BuildContext context) {
+    appPreferences.getRole().then((value) {
+      role = value;
+      setState(() {});
+    });
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -44,7 +57,7 @@ class MyFormsScreen extends StatelessWidget {
           actions: [
             IconButton(
               icon: const Icon(Icons.menu, color: Colors.white),
-              onPressed: () {
+              onPressed: () async {
                 Get.toNamed(AppRoutes.menuPage);
               },
             ),
@@ -98,7 +111,7 @@ class MyFormsScreen extends StatelessWidget {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(AppRoutes.serventFormsPage);
+                                          Get.toNamed(AppRoutes.serventFormsPage, arguments: {"status": "", "id": ""});
                                         },
                                         child: CommonImageView(
                                           imagePath: ImageConstant.myFormsIcon,
@@ -122,7 +135,7 @@ class MyFormsScreen extends StatelessWidget {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed(AppRoutes.vechicleFormsPage);
+                                          Get.toNamed(AppRoutes.vechicleFormsPage, arguments: {"status": "", "id": ""});
                                         },
                                         child: CommonImageView(
                                           imagePath: ImageConstant.myFormsIcon1,
@@ -233,6 +246,64 @@ class MyFormsScreen extends StatelessWidget {
                                       ),
                                       MyText(
                                         title: "Vehicle Forms",
+                                        clr: ColorConstant.antextGrayDark,
+                                        fontSize: 10,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: getVerticalSize(20),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: getVerticalSize(10),
+                      ),
+                      MyText(
+                        title: "Application Forms",
+                        clr: ColorConstant.blackColor,
+                        fontSize: 20,
+                        customWeight: FontWeight.w500,
+                      ),
+                      SizedBox(
+                        height: getVerticalSize(5),
+                      ),
+                      Container(
+                        //height: getVerticalSize(200),
+                        color: ColorConstant.apppWhite,
+                        padding: getPadding(left: 50, right: 30, top: 20, bottom: 20),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          if (role == "Owner") {
+                                            Get.toNamed(AppRoutes.formsList, arguments: "Owner Form");
+                                          } else {
+                                            Get.toNamed(AppRoutes.formsList, arguments: "Tenant Form");
+                                          }
+                                        },
+                                        child: CommonImageView(
+                                          imagePath: ImageConstant.profileIcon,
+                                          height: 50,
+                                          width: 50,
+                                        ).paddingOnly(left: 5),
+                                      ),
+                                      SizedBox(
+                                        height: getVerticalSize(10),
+                                      ),
+                                      MyText(
+                                        title: role == "Owner" ? "Owner Form" : "Tenant Form",
                                         clr: ColorConstant.antextGrayDark,
                                         fontSize: 10,
                                       ),

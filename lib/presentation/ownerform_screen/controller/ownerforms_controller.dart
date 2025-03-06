@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:anchorageislamabad/localization/strings_enum.dart';
+import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -79,9 +81,12 @@ class OwnerFornsScreenController extends GetxController {
 
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
+  final RoundedLoadingButtonController editbtnController = RoundedLoadingButtonController();
 
   final RoundedLoadingButtonController uselessbtnController = RoundedLoadingButtonController();
   List<String> eTag = [];
+
+  Rx<ApiCallStatus> formsLoadingStatus = ApiCallStatus.success.obs;
 
   //owners controllers
   TextEditingController fullNameController = TextEditingController();
@@ -126,6 +131,10 @@ class OwnerFornsScreenController extends GetxController {
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
 
+  CscCountry country = CscCountry.Pakistan;
+
+  OwnerFormModel ownerFormModel = OwnerFormModel();
+
   ApiCallStatus apiCallStatus = ApiCallStatus.holding;
 
   GlobalKey<FormState> formKey = GlobalKey();
@@ -163,6 +172,104 @@ class OwnerFornsScreenController extends GetxController {
     vehicleColorControllers.add(TextEditingController());
     vehicleStikerControllers.add(TextEditingController());
     eTag.add("");
+  }
+
+  void setSelectedBlock(String blockTitle) {
+    var matchingBlock = block.firstWhere(
+      (item) => item['title'] == blockTitle,
+      orElse: () => {},
+    );
+    if (matchingBlock.isNotEmpty) {
+      selectedValue = matchingBlock['id'];
+    } else {
+      selectedValue = null; // Handle cases where blockTitle is not found
+    }
+  }
+
+  getEntryFormsDetails(id) {
+    Utils.check().then((value) async {
+      if (value) {
+        isInternetAvailable.value = true;
+        formsLoadingStatus.value = ApiCallStatus.loading;
+        update();
+        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.ownerFormUrl + id.toString(), onSuccess: (response) {
+            ownerFormModel = OwnerFormModel.fromJson(response.data);
+            fullNameController.text = ownerFormModel.data?.name ?? "";
+            presentAddController.text = ownerFormModel.data?.presentAddress ?? "";
+            cnicController.text = ownerFormModel.data?.cnic ?? "";
+            telephoneController.text = ownerFormModel.data?.phone ?? "";
+            occupationController.text = ownerFormModel.data?.occupation ?? "";
+            setSelectedBlock(ownerFormModel.data?.blockCommercial.toString() ?? "");
+            streetSelectedValue = Street(title: ownerFormModel.data?.streetNo ?? "");
+            sizeHouseAddController.text = ownerFormModel.data?.sizeOfHousePlot ?? "";
+
+            plotstSelectedValue = Plots(title: ownerFormModel.data?.houseNo ?? "", sq_yards: ownerFormModel.data?.sizeOfHousePlot ?? "");
+            permanantAddController.text = ownerFormModel.data?.permanentAddress ?? "";
+
+            if (ownerFormModel.data!.allotmentLetter.toString() == "Yes") {
+              updateAllotmentLetter("Yes");
+            } else {
+              updateAllotmentLetter("No");
+            }
+
+            if (ownerFormModel.data!.privateArm.toString() == "Yes") {
+              updatePrivatearms("Yes");
+            } else {
+              updatePrivatearms("No");
+            }
+            natinalityController.text = ownerFormModel.data?.nationality ?? "";
+            privateLicenseController.text = ownerFormModel.data?.licenseNo ?? "";
+            privateArmsController.text = ownerFormModel.data?.armQuantity.toString() ?? "";
+            armQuantityController.text = ownerFormModel.data?.ammunitionQuantity.toString() ?? "";
+            privateBoreController.text = ownerFormModel.data?.boreType ?? "";
+            setCountry(ownerFormModel.data?.nationality ?? "");
+
+            if (ownerFormModel.data!.completionCertificate.toString() == "Yes") {
+              updateCompletionCertificate("Yes");
+            } else {
+              updateCompletionCertificate("No");
+            }
+            updateConstructionStatus(ownerFormModel.data?.construction_status ?? "");
+            if (ownerFormModel.data!.vehicle != null) {
+              if (ownerFormModel.data!.vehicle!.isNotEmpty) {
+                updateVehicle("Yes");
+              }
+              for (var element in ownerFormModel.data!.vehicle!) {
+                vehicleTypeControllers.add(TextEditingController(text: element.vehicleType));
+                vehicleRegisterNoControllers.add(TextEditingController(text: element.registration));
+                vehicleColorControllers.add(TextEditingController(text: element.color));
+                vehicleStikerControllers.add(TextEditingController(text: element.stickerNo));
+                eTag.add(element.etag ?? "Yes");
+              }
+
+              vehicleDataIndex = ownerFormModel.data!.vehicle!.length;
+            }
+
+            update();
+
+            formsLoadingStatus.value = ApiCallStatus.success;
+
+            return true;
+          }, onError: (error) {
+            ApiException apiException = error;
+            print(apiException.message);
+            BaseClient.handleApiError(error);
+            formsLoadingStatus.value = ApiCallStatus.error;
+            return false;
+          });
+        });
+      } else {
+        isInternetAvailable.value = false;
+      }
+    });
+    return null;
+  }
+
+  setCountry(input) {
+    String countryName = input.split(' ').last;
+    country = CscCountry.values.firstWhere((element) => element.name == countryName);
+    log(country.toString());
   }
 
   Future<void> ownerFormApi(context) async {
@@ -431,6 +538,158 @@ class OwnerFornsScreenController extends GetxController {
     }
   }
 
+  Future<void> editOwnerFormApi(context) async {
+    editbtnController.start();
+    Utils.check().then((value) async {
+      Map<String, dynamic> data = {
+        'name': fullNameController.text,
+        'cnic': cnicController.text,
+        'phone': telephoneController.text,
+        'nationality': natinalityController.text,
+        'occupation': occupationController.text,
+        'present_address': presentAddController.text,
+        'permanent_address': permanantAddController.text,
+        'block_commercial': selectedValue ?? 0,
+        'street_no': streetSelectedValue?.title ?? "",
+        'house_no': plotstSelectedValue?.title ?? "",
+        'size_of_house_plot': sizeHouseAddController.text,
+        'allotment_letter': alottmentletter,
+        'completion_certificate': completionCertificate,
+        'construction_status': constructionStatus,
+        'private_arm': privatearms == "Yes" ? "Yes" : "No",
+        'vehicle_status': hasVehicle,
+        'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+        'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+        'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+        'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
+        'status': '0'
+      };
+
+      ownerFormdata.addAll(data);
+
+      if (hasVehicle == "Yes") {
+        if (ownerFormModel.data != null) {
+          if (ownerFormModel.data!.vehicle != null) {
+            for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
+              ownerFormdata['vehicle_type[$i]'] = vehicleTypeControllers[i].text;
+              ownerFormdata['registration[$i]'] = vehicleRegisterNoControllers[i].text;
+              ownerFormdata['color[$i]'] = vehicleColorControllers[i].text;
+              ownerFormdata['sticker_no[$i]'] = vehicleStikerControllers[i].text;
+              ownerFormdata['etag[$i]'] = eTag[i].toString();
+            }
+          }
+        }
+      }
+
+      if (alottmentletter == "Yes") {
+        if (allotmentletter != null) {
+          String filePath1 = allotmentletter?.path ?? '';
+          if (filePath1.isNotEmpty) {
+            ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
+        } else {
+          ownerFormdata['copy_allotment_letter'] =
+              await BaseClient.getMultipartFileFromUrl("https://anchorageislamabad.com/public/uploads/files/tenantform/tenantcnic/1741007460208.jpg");
+        }
+      }
+
+      if (buildingplan != null) {
+        String filePath1 = buildingplan?.path ?? '';
+        if (filePath1.isNotEmpty) {
+          ownerFormdata['copy_approval_building_plan'] = await _dio.MultipartFile.fromFile(
+            filePath1,
+            filename: filePath1.split('/').last,
+            contentType: _http.MediaType.parse('image/jpeg'),
+          );
+        }
+      } else {
+        ownerFormdata['copy_approval_building_plan'] =
+            await BaseClient.getMultipartFileFromUrl("https://anchorageislamabad.com/public/uploads/files/tenantform/tenantcnic/1741007460208.jpg");
+      }
+
+      if (completionCertificate == "Yes") {
+        if (certificate != null) {
+          String filePath1 = certificate?.path ?? '';
+          if (filePath1.isNotEmpty) {
+            ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
+        }
+      } else {
+        ownerFormdata['copy_completion_certificate'] =
+            BaseClient.getMultipartFileFromUrl("https://anchorageislamabad.com/public/uploads/files/tenantform/tenantcnic/1741007460208.jpg");
+      }
+      if (value) {
+        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+          var dio = _dio.Dio();
+          try {
+            var response = await dio.request(
+              'https://anchorageislamabad.com/api/owner-application/update',
+              options: _dio.Options(
+                method: 'POST',
+                headers: {
+                  'Authorization': "Bearer $token",
+                },
+              ),
+              data: _dio.FormData.fromMap(ownerFormdata),
+            );
+            if (response.statusCode == 200) {
+              Utils.showToast(
+                response.data['message'],
+                false,
+              );
+              editbtnController.stop();
+              log(json.encode(response.data));
+
+              Get.offAllNamed(AppRoutes.homePage);
+            } else {
+              editbtnController.stop();
+
+              Utils.showToast(
+                response.data['message'],
+                false,
+              );
+              log(response.statusMessage.toString());
+            }
+          } on _dio.DioException catch (error) {
+            editbtnController.stop();
+            Utils.showToast(
+              error.message.toString(),
+              true,
+            );
+            if (error.response == null) {
+              var exception = ApiException(
+                url: 'https://anchorageislamabad.com/api/owner-application',
+                message: error.message!,
+              );
+              return BaseClient.handleApiError(exception);
+            }
+
+            if (error.response?.statusCode == 500) {
+              editbtnController.stop();
+              Utils.showToast(
+                "Internal Server Error",
+                true,
+              );
+            }
+          }
+        });
+      } else {
+        editbtnController.stop();
+        CustomSnackBar.showCustomErrorToast(
+          message: Strings.noInternetConnection,
+        );
+      }
+    });
+  }
+
   getStreetByBlock(id) async {
     Utils.check().then((value) async {
       if (value) {
@@ -477,14 +736,11 @@ class OwnerFornsScreenController extends GetxController {
         apiCallStatus = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getPlotByStreetUrl + id.toString(), onSuccess: (response) {
             update();
             plots.clear;
             for (var element in response.data['data']) {
-              plots.add(
-                  Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
+              plots.add(Plots(id: element["id"] ?? 0, title: element["plot_no"] ?? "", sq_yards: element["sq_yards"] ?? ""));
             }
             plots;
 
@@ -537,19 +793,13 @@ class OwnerFornsScreenController extends GetxController {
     hasVehicle = value;
     update();
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-    addvehicleControllers();
-  }
 }
 
 class Street {
   int? id;
   String? title;
 
-  Street({required this.id, required this.title});
+  Street({this.id, required this.title});
 }
 
 class Plots {
@@ -557,5 +807,5 @@ class Plots {
   String? title;
   String? sq_yards;
 
-  Plots({required this.id, required this.title, required this.sq_yards});
+  Plots({this.id, required this.title, required this.sq_yards});
 }
