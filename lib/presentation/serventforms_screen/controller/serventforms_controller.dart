@@ -284,6 +284,8 @@ class ServentFormsController extends GetxController {
 
             update();
 
+            log(servantFormDataModel.data.toString());
+
             return true;
           }, onError: (error) {
             ApiException apiException = error;
@@ -882,7 +884,7 @@ class ServentFormsController extends GetxController {
             }
           } on _dio.DioException catch (error) {
             submitEdittedFormButtonController.stop();
-    update();
+            update();
 
             Utils.showToast(
               error.response?.data["message"].toString() ?? error.error.toString(),

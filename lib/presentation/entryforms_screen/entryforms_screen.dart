@@ -42,9 +42,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
     controller.ownerCnicFront = null;
     controller.ownerCnicBack = null;
     Future.delayed(Duration(), () {
-      args['status'] == "Pending" ? controller.getEntryFormsDetails(args['id']) : null;
-      args['status'] != "Pending" ? controller.addSpouse() : null;
-      args['status'] != "Pending" ? controller.addChild() : null;
+      args['status'] != "" ? controller.getEntryFormsDetails(args['id']) : null;
+      args['status'] != "" ? null : controller.addSpouse();
+      args['status'] != "" ? null : controller.addChild();
     });
 
     if (args['status'] == Constants.formStatusRejected || args['status'] == "") {
@@ -103,7 +103,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
               GetBuilder(
                   init: controller,
                   builder: (_value) {
-                    if (args['status'] == "Pending" && controller.formsLoadingStatus == ApiCallStatus.loading) {
+                    if (args['status'] != "" && controller.formsLoadingStatus == ApiCallStatus.loading) {
                       return Center(
                           child: CircularProgressIndicator(
                         color: Colors.white,
@@ -143,7 +143,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             fieldText: "Full Name".tr,
                                             controller: controller.fullNameController,
                                             isFinal: false,
-                                         
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
                                             keyboardType: TextInputType.emailAddress,
                                             limit: HelperFunction.EMAIL_VALIDATION,
@@ -359,7 +358,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          if (args['status'] == "Pending")
+                                          if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -407,7 +406,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          if (args['status'] == "Pending")
+                                          if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -453,7 +452,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          if (args['status'] == "Pending")
+                                          if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -525,7 +524,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             ListView.builder(
                                               shrinkWrap: true,
                                               physics: NeverScrollableScrollPhysics(),
-                                              itemCount: args['status'] == "Pending"
+                                              itemCount: args['status'] != ""
                                                   ? controller.entryFormDataModel.data?.spouseDetail?.length ?? 0
                                                   : controller.spousefullNameControllers.length == 0
                                                       ? 1
@@ -709,7 +708,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(5),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -769,7 +768,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -829,7 +828,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -943,7 +942,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             ListView.builder(
                                               shrinkWrap: true,
                                               physics: NeverScrollableScrollPhysics(),
-                                              itemCount: args['status'] == "Pending"
+                                              itemCount: args['status'] != ""
                                                   ? controller.entryFormDataModel.data?.childDetail?.length ?? 0
                                                   : controller.childfullNameControllers.length == 0
                                                       ? 1
@@ -1128,7 +1127,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(5),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -1186,7 +1185,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -1245,7 +1244,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [

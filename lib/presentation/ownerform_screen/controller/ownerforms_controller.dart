@@ -593,7 +593,7 @@ class OwnerFornsScreenController extends GetxController {
           }
         } else {
           ownerFormdata['copy_allotment_letter'] =
-              await BaseClient.getMultipartFileFromUrl("https://anchorageislamabad.com/public/uploads/files/tenantform/tenantcnic/1741007460208.jpg");
+              await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.allotmentLetterUrl ?? "");
         }
       }
 
@@ -608,7 +608,7 @@ class OwnerFornsScreenController extends GetxController {
         }
       } else {
         ownerFormdata['copy_approval_building_plan'] =
-            await BaseClient.getMultipartFileFromUrl("https://anchorageislamabad.com/public/uploads/files/tenantform/tenantcnic/1741007460208.jpg");
+            await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
       }
 
       if (completionCertificate == "Yes") {
@@ -624,7 +624,7 @@ class OwnerFornsScreenController extends GetxController {
         }
       } else {
         ownerFormdata['copy_completion_certificate'] =
-            BaseClient.getMultipartFileFromUrl("https://anchorageislamabad.com/public/uploads/files/tenantform/tenantcnic/1741007460208.jpg");
+            BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.completionCertificateUrl ?? "");
       }
       if (value) {
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {

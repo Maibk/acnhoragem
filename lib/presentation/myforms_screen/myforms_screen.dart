@@ -260,64 +260,6 @@ class _MyFormsScreenState extends State<MyFormsScreen> {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: getVerticalSize(10),
-                      ),
-                      MyText(
-                        title: "Application Forms",
-                        clr: ColorConstant.blackColor,
-                        fontSize: 20,
-                        customWeight: FontWeight.w500,
-                      ),
-                      SizedBox(
-                        height: getVerticalSize(5),
-                      ),
-                      Container(
-                        //height: getVerticalSize(200),
-                        color: ColorConstant.apppWhite,
-                        padding: getPadding(left: 50, right: 30, top: 20, bottom: 20),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (role == "Owner") {
-                                            Get.toNamed(AppRoutes.formsList, arguments: "Owner Form");
-                                          } else {
-                                            Get.toNamed(AppRoutes.formsList, arguments: "Tenant Form");
-                                          }
-                                        },
-                                        child: CommonImageView(
-                                          imagePath: ImageConstant.profileIcon,
-                                          height: 50,
-                                          width: 50,
-                                        ).paddingOnly(left: 5),
-                                      ),
-                                      SizedBox(
-                                        height: getVerticalSize(10),
-                                      ),
-                                      MyText(
-                                        title: role == "Owner" ? "Owner Form" : "Tenant Form",
-                                        clr: ColorConstant.antextGrayDark,
-                                        fontSize: 10,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: getVerticalSize(20),
-                            ),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                 ),

@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'package:anchorageislamabad/Shared_prefrences/app_prefrences.dart';
 import 'package:anchorageislamabad/core/utils/image_constant.dart';
+import 'package:anchorageislamabad/main.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,18 +14,28 @@ import '../../widgets/common_image_view.dart';
 import '../../widgets/custom_expensiontile.dart';
 import 'controller/home_controller.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final HomeController controller = Get.put(HomeController());
 
-  // const DiscoverScreen({Key? key}) : super(key: key);
+  AppPreferences appPreferences = AppPreferences();
+
+  String role = '';
 
   @override
   Widget build(BuildContext context) {
+    appPreferences.getRole().then((value) {
+      role = value;
+      setState(() {});
+    });
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -236,19 +248,55 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                               ],
+                            ),
+                            SizedBox(
+                              height: getVerticalSize(10),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          if (role == "Owner") {
+                                            Get.toNamed(AppRoutes.formsList, arguments: "Owner Form");
+                                          } else {
+                                            Get.toNamed(AppRoutes.formsList, arguments: "Tenant Form");
+                                          }
+                                        },
+                                        child: CommonImageView(
+                                          imagePath: ImageConstant.profileIcon,
+                                          height: 50,
+                                          width: 50,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: getVerticalSize(10),
+                                      ),
+                                      MyText(
+                                        title: "Application Forms",
+                                        clr: ColorConstant.antextGrayDark,
+                                        fontSize: 11,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             )
                           ],
                         ),
                       ),
                       SizedBox(
-                        height: getVerticalSize(10),
+                        height: getVerticalSize(20),
                       ),
                       Align(
                           alignment: Alignment.topLeft,
                           child: MyText(
                             title: "Quick View",
                             fontSize: 16,
-                            clr: ColorConstant.apppWhite,
+                            clr: ColorConstant.black900,
                           )),
                       SizedBox(
                         height: getVerticalSize(10),
@@ -428,11 +476,9 @@ class HomeScreen extends StatelessWidget {
                                                             padding: getPadding(left: 10, right: 10),
                                                             height: getVerticalSize(20),
                                                             decoration: BoxDecoration(
-                                                              color: controller.complaints!.data![index].status! ==
-                                                                      "Resolved"
+                                                              color: controller.complaints!.data![index].status! == "Resolved"
                                                                   ? ColorConstant.appgreenColor
-                                                                  : controller.complaints!.data![index].status! ==
-                                                                          "Pending"
+                                                                  : controller.complaints!.data![index].status! == "Pending"
                                                                       ? ColorConstant.pendingColor
                                                                       : ColorConstant.assignedColor,
                                                               borderRadius: BorderRadius.circular(5),

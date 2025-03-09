@@ -17,13 +17,16 @@ class FormsListsController extends GetxController {
   AllFormsListModel formsListModel = AllFormsListModel();
 
   Future<void> getAllFormsList(String cardName) async {
+    formsListModel.data?.clear();
     String url = cardName == "Entry Form"
         ? Constants.entryCardUrl
         : cardName == "Servant Form"
             ? Constants.servantFormUrl
             : cardName == "Owner Form"
                 ? Constants.ownerFormUrl
-                : Constants.tenantFormUrl;
+                : cardName == "Vehicle Form"
+                    ? Constants.vehicleFormUrl
+                    : Constants.tenantFormUrl;
 
     Utils.check().then((value) async {
       if (value) {

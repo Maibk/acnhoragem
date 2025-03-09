@@ -46,9 +46,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
     controller.servantData = {};
 
     Future.delayed(Duration(), () {
-      args['status'] == "Pending" ? controller.getEntryFormsDetails(args['id']) : null;
-      args['status'] != "Pending" ? controller.addServantFamControllers() : null;
-      args['status'] != "Pending" ? controller.addServantControllers() : null;
+      args['status'] != "" ? controller.getEntryFormsDetails(args['id']) : null;
+      args['status'] != "" ? null : controller.addServantFamControllers();
+      args['status'] != "" ? null : controller.addServantControllers();
     });
 
     super.initState();
@@ -103,7 +103,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
               GetBuilder(
                   init: controller,
                   builder: (_value) {
-                    if (args['status'] == "Pending" && controller.formsLoadingStatus == ApiCallStatus.loading) {
+                    if (args['status'] != "" && controller.formsLoadingStatus == ApiCallStatus.loading) {
                       return Center(
                           child: CircularProgressIndicator(
                         color: Colors.white,
@@ -351,7 +351,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          if (args['status'] == "Pending")
+                                         if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -398,7 +398,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          if (args['status'] == "Pending")
+                                           if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -445,7 +445,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                          if (args['status'] == "Pending")
+                                           if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -518,7 +518,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             ListView.builder(
                                               shrinkWrap: true,
                                               physics: NeverScrollableScrollPhysics(),
-                                              itemCount: args['status'] == "Pending"
+                                              itemCount: args['status'] != ""
                                                   ? controller.servantFormDataModel.data?.servantDetail?.length ?? 0
                                                   : controller.serventfullNameControllers.length == 0
                                                       ? 1
@@ -739,7 +739,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(5),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -797,7 +797,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                   if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -822,7 +822,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           5.verticalSpace,
                                                         ],
                                                       ),
-                                                    if (args['status'] == "Pending")
+                                                     if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -881,7 +881,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                  if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -995,7 +995,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             ListView.builder(
                                               shrinkWrap: true,
                                               physics: NeverScrollableScrollPhysics(),
-                                              itemCount: args['status'] == "Pending"
+                                              itemCount: args['status'] != ""
                                                   ? controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0
                                                   : controller.serventfamfullNameControllers.length == 0
                                                       ? 1
@@ -1098,7 +1098,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [

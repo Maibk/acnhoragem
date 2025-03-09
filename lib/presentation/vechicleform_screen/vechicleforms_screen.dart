@@ -33,9 +33,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
   @override
   initState() {
     Future.delayed(Duration(), () {
-      args['status'] == "Pending" ? controller.getEntryFormsDetails(args['id']) : null;
-      args['status'] != "Pending" ? controller.addUserControllers() : null;
-      args['status'] != "Pending" ? controller.addVehicleControllers() : null;
+      args['status'] != "" ? controller.getEntryFormsDetails(args['id']) : null;
+      args['status'] != "" ? null : controller.addUserControllers();
+      args['status'] != "" ? null : controller.addVehicleControllers();
     });
     super.initState();
   }
@@ -83,7 +83,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
               GetBuilder(
                   init: controller,
                   builder: (_value) {
-                    if (args['status'] == "Pending" && controller.formsLoadingStatus == ApiCallStatus.loading) {
+                    if (args['status'] != "" && controller.formsLoadingStatus == ApiCallStatus.loading) {
                       return Center(
                           child: CircularProgressIndicator(
                         color: Colors.white,
@@ -124,8 +124,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               CustomTextField(
-                                                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                 fieldText: "Full Name".tr,
                                                 controller: controller.fullNameController,
                                                 isFinal: false,
@@ -139,8 +138,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 height: getVerticalSize(5),
                                               ),
                                               CustomTextField(
-                                                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                 fieldText: "Father’s Name".tr,
                                                 controller: controller.fathersController,
                                                 isFinal: false,
@@ -213,7 +211,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 children: [
                                                   Expanded(
                                                     child: CustomTextField(
-                                                      
                                                       fieldText: "Date".tr,
                                                       controller: controller.dateController,
                                                       isFinal: false,
@@ -230,8 +227,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 children: [
                                                   Expanded(
                                                     child: CustomTextField(
-                                                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                      enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                       fieldText: "Rank/Rate".tr,
                                                       controller: controller.rankController,
                                                       isFinal: false,
@@ -244,8 +240,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   ),
                                                   Expanded(
                                                     child: CustomTextField(
-                                                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                      enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                       fieldText: "Service No".tr,
                                                       controller: controller.servisController,
                                                       isFinal: false,
@@ -265,8 +260,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 children: [
                                                   Expanded(
                                                     child: CustomTextField(
-                                                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                      enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                       fieldText: "CNIC".tr,
                                                       controller: controller.cnicController,
                                                       isFinal: false,
@@ -283,8 +277,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   ),
                                                   Expanded(
                                                     child: CustomTextField(
-                                                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                      enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                       fieldText: "Office / Department".tr,
                                                       controller: controller.officeController,
                                                       isFinal: false,
@@ -419,8 +412,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 children: [
                                                   Expanded(
                                                     child: CustomTextField(
-                                                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                      enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                       fieldText: "Colony/Residential Area Name".tr,
                                                       controller: controller.colonyController,
                                                       isFinal: false,
@@ -440,8 +432,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 children: [
                                                   Expanded(
                                                     child: CustomTextField(
-                                                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                      enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                       fieldText: "Cell No.".tr,
                                                       controller: controller.cellNoController,
                                                       isFinal: false,
@@ -454,8 +445,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   ),
                                                   Expanded(
                                                     child: CustomTextField(
-                                                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                      enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                       fieldText: "PTCL No.".tr,
                                                       controller: controller.ptclController,
                                                       isFinal: false,
@@ -643,7 +633,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   child: ListView.builder(
                                                 physics: NeverScrollableScrollPhysics(),
                                                 shrinkWrap: true,
-                                                itemCount: args['status'] == "Pending"
+                                                itemCount: args['status'] != ""
                                                     ? controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0
                                                     : controller.vehicleNoControllers.length == 0
                                                         ? 1
@@ -688,9 +678,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         children: [
                                                           Expanded(
                                                             child: CustomTextField(
-
-                                                                                                          enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 fieldText: "Vehicle No.".tr,
                                                                 controller: controller.vehicleNoControllers[index],
                                                                 isFinal: false,
@@ -706,8 +694,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 controller: controller.makeControllers[index],
                                                                 isFinal: false,
                                                                 keyboardType: TextInputType.emailAddress,
-                                                                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 validator: (value) {
                                                                   return HelperFunction.empthyFieldValidator(value!);
                                                                 }),
@@ -723,8 +710,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           Expanded(
                                                             child: CustomTextField(
                                                                 fieldText: "Model".tr,
-                                                                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: controller.modelControllers[index],
                                                                 isFinal: false,
                                                                 keyboardType: TextInputType.emailAddress,
@@ -736,8 +722,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           Expanded(
                                                             child: CustomTextField(
                                                                 fieldText: "Color".tr,
-                                                                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: controller.colorControllers[index],
                                                                 isFinal: false,
                                                                 keyboardType: TextInputType.emailAddress,
@@ -756,8 +741,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           Expanded(
                                                             child: CustomTextField(
                                                                 fieldText: "Engine No".tr,
-                                                                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: controller.engineNoControllers[index],
                                                                 isFinal: false,
                                                                 keyboardType: TextInputType.emailAddress,
@@ -770,7 +754,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             child: CustomTextField(
                                                                 fieldText: "Chassis No".tr,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
-
                                                                 controller: controller.chassisControllers[index],
                                                                 isFinal: false,
                                                                 keyboardType: TextInputType.emailAddress,
@@ -862,7 +845,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         keyboardType: TextInputType.emailAddress,
                                                         limit: HelperFunction.EMAIL_VALIDATION,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-
                                                         validator: (value) {
                                                           return HelperFunction.validateAlphabetsOnly(value!);
                                                         }),
@@ -875,8 +857,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "CNIC No.".tr,
-                                                                                                          enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: controller.userCnicControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.number,
@@ -892,8 +873,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Mobile number".tr,
-                                                                                                          enabled: args['status'] == Constants.formStatusPending ? false : true,
-
+                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: controller.userMobileControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.phone,
@@ -909,7 +889,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -936,7 +916,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                    if (args['status'] != Constants.formStatusPending)
+                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
@@ -970,7 +950,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -997,7 +977,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                    if (args['status'] != Constants.formStatusPending)
+                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
@@ -1032,7 +1012,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -1059,7 +1039,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -1086,7 +1066,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                    if (args['status'] != Constants.formStatusPending)
+                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
@@ -1120,7 +1100,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "Pending")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -1146,7 +1126,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                    if (args['status'] != Constants.formStatusPending)
+                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
@@ -1434,7 +1414,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1459,7 +1439,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
@@ -1484,7 +1464,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1509,7 +1489,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
@@ -1534,7 +1514,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1559,7 +1539,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
@@ -1584,7 +1564,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1609,7 +1589,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
@@ -1632,7 +1612,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1657,7 +1637,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
@@ -1682,7 +1662,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1707,7 +1687,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
@@ -1730,7 +1710,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1755,7 +1735,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
@@ -1780,7 +1760,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1805,7 +1785,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(
@@ -1830,7 +1810,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(15),
                                         ),
-                                        if (args['status'] == "Pending")
+                                        if (args['status'] != "")
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -1855,7 +1835,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               ),
                                             ],
                                           ),
-                                        if (args['status'] != Constants.formStatusPending)
+                                        if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                           Padding(
                                             padding: getPadding(left: 10, right: 10),
                                             child: CustomButton(

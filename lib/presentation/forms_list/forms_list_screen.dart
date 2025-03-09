@@ -171,7 +171,7 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                             } else if (args.toString() == "Tenant Form") {
                                               Get.toNamed(AppRoutes.tenantFormsPage, arguments: {
                                                 "id": id,
-                                                "status": "Rejected",
+                                                "status": status,
                                               });
                                             } else {
                                               Get.toNamed(AppRoutes.vechicleFormsPage, arguments: {
