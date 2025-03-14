@@ -90,6 +90,8 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
+                                  int? id = controller.formsListModel.data?[index].id ?? 0;
+                                  String? status = controller.formsListModel.data?[index].status ?? "";
                                   return Container(
                                     margin: EdgeInsets.only(bottom: 10),
                                     width: Get.width,
@@ -151,8 +153,6 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                         5.verticalSpace,
                                         GestureDetector(
                                           onTap: () {
-                                            int? id = controller.formsListModel.data?[index].id ?? 0;
-                                            String? status = controller.formsListModel.data?[index].status ?? "";
                                             if (args.toString() == "Entry Form") {
                                               Get.toNamed(AppRoutes.entryFormsPage, arguments: {
                                                 "id": id,
@@ -183,13 +183,16 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                           child: Center(
                                             child: Container(
                                               padding: EdgeInsets.all(8),
-                                              decoration: BoxDecoration(color: Color(0xffffc107)),
+                                              decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color: controller.getColor(status)),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  Icon(Icons.remove_red_eye),
+                                                  Icon(
+                                                    Icons.remove_red_eye,
+                                                    color: Colors.white,
+                                                  ),
                                                   2.horizontalSpace,
-                                                  MyText(title: "View Details"),
+                                                  MyText(clr: Colors.white, title: status == "Rejected" ? "Edit Details" : "View Details"),
                                                 ],
                                               ),
                                             ),

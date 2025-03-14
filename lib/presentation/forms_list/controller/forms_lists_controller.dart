@@ -7,6 +7,7 @@ import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/data/services/api_exceptions.dart';
 import 'package:anchorageislamabad/data/services/base_client.dart';
 import 'package:anchorageislamabad/presentation/forms_list/models/all_forms_list_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FormsListsController extends GetxController {
@@ -57,5 +58,16 @@ class FormsListsController extends GetxController {
       }
     });
     return null;
+  }
+
+  Color getColor(String status) {
+    switch (status) {
+      case "Rejected":
+        return Colors.red;
+      case "Approved":
+        return Colors.green;
+      default:
+        return Colors.grey;
+    }
   }
 }

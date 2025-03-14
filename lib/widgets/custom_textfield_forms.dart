@@ -129,7 +129,7 @@ class _CustomTextFieldFormsState extends State<CustomTextFieldForms> {
                   },
                   inputFormatters: widget.inputFormatters,
                   onFieldSubmitted: (_) {
-                  widget.isFinal! ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
+                    widget.isFinal! ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
                   },
                   onEditingComplete: () {
                     widget.isFinal! ? FocusScope.of(context).unfocus() : FocusScope.of(context).requestFocus(widget.nextFocusNode!);
@@ -161,7 +161,6 @@ class _CustomTextFieldFormsState extends State<CustomTextFieldForms> {
                     ),
                     labelStyle: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
                         fontSize: widget.lableFontSize ?? 15, color: widget.lableColor ?? ColorConstant.gray600, fontWeight: FontWeight.w400),
-                    contentPadding: EdgeInsets.only(left: 1, right: 10, bottom: 15),
                     errorBorder: UnderlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(width: 1.0, color: Theme.of(context).colorScheme.error)),
                     border: UnderlineInputBorder(

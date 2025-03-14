@@ -97,10 +97,16 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                       alignment: Alignment.bottomRight,
                                       clipBehavior: Clip.none,
                                       children: [
-                                        CommonImageView(
-                                          imagePath: ImageConstant.complaintImage,
-                                          height: getVerticalSize(120),
+                                        Container(
+                                          height: 90.h,
                                           width: double.infinity,
+                                          alignment: Alignment.center,
+                                          child: controller.complaintsImages != null
+                                              ? Image.file(
+                                                  controller.complaintsImages!.first,
+                                                  fit: BoxFit.fitWidth,
+                                                )
+                                              : MyText(title: "Select Image to upload"),
                                         ),
                                         controller.complaintsImages != null
                                             ? GestureDetector(

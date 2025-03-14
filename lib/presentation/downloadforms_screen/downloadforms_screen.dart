@@ -1,5 +1,7 @@
 import 'package:anchorageislamabad/core/utils/image_constant.dart';
+import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,8 +21,7 @@ class DownloadFormsScreen extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image:
-              AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
+          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
           fit: BoxFit.cover, // Adjust as needed
         ),
       ),
@@ -67,8 +68,7 @@ class DownloadFormsScreen extends StatelessWidget {
                         SingleChildScrollView(
                           child: CustomExpansionTile(
                             leading: Icon(Icons.add, color: ColorConstant.whiteA700),
-                            title:
-                                MyText(title: 'Administration Department', clr: ColorConstant.black900, fontSize: 14),
+                            title: MyText(title: 'Administration Department', clr: ColorConstant.black900, fontSize: 14),
                             children: <Widget>[
                               Padding(
                                 padding: getPadding(left: 15, right: 0),
@@ -98,8 +98,8 @@ class DownloadFormsScreen extends StatelessWidget {
                                                     shrinkWrap: true,
                                                     padding: EdgeInsets.zero,
                                                     scrollDirection: Axis.vertical,
-                                                    itemCount: controller.adFroms!.data!
-                                                        .length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                                    itemCount: controller
+                                                        .adFroms!.data!.length, // Increase the itemCount by 1 to accommodate the "View All" item
                                                     itemBuilder: (BuildContext context, int index) {
                                                       return Column(
                                                         children: [
@@ -116,16 +116,13 @@ class DownloadFormsScreen extends StatelessWidget {
                                                                 borderRadius: BorderRadius.circular(5),
                                                               ),
                                                               child: Padding(
-                                                                padding:
-                                                                    getPadding(left: 5, right: 5, top: 0, bottom: 0),
+                                                                padding: getPadding(left: 5, right: 5, top: 0, bottom: 0),
                                                                 child: Row(
                                                                   children: [
                                                                     CommonImageView(
                                                                       imagePath: ImageConstant.downloadIcon,
                                                                     ),
-                                                                    SizedBox(
-                                                                        width:
-                                                                            10), // Add some space between the image and text
+                                                                    SizedBox(width: 10), // Add some space between the image and text
                                                                     Expanded(
                                                                       child: MyText(
                                                                         title: controller.adFroms!.data![index].title!,
@@ -164,6 +161,8 @@ class DownloadFormsScreen extends StatelessWidget {
                           height: getVerticalSize(10),
                         ),
                         CustomExpansionTile(
+                          expanded: true,
+                          expand: true,
                           leading: Icon(
                             Icons.add,
                             color: ColorConstant.whiteA700,
@@ -187,72 +186,73 @@ class DownloadFormsScreen extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         GetBuilder(
-                                          init: controller,
-                                          builder: (context) {
-                                            if (controller.bcdForms == null) {
-                                              return Center(
-                                                child: Text("No records found"),
-                                              );
-                                            }
-                                            if (controller.bcdForms != null) {
-                                              return Container(
-                                                width: getHorizontalSize(300), // Set the width explicitly
-                                                child: ListView.builder(
-                                                  physics: NeverScrollableScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  padding: EdgeInsets.zero,
-                                                  scrollDirection: Axis.vertical,
-                                                  itemCount: controller.bcdForms!.data!
-                                                      .length, // Increase the itemCount by 1 to accommodate the "View All" item
-                                                  itemBuilder: (BuildContext context, int index) {
-                                                    return Column(
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            launchUrl(
-                                                              Uri.parse(controller.bcdForms!.data![index].buttonLink!),
-                                                            );
-                                                          },
-                                                          child: Container(
-                                                            padding: getPadding(all: 10),
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(color: ColorConstant.anbtnBlue),
-                                                              borderRadius: BorderRadius.circular(5),
-                                                            ),
-                                                            child: Padding(
-                                                              padding: getPadding(left: 5, right: 5, top: 0, bottom: 0),
-                                                              child: Row(
-                                                                children: [
-                                                                  CommonImageView(
-                                                                    imagePath: ImageConstant.downloadIcon,
+                                            init: controller,
+                                            builder: (context) {
+                                              if (controller.bcdFormsLoading.value == ApiCallStatus.loading) {
+                                                return Center(child: CupertinoActivityIndicator());
+                                              } else {
+                                                if (controller.bcdForms == null) {
+                                                  return Center(
+                                                    child: Text("No records found"),
+                                                  );
+                                                }
+                                                if (controller.bcdForms != null) {
+                                                  return Container(
+                                                    width: getHorizontalSize(300), // Set the width explicitly
+                                                    child: ListView.builder(
+                                                      physics: NeverScrollableScrollPhysics(),
+                                                      shrinkWrap: true,
+                                                      padding: EdgeInsets.zero,
+                                                      scrollDirection: Axis.vertical,
+                                                      itemCount: controller
+                                                          .bcdForms!.data!.length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                                      itemBuilder: (BuildContext context, int index) {
+                                                        return Column(
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                launchUrl(
+                                                                  Uri.parse(controller.bcdForms!.data![index].buttonLink!),
+                                                                );
+                                                              },
+                                                              child: Container(
+                                                                padding: getPadding(all: 10),
+                                                                decoration: BoxDecoration(
+                                                                  border: Border.all(color: ColorConstant.anbtnBlue),
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: getPadding(left: 5, right: 5, top: 0, bottom: 0),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      CommonImageView(
+                                                                        imagePath: ImageConstant.downloadIcon,
+                                                                      ),
+                                                                      SizedBox(width: 10), // Add some space between the image and text
+                                                                      Expanded(
+                                                                        child: MyText(
+                                                                          title: controller.bcdForms!.data![index].title!,
+                                                                          fontSize: 11,
+                                                                          clr: ColorConstant.gray600,
+                                                                          line: 2,
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                  SizedBox(
-                                                                      width:
-                                                                          10), // Add some space between the image and text
-                                                                  Expanded(
-                                                                    child: MyText(
-                                                                      title: controller.bcdForms!.data![index].title!,
-                                                                      fontSize: 11,
-                                                                      clr: ColorConstant.gray600,
-                                                                      line: 2,
-                                                                    ),
-                                                                  ),
-                                                                ],
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ),
-                                                        Divider(), // Add a Divider between items
-                                                      ],
-                                                    );
-                                                  },
-                                                ),
-                                              );
-                                            }
+                                                            Divider(), // Add a Divider between items
+                                                          ],
+                                                        );
+                                                      },
+                                                    ),
+                                                  );
+                                                }
 
-                                            return Container();
-                                          },
-                                        ),
+                                                return Container();
+                                              }
+                                            }),
                                         SizedBox(height: getVerticalSize(10)),
                                       ],
                                     ),
@@ -304,8 +304,8 @@ class DownloadFormsScreen extends StatelessWidget {
                                                   shrinkWrap: true,
                                                   padding: EdgeInsets.zero,
                                                   scrollDirection: Axis.vertical,
-                                                  itemCount: controller.roForms!.data!
-                                                      .length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                                  itemCount: controller
+                                                      .roForms!.data!.length, // Increase the itemCount by 1 to accommodate the "View All" item
                                                   itemBuilder: (BuildContext context, int index) {
                                                     return Column(
                                                       children: [
@@ -328,9 +328,7 @@ class DownloadFormsScreen extends StatelessWidget {
                                                                   CommonImageView(
                                                                     imagePath: ImageConstant.downloadIcon,
                                                                   ),
-                                                                  SizedBox(
-                                                                      width:
-                                                                          10), // Add some space between the image and text
+                                                                  SizedBox(width: 10), // Add some space between the image and text
                                                                   Expanded(
                                                                     child: MyText(
                                                                       title: controller.roForms!.data![index].title!,
@@ -406,8 +404,8 @@ class DownloadFormsScreen extends StatelessWidget {
                                                   shrinkWrap: true,
                                                   padding: EdgeInsets.zero,
                                                   scrollDirection: Axis.vertical,
-                                                  itemCount: controller.pecForms!.data!
-                                                      .length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                                  itemCount: controller
+                                                      .pecForms!.data!.length, // Increase the itemCount by 1 to accommodate the "View All" item
                                                   itemBuilder: (BuildContext context, int index) {
                                                     return Column(
                                                       children: [
@@ -430,9 +428,7 @@ class DownloadFormsScreen extends StatelessWidget {
                                                                   CommonImageView(
                                                                     imagePath: ImageConstant.downloadIcon,
                                                                   ),
-                                                                  SizedBox(
-                                                                      width:
-                                                                          10), // Add some space between the image and text
+                                                                  SizedBox(width: 10), // Add some space between the image and text
                                                                   Expanded(
                                                                     child: MyText(
                                                                       title: controller.pecForms!.data![index].title!,
@@ -508,8 +504,8 @@ class DownloadFormsScreen extends StatelessWidget {
                                                   shrinkWrap: true,
                                                   padding: EdgeInsets.zero,
                                                   scrollDirection: Axis.vertical,
-                                                  itemCount: controller.pecForms!.data!
-                                                      .length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                                  itemCount: controller
+                                                      .pecForms!.data!.length, // Increase the itemCount by 1 to accommodate the "View All" item
                                                   itemBuilder: (BuildContext context, int index) {
                                                     return Column(
                                                       children: [
@@ -532,9 +528,7 @@ class DownloadFormsScreen extends StatelessWidget {
                                                                   CommonImageView(
                                                                     imagePath: ImageConstant.downloadIcon,
                                                                   ),
-                                                                  SizedBox(
-                                                                      width:
-                                                                          10), // Add some space between the image and text
+                                                                  SizedBox(width: 10), // Add some space between the image and text
                                                                   Expanded(
                                                                     child: MyText(
                                                                       title: controller.pecForms!.data![index].title!,

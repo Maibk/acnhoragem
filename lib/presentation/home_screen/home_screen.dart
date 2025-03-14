@@ -4,6 +4,7 @@ import 'package:anchorageislamabad/core/utils/image_constant.dart';
 import 'package:anchorageislamabad/main.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/size_utils.dart';
@@ -295,8 +296,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           alignment: Alignment.topLeft,
                           child: MyText(
                             title: "Quick View",
-                            fontSize: 16,
-                            clr: ColorConstant.black900,
+                            fontSize: 16.sp,
+                            clr: ColorConstant.whiteA700,
                           )),
                       SizedBox(
                         height: getVerticalSize(10),
@@ -379,14 +380,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                             shrinkWrap: true,
                                             itemCount: controller.bills!.data!.length,
                                             itemBuilder: (context, index) {
-                                              return ListTile(
-                                                  title: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text("Date : ${controller.bills!.data![index].billMonth}"),
-                                                  Text("Amount :${controller.bills!.data![index].beforeDueDateAmount} ")
-                                                ],
-                                              ));
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  Get.toNamed(AppRoutes.billsPage);
+                                                },
+                                                child: ListTile(
+                                                    title: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text("Date : ${controller.bills!.data![index].billMonth}"),
+                                                    Text("Amount :${controller.bills!.data![index].beforeDueDateAmount} ")
+                                                  ],
+                                                )),
+                                              );
                                             },
                                           ),
                                         ),

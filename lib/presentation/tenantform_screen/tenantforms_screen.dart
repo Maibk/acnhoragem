@@ -40,7 +40,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
     }
     Future.delayed(Duration(), () {
       args['status'] != "" ? controller.getEntryFormsDetails(args['id']) : null;
-      args['status'] != "Pending" ? controller.addvehicleControllers() : null;
+      args['status'] != "" ? null : controller.addvehicleControllers();
     });
 
     super.initState();
