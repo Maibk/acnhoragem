@@ -351,7 +351,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                         if (args['status'] != "")
+                                          if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -398,7 +398,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                           if (args['status'] != "")
+                                          if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -445,7 +445,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
-                                           if (args['status'] != "")
+                                          if (args['status'] != "")
                                             Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -797,7 +797,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                   if (args['status'] != "")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -822,7 +822,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           5.verticalSpace,
                                                         ],
                                                       ),
-                                                     if (args['status'] != "")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
@@ -881,7 +881,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                  if (args['status'] != "")
+                                                    if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [

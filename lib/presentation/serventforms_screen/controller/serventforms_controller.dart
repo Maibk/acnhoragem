@@ -945,6 +945,7 @@ class ServentFormsController extends GetxController {
     servantImages.add(File(""));
     servantCnicFronts.add(File(""));
     servantCnicBacks.add(File(""));
+    update();
   }
 
   addServantFamControllers() {
@@ -954,6 +955,7 @@ class ServentFormsController extends GetxController {
     serventfamoccutionControllers.add(TextEditingController());
     serventfampresentAddControllers.add(TextEditingController());
     servantFamilyImages.add(File(""));
+    update();
   }
 
   @override

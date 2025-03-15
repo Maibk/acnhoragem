@@ -104,7 +104,7 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                           // crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Container(
-                                              width: .3.sw,
+                                              width: MediaQuery.of(context).size.width / 2.7,
                                               child: Column(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -143,7 +143,15 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                                       ? MyText(title: controller.formsListModel.data?[index].rank ?? "")
                                                       : MyText(title: controller.formsListModel.data?[index].phone ?? ""),
                                                   2.verticalSpace,
-                                                  MyText(title: controller.formsListModel.data?[index].status ?? ""),
+                                                  Container(
+                                                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(10),
+                                                          color: controller.getColor(status).withOpacity(0.5)),
+                                                      child: MyText(
+                                                          fontSize: 10.sp,
+                                                          clr: controller.getColor(status),
+                                                          title: controller.formsListModel.data?[index].status ?? "")),
                                                   2.verticalSpace,
                                                 ],
                                               ),
@@ -188,7 +196,7 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   Icon(
-                                                    Icons.remove_red_eye,
+                                                    status == "Rejected" ? Icons.mode_edit_outlined : Icons.remove_red_eye,
                                                     color: Colors.white,
                                                   ),
                                                   2.horizontalSpace,

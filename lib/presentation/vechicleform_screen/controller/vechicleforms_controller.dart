@@ -1107,6 +1107,7 @@ class VechicleController extends GetxController {
     colorControllers.add(TextEditingController());
     engineNoControllers.add(TextEditingController());
     chassisControllers.add(TextEditingController());
+    update();
   }
 
   addUserControllers() {
@@ -1117,6 +1118,7 @@ class VechicleController extends GetxController {
     userDrivingLicenseBackSideImages.add(File(''));
     userCnicFrontSideImages.add(File(''));
     userCnicBacktSideImages.add(File(''));
+    update();
   }
 }
 
