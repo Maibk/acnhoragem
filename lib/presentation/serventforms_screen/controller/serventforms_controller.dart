@@ -773,6 +773,7 @@ class ServentFormsController extends GetxController {
         'street': streetSelectedValue?.id ?? 0,
         'block': selectedValue ?? 0,
         'residential_area': colonyController.text,
+        'id': id.toString()
       };
       servantData.addAll(ownerInfoData);
       // if (ownerImage != null) {
@@ -856,13 +857,14 @@ class ServentFormsController extends GetxController {
           ));
           try {
             var response = await dio.post(
-              "/servant-card/update/$id",
+              "/servant-card/update",
               data: _dio.FormData.fromMap(servantData),
               options: _dio.Options(
                 method: 'POST',
                 contentType: 'multipart',
               ),
             );
+
             if (response.statusCode == 200) {
               Utils.showToast(
                 response.data['message'],
@@ -886,10 +888,18 @@ class ServentFormsController extends GetxController {
             submitEdittedFormButtonController.stop();
             update();
 
-            Utils.showToast(
-              error.response?.data["message"].toString() ?? error.error.toString(),
-              true,
-            );
+            if (error is Map) {
+              Utils.showToast(
+                error.response?.data["message"].toString() ?? error.error.toString(),
+                true,
+              );
+            } else {
+              Utils.showToast(
+                error.toString(),
+                true,
+              );
+            }
+
             if (error.response == null) {
               var exception = ApiException(
                 url: "https://anchorageislamabad.com/api/servant-card",

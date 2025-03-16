@@ -51,6 +51,7 @@ class Data {
   String? allotmentLetterImage;
   String? maintenanceBillImage;
   String? oldStickerImage;
+  String? rejection_reason;
 
   Data(
       {this.id,
@@ -80,6 +81,7 @@ class Data {
       this.ownerImage,
       this.allotmentLetterImage,
       this.maintenanceBillImage,
+      this.rejection_reason,
       this.oldStickerImage});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -121,6 +123,7 @@ class Data {
     allotmentLetterImage = json['allotment_letter_image'];
     maintenanceBillImage = json['maintenance_bill_image'];
     oldStickerImage = json['old_sticker_image'];
+    rejection_reason = json['rejection_reason'];
   }
 
   Map<String, dynamic> toJson() {

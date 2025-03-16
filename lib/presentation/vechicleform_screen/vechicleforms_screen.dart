@@ -105,6 +105,14 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       fontSize: 16,
                                       clr: ColorConstant.apppWhite,
                                     )),
+                                if (args['status'] == "Rejected")
+                                  Align(
+                                      alignment: Alignment.topLeft,
+                                      child: MyText(
+                                        title: "Rejection Reason : " + (controller.vehicleFormDataModel.data?.rejection_reason ?? ""),
+                                        fontSize: 20,
+                                        clr: ColorConstant.apppWhite,
+                                      )),
                                 SizedBox(
                                   height: getVerticalSize(10),
                                 ),

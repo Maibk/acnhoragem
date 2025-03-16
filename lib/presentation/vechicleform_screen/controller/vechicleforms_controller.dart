@@ -432,17 +432,6 @@ class VechicleController extends GetxController {
       vehicalData['user_phone[$i]'] = userMobileControllers[i].text;
     }
 
-    // for (var element in userDrivingLicenseFrontSideImages) {
-    //   String filePath1 = element.path;
-    //   if (filePath1.isNotEmpty) {
-    //     vehicalData['user_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
-    //       filePath1,
-    //       filename: filePath1.split('/').last,
-    //       contentType: _http.MediaType.parse('image/jpeg'),
-    //     );
-    //   }
-    // }
-
     if (userDrivingLicenseFrontSideImages.isNotEmpty) {
       bool hasEmptyPath = userDrivingLicenseFrontSideImages.any((file) => file.path.isEmpty);
 
@@ -857,6 +846,17 @@ class VechicleController extends GetxController {
         'residential_area': colonyController.text,
       };
       vehicalData.addAll(ownerInfoData);
+
+      for (var i = 0; i < vehicleNoControllers.length; i++) {
+        vehicalData['vehicle_no[$i]'] = vehicleNoControllers[i].text;
+        vehicalData["vehicle_make[$i]"] = makeControllers[i].text;
+        vehicalData['vehicle_model[$i]'] = modelControllers[i].text;
+
+        vehicalData['vehicle_color[$i]'] = colorControllers[i].text;
+        vehicalData['vehicle_engine[$i]'] = engineNoControllers[i].text;
+
+        vehicalData['vehicle_chassis[$i]'] = chassisControllers[i].text;
+      }
 
       if (underTakingLicenseFrontSideImage == null) {
         vehicalData['driving_license_front'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.drivingLicenseFront ?? "");
