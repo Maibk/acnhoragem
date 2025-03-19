@@ -41,3 +41,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+lib/presentation/serventforms_screen/controller/Untitled-1.ts

@@ -245,10 +245,11 @@ class ServentFormsController extends GetxController {
             cnicController.text = servantFormDataModel.data?.cnic ?? "";
             mobileController.text = servantFormDataModel.data?.phone ?? "";
             setSelectedBlock(servantFormDataModel.data?.block.toString() ?? "");
-            streetSelectedValue = Street(title: servantFormDataModel.data?.street ?? "");
-            plotstSelectedValue = Plots(title: servantFormDataModel.data?.houseNo ?? "");
+            streetSelectedValue = Street(id: servantFormDataModel.data?.street_id ?? 0, title: servantFormDataModel.data?.street ?? "");
+            plotstSelectedValue = Plots(id: servantFormDataModel.data?.house_id ?? 0, title: servantFormDataModel.data?.houseNo ?? "");
             roadController.text = servantFormDataModel.data?.road ?? "";
             colonyController.text = servantFormDataModel.data?.residentialArea ?? "";
+            selectedValue = servantFormDataModel.data?.block_id ?? 0;
 
             //Spouse Information
 
@@ -397,7 +398,7 @@ class ServentFormsController extends GetxController {
       servantData['servant_road[$i]'] = serventroadControllers[i].text;
       servantData['servant_street[$i]'] = serventstreetControllers[i].text;
       servantData['servant_village[$i]'] = serventcolonyVillageControllers[i].text;
-      servantData['servant_block[$i]'] = servantselectedValue ?? 0;
+      // servantData['servant_block[$i]'] = servantselectedValue ?? 0;
       servantData['servant_po[$i]'] = serventpostOfficeControllers[i].text;
       servantData['servant_city[$i]'] = serventpostOfficeControllers[i].text;
       servantData['servant_province[$i]'] = serventProvinceControllers[i].text;
@@ -773,7 +774,8 @@ class ServentFormsController extends GetxController {
         'street': streetSelectedValue?.id ?? 0,
         'block': selectedValue ?? 0,
         'residential_area': colonyController.text,
-        'id': id.toString()
+        'id': id.toString(),
+        'status': 0
       };
       servantData.addAll(ownerInfoData);
       // if (ownerImage != null) {
@@ -847,6 +849,8 @@ class ServentFormsController extends GetxController {
       log(servantData.toString());
       await addEditServant();
       await addEditServantFamily();
+      log(servantData.toString(), name: "After adding damily");
+
       if (value) {
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
           var dio = _dio.Dio(_dio.BaseOptions(
@@ -894,6 +898,8 @@ class ServentFormsController extends GetxController {
                 true,
               );
             } else {
+              log(servantData.toString());
+              log(error.toString());
               Utils.showToast(
                 error.toString(),
                 true,
