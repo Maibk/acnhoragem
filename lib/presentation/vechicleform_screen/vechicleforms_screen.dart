@@ -106,13 +106,17 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       clr: ColorConstant.apppWhite,
                                     )),
                                 if (args['status'] == "Rejected")
-                                  Align(
-                                      alignment: Alignment.topLeft,
-                                      child: MyText(
-                                        title: "Rejection Reason : " + (controller.vehicleFormDataModel.data?.rejection_reason ?? ""),
-                                        fontSize: 20,
-                                        clr: ColorConstant.apppWhite,
-                                      )),
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(7)),
+                                    child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: MyText(
+                                          title: "Rejection Reason : " + (controller.vehicleFormDataModel.data?.rejection_reason ?? ""),
+                                          fontSize: 20,
+                                          clr: ColorConstant.apppWhite,
+                                        )),
+                                  ),
                                 SizedBox(
                                   height: getVerticalSize(10),
                                 ),
@@ -901,7 +905,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          MyText(title: "User license front").paddingOnly(left: 10),
                                                           SizedBox(
                                                             height: 5.h,
                                                           ),
@@ -962,7 +966,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          MyText(title: "User license back").paddingOnly(left: 10),
                                                           SizedBox(
                                                             height: 5.h,
                                                           ),
@@ -1024,7 +1028,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          MyText(title: "User license front").paddingOnly(left: 10),
                                                           SizedBox(
                                                             height: 5.h,
                                                           ),
@@ -1051,7 +1055,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          MyText(title: "User CNIC front").paddingOnly(left: 10),
                                                           SizedBox(
                                                             height: 5.h,
                                                           ),
@@ -1082,7 +1086,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           fontSize: 12,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of your CNIC front side".tr,
+                                                          label: "Attach image of your CNIC front side".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.userCnicFrontSideImages[index].path == ""
@@ -1112,7 +1116,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          MyText(title: "User CNIC back").paddingOnly(left: 10),
                                                           SizedBox(
                                                             height: 5.h,
                                                           ),
@@ -1142,7 +1146,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           fontSize: 12,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of your CNIC back side".tr,
+                                                          label: "Attach image of your CNIC back side".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.userCnicBacktSideImages[index].path == ""
@@ -1426,7 +1430,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "Driving license front").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),
@@ -1476,7 +1480,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "Driving license back").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),
@@ -1526,7 +1530,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "CNIC image front").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),
@@ -1555,7 +1559,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               fontSize: 12,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
-                                              label: "Attach a clear image of your CNIC front side".tr,
+                                              label: "Attach image of your CNIC front side".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
@@ -1576,7 +1580,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "CNIC image back").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),
@@ -1605,7 +1609,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               fontSize: 12,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
-                                              label: "Attach a clear image of your CNIC back side".tr,
+                                              label: "Attach image of your CNIC back side".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
@@ -1624,7 +1628,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "Registration image").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),
@@ -1674,7 +1678,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "Owner Image").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),
@@ -1722,7 +1726,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "Allotment Letter").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),
@@ -1751,7 +1755,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               fontSize: 12,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
-                                              label: "Attach Allotment Letter Image".tr,
+                                              label: "Attachllotment Letter Image".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(
@@ -1772,7 +1776,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "Maintenance Bill").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),
@@ -1822,7 +1826,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                              MyText(title: "Old sticker").paddingOnly(left: 10),
                                               SizedBox(
                                                 height: 5.h,
                                               ),

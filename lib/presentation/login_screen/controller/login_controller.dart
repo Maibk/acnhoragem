@@ -21,7 +21,7 @@ LoginModel? loginResponseModel;
 
 class LoginController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
-  TextEditingController emailController = TextEditingController(text: kDebugMode ? "pat.cummins2003@gmail.com" : null);
+  TextEditingController emailController = TextEditingController(text: kDebugMode ? "dev4@yopmail.com" : null);
   AppPreferences appPreferences = AppPreferences();
 
   TextEditingController passwordController = TextEditingController(text: kDebugMode ? "Test@1234" : null);
@@ -57,10 +57,7 @@ class LoginController extends GetxController {
 
               if (loginResponseModel?.data?.appForm == 0) {
                 if (loginResponseModel?.data?.userCategory == "Owner") {
-                  Get.offAllNamed(AppRoutes.ownerFormsPage, arguments:{
-                    'status' : "", 
-                    'id' : ""
-                  } );
+                  Get.offAllNamed(AppRoutes.ownerFormsPage, arguments: {'status': "", 'id': ""});
                 } else {
                   Get.offAllNamed(AppRoutes.tenantFormsPage);
                 }

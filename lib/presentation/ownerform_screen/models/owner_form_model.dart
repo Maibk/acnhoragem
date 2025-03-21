@@ -52,6 +52,7 @@ class Data {
   String? approvalBuildingPlanUrl;
   String? completionCertificateUrl;
   int? status;
+  String? rejection_reason;
 
   Data(
       {this.userId,
@@ -64,7 +65,6 @@ class Data {
       this.permanentAddress,
       this.blockCommercial,
       this.streetNo,
-
       this.construction_status,
       this.houseNo,
       this.sizeOfHousePlot,
@@ -83,6 +83,7 @@ class Data {
       this.allotmentLetterUrl,
       this.approvalBuildingPlanUrl,
       this.completionCertificateUrl,
+      this.rejection_reason,
       this.status});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -120,6 +121,7 @@ class Data {
     approvalBuildingPlanUrl = json['approval_building_plan_url'];
     completionCertificateUrl = json['completion_certificate_url'];
     status = json['status'];
+    rejection_reason = json['rejection_reason'];
   }
 
   Map<String, dynamic> toJson() {

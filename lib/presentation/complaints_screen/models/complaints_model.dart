@@ -31,10 +31,11 @@ class ComplaintsData {
   int? id;
   String? complaintType;
   String? description;
+  String? title;
   String? status;
   String? property;
 
-  ComplaintsData({this.id, this.complaintType, this.description, this.status, this.property});
+  ComplaintsData({this.id, this.complaintType, this.description, this.status, this.property, this.title});
 
   ComplaintsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -42,6 +43,7 @@ class ComplaintsData {
     description = json['description'];
     status = json['status'];
     property = json['property'];
+    title = json['title'];
   }
 
   Map<String, dynamic> toJson() {

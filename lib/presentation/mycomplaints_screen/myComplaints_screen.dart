@@ -1,3 +1,4 @@
+import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/mycomplaints_screen/controller/view_complaint_controller.dart';
 import 'package:anchorageislamabad/presentation/mycomplaints_screen/view_complaint.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
@@ -91,6 +92,10 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 MyText(
+                                  title: "Title",
+                                  fontSize: 12,
+                                ),
+                                MyText(
                                   title: "Description",
                                   fontSize: 12,
                                 ),
@@ -106,7 +111,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                             GetBuilder(
                               init: controller,
                               builder: (controller) {
-                                if (controller.complaints?.message == "Complaint Not Found.") {
+                                if (controller.apiCallStatus == ApiCallStatus.empty) {
                                   return Text("No records found");
                                 }
                                 if (controller.complaints?.data == null) {
@@ -134,7 +139,6 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                               behavior: HitTestBehavior.opaque,
                                               onTap: () {
                                                 viewCompplaincontroller.getViewComplain(controller.complaints!.data![index].id ?? 0);
-
                                                 viewCompplaincontroller.getMessagesOnComplain(controller.complaints!.data![index].id ?? 0);
                                                 Get.to(() => VIewComplaintsScreen(
                                                       description: controller.complaints!.data![index].description ?? "",
@@ -147,7 +151,15 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
                                                   Container(
-                                                    width: 220,
+                                                    width: 120,
+                                                    child: MyText(
+                                                      title: controller.complaints?.data?[index].title ?? "N/A",
+                                                      clr: ColorConstant.antextGrayDark,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 120,
                                                     child: MyText(
                                                       title: controller.complaints!.data![index].description!,
                                                       clr: ColorConstant.antextGrayDark,

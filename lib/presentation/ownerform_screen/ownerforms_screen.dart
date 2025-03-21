@@ -5,10 +5,10 @@ import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:csc_picker/csc_picker.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/size_utils.dart';
@@ -137,6 +137,18 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                         fontSize: 16,
                                         clr: ColorConstant.apppWhite,
                                       )),
+                                  if (args['status'] == "Rejected")
+                                    Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(7)),
+                                      child: Align(
+                                          alignment: Alignment.topLeft,
+                                          child: MyText(
+                                            title: "Rejection Reason : " + (controller.ownerFormModel.data?.rejection_reason ?? ""),
+                                            fontSize: 20,
+                                            clr: ColorConstant.apppWhite,
+                                          )),
+                                    ),
                                   SizedBox(
                                     height: getVerticalSize(10),
                                   ),
@@ -185,7 +197,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               Expanded(
                                                 child: Padding(
                                                   padding: const EdgeInsets.only(left: 8.0, top: 5),
-                                                  child: CSCPicker(
+                                                  child: CSCPickerPlus(
                                                     currentCountry: controller.natinalityController.text,
                                                     countryDropdownLabel: "Nationality",
                                                     disableCountry: isEditable ? false : true,
@@ -231,7 +243,8 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       child: Text(item['title']),
                                                     );
                                                   }).toList(),
-                                                  onChanged: isEditable   ? (int? value) {
+                                                  onChanged: isEditable
+                                                      ? (int? value) {
                                                           setState(() {
                                                             controller.selectedValue = value!;
                                                             controller.streets.clear();

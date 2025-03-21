@@ -125,6 +125,18 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                       fontSize: 16,
                                       clr: ColorConstant.apppWhite,
                                     )),
+                                if (args['status'] == "Rejected")
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(7)),
+                                    child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: MyText(
+                                          title: "Rejection Reason : " + (controller.servantFormDataModel.data?.rejection_reason ?? ""),
+                                          fontSize: 20,
+                                          clr: ColorConstant.apppWhite,
+                                        )),
+                                  ),
                                 SizedBox(
                                   height: getVerticalSize(10),
                                 ),
@@ -380,10 +392,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               padding: getPadding(left: 10, right: 10),
                                               child: CustomButton(
                                                 width: getHorizontalSize(350),
-                                                fontSize: 12,
+                                                fontSize: 12.sp,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach a clear image of yours".tr,
+                                                label: "Attach clear image of yours".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -427,10 +439,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               padding: getPadding(left: 10, right: 10),
                                               child: CustomButton(
                                                 width: getHorizontalSize(350),
-                                                fontSize: 12,
+                                                fontSize: 12.sp,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach a clear image of your CNIC front side".tr,
+                                                label: "Attach clear image of your CNIC front side".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -474,10 +486,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               padding: getPadding(left: 10, right: 10),
                                               child: CustomButton(
                                                 width: getHorizontalSize(350),
-                                                fontSize: 12,
+                                                fontSize: 12.sp,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach a clear image of your CNIC back side".tr,
+                                                label: "Attach clear image of your CNIC back side".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -768,10 +780,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
                                                           width: getHorizontalSize(350),
-                                                          fontSize: 12,
+                                                          fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of your servant".tr,
+                                                          label: "Attach clear image of your servant".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.servantImages[index].path == ""
@@ -852,10 +864,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
                                                           width: getHorizontalSize(350),
-                                                          fontSize: 12,
+                                                          fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of your CNIC front side".tr,
+                                                          label: "Attach clear image of your CNIC front side".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.servantCnicFronts[index].path == ""
@@ -911,10 +923,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
                                                           width: getHorizontalSize(350),
-                                                          fontSize: 12,
+                                                          fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of your CNIC back side".tr,
+                                                          label: "Attach clear image of your CNIC back side".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.servantCnicBacks[index].path == ""
@@ -1128,10 +1140,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
                                                           width: getHorizontalSize(350),
-                                                          fontSize: 12,
+                                                          fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of servant".tr,
+                                                          label: "Attach clear image of servant".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.servantFamilyImages[index].path == "" ||

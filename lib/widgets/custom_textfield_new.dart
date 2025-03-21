@@ -115,6 +115,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   cursorColor: ColorConstant.hintTextColor,
                   controller: widget.controller,
                   keyboardType: widget.keyboardType,
+
                   //  textInputAction: TextInputAction.newline,
                   maxLines: widget.maxLines ?? 1,
                   //  textInputAction: TextInputAction.newline,
@@ -155,6 +156,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       fontWeight: FontWeight.normal),
 
                   decoration: InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
                     prefixIconConstraints: BoxConstraints(minWidth: 15, minHeight: 38),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 5, right: 10),

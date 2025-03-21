@@ -22,7 +22,8 @@ class CustomDialogue extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
       child: Container(
         color: ColorConstant.anbtnBlue,
-        height: responsive.setHeight(19),
+        padding: EdgeInsets.symmetric(vertical: 5),
+        height: responsive.setHeight(21),
         width: responsive.setWidth(10),
         child: Column(
           children: [
@@ -30,7 +31,6 @@ class CustomDialogue extends StatelessWidget {
               height: responsive.setHeight(3),
             ),
             Text(dialogueBoxHeading, style: AppStyle.txtPoppinsSemiBold16WhiteA700 /*fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold*/
-                /*.copyWith(letterSpacing: 0.09),*/
                 ),
 
             Padding(

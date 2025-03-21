@@ -40,23 +40,20 @@ class MyComplaintsController extends GetxController {
               headers: {'Authorization': "Bearer $token"},
               Constants.complaintUrl, onSuccess: (response) {
             log(response.toString());
-
             complaints = Complaints.fromJson(response.data);
-
             update();
-
-            log(complaints!.data!.first.description!);
 
             return true;
           }, onError: (error) {
+            if (error.statusCode == 404) {
+              apiCallStatus.value = ApiCallStatus.success;
+            }
             ApiException apiException = error;
 
             print(apiException.message);
-
             BaseClient.handleApiError(error);
-
-            apiCallStatus.value = ApiCallStatus.error;
-
+            apiCallStatus.value = ApiCallStatus.empty;
+            update();
             return false;
           });
         });

@@ -125,6 +125,18 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                       fontSize: 16,
                                       clr: ColorConstant.apppWhite,
                                     )),
+                                if (args['status'] == "Rejected")
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(7)),
+                                    child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: MyText(
+                                          title: "Rejection Reason : " + (controller.entryFormDataModel.data?.rejection_reason ?? ""),
+                                          fontSize: 20,
+                                          clr: ColorConstant.apppWhite,
+                                        )),
+                                  ),
                                 SizedBox(
                                   height: getVerticalSize(10),
                                 ),

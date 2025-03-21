@@ -185,11 +185,13 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                       },
                                     ),
                                     SizedBox(height: 20.0),
-                                    if (controller.selectedComplaint != null) MyText(title: "Complaint Type", fontSize: 12.h),
+                                    MyText(title: "Complaint Type", fontSize: 12.h),
                                     Container(
                                       child: DropdownButton<FindDepartments>(
                                         isExpanded: true,
+                                        padding: EdgeInsets.symmetric(vertical: 10),
                                         value: controller.selectedDepartment,
+                                        style: TextStyle(fontSize: 10, color: Colors.black),
                                         items: controller.selectedComplaint?.findDepartments!.map((department) {
                                           return DropdownMenuItem(
                                             value: department,
@@ -214,6 +216,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                       fieldText: "Enter Description".tr,
                                       controller: controller.descriptionController,
                                       isFinal: false,
+                                      
                                       keyboardType: TextInputType.emailAddress,
                                       limit: HelperFunction.EMAIL_VALIDATION,
                                       validator: (value) {

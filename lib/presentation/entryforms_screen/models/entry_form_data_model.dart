@@ -38,6 +38,7 @@ class Data {
   List<SpouseDetail>? spouseDetail;
   List<ChildDetail>? childDetail;
   String? date;
+  String? rejection_reason;
 
   Data(
       {this.name,
@@ -54,6 +55,7 @@ class Data {
       this.cnicImageBack,
       this.spouseDetail,
       this.childDetail,
+      this.rejection_reason,
       this.date});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -82,6 +84,7 @@ class Data {
       });
     }
     date = json['date'];
+    rejection_reason = json['rejection_reason'];
   }
 
   Map<String, dynamic> toJson() {

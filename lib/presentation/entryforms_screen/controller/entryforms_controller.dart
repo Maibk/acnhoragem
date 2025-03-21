@@ -133,7 +133,6 @@ class EntryFormsController extends GetxController {
     {"id": 18, "title": "NS-3"},
   ];
 
-
   void setSelectedBlock(String blockTitle) {
     var matchingBlock = block.firstWhere(
       (item) => item['title'] == blockTitle,
@@ -946,8 +945,6 @@ class EntryFormsController extends GetxController {
           );
         }
       }
-
-
 
       log(EntryFormData.toString(), name: "EntryFormData");
 
