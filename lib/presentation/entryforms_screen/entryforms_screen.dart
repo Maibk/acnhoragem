@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
+import 'package:anchorageislamabad/presentation/entryforms_screen/models/entry_form_data_model.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -376,18 +377,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                               children: [
                                                 MyText(title: "Image").paddingOnly(left: 10),
                                                 5.verticalSpace,
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    controller.ownerImage = await controller.imagePicker();
-                                                  },
-                                                  child: Padding(
-                                                    padding: getPadding(left: 10, right: 10),
-                                                    child: Container(
-                                                      width: getHorizontalSize(350),
-                                                      color: ColorConstant.whiteA700,
-                                                      child: CustomImageView(
-                                                        url: controller.entryFormDataModel.data?.image ?? "",
-                                                      ),
+                                                Padding(
+                                                  padding: getPadding(left: 10, right: 10),
+                                                  child: Container(
+                                                    width: getHorizontalSize(350),
+                                                    color: ColorConstant.whiteA700,
+                                                    child: CustomImageView(
+                                                      url: controller.entryFormDataModel.data?.image ?? "",
                                                     ),
                                                   ),
                                                 ),
@@ -424,16 +420,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                               children: [
                                                 MyText(title: "CNIC Image Front").paddingOnly(left: 10),
                                                 5.verticalSpace,
-                                                GestureDetector(
-                                                  onTap: () {},
-                                                  child: Padding(
-                                                    padding: getPadding(left: 10, right: 10),
-                                                    child: Container(
-                                                      width: getHorizontalSize(350),
-                                                      color: ColorConstant.whiteA700,
-                                                      child: CustomImageView(
-                                                        url: controller.entryFormDataModel.data?.cnicImageFront ?? "",
-                                                      ),
+                                                Padding(
+                                                  padding: getPadding(left: 10, right: 10),
+                                                  child: Container(
+                                                    width: getHorizontalSize(350),
+                                                    color: ColorConstant.whiteA700,
+                                                    child: CustomImageView(
+                                                      url: controller.entryFormDataModel.data?.cnicImageFront ?? "",
                                                     ),
                                                   ),
                                                 ),
@@ -448,7 +441,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach a clear image of your CNIC front side".tr,
+                                                label: "Attach image of your CNIC front side".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -470,16 +463,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                               children: [
                                                 MyText(title: "CNIC Image Back").paddingOnly(left: 10),
                                                 5.verticalSpace,
-                                                GestureDetector(
-                                                  onTap: () {},
-                                                  child: Padding(
-                                                    padding: getPadding(left: 10, right: 10),
-                                                    child: Container(
-                                                      width: getHorizontalSize(350),
-                                                      color: ColorConstant.whiteA700,
-                                                      child: CustomImageView(
-                                                        url: controller.entryFormDataModel.data?.cnicImageBack ?? "",
-                                                      ),
+                                                Padding(
+                                                  padding: getPadding(left: 10, right: 10),
+                                                  child: Container(
+                                                    width: getHorizontalSize(350),
+                                                    color: ColorConstant.whiteA700,
+                                                    child: CustomImageView(
+                                                      url: controller.entryFormDataModel.data?.cnicImageBack ?? "",
                                                     ),
                                                   ),
                                                 ),
@@ -494,7 +484,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach a clear image of your CNIC back side".tr,
+                                                label: "Attach image of your CNIC back side".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -726,16 +716,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         children: [
                                                           MyText(title: "Attachment").paddingOnly(left: 10),
                                                           5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () {},
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseImage ?? "",
-                                                                ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseImage ?? "",
                                                               ),
                                                             ),
                                                           ),
@@ -786,16 +773,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         children: [
                                                           MyText(title: "Attachment").paddingOnly(left: 10),
                                                           5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () {},
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicFront ?? "",
-                                                                ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicFront ?? "",
                                                               ),
                                                             ),
                                                           ),
@@ -810,7 +794,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of spouse CNIC front side".tr,
+                                                          label: "Attach a spouse's CNIC front image".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.spouseCnicsfronts[index].path == "" ||
@@ -846,16 +830,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         children: [
                                                           MyText(title: "Attachment").paddingOnly(left: 10),
                                                           5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () {},
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicBack ?? "",
-                                                                ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicBack ?? "",
                                                               ),
                                                             ),
                                                           ),
@@ -870,7 +851,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of Spouse CNIC back side".tr,
+                                                          label: "Attach a spouse's CNIC back image".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.spouseCnicBacks[index].path == "" ||
@@ -1203,16 +1184,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         children: [
                                                           MyText(title: "Attachment").paddingOnly(left: 10),
                                                           5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () {},
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childCnicFront ?? "",
-                                                                ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                url: controller.entryFormDataModel.data?.childDetail?[index].childCnicFront ?? "",
                                                               ),
                                                             ),
                                                           ),
@@ -1227,7 +1205,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of child CNIC front sides".tr,
+                                                          label: "Attach child's CNIC front images".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.childCnicsfronts[index].path == "" ||
@@ -1262,16 +1240,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         children: [
                                                           MyText(title: "Attachment").paddingOnly(left: 10),
                                                           5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () {},
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
-                                                                ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                url: controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
                                                               ),
                                                             ),
                                                           ),
@@ -1286,7 +1261,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of child CNIC back side".tr,
+                                                          label: "Attach child's CNIC back images".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix:
@@ -1335,6 +1310,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               Utils.showToast("Please select child cnic back images", true);
                                                             } else {
                                                               controller.childEntryFormAPi(context, index);
+                                                              if (args['status'] == "Rejected") {
+                                                                controller.entryFormDataModel.data!.childDetail!.add(ChildDetail());
+                                                                log(controller.entryFormDataModel.data!.childDetail!.length.toString());
+                                                              }
                                                             }
                                                           },
                                                         ),

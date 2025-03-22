@@ -91,9 +91,12 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                MyText(
-                                  title: "Title",
-                                  fontSize: 12,
+                                SizedBox(
+                                  width: 70,
+                                  child: MyText(
+                                    title: "Title",
+                                    fontSize: 12,
+                                  ),
                                 ),
                                 MyText(
                                   title: "Description",
@@ -101,6 +104,10 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                 ),
                                 MyText(
                                   title: "Status",
+                                  fontSize: 12,
+                                ),
+                                MyText(
+                                  title: "Action",
                                   fontSize: 12,
                                 ),
                               ],
@@ -132,64 +139,71 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                     itemCount: controller.complaints!.data!.length, // Increase the itemCount by 1 to accommodate the "View All" item
                                     itemBuilder: (BuildContext context, int index) {
                                       return Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: getPadding(top: 10, bottom: 10),
-                                            child: GestureDetector(
-                                              behavior: HitTestBehavior.opaque,
-                                              onTap: () {
-                                                viewCompplaincontroller.getViewComplain(controller.complaints!.data![index].id ?? 0);
-                                                viewCompplaincontroller.getMessagesOnComplain(controller.complaints!.data![index].id ?? 0);
-                                                Get.to(() => VIewComplaintsScreen(
-                                                      description: controller.complaints!.data![index].description ?? "",
-                                                      status: controller.complaints!.data![index].status ?? "",
-                                                      complainType: controller.complaints!.data![index].complaintType ?? "",
-                                                      complaintID: controller.complaints!.data![index].id ?? 0,
-                                                    ));
-                                              },
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    width: 120,
-                                                    child: MyText(
-                                                      title: controller.complaints?.data?[index].title ?? "N/A",
-                                                      clr: ColorConstant.antextGrayDark,
-                                                      fontSize: 12,
-                                                    ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width: 120,
+                                                  child: MyText(
+                                                    title: controller.complaints?.data?[index].complaintType ?? "N/A",
+                                                    clr: ColorConstant.antextGrayDark,
+                                                    fontSize: 12,
                                                   ),
-                                                  Container(
-                                                    width: 120,
-                                                    child: MyText(
-                                                      title: controller.complaints!.data![index].description!,
-                                                      clr: ColorConstant.antextGrayDark,
-                                                      fontSize: 12,
-                                                    ),
+                                                ),
+                                                Container(
+                                                  width: 120,
+                                                  child: MyText(
+                                                    title: controller.complaints!.data![index].description!,
+                                                    clr: ColorConstant.antextGrayDark,
+                                                    fontSize: 12,
                                                   ),
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        height: getVerticalSize(20),
-                                                        decoration: BoxDecoration(
-                                                          color: controller.complaints!.data![index].status! == "Resolved"
-                                                              ? ColorConstant.appgreenColor
-                                                              : controller.complaints!.data![index].status! == "Pending"
-                                                                  ? ColorConstant.pendingColor
-                                                                  : ColorConstant.assignedColor,
-                                                          borderRadius: BorderRadius.circular(5),
-                                                        ),
-                                                        alignment: Alignment.center,
-                                                        child: MyText(
-                                                          title: controller.complaints!.data![index].status!,
-                                                          fontSize: 9,
-                                                          clr: ColorConstant.whiteA700,
-                                                        ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      height: getVerticalSize(20),
+                                                      decoration: BoxDecoration(
+                                                        color: controller.complaints!.data![index].status! == "Resolved"
+                                                            ? ColorConstant.appgreenColor
+                                                            : controller.complaints!.data![index].status! == "Pending"
+                                                                ? ColorConstant.pendingColor
+                                                                : ColorConstant.assignedColor,
+                                                        borderRadius: BorderRadius.circular(5),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                                                      alignment: Alignment.center,
+                                                      child: MyText(
+                                                        title: controller.complaints!.data![index].status!,
+                                                        fontSize: 9,
+                                                        clr: ColorConstant.whiteA700,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        viewCompplaincontroller.getViewComplain(controller.complaints!.data![index].id ?? 0);
+                                                        viewCompplaincontroller.getMessagesOnComplain(controller.complaints!.data![index].id ?? 0);
+                                                        Get.to(() => VIewComplaintsScreen(
+                                                              description: controller.complaints!.data![index].description ?? "",
+                                                              status: controller.complaints!.data![index].status ?? "",
+                                                              complainType: controller.complaints!.data![index].complaintType ?? "",
+                                                              complaintID: controller.complaints!.data![index].id ?? 0,
+                                                            ));
+                                                      },
+                                                      child: Container(
+                                                          padding: getPadding(left: 30, right: 0),
+                                                          height: getVerticalSize(20),
+                                                          child: Icon(Icons.remove_red_eye)),
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           // if (index != 14) // Add divider after all items except the last one

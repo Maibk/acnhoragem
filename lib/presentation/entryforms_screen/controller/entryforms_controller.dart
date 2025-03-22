@@ -524,7 +524,6 @@ class EntryFormsController extends GetxController {
 
         data = {
           'child_name': childfullNameControllers[index].text,
-          // "child_father_name": childfathersControllers[index].text,
           'child_cnic': childcnicControllers[index].text,
           'child_phone': childmobileControllers[index].text,
           'child_house': childhouseControllers[index].text,

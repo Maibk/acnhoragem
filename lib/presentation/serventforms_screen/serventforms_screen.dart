@@ -244,14 +244,16 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         child: Text(item['title']),
                                                       );
                                                     }).toList(),
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        controller.selectedValue = value!;
-                                                        controller.streets.clear();
-                                                        controller.plots.clear();
-                                                        controller.getStreetByBlock(value);
-                                                      });
-                                                    },
+                                                    onChanged: args['status'] == Constants.formStatusPending
+                                                        ? null
+                                                        : (int? value) {
+                                                            setState(() {
+                                                              controller.selectedValue = value!;
+                                                              controller.streets.clear();
+                                                              controller.plots.clear();
+                                                              controller.getStreetByBlock(value);
+                                                            });
+                                                          },
                                                   ).paddingOnly(left: 12),
                                                 ),
                                               ),
@@ -369,18 +371,13 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               children: [
                                                 MyText(title: "Image").paddingOnly(left: 10),
                                                 5.verticalSpace,
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    controller.ownerImage = await controller.imagePicker();
-                                                  },
-                                                  child: Padding(
-                                                    padding: getPadding(left: 10, right: 10),
-                                                    child: Container(
-                                                      width: getHorizontalSize(350),
-                                                      color: ColorConstant.whiteA700,
-                                                      child: CustomImageView(
-                                                        url: controller.servantFormDataModel.data?.cnicImage?.ownerImage ?? "",
-                                                      ),
+                                                Padding(
+                                                  padding: getPadding(left: 10, right: 10),
+                                                  child: Container(
+                                                    width: getHorizontalSize(350),
+                                                    color: ColorConstant.whiteA700,
+                                                    child: CustomImageView(
+                                                      url: controller.servantFormDataModel.data?.cnicImage?.ownerImage ?? "",
                                                     ),
                                                   ),
                                                 ),
@@ -416,18 +413,13 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               children: [
                                                 MyText(title: "CNIC Image Front").paddingOnly(left: 10),
                                                 5.verticalSpace,
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    controller.ownerImage = await controller.imagePicker();
-                                                  },
-                                                  child: Padding(
-                                                    padding: getPadding(left: 10, right: 10),
-                                                    child: Container(
-                                                      width: getHorizontalSize(350),
-                                                      color: ColorConstant.whiteA700,
-                                                      child: CustomImageView(
-                                                        url: controller.servantFormDataModel.data?.cnicImage?.ownerCnicFront ?? "",
-                                                      ),
+                                                Padding(
+                                                  padding: getPadding(left: 10, right: 10),
+                                                  child: Container(
+                                                    width: getHorizontalSize(350),
+                                                    color: ColorConstant.whiteA700,
+                                                    child: CustomImageView(
+                                                      url: controller.servantFormDataModel.data?.cnicImage?.ownerCnicFront ?? "",
                                                     ),
                                                   ),
                                                 ),
@@ -442,7 +434,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach clear image of your CNIC front side".tr,
+                                                label: "Attach your CNIC front image".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -463,18 +455,13 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               children: [
                                                 MyText(title: "CNIC Image Back").paddingOnly(left: 10),
                                                 5.verticalSpace,
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    controller.ownerImage = await controller.imagePicker();
-                                                  },
-                                                  child: Padding(
-                                                    padding: getPadding(left: 10, right: 10),
-                                                    child: Container(
-                                                      width: getHorizontalSize(350),
-                                                      color: ColorConstant.whiteA700,
-                                                      child: CustomImageView(
-                                                        url: controller.servantFormDataModel.data?.cnicImage?.ownerCnicFront ?? "",
-                                                      ),
+                                                Padding(
+                                                  padding: getPadding(left: 10, right: 10),
+                                                  child: Container(
+                                                    width: getHorizontalSize(350),
+                                                    color: ColorConstant.whiteA700,
+                                                    child: CustomImageView(
+                                                      url: controller.servantFormDataModel.data?.cnicImage?.ownerCnicFront ?? "",
                                                     ),
                                                   ),
                                                 ),
@@ -489,7 +476,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach clear image of your CNIC back side".tr,
+                                                label: "Attach your CNIC front image".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -757,18 +744,13 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         children: [
                                                           MyText(title: "Attachment").paddingOnly(left: 10),
                                                           5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () async {
-                                                              controller.ownerImage = await controller.imagePicker();
-                                                            },
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.servantFormDataModel.data?.servantDetail?[index].servantImage ?? "",
-                                                                ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                url: controller.servantFormDataModel.data?.servantDetail?[index].servantImage ?? "",
                                                               ),
                                                             ),
                                                           ),
@@ -840,19 +822,14 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         children: [
                                                           MyText(title: "Attachment").paddingOnly(left: 10),
                                                           5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () async {
-                                                              controller.ownerImage = await controller.imagePicker();
-                                                            },
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.servantFormDataModel.data?.servantDetail?[index].servantCnicFront ??
-                                                                      "",
-                                                                ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                url: controller.servantFormDataModel.data?.servantDetail?[index].servantCnicFront ??
+                                                                    "",
                                                               ),
                                                             ),
                                                           ),
@@ -867,7 +844,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach clear image of your CNIC front side".tr,
+                                                          label: "Attach a servant's CNIC front image".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.servantCnicFronts[index].path == ""
@@ -926,7 +903,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           fontSize: 12.sp,
                                                           fontWeight: FontWeight.w700,
                                                           color: ColorConstant.whiteA700,
-                                                          label: "Attach clear image of your CNIC back side".tr,
+                                                          label: "Attach a servant's CNIC back image".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
                                                           prefix: controller.servantCnicBacks[index].path == ""
@@ -1116,19 +1093,14 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         children: [
                                                           MyText(title: "Attachment").paddingOnly(left: 10),
                                                           5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () async {
-                                                              controller.ownerImage = await controller.imagePicker();
-                                                            },
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.servantFormDataModel.data?.servantFamilyDetail?[index].attachment ??
-                                                                      "",
-                                                                ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                url: controller.servantFormDataModel.data?.servantFamilyDetail?[index].attachment ??
+                                                                    "",
                                                               ),
                                                             ),
                                                           ),

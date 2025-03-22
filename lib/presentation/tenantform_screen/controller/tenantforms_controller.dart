@@ -7,7 +7,7 @@ import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/tenantform_screen/models/tenant_form_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
-import 'package:csc_picker_plus/csc_picker_plus.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

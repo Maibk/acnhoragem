@@ -21,7 +21,13 @@ LoginModel? loginResponseModel;
 
 class LoginController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
-  TextEditingController emailController = TextEditingController(text: kDebugMode ? "dev4@yopmail.com" : null);
+  TextEditingController emailController = TextEditingController(
+      text: kDebugMode
+          ? "pat.cummins2003@gmail.com"
+
+          //  "dev4@yopmail.com"
+
+          : null);
   AppPreferences appPreferences = AppPreferences();
 
   TextEditingController passwordController = TextEditingController(text: kDebugMode ? "Test@1234" : null);

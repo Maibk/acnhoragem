@@ -24,6 +24,9 @@ class VehicleFormDataModel {
 
 class Data {
   int? id;
+  int? block_id;
+  int? street_id;
+  int? house_id;
   int? userId;
   String? name;
   String? fatherName;
@@ -56,6 +59,9 @@ class Data {
   Data(
       {this.id,
       this.userId,
+      this.block_id,
+      this.street_id,
+      this.house_id,
       this.name,
       this.fatherName,
       this.category,
@@ -87,6 +93,9 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
+    block_id = json['block_id'];
+    street_id = json['street_id'];
+    house_id = json['house_id'];
     name = json['name'];
     fatherName = json['father_name'];
     category = json['category'];

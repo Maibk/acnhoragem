@@ -39,6 +39,7 @@ class CustomTextField extends StatefulWidget {
   double? iconHeight;
   double? sidePadding;
   Widget? prefixWidget;
+  FloatingLabelBehavior? floatingLabelBehavior;
 
   AutovalidateMode? autovalidateMode;
 
@@ -76,6 +77,7 @@ class CustomTextField extends StatefulWidget {
       this.sidePadding,
       this.iconSize,
       this.prefixWidget,
+      this.floatingLabelBehavior,
       this.autovalidateMode})
       : super(key: key);
 
@@ -156,7 +158,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       fontWeight: FontWeight.normal),
 
                   decoration: InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    floatingLabelBehavior: widget.floatingLabelBehavior ?? FloatingLabelBehavior.auto,
                     prefixIconConstraints: BoxConstraints(minWidth: 15, minHeight: 38),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 5, right: 10),

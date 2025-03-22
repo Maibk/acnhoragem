@@ -5,7 +5,7 @@ import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
-import 'package:csc_picker_plus/csc_picker_plus.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -197,7 +197,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               Expanded(
                                                 child: Padding(
                                                   padding: const EdgeInsets.only(left: 8.0, top: 5),
-                                                  child: CSCPickerPlus(
+                                                  child: CSCPicker(
                                                     currentCountry: controller.natinalityController.text,
                                                     countryDropdownLabel: "Nationality",
                                                     disableCountry: isEditable ? false : true,
@@ -1342,16 +1342,13 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       SizedBox(
                                                         height: getVerticalSize(5),
                                                       ),
-                                                      GestureDetector(
-                                                        onTap: () {},
-                                                        child: Padding(
-                                                          padding: getPadding(left: 10, right: 10),
-                                                          child: Container(
-                                                            width: getHorizontalSize(350),
-                                                            color: ColorConstant.whiteA700,
-                                                            child: CustomImageView(
-                                                              url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
-                                                            ),
+                                                      Padding(
+                                                        padding: getPadding(left: 10, right: 10),
+                                                        child: Container(
+                                                          width: getHorizontalSize(350),
+                                                          color: ColorConstant.whiteA700,
+                                                          child: CustomImageView(
+                                                            url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
                                                           ),
                                                         ),
                                                       ),
@@ -1392,16 +1389,13 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(5),
                                                     ),
-                                                    GestureDetector(
-                                                      onTap: () {},
-                                                      child: Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: Container(
-                                                          width: getHorizontalSize(350),
-                                                          color: ColorConstant.whiteA700,
-                                                          child: CustomImageView(
-                                                            url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
-                                                          ),
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: Container(
+                                                        width: getHorizontalSize(350),
+                                                        color: ColorConstant.whiteA700,
+                                                        child: CustomImageView(
+                                                          url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
                                                         ),
                                                       ),
                                                     ),
@@ -1443,16 +1437,13 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       SizedBox(
                                                         height: getVerticalSize(5),
                                                       ),
-                                                      GestureDetector(
-                                                        onTap: () {},
-                                                        child: Padding(
-                                                          padding: getPadding(left: 10, right: 10),
-                                                          child: Container(
-                                                            width: getHorizontalSize(350),
-                                                            color: ColorConstant.whiteA700,
-                                                            child: CustomImageView(
-                                                              url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
-                                                            ),
+                                                      Padding(
+                                                        padding: getPadding(left: 10, right: 10),
+                                                        child: Container(
+                                                          width: getHorizontalSize(350),
+                                                          color: ColorConstant.whiteA700,
+                                                          child: CustomImageView(
+                                                            url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
                                                           ),
                                                         ),
                                                       ),

@@ -228,6 +228,7 @@ class VechicleController extends GetxController {
             cnicController.text = vehicleFormDataModel.data?.cnic ?? "";
             cellNoController.text = vehicleFormDataModel.data?.cellNo ?? "";
             ptclController.text = vehicleFormDataModel.data?.ptclNo ?? "";
+            selectedValue = vehicleFormDataModel.data?.block_id ?? 0;
 
             if (vehicleFormDataModel.data?.category.toString() == "civilian") {
               setServiceCategory(1);
@@ -237,8 +238,8 @@ class VechicleController extends GetxController {
 
             dateController.text = vehicleFormDataModel.data?.date ?? "";
             setSelectedBlock(vehicleFormDataModel.data?.block.toString() ?? "");
-            streetSelectedValue = Street(title: vehicleFormDataModel.data?.roadStreet ?? "");
-            plotstSelectedValue = Plots(title: vehicleFormDataModel.data?.houseNo ?? "");
+            streetSelectedValue = Street(id: vehicleFormDataModel.data?.street_id ?? 0, title: vehicleFormDataModel.data?.roadStreet ?? "");
+            plotstSelectedValue = Plots(id: vehicleFormDataModel.data?.house_id ?? 0, title: vehicleFormDataModel.data?.houseNo ?? "");
             roadController.text = vehicleFormDataModel.data?.roadStreet ?? "";
             colonyController.text = vehicleFormDataModel.data?.roadStreet ?? "";
 

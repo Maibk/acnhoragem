@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
-import 'package:csc_picker_plus/csc_picker_plus.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -203,6 +203,7 @@ class OwnerFornsScreenController extends GetxController {
             setSelectedBlock(ownerFormModel.data?.blockCommercial.toString() ?? "");
             streetSelectedValue = Street(title: ownerFormModel.data?.streetNo ?? "");
             sizeHouseAddController.text = ownerFormModel.data?.sizeOfHousePlot ?? "";
+            updateConstructionStatus(ownerFormModel.data?.construction_status ?? "");
 
             plotstSelectedValue = Plots(title: ownerFormModel.data?.houseNo ?? "", sq_yards: ownerFormModel.data?.sizeOfHousePlot ?? "");
             permanantAddController.text = ownerFormModel.data?.permanentAddress ?? "";
@@ -230,10 +231,11 @@ class OwnerFornsScreenController extends GetxController {
             } else {
               updateCompletionCertificate("No");
             }
-            updateConstructionStatus(ownerFormModel.data?.construction_status ?? "");
             if (ownerFormModel.data!.vehicle != null) {
               if (ownerFormModel.data!.vehicle!.isNotEmpty) {
                 updateVehicle("Yes");
+              } else {
+                updateVehicle("No");
               }
               for (var element in ownerFormModel.data!.vehicle!) {
                 vehicleTypeControllers.add(TextEditingController(text: element.vehicleType));
@@ -266,9 +268,16 @@ class OwnerFornsScreenController extends GetxController {
     return null;
   }
 
-  setCountry(input) {
+  void setCountry(String input) {
     String countryName = input.split(' ').last;
-    country = CscCountry.values.firstWhere((element) => element.name == countryName);
+    try {
+      country = CscCountry.values.firstWhere(
+        (element) => element.name == countryName,
+        orElse: () => CscCountry.Pakistan, // Default to Pakistan
+      );
+    } catch (e) {
+      country = CscCountry.Pakistan; // Fallback in case of an unexpected error
+    }
     log(country.toString());
   }
 
@@ -592,8 +601,7 @@ class OwnerFornsScreenController extends GetxController {
             );
           }
         } else {
-          ownerFormdata['copy_allotment_letter'] =
-              await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.allotmentLetterUrl ?? "");
+          ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.allotmentLetterUrl ?? "");
         }
       }
 
@@ -607,8 +615,7 @@ class OwnerFornsScreenController extends GetxController {
           );
         }
       } else {
-        ownerFormdata['copy_approval_building_plan'] =
-            await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
+        ownerFormdata['copy_approval_building_plan'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
       }
 
       if (completionCertificate == "Yes") {
@@ -623,8 +630,7 @@ class OwnerFornsScreenController extends GetxController {
           }
         }
       } else {
-        ownerFormdata['copy_completion_certificate'] =
-            BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.completionCertificateUrl ?? "");
+        ownerFormdata['copy_completion_certificate'] = BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.completionCertificateUrl ?? "");
       }
       if (value) {
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {

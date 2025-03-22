@@ -216,7 +216,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                       fieldText: "Enter Description".tr,
                                       controller: controller.descriptionController,
                                       isFinal: false,
-                                      
+                                      floatingLabelBehavior: FloatingLabelBehavior.never,
                                       keyboardType: TextInputType.emailAddress,
                                       limit: HelperFunction.EMAIL_VALIDATION,
                                       validator: (value) {

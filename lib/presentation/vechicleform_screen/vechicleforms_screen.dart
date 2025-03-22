@@ -29,9 +29,13 @@ class _VechicleScreenState extends State<VechicleScreen> {
   VechicleController controller = Get.put(VechicleController());
 
   final args = Get.arguments;
+  bool isEditable = false;
 
   @override
   initState() {
+    if (args['status'] == Constants.formStatusRejected || args['status'] == "") {
+      isEditable = true;
+    }
     Future.delayed(Duration(), () {
       args['status'] != "" ? controller.getEntryFormsDetails(args['id']) : null;
       args['status'] != "" ? null : controller.addUserControllers();
@@ -336,14 +340,16 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       child: Text(item['title']),
                                                     );
                                                   }).toList(),
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      controller.selectedValue = value!;
-                                                      controller.servantstreets.clear();
-                                                      controller.servantplots.clear();
-                                                      controller.getStreetByBlock(value);
-                                                    });
-                                                  },
+                                                  onChanged: args['status'] == Constants.formStatusPending
+                                                      ? null
+                                                      : (int? value) {
+                                                          setState(() {
+                                                            controller.selectedValue = value!;
+                                                            controller.servantstreets.clear();
+                                                            controller.servantplots.clear();
+                                                            controller.getStreetByBlock(value);
+                                                          });
+                                                        },
                                                 ).paddingOnly(left: 12),
                                               ),
                                               SizedBox(
@@ -482,57 +488,60 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               SizedBox(
                                                 height: getVerticalSize(15),
                                               ),
-                                              Padding(
-                                                padding: getPadding(left: 10, top: 10, right: 10),
-                                                child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Icon(
-                                                      _value.selectedResidential == 1 ? Icons.circle : Icons.circle_outlined,
-                                                      color: ColorConstant.blackColor,
-                                                      size: 14,
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        controller.updateNocStatus("");
-                                                        _value.setselectedResidential(1);
-                                                      },
-                                                      child: MyText(
-                                                        title: " Civilian",
-                                                        clr: ColorConstant.antextlightgray,
+                                              AbsorbPointer(
+                                                absorbing: !isEditable,
+                                                child: Padding(
+                                                  padding: getPadding(left: 10, top: 10, right: 10),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Icon(
+                                                        _value.selectedResidential == 1 ? Icons.circle : Icons.circle_outlined,
+                                                        color: ColorConstant.blackColor,
+                                                        size: 14,
                                                       ),
-                                                    ),
-                                                    Icon(
-                                                      _value.selectedResidential == 2 ? Icons.circle : Icons.circle_outlined,
-                                                      color: ColorConstant.blackColor,
-                                                      size: 14,
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        _value.setselectedResidential(2);
-                                                      },
-                                                      child: MyText(
-                                                        title: "Tenant",
-                                                        clr: ColorConstant.antextlightgray,
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          controller.updateNocStatus("");
+                                                          _value.setselectedResidential(1);
+                                                        },
+                                                        child: MyText(
+                                                          title: " Civilian",
+                                                          clr: ColorConstant.antextlightgray,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Icon(
-                                                      _value.selectedResidential == 3 ? Icons.circle : Icons.circle_outlined,
-                                                      color: ColorConstant.blackColor,
-                                                      size: 14,
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        controller.updateNocStatus("");
+                                                      Icon(
+                                                        _value.selectedResidential == 2 ? Icons.circle : Icons.circle_outlined,
+                                                        color: ColorConstant.blackColor,
+                                                        size: 14,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          _value.setselectedResidential(2);
+                                                        },
+                                                        child: MyText(
+                                                          title: "Tenant",
+                                                          clr: ColorConstant.antextlightgray,
+                                                        ),
+                                                      ),
+                                                      Icon(
+                                                        _value.selectedResidential == 3 ? Icons.circle : Icons.circle_outlined,
+                                                        color: ColorConstant.blackColor,
+                                                        size: 14,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          controller.updateNocStatus("");
 
-                                                        _value.setselectedResidential(3);
-                                                      },
-                                                      child: MyText(
-                                                        title: "Visitor / Non-Resident",
-                                                        clr: ColorConstant.antextlightgray,
+                                                          _value.setselectedResidential(3);
+                                                        },
+                                                        child: MyText(
+                                                          title: "Visitor / Non-Resident",
+                                                          clr: ColorConstant.antextlightgray,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -545,87 +554,90 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   return Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding: getPadding(left: 10),
-                                                            child: MyText(
-                                                              title: "NOC submitted",
-                                                              clr: ColorConstant.antextlightgray,
-                                                              fontSize: 14,
+                                                      AbsorbPointer(
+                                                        absorbing: !isEditable,
+                                                        child: Row(
+                                                          children: [
+                                                            Padding(
+                                                              padding: getPadding(left: 10),
+                                                              child: MyText(
+                                                                title: "NOC submitted",
+                                                                clr: ColorConstant.antextlightgray,
+                                                                fontSize: 14,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: getHorizontalSize(20),
-                                                          ),
-                                                          GetBuilder(
-                                                            init: controller,
-                                                            builder: (_) {
-                                                              return GestureDetector(
-                                                                onTap: () {
-                                                                  controller.updateNocStatus("Yes");
-                                                                },
-                                                                child: Row(
-                                                                  children: [
-                                                                    controller.nocSubmitted == "Yes"
-                                                                        ? Icon(
-                                                                            Icons.circle,
-                                                                            color: ColorConstant.blackColor,
-                                                                            size: 14,
-                                                                          )
-                                                                        : Icon(
-                                                                            Icons.circle_outlined,
-                                                                            color: ColorConstant.blackColor,
-                                                                            size: 14,
-                                                                          ),
-                                                                    SizedBox(
-                                                                      width: getHorizontalSize(10),
-                                                                    ),
-                                                                    MyText(
-                                                                      title: "Yes",
-                                                                      clr: ColorConstant.antextlightgray,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                          SizedBox(
-                                                            width: getHorizontalSize(20),
-                                                          ),
-                                                          GetBuilder(
-                                                            init: controller,
-                                                            builder: (_) {
-                                                              return GestureDetector(
-                                                                onTap: () {
-                                                                  controller.updateNocStatus("No");
-                                                                },
-                                                                child: Row(
-                                                                  children: [
-                                                                    controller.nocSubmitted == "No"
-                                                                        ? Icon(
-                                                                            Icons.circle,
-                                                                            color: ColorConstant.blackColor,
-                                                                            size: 14,
-                                                                          )
-                                                                        : Icon(
-                                                                            Icons.circle_outlined,
-                                                                            color: ColorConstant.blackColor,
-                                                                            size: 14,
-                                                                          ),
-                                                                    SizedBox(
-                                                                      width: getHorizontalSize(10),
-                                                                    ),
-                                                                    MyText(
-                                                                      title: "No",
-                                                                      clr: ColorConstant.antextlightgray,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        ],
+                                                            SizedBox(
+                                                              width: getHorizontalSize(20),
+                                                            ),
+                                                            GetBuilder(
+                                                              init: controller,
+                                                              builder: (_) {
+                                                                return GestureDetector(
+                                                                  onTap: () {
+                                                                    controller.updateNocStatus("Yes");
+                                                                  },
+                                                                  child: Row(
+                                                                    children: [
+                                                                      controller.nocSubmitted == "Yes"
+                                                                          ? Icon(
+                                                                              Icons.circle,
+                                                                              color: ColorConstant.blackColor,
+                                                                              size: 14,
+                                                                            )
+                                                                          : Icon(
+                                                                              Icons.circle_outlined,
+                                                                              color: ColorConstant.blackColor,
+                                                                              size: 14,
+                                                                            ),
+                                                                      SizedBox(
+                                                                        width: getHorizontalSize(10),
+                                                                      ),
+                                                                      MyText(
+                                                                        title: "Yes",
+                                                                        clr: ColorConstant.antextlightgray,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                            SizedBox(
+                                                              width: getHorizontalSize(20),
+                                                            ),
+                                                            GetBuilder(
+                                                              init: controller,
+                                                              builder: (_) {
+                                                                return GestureDetector(
+                                                                  onTap: () {
+                                                                    controller.updateNocStatus("No");
+                                                                  },
+                                                                  child: Row(
+                                                                    children: [
+                                                                      controller.nocSubmitted == "No"
+                                                                          ? Icon(
+                                                                              Icons.circle,
+                                                                              color: ColorConstant.blackColor,
+                                                                              size: 14,
+                                                                            )
+                                                                          : Icon(
+                                                                              Icons.circle_outlined,
+                                                                              color: ColorConstant.blackColor,
+                                                                              size: 14,
+                                                                            ),
+                                                                      SizedBox(
+                                                                        width: getHorizontalSize(10),
+                                                                      ),
+                                                                      MyText(
+                                                                        title: "No",
+                                                                        clr: ColorConstant.antextlightgray,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                       SizedBox(
                                                         height: getVerticalSize(20),
