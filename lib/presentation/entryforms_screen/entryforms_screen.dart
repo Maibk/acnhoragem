@@ -882,30 +882,34 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "")
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: MyAnimatedButton(
-                                                          radius: 5.0,
-                                                          height: getVerticalSize(50),
-                                                          width: getHorizontalSize(400),
-                                                          fontSize: 16,
-                                                          bgColor: ColorConstant.anbtnBlue,
-                                                          controller: controller.btnControllerUseLess,
-                                                          title: "Add Spouse".tr,
-                                                          onTap: () async {
-                                                            if (controller.spouseImages.isEmpty) {
-                                                              Utils.showToast("Please select spouse Images", true);
-                                                            } else if (controller.spouseCnicsfronts.isEmpty) {
-                                                              Utils.showToast("Please select spouse cnic front images", true);
-                                                            } else if (controller.spouseCnicBacks.isEmpty) {
-                                                              Utils.showToast("Please select spouse cnic back images", true);
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: MyAnimatedButton(
+                                                        radius: 5.0,
+                                                        height: getVerticalSize(50),
+                                                        width: getHorizontalSize(400),
+                                                        fontSize: 16,
+                                                        bgColor: ColorConstant.anbtnBlue,
+                                                        controller: controller.btnControllerUseLess,
+                                                        title: "Add Spouse".tr,
+                                                        onTap: () async {
+                                                          if (controller.spouseImages.isEmpty) {
+                                                            Utils.showToast("Please select spouse Images", true);
+                                                          } else if (controller.spouseCnicsfronts.isEmpty) {
+                                                            Utils.showToast("Please select spouse cnic front images", true);
+                                                          } else if (controller.spouseCnicBacks.isEmpty) {
+                                                            Utils.showToast("Please select spouse cnic back images", true);
+                                                          } else {
+                                                            if (args['status'] == "Rejected") {
+                                                              controller.addSpouse();
+                                                              controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
                                                             } else {
                                                               controller.spouseEntryFormAPi(context, index);
                                                             }
-                                                          },
-                                                        ),
+                                                          }
+                                                        },
                                                       ),
+                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(20),
                                                     ),

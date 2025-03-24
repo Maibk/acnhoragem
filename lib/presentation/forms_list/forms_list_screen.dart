@@ -91,7 +91,8 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   int? id = controller.formsListModel.data?[index].id ?? 0;
-                                  String? status = controller.formsListModel.data?[index].status ?? "";
+                                  // String? status = controller.formsListModel.data?[index].status ?? "";
+                                  String? status = "Rejected";
                                   return Container(
                                     margin: EdgeInsets.only(bottom: 10),
                                     width: Get.width,

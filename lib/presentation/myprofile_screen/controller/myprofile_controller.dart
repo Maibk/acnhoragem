@@ -144,6 +144,13 @@ class MyprofileController extends GetxController {
   @override
   onInit() async {
     super.onInit();
+    newPassController.clear();
     getProfile();
   }
+
+  // onC() {
+  //   super.dispose();
+  //   newPassController.clear();
+  // }
+  
 }
