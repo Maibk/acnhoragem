@@ -155,7 +155,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: 120,
+                                                  constraints: BoxConstraints(maxWidth: 80, minWidth: 80),
                                                   child: MyText(
                                                     title: controller.complaints!.data![index].description!,
                                                     clr: ColorConstant.antextGrayDark,
@@ -163,8 +163,10 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                                   ),
                                                 ),
                                                 Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Container(
+                                                      // width: 80,
                                                       padding: getPadding(left: 10, right: 10),
                                                       height: getVerticalSize(20),
                                                       decoration: BoxDecoration(
@@ -196,10 +198,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                                               complaintID: controller.complaints!.data![index].id ?? 0,
                                                             ));
                                                       },
-                                                      child: Container(
-                                                          padding: getPadding(left: 30, right: 0),
-                                                          height: getVerticalSize(20),
-                                                          child: Icon(Icons.remove_red_eye)),
+                                                      child: Container(margin: EdgeInsets.only(left: 30), child: Icon(Icons.remove_red_eye)),
                                                     )
                                                   ],
                                                 ),

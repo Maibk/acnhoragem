@@ -1488,7 +1488,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     title: "Submit".tr,
                                                     onTap: () async {
                                                       if (isEditable) {
-                                                        controller.editOwnerFormApi(context);
+                                                        controller.editOwnerFormApi(context, args['id']);
                                                       } else {
                                                         if (controller.buildingplan == null) {
                                                           Utils.showToast(

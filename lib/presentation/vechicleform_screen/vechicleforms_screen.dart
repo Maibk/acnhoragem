@@ -135,7 +135,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Form(
-                                          // key: _value.sticketProformaFormKey,
+                                          key: _value.sticketProformaFormKey,
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
@@ -653,7 +653,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             init: controller,
                                             builder: (context) {
                                               return Form(
-                                                  // key: _value.addVehicleFormKey,
+                                                  key: _value.addVehicleFormKey,
                                                   child: ListView.builder(
                                                 physics: NeverScrollableScrollPhysics(),
                                                 shrinkWrap: true,
@@ -825,7 +825,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                     init: _value,
                                     builder: (context) {
                                       return Form(
-                                        // key: controller.addUserInfoFormKey,
+                                        key: controller.addUserInfoFormKey,
                                         child: CustomExpansionTile(
                                           title: MyText(
                                             title: 'Users Information',
@@ -1036,33 +1036,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "User license front").paddingOnly(left: 10),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                          GestureDetector(
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller
-                                                                          .vehicleFormDataModel.data?.vehicleUserDetail?[index].userLicenseFront ??
-                                                                      "",
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                        ],
-                                                      ),
                                                     if (args['status'] != "")
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,

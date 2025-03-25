@@ -23,7 +23,6 @@ import '../../../data/services/api_exceptions.dart';
 import '../../../data/services/base_client.dart';
 
 class VechicleController extends GetxController {
-  // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController editbtnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController btnControllerUseless = RoundedLoadingButtonController();
@@ -111,6 +110,14 @@ class VechicleController extends GetxController {
 
   List<Street> servantstreets = [];
   List<Plots> servantplots = [];
+
+  oninit() {
+    super.onInit();
+    userDrivingLicenseFrontSideImages.clear();
+    userCnicFrontSideImages.clear();
+    userCnicBacktSideImages.clear();
+    userDrivingLicenseBackSideImages.clear();
+  }
 
   getStreetByBlock(id) async {
     Utils.check().then((value) async {
@@ -342,22 +349,22 @@ class VechicleController extends GetxController {
   }
 
   addUserInfo(index) async {
-    if (userDrivingLicenseFrontSideImages.isEmpty) {
+    if (userDrivingLicenseFrontSideImages.any((element) => element.path == "")) {
       Utils.showToast(
         "Please select image of Driving License Front Side",
         true,
       );
-    } else if (userDrivingLicenseBackSideImages.isEmpty) {
+    } else if (userDrivingLicenseBackSideImages.any((element) => element.path == "")) {
       Utils.showToast(
         "Please select image of Driving License Back Side",
         true,
       );
-    } else if (userCnicFrontSideImages.isEmpty) {
+    } else if (userCnicFrontSideImages.any((element) => element.path == "")) {
       Utils.showToast(
         "Please select image of CNIC front side",
         true,
       );
-    } else if (userCnicBacktSideImages.isEmpty) {
+    } else if (userCnicBacktSideImages.any((element) => element.path == "")) {
       Utils.showToast(
         "Please select image of CNIC back side",
         true,

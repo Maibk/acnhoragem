@@ -200,6 +200,12 @@ class OwnerFornsScreenController extends GetxController {
             cnicController.text = ownerFormModel.data?.cnic ?? "";
             telephoneController.text = ownerFormModel.data?.phone ?? "";
             occupationController.text = ownerFormModel.data?.occupation ?? "";
+
+            if (ownerFormModel.data?.vehicleStatus == "Yes") {
+              updateVehicle("Yes");
+            } else {
+              updateVehicle("No");
+            }
             setSelectedBlock(ownerFormModel.data?.blockCommercial.toString() ?? "");
             streetSelectedValue = Street(title: ownerFormModel.data?.streetNo ?? "");
             sizeHouseAddController.text = ownerFormModel.data?.sizeOfHousePlot ?? "";
@@ -232,11 +238,6 @@ class OwnerFornsScreenController extends GetxController {
               updateCompletionCertificate("No");
             }
             if (ownerFormModel.data!.vehicle != null) {
-              if (ownerFormModel.data!.vehicle!.isNotEmpty) {
-                updateVehicle("Yes");
-              } else {
-                updateVehicle("No");
-              }
               for (var element in ownerFormModel.data!.vehicle!) {
                 vehicleTypeControllers.add(TextEditingController(text: element.vehicleType));
                 vehicleRegisterNoControllers.add(TextEditingController(text: element.registration));
@@ -547,7 +548,7 @@ class OwnerFornsScreenController extends GetxController {
     }
   }
 
-  Future<void> editOwnerFormApi(context) async {
+  Future<void> editOwnerFormApi(context, int id) async {
     editbtnController.start();
     Utils.check().then((value) async {
       Map<String, dynamic> data = {
@@ -637,7 +638,7 @@ class OwnerFornsScreenController extends GetxController {
           var dio = _dio.Dio();
           try {
             var response = await dio.request(
-              'https://anchorageislamabad.com/api/owner-application/update',
+              'https://anchorageislamabad.com/api/owner-application/update/$id',
               options: _dio.Options(
                 method: 'POST',
                 headers: {

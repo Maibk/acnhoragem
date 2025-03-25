@@ -37,6 +37,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
 
   @override
   void initState() {
+    controller.spouseImages.clear();
     controller.childDataIndex = 0;
     controller.spouseDataIndex = 0;
     controller.ownerImage = null;
@@ -759,8 +760,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                 controller.spouseImages[index] = File(result.path);
                                                               });
                                                             }
-
-                                                            log(controller.spouseImages.toString());
                                                           },
                                                         ),
                                                       ),
@@ -1345,12 +1344,12 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                       width: getHorizontalSize(400),
                                       fontSize: 16,
                                       bgColor: ColorConstant.anbtnBlue,
-                                      controller: (args['status'] == Constants.formStatusRejected || args['status'] == "")
+                                      controller: (args['status'] == Constants.formStatusRejected)
                                           ? _value.submitEdittedFormButtonController
                                           : _value.btnController,
                                       title: "Submit".tr,
                                       onTap: () async {
-                                        (args['status'] == Constants.formStatusRejected || args['status'] == "")
+                                        (args['status'] == Constants.formStatusRejected)
                                             ? controller.SubmitEdittedEntryFormApi(context, args['id'])
                                             : controller.SubmitEntryFormApi(context);
                                       },

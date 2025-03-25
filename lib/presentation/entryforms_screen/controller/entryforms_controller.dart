@@ -283,7 +283,6 @@ class EntryFormsController extends GetxController {
   Future<File?> imagePicker() async {
     final result = await picker.pickImage(source: ImageSource.gallery);
     if (result != null) {
-      spouseImages.add(File(result.path));
       update();
       return File(result.path);
     }

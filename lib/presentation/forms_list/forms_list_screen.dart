@@ -67,6 +67,23 @@ class _FormsListScreenState extends State<FormsListScreen> {
         ),
         body: Column(
           children: [
+            if (args == "Owner Form" || args == "Tenant Form")
+              GestureDetector(
+                onTap: () {
+                  if (args == "Owner Form") {
+                    Get.toNamed(AppRoutes.ownerFormsPage, arguments: {'status': "", 'id': ""});
+                  } else {
+                    Get.toNamed(AppRoutes.tenantFormsPage, arguments: {'status': "", 'id': ""});
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(7)),
+                  child: Center(child: MyText(title: "Add new application form")),
+                ),
+              ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -91,8 +108,8 @@ class _FormsListScreenState extends State<FormsListScreen> {
                                 physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   int? id = controller.formsListModel.data?[index].id ?? 0;
-                                  // String? status = controller.formsListModel.data?[index].status ?? "";
-                                  String? status = "Rejected";
+                                  String? status = controller.formsListModel.data?[index].status ?? "";
+                                  // String? status = "Rejected";
                                   return Container(
                                     margin: EdgeInsets.only(bottom: 10),
                                     width: Get.width,
