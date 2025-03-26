@@ -5,7 +5,8 @@ import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
-import 'package:csc_picker/csc_picker.dart';
+import 'package:csc_picker_plus/csc_picker_plus.dart';
+// import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -204,7 +205,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding: const EdgeInsets.only(left: 8.0, top: 5),
-                                                    child: CSCPicker(
+                                                    child: CSCPickerPlus(
                                                       currentCountry: controller.natinalityController.text,
                                                       countryDropdownLabel: "Nationality",
                                                       disableCountry: isEditable ? false : true,

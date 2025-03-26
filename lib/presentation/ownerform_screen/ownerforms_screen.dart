@@ -5,7 +5,8 @@ import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
-import 'package:csc_picker/csc_picker.dart';
+// import 'package:csc_picker/csc_picker.dart';
+import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -197,7 +198,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               Expanded(
                                                 child: Padding(
                                                   padding: const EdgeInsets.only(left: 8.0, top: 5),
-                                                  child: CSCPicker(
+                                                  child: CSCPickerPlus(
                                                     currentCountry: controller.natinalityController.text,
                                                     countryDropdownLabel: "Nationality",
                                                     disableCountry: isEditable ? false : true,
@@ -1484,10 +1485,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     width: getHorizontalSize(400),
                                                     fontSize: 16,
                                                     bgColor: ColorConstant.anbtnBlue,
-                                                    controller: isEditable ? controller.editbtnController : controller.btnController,
+                                                    controller: args['status'] == Constants.formStatusRejected
+                                                        ? controller.editbtnController
+                                                        : controller.btnController,
                                                     title: "Submit".tr,
                                                     onTap: () async {
-                                                      if (isEditable) {
+                                                      if (args['status'] == Constants.formStatusRejected) {
                                                         controller.editOwnerFormApi(context, args['id']);
                                                       } else {
                                                         if (controller.buildingplan == null) {

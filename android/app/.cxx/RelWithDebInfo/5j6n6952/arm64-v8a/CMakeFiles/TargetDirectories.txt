@@ -1,0 +1,2 @@
+/Users/ahmersohail/projects/acnhoragem/android/app/.cxx/RelWithDebInfo/5j6n6952/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/ahmersohail/projects/acnhoragem/android/app/.cxx/RelWithDebInfo/5j6n6952/arm64-v8a/CMakeFiles/rebuild_cache.dir
