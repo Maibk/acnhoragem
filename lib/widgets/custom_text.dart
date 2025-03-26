@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../core/utils/color_constant.dart';
 import '../theme/app_style.dart';
 
@@ -57,7 +58,7 @@ class _MyTextState extends State<MyText> {
                   : widget.cut == true
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
-              fontSize: widget.fontSize ?? 16,
+              fontSize: widget.fontSize ?? 16.sp,
               color: widget.clr ?? ColorConstant.primaryTextColor,
               fontWeight: widget.customWeight != null
                   ? widget.customWeight
@@ -79,7 +80,7 @@ class _MyTextState extends State<MyText> {
                   : widget.cut == true
                       ? TextDecoration.lineThrough
                       : TextDecoration.none,
-              fontSize: widget.fontSize ?? 16,
+              fontSize: widget.fontSize ?? 16.sp,
               color: widget.clr ?? Colors.black,
               fontWeight: widget.customWeight != null
                   ? widget.customWeight

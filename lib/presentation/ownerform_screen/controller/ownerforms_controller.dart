@@ -92,7 +92,7 @@ class OwnerFornsScreenController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController fathersController = TextEditingController();
   TextEditingController telephoneController = TextEditingController();
-  TextEditingController natinalityController = TextEditingController();
+  TextEditingController natinalityController = TextEditingController(text: "Nationality");
   TextEditingController occupationController = TextEditingController();
   TextEditingController presentAddController = TextEditingController();
   TextEditingController permanantAddController = TextEditingController();
@@ -125,8 +125,6 @@ class OwnerFornsScreenController extends GetxController {
   List<TextEditingController> vehicleRegisterNoControllers = [];
   List<TextEditingController> vehicleColorControllers = [];
   List<TextEditingController> vehicleStikerControllers = [];
-  // TextEditingController vehicleEngineNoController = TextEditingController();
-  // TextEditingController vehicleEtagController = TextEditingController();
   RxBool isInternetAvailable = true.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();

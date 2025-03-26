@@ -325,14 +325,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: controller.profileModel != null
                                   ? <Widget>[
                                       ListTile(
-                                        title: Text("Name : ${controller.profileModel!.name}"),
+                                        minTileHeight: 10,
+                                        title: MyText(fontSize: 12.sp, title: "Name : ${controller.profileModel!.name}"),
                                       ),
                                       ListTile(
-                                        title: Text("Email : ${controller.profileModel!.email}"),
+                                        minTileHeight: 10,
+                                        title: MyText(fontSize: 12.sp, title: "Email : ${controller.profileModel!.email}"),
                                       ),
                                       ListTile(
-                                        title: Text("CNIC : ${controller.profileModel!.cnic}"),
+                                        minTileHeight: 10,
+                                        title: MyText(fontSize: 12.sp, title: "CNIC : ${controller.profileModel!.cnic}"),
                                       ),
+                                      10.verticalSpace,
                                       InkWell(
                                         onTap: () {
                                           Get.toNamed(AppRoutes.myProfilePage);
@@ -376,6 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       if (controller.bills?.data?.isNotEmpty == true)
                                         Container(
                                           child: ListView.builder(
+                                            padding: EdgeInsets.zero,
                                             physics: NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
                                             itemCount: controller.bills!.data!.length,
@@ -385,17 +390,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   Get.toNamed(AppRoutes.billsPage);
                                                 },
                                                 child: ListTile(
+                                                    minTileHeight: 10,
                                                     title: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Text("Date : ${controller.bills!.data![index].billMonth}"),
-                                                    Text("Amount :${controller.bills!.data![index].beforeDueDateAmount} ")
-                                                  ],
-                                                )),
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        MyText(fontSize: 12.sp, title: "Date : ${controller.bills!.data![index].billMonth}"),
+                                                        MyText(
+                                                            fontSize: 12.sp, title: "Amount :${controller.bills!.data![index].beforeDueDateAmount} ")
+                                                      ],
+                                                    )),
                                               );
                                             },
                                           ),
                                         ),
+                                      10.verticalSpace,
                                       InkWell(
                                         onTap: () {
                                           if (controller.profileModel?.appFormApproved == 0) {
@@ -469,11 +477,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Container(
+                                                        margin: EdgeInsets.only(left: 10),
                                                         width: 220,
                                                         child: MyText(
                                                           title: controller.complaints?.data?[index].description ?? "",
                                                           clr: ColorConstant.antextGrayDark,
-                                                          fontSize: 12,
+                                                          fontSize: 12.sp,
                                                         ),
                                                       ),
                                                       Row(
