@@ -536,26 +536,27 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 return Column(
                                                   children: [
                                                     if (index != 0)
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                controller.spousefullNameControllers.removeAt(index);
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                                margin: EdgeInsets.only(right: 15),
-                                                                padding: EdgeInsets.all(8),
-                                                                decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                child: Icon(
-                                                                  Icons.delete_outlined,
-                                                                  color: Colors.white,
-                                                                )),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                      if (args['status'] != Constants.formStatusPending)
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  controller.spousefullNameControllers.removeAt(index);
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                  margin: EdgeInsets.only(right: 15),
+                                                                  padding: EdgeInsets.all(8),
+                                                                  decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                  child: Icon(
+                                                                    Icons.delete_outlined,
+                                                                    color: Colors.white,
+                                                                  )),
+                                                            ),
+                                                          ],
+                                                        ),
                                                     CustomTextField(
                                                         fieldText: "Full Name".tr,
                                                         controller: controller.spousefullNameControllers[index],
@@ -881,34 +882,35 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    Padding(
-                                                      padding: getPadding(left: 10, right: 10),
-                                                      child: MyAnimatedButton(
-                                                        radius: 5.0,
-                                                        height: getVerticalSize(50),
-                                                        width: getHorizontalSize(400),
-                                                        fontSize: 16,
-                                                        bgColor: ColorConstant.anbtnBlue,
-                                                        controller: controller.btnControllerUseLess,
-                                                        title: "Add Spouse".tr,
-                                                        onTap: () async {
-                                                          if (controller.spouseImages.isEmpty) {
-                                                            Utils.showToast("Please select spouse Images", true);
-                                                          } else if (controller.spouseCnicsfronts.isEmpty) {
-                                                            Utils.showToast("Please select spouse cnic front images", true);
-                                                          } else if (controller.spouseCnicBacks.isEmpty) {
-                                                            Utils.showToast("Please select spouse cnic back images", true);
-                                                          } else {
-                                                            if (args['status'] == "Rejected") {
-                                                              controller.addSpouse();
-                                                              controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
+                                                    if (args['status'] == "")
+                                                      Padding(
+                                                        padding: getPadding(left: 10, right: 10),
+                                                        child: MyAnimatedButton(
+                                                          radius: 5.0,
+                                                          height: getVerticalSize(50),
+                                                          width: getHorizontalSize(400),
+                                                          fontSize: 16,
+                                                          bgColor: ColorConstant.anbtnBlue,
+                                                          controller: controller.btnControllerUseLess,
+                                                          title: "Add Spouse".tr,
+                                                          onTap: () async {
+                                                            if (controller.spouseImages.isEmpty) {
+                                                              Utils.showToast("Please select spouse Images", true);
+                                                            } else if (controller.spouseCnicsfronts.isEmpty) {
+                                                              Utils.showToast("Please select spouse cnic front images", true);
+                                                            } else if (controller.spouseCnicBacks.isEmpty) {
+                                                              Utils.showToast("Please select spouse cnic back images", true);
                                                             } else {
-                                                              controller.spouseEntryFormAPi(context, index);
+                                                              if (args['status'] == "Rejected") {
+                                                                controller.addSpouse();
+                                                                controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
+                                                              } else {
+                                                                controller.spouseEntryFormAPi(context, index);
+                                                              }
                                                             }
-                                                          }
-                                                        },
+                                                          },
+                                                        ),
                                                       ),
-                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(20),
                                                     ),
@@ -947,26 +949,27 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 return Column(
                                                   children: [
                                                     if (index != 0)
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                controller.childfullNameControllers.removeAt(index);
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                                margin: EdgeInsets.only(right: 15),
-                                                                padding: EdgeInsets.all(8),
-                                                                decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                child: Icon(
-                                                                  Icons.delete_outlined,
-                                                                  color: Colors.white,
-                                                                )),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                      if (args['status'] != Constants.formStatusPending)
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  controller.childfullNameControllers.removeAt(index);
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                  margin: EdgeInsets.only(right: 15),
+                                                                  padding: EdgeInsets.all(8),
+                                                                  decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                  child: Icon(
+                                                                    Icons.delete_outlined,
+                                                                    color: Colors.white,
+                                                                  )),
+                                                            ),
+                                                          ],
+                                                        ),
                                                     CustomTextField(
                                                         fieldText: "Full Name".tr,
                                                         controller: controller.childfullNameControllers[index],

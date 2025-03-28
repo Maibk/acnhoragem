@@ -127,13 +127,9 @@ class HomeController extends GetxController {
             return true;
           }, onError: (error) {
             ApiException apiException = error;
-
             print(apiException.message);
-
-            BaseClient.handleApiError(error);
-
+            BaseClient.handleApiError(error, showtoast: false);
             apiCallStatus.value = ApiCallStatus.error;
-
             return false;
           });
         });

@@ -1220,26 +1220,27 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               return Column(
                                                                 children: [
                                                                   if (index != 0)
-                                                                    Row(
-                                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                                      children: [
-                                                                        GestureDetector(
-                                                                          onTap: () {
-                                                                            setState(() {
-                                                                              controller.vehicleTypeControllers.removeAt(index);
-                                                                            });
-                                                                          },
-                                                                          child: Container(
-                                                                              margin: EdgeInsets.only(right: 15),
-                                                                              padding: EdgeInsets.all(8),
-                                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                              child: Icon(
-                                                                                Icons.delete_outlined,
-                                                                                color: Colors.white,
-                                                                              )),
-                                                                        ),
-                                                                      ],
-                                                                    ),
+                                                                    if (args['status'] != Constants.formStatusPending)
+                                                                      Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                                        children: [
+                                                                          GestureDetector(
+                                                                            onTap: () {
+                                                                              setState(() {
+                                                                                controller.vehicleTypeControllers.removeAt(index);
+                                                                              });
+                                                                            },
+                                                                            child: Container(
+                                                                                margin: EdgeInsets.only(right: 15),
+                                                                                padding: EdgeInsets.all(8),
+                                                                                decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                                child: Icon(
+                                                                                  Icons.delete_outlined,
+                                                                                  color: Colors.white,
+                                                                                )),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                   Row(
                                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                     children: [
@@ -1409,35 +1410,36 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   SizedBox(
                                                                     height: getVerticalSize(15),
                                                                   ),
-                                                                  Padding(
-                                                                    padding: getPadding(left: 10, right: 10),
-                                                                    child: MyAnimatedButton(
-                                                                      radius: 5.0,
-                                                                      height: getVerticalSize(50),
-                                                                      width: getHorizontalSize(400),
-                                                                      fontSize: 16.sp,
-                                                                      bgColor: ColorConstant.anbtnBlue,
-                                                                      controller: controller.uselessbtnController,
-                                                                      title: "Add Vehicle".tr,
-                                                                      onTap: () async {
-                                                                        // if (controller.vehicleDataIndex > 0) {
-                                                                        //   if (controller.vehicleTypeController?.text == "" &&
-                                                                        //       controller.vehicleRegisterNoController?.text ==
-                                                                        //           "" &&
-                                                                        //       controller.vehicleColorController?.text == "" &&
-                                                                        //       controller.vehicleEngineNoController.text == "" &&
-                                                                        //       controller.vehicleEtagController.text == "") {
-                                                                        //     Utils.showToast(
-                                                                        //         "Please fill in the required fields", true);
-                                                                        //   } else {
-                                                                        controller.addvehicle(context, index);
-                                                                        //   }
-                                                                        // } else if (controller.vehicleDataIndex == 0) {
-                                                                        //   controller.addvehicle(context);
-                                                                        // }
-                                                                      },
+                                                                  if (args['status'] == "")
+                                                                    Padding(
+                                                                      padding: getPadding(left: 10, right: 10),
+                                                                      child: MyAnimatedButton(
+                                                                        radius: 5.0,
+                                                                        height: getVerticalSize(50),
+                                                                        width: getHorizontalSize(400),
+                                                                        fontSize: 16.sp,
+                                                                        bgColor: ColorConstant.anbtnBlue,
+                                                                        controller: controller.uselessbtnController,
+                                                                        title: "Add Vehicle".tr,
+                                                                        onTap: () async {
+                                                                          // if (controller.vehicleDataIndex > 0) {
+                                                                          //   if (controller.vehicleTypeController?.text == "" &&
+                                                                          //       controller.vehicleRegisterNoController?.text ==
+                                                                          //           "" &&
+                                                                          //       controller.vehicleColorController?.text == "" &&
+                                                                          //       controller.vehicleEngineNoController.text == "" &&
+                                                                          //       controller.vehicleEtagController.text == "") {
+                                                                          //     Utils.showToast(
+                                                                          //         "Please fill in the required fields", true);
+                                                                          //   } else {
+                                                                          controller.addvehicle(context, index);
+                                                                          //   }
+                                                                          // } else if (controller.vehicleDataIndex == 0) {
+                                                                          //   controller.addvehicle(context);
+                                                                          // }
+                                                                        },
+                                                                      ),
                                                                     ),
-                                                                  ),
                                                                   SizedBox(
                                                                     height: getVerticalSize(15),
                                                                   ),
@@ -1644,7 +1646,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         fontSize: 12.sp,
                                                         fontWeight: FontWeight.w700,
                                                         color: ColorConstant.whiteA700,
-                                                        label: "CNIC OF ESTATE AGENT (FRONT & BACK)".tr,
+                                                        label: "CNIC OF AGENT (FRONT & BACK)".tr,
                                                         textColor: ColorConstant.anbtnBlue,
                                                         borderColor: ColorConstant.anbtnBlue,
                                                         prefix: Icon(
@@ -1854,11 +1856,13 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         width: getHorizontalSize(400),
                                                         fontSize: 16.sp,
                                                         bgColor: ColorConstant.anbtnBlue,
-                                                        controller: isEditable ? controller.editbtnController : controller.btnController,
+                                                        controller: args['status'] == Constants.formStatusRejected
+                                                            ? controller.editbtnController
+                                                            : controller.btnController,
                                                         title: "Submit".tr,
                                                         onTap: () async {
-                                                          if (isEditable) {
-                                                            controller.editTenantFormApi(context);
+                                                          if (args['status'] == Constants.formStatusRejected) {
+                                                            controller.editTenantFormApi(context, args['id']);
                                                           } else {
                                                             if (controller.ownerCnicFrontBack == null) {
                                                               Utils.showToast(

@@ -34,6 +34,8 @@ class Data {
   String? blockCommercial;
   String? streetNo;
   String? houseNo;
+  String? total_wives;
+  String? total_children;
   String? sizeOfHousePlot;
   String? allotmentLetter;
   String? completionCertificate;
@@ -76,6 +78,8 @@ class Data {
       this.boreType,
       this.ammunitionQuantity,
       this.vehicleStatus,
+      this.total_wives,
+      this.total_children,
       this.vehicle,
       this.copyAllotmentLetter,
       this.copyApprovalBuildingPlan,
@@ -105,7 +109,8 @@ class Data {
     privateArm = json['private_arm'];
     licenseNo = json['license_no'];
     armQuantity = json['arm_quantity'];
-    boreType = json['bore_type'];
+    total_children = json['total_children'];
+    total_wives = json['total_wives'];
     ammunitionQuantity = json['ammunition_quantity'];
     vehicleStatus = json['vehicle_status'];
     if (json['vehicle'] != null) {

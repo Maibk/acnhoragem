@@ -53,6 +53,12 @@ class OwnerFornsScreenController extends GetxController {
   String hasVehicle = "";
 
   int? selectedValue;
+  String? total_children;
+  String? total_wives;
+
+  List children = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  List wives = ["1", "2", "3", "4"];
+
   List<Street> streets = [];
   List<Plots> plots = [];
   Street? streetSelectedValue;
@@ -199,6 +205,8 @@ class OwnerFornsScreenController extends GetxController {
             cnicController.text = ownerFormModel.data?.cnic ?? "";
             telephoneController.text = ownerFormModel.data?.phone ?? "";
             occupationController.text = ownerFormModel.data?.occupation ?? "";
+            total_children = ownerFormModel.data?.total_children ?? "";
+            total_wives = ownerFormModel.data?.total_wives ?? "";
 
             if (ownerFormModel.data?.vehicleStatus == "Yes") {
               updateVehicle("Yes");
@@ -308,7 +316,9 @@ class OwnerFornsScreenController extends GetxController {
               'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
               'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
               'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
-              'status': '0'
+              'status': '0',
+              'total_wives': total_wives,
+              'total_children': total_children,
             };
 
             ownerFormdata.addAll(data);
@@ -434,7 +444,9 @@ class OwnerFornsScreenController extends GetxController {
             'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
             'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
             'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
-            'status': '0'
+            'status': '0',
+            'total_wives': total_wives,
+            'total_children': total_children,
           };
 
           ownerFormdata.addAll(data);
@@ -573,8 +585,8 @@ class OwnerFornsScreenController extends GetxController {
         'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
         'status': '0',
         'property_user': 'owner',
-        'total_wives': "2",
-        'total_children': "2",
+        'total_wives': total_wives,
+        'total_children': total_children,
       };
 
       ownerFormdata.addAll(data);

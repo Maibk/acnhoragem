@@ -593,10 +593,10 @@ class BaseClient {
   /// handle error automaticly (if user didnt pass onError) method
   /// it will try to show the message from api if there is no message
   /// from api it will show the reason
-  static handleApiError(ApiException apiException) {
+  static handleApiError(ApiException apiException, {bool showtoast = false}) {
     String msg = apiException.response?.body?['message'] ?? apiException.message;
     print(apiException.response?.body);
-    CustomToast().showToast(msg, true);
+    showtoast ? CustomToast().showToast(msg, true) : null;
   }
 
   /// handle errors without response (500, out of time, no internet,..etc)

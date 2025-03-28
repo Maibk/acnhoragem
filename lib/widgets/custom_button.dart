@@ -1,6 +1,7 @@
 import 'package:anchorageislamabad/core/utils/color_constant.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/utils/size_utils.dart';
 import 'common.dart';
@@ -120,23 +121,23 @@ class CustomButton extends StatelessWidget {
 */
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
-      {Key? key,
-      required this.label,
-      this.color,
-      required this.onPressed,
-      this.enabled,
-      this.textColor,
-      this.fontSize,
-      this.fontWeight,
-      this.prefix,
-      this.suffix,
-        this.height,
-      this.borderColor,
-      this.mainAxisAlignment=MainAxisAlignment.center,
-      this.width,
-      this.borderRadius = 5,})
-      : super(key: key);
+  const CustomButton({
+    Key? key,
+    required this.label,
+    this.color,
+    required this.onPressed,
+    this.enabled,
+    this.textColor,
+    this.fontSize,
+    this.fontWeight,
+    this.prefix,
+    this.suffix,
+    this.height,
+    this.borderColor,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.width,
+    this.borderRadius = 5,
+  }) : super(key: key);
 
   final String label;
   final Color? color;
@@ -156,8 +157,8 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height??getVerticalSize(46),
-      width: width??double.infinity,
+      height: height ?? getVerticalSize(46),
+      width: width ?? double.infinity,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               disabledBackgroundColor: ColorConstant.antextGrayDark,
@@ -165,35 +166,35 @@ class CustomButton extends StatelessWidget {
               elevation: 0,
               side: BorderSide(
                 width: 0.8,
-                color: enabled ?? true
-                    ? borderColor ?? Colors.transparent
-                    : borderColor?.withOpacity(0.5) ?? Colors.transparent,
+                color: enabled ?? true ? borderColor ?? Colors.transparent : borderColor?.withOpacity(0.5) ?? Colors.transparent,
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
               )),
           onPressed: enabled ?? true ? onPressed : null,
-          child: prefix != null || suffix !=null
-              ? Row(
-              mainAxisAlignment:mainAxisAlignment, // Center children horizontally
-
-               children: [
-                  prefix ?? const SizedBox.shrink(),
-                  const SizedBox(width: 8),
-                 CustomText(
-                     text: label,
-                      fontColor: textColor ?? Colors.white,
-                      fontSize: fontSize ?? 17,
-                     // fontFamily: FontFamily.urbanist,
-                      fontWeight: fontWeight ?? FontWeight.normal),
-                 const SizedBox(width: 8),
-                 suffix ?? const SizedBox.shrink(),
-                ])
+          child: prefix != null || suffix != null
+              ? Center(
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // Center children horizontally
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        prefix ?? const SizedBox.shrink(),
+                        const SizedBox(width: 8),
+                        CustomText(
+                            text: label,
+                            fontColor: textColor ?? Colors.white,
+                            fontSize: fontSize ?? 17.sp,
+                            fontWeight: fontWeight ?? FontWeight.normal),
+                        const SizedBox(width: 8),
+                        suffix ?? const SizedBox.shrink(),
+                      ]),
+                )
               : CustomText(
                   text: label,
-                  fontColor: (enabled ?? true ? (textColor ?? Colors.white)
-                      : Colors.white),
-                  fontSize: fontSize ?? 17,
+                  fontColor: (enabled ?? true ? (textColor ?? Colors.white) : Colors.white),
+                  fontSize: fontSize ?? 17.sp,
                   //fontFamily: FontFamily.urbanist,
                   fontWeight: fontWeight ?? FontWeight.normal)),
     );
@@ -231,10 +232,7 @@ class CircularButton extends StatelessWidget {
         child: Container(
           width: diameter,
           height: diameter,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: bgColor,
-              border: Border.fromBorderSide(border)),
+          decoration: BoxDecoration(shape: BoxShape.circle, color: bgColor, border: Border.fromBorderSide(border)),
           child: Material(
             color: Colors.transparent,
             child: InkWell(onTap: onTap, child: Center(child: buildChild())),
@@ -255,18 +253,18 @@ class CircularButton extends StatelessWidget {
 class CustomButtonBorder extends StatelessWidget {
   const CustomButtonBorder(
       {Key? key,
-        required this.label,
-        this.color,
-        required this.onPressed,
-        this.enabled,
-        this.textColor,
-        this.fontSize,
-        this.fontWeight,
-        this.bottomborder=2,
-        this.prefix,
-        this.borderColor,
-        this.height,
-        this.width})
+      required this.label,
+      this.color,
+      required this.onPressed,
+      this.enabled,
+      this.textColor,
+      this.fontSize,
+      this.fontWeight,
+      this.bottomborder = 2,
+      this.prefix,
+      this.borderColor,
+      this.height,
+      this.width})
       : super(key: key);
 
   final String label;
@@ -285,61 +283,41 @@ class CustomButtonBorder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-    onTap: enabled ?? true ? onPressed : null,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 500),
-        height: height ?? getVerticalSize(46),
-        width: width ?? double.infinity,
-        decoration: BoxDecoration(
-          color: color ??  Colors.white,
-            borderRadius: BorderRadius.circular(6),
-          border: Border(
-            top: BorderSide(
-              width: 1,
-              color: borderColor?? Colors.lightBlue
-            ),
-              bottom: BorderSide(
-                  width: bottomborder??2,
-                  color: borderColor?? Colors.lightBlue
-              ),
-              left: BorderSide(
-                  width: 1,
-                  color: borderColor?? Colors.lightBlue
-              ),
-              right: BorderSide(
-                  width: 1,
-                  color: borderColor?? Colors.lightBlue
-              )
-          )
-        ),
-        child: prefix != null
-                ? Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              prefix ?? const SizedBox.shrink(),
-              const SizedBox(width: 8),
-              Center(
-                child: CustomText(
-                    text: label,
-                    fontColor: (enabled ?? true ? (textColor ?? Colors.lightBlue)
-                        : (textColor?.withOpacity(0.5) ??
-                        Colors.lightBlue.withOpacity(0.5))),
-                    fontSize: fontSize ?? 16,
-                   // fontFamily: FontFamily.urbanist,
-                    fontWeight: fontWeight ?? FontWeight.w600),
-              )
-            ])
+        onTap: enabled ?? true ? onPressed : null,
+        child: AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            height: height ?? getVerticalSize(46),
+            width: width ?? double.infinity,
+            decoration: BoxDecoration(
+                color: color ?? Colors.white,
+                borderRadius: BorderRadius.circular(6),
+                border: Border(
+                    top: BorderSide(width: 1, color: borderColor ?? Colors.lightBlue),
+                    bottom: BorderSide(width: bottomborder ?? 2, color: borderColor ?? Colors.lightBlue),
+                    left: BorderSide(width: 1, color: borderColor ?? Colors.lightBlue),
+                    right: BorderSide(width: 1, color: borderColor ?? Colors.lightBlue))),
+            child: prefix != null
+                ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    prefix ?? const SizedBox.shrink(),
+                    const SizedBox(width: 8),
+                    Center(
+                      child: CustomText(
+                          text: label,
+                          fontColor: (enabled ?? true
+                              ? (textColor ?? Colors.lightBlue)
+                              : (textColor?.withOpacity(0.5) ?? Colors.lightBlue.withOpacity(0.5))),
+                          fontSize: fontSize ?? 16,
+                          // fontFamily: FontFamily.urbanist,
+                          fontWeight: fontWeight ?? FontWeight.w600),
+                    )
+                  ])
                 : Center(
-                  child: CustomText(
-                  text: label,
-                  fontColor: (enabled ?? true
-                      ? (textColor ??  Colors.lightBlue)
-                      : (textColor?.withOpacity(0.5) ??
-                      Colors.lightBlue.withOpacity(0.5))),
-                  fontSize: fontSize ?? 16,// fontFamily: FontFamily.urbanist,
-                  fontWeight: fontWeight ?? FontWeight.w600),
-                )
-        )
-    );
+                    child: CustomText(
+                        text: label,
+                        fontColor:
+                            (enabled ?? true ? (textColor ?? Colors.lightBlue) : (textColor?.withOpacity(0.5) ?? Colors.lightBlue.withOpacity(0.5))),
+                        fontSize: fontSize ?? 16, // fontFamily: FontFamily.urbanist,
+                        fontWeight: fontWeight ?? FontWeight.w600),
+                  )));
   }
 }

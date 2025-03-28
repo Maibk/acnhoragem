@@ -278,7 +278,7 @@ class TenantFornsScreenController extends GetxController {
             natinalityController.text = tenantFormModel.data?.tenantNationality ?? "";
             privateLicenseController.text = tenantFormModel.data?.licenseNo ?? "";
             privateArmsController.text = tenantFormModel.data?.armQuantity.toString() ?? "";
-            armQuantityController.text = tenantFormModel.data?.ammunitionQuantity.toString() ?? "";
+            privateAmmunitionController.text = tenantFormModel.data?.ammunitionQuantity.toString() ?? "";
             privateBoreController.text = tenantFormModel.data?.boreType ?? "";
 
             if (tenantFormModel.data!.completionCertificate.toString() == "Yes") {
@@ -503,8 +503,6 @@ class TenantFornsScreenController extends GetxController {
                 log(response.statusMessage.toString());
               }
             } on _dio.DioException catch (error) {
-              // dio error (api reach the server but not performed successfully
-              // no response
               if (error.response == null) {
                 btnController.stop();
                 var exception = ApiException(
@@ -534,7 +532,7 @@ class TenantFornsScreenController extends GetxController {
     }
   }
 
-  Future<void> editTenantFormApi(context) async {
+  Future<void> editTenantFormApi(context, int id) async {
     editbtnController.start();
     Utils.check().then((value) async {
       var data = _dio.FormData.fromMap({
@@ -565,7 +563,8 @@ class TenantFornsScreenController extends GetxController {
         'ammunition_quantity': privatearms == "Yes" ? privateAmmunitionController.text : "No",
         'vehicle_status': vehicleDataIndex > 0 ? "Yes" : "NO",
         'submit_date': DateTime.now().format("dd-MM-yyyy").toString(),
-        'status': '0'
+        'status': '0',
+        'property_user': 'tenant',
       });
 
       if (tenantFormModel.data!.vehicleStatus == "Yes" && hasVehicle == "Yes") {
@@ -735,7 +734,7 @@ class TenantFornsScreenController extends GetxController {
           var dio = _dio.Dio();
           try {
             var response = await dio.request(
-              'https://anchorageislamabad.com/api/tenant-application/update',
+              'https://anchorageislamabad.com/api/tenant-application/update/$id',
               options: _dio.Options(
                 method: 'POST',
                 headers: {

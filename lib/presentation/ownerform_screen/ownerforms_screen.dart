@@ -405,6 +405,82 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(20),
                                           ),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 10),
+                                            width: Get.width,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(12),
+                                                border: Border(bottom: BorderSide(color: ColorConstant.gray600))),
+                                            child: DropdownButton<String>(
+                                              underline: Container(
+                                                color: Colors.black,
+                                              ),
+                                              isExpanded: true,
+                                              hint: MyText(
+                                                title: "Total Number of children",
+                                                fontSize: 12,
+                                                clr: ColorConstant.gray600,
+                                              ),
+                                              value: controller.total_children,
+                                              items: controller.children.map((e) {
+                                                return DropdownMenuItem<String>(
+                                                  value: e,
+                                                  child: Text(
+                                                    e,
+                                                    style: TextStyle(fontSize: 12.h),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: isEditable
+                                                  ? (newValue) {
+                                                      controller.total_children = null;
+                                                      controller.total_children = newValue;
+                                                      setState(() {});
+                                                    }
+                                                  : null,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(10),
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 10),
+                                            width: Get.width,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(12),
+                                                border: Border(bottom: BorderSide(color: ColorConstant.gray600))),
+                                            child: DropdownButton<String>(
+                                              underline: Container(
+                                                color: Colors.black,
+                                              ),
+                                              isExpanded: true,
+                                              hint: MyText(
+                                                title: "Total Number of Wives",
+                                                fontSize: 12,
+                                                clr: ColorConstant.gray600,
+                                              ),
+                                              value: controller.total_wives,
+                                              items: controller.wives.map((e) {
+                                                return DropdownMenuItem<String>(
+                                                  value: e,
+                                                  child: Text(
+                                                    e,
+                                                    style: TextStyle(fontSize: 12.h),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: isEditable
+                                                  ? (newValue) {
+                                                      controller.total_wives = null;
+                                                      controller.total_wives = newValue;
+                                                      setState(() {});
+                                                    }
+                                                  : null,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(10),
+                                          ),
                                           AbsorbPointer(
                                             absorbing: !isEditable,
                                             child: Row(
@@ -1085,26 +1161,27 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             return Column(
                                                               children: [
                                                                 if (index != 0)
-                                                                  Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                                    children: [
-                                                                      GestureDetector(
-                                                                        onTap: () {
-                                                                          setState(() {
-                                                                            controller.vehicleTypeControllers.removeAt(index);
-                                                                          });
-                                                                        },
-                                                                        child: Container(
-                                                                            margin: EdgeInsets.only(right: 15),
-                                                                            padding: EdgeInsets.all(8),
-                                                                            decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                            child: Icon(
-                                                                              Icons.delete_outlined,
-                                                                              color: Colors.white,
-                                                                            )),
-                                                                      ),
-                                                                    ],
-                                                                  ),
+                                                                  if (args['status'] != Constants.formStatusPending)
+                                                                    Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.end,
+                                                                      children: [
+                                                                        GestureDetector(
+                                                                          onTap: () {
+                                                                            setState(() {
+                                                                              controller.vehicleTypeControllers.removeAt(index);
+                                                                            });
+                                                                          },
+                                                                          child: Container(
+                                                                              margin: EdgeInsets.only(right: 15),
+                                                                              padding: EdgeInsets.all(8),
+                                                                              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                              child: Icon(
+                                                                                Icons.delete_outlined,
+                                                                                color: Colors.white,
+                                                                              )),
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                 Row(
                                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                   children: [
@@ -1275,7 +1352,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 SizedBox(
                                                                   height: getVerticalSize(15),
                                                                 ),
-                                                                if (args['status'] == Constants.formStatusRejected || args['status'] == "")
+                                                                if (args['status'] == "")
                                                                   Padding(
                                                                     padding: getPadding(left: 10, right: 10),
                                                                     child: MyAnimatedButton(
@@ -1453,26 +1530,27 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       ),
                                                     ],
                                                   ),
-                                              if (isEditable)
-                                                Padding(
-                                                  padding: getPadding(left: 10, right: 10),
-                                                  child: CustomButton(
-                                                    width: getHorizontalSize(350),
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: ColorConstant.whiteA700,
-                                                    label: "Completion Certificate".tr,
-                                                    textColor: ColorConstant.anbtnBlue,
-                                                    borderColor: ColorConstant.anbtnBlue,
-                                                    prefix: Icon(
-                                                      controller.certificate != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
-                                                      color: ColorConstant.anbtnBlue,
+                                              if (controller.completionCertificate == "Yes")
+                                                if (isEditable)
+                                                  Padding(
+                                                    padding: getPadding(left: 10, right: 10),
+                                                    child: CustomButton(
+                                                      width: getHorizontalSize(350),
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.w700,
+                                                      color: ColorConstant.whiteA700,
+                                                      label: "Completion Certificate".tr,
+                                                      textColor: ColorConstant.anbtnBlue,
+                                                      borderColor: ColorConstant.anbtnBlue,
+                                                      prefix: Icon(
+                                                        controller.certificate != null ? Icons.check_circle_sharp : Icons.add_circle_outline,
+                                                        color: ColorConstant.anbtnBlue,
+                                                      ),
+                                                      onPressed: () async {
+                                                        controller.certificate = await controller.imagePicker();
+                                                      },
                                                     ),
-                                                    onPressed: () async {
-                                                      controller.certificate = await controller.imagePicker();
-                                                    },
                                                   ),
-                                                ),
                                               SizedBox(
                                                 height: getVerticalSize(15),
                                               ),

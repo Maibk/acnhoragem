@@ -527,26 +527,27 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 return Column(
                                                   children: [
                                                     if (index != 0)
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                controller.serventfullNameControllers.removeAt(index);
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                                margin: EdgeInsets.only(right: 15),
-                                                                padding: EdgeInsets.all(8),
-                                                                decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                child: Icon(
-                                                                  Icons.delete_outlined,
-                                                                  color: Colors.white,
-                                                                )),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                      if (args['status'] != Constants.formStatusPending)
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  controller.serventfullNameControllers.removeAt(index);
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                  margin: EdgeInsets.only(right: 15),
+                                                                  padding: EdgeInsets.all(8),
+                                                                  decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                  child: Icon(
+                                                                    Icons.delete_outlined,
+                                                                    color: Colors.white,
+                                                                  )),
+                                                            ),
+                                                          ],
+                                                        ),
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Full Name".tr,
@@ -930,35 +931,36 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    Padding(
-                                                      padding: getPadding(left: 10, right: 10),
-                                                      child: MyAnimatedButton(
-                                                        controller: _value.btnControllerUseLess,
-                                                        radius: 5.0,
-                                                        height: getVerticalSize(50),
-                                                        width: getHorizontalSize(400),
-                                                        fontSize: 16,
-                                                        bgColor: ColorConstant.anbtnBlue,
-                                                        title: "Add Servant".tr,
-                                                        onTap: () async {
-                                                          if (controller.servantImages.isEmpty) {
-                                                            Utils.showToast("Please select servant Images", true);
-                                                          } else if (controller.servantCnicFronts.isEmpty) {
-                                                            Utils.showToast("Please select servant cnic front images", true);
-                                                          } else if (controller.servantCnicBacks.isEmpty) {
-                                                            Utils.showToast("Please select servant cnic back images", true);
-                                                          } else {
-                                                            if (args['status'] == "Rejected") {
-                                                              controller.addServantControllers();
-                                                              controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
-                                                              setState(() {});
+                                                    if (args['status'] == "")
+                                                      Padding(
+                                                        padding: getPadding(left: 10, right: 10),
+                                                        child: MyAnimatedButton(
+                                                          controller: _value.btnControllerUseLess,
+                                                          radius: 5.0,
+                                                          height: getVerticalSize(50),
+                                                          width: getHorizontalSize(400),
+                                                          fontSize: 16,
+                                                          bgColor: ColorConstant.anbtnBlue,
+                                                          title: "Add Servant".tr,
+                                                          onTap: () async {
+                                                            if (controller.servantImages.isEmpty) {
+                                                              Utils.showToast("Please select servant Images", true);
+                                                            } else if (controller.servantCnicFronts.isEmpty) {
+                                                              Utils.showToast("Please select servant cnic front images", true);
+                                                            } else if (controller.servantCnicBacks.isEmpty) {
+                                                              Utils.showToast("Please select servant cnic back images", true);
                                                             } else {
-                                                              controller.addServant(index);
+                                                              if (args['status'] == "Rejected") {
+                                                                controller.addServantControllers();
+                                                                controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
+                                                                setState(() {});
+                                                              } else {
+                                                                controller.addServant(index);
+                                                              }
                                                             }
-                                                          }
-                                                        },
+                                                          },
+                                                        ),
                                                       ),
-                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(20),
                                                     ),
@@ -997,26 +999,27 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 return Column(
                                                   children: [
                                                     if (index != 0)
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                controller.serventfamfullNameControllers.removeAt(index);
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                                margin: EdgeInsets.only(right: 15),
-                                                                padding: EdgeInsets.all(8),
-                                                                decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                child: Icon(
-                                                                  Icons.delete_outlined,
-                                                                  color: Colors.white,
-                                                                )),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                      if (args['status'] != Constants.formStatusPending)
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  controller.serventfamfullNameControllers.removeAt(index);
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                  margin: EdgeInsets.only(right: 15),
+                                                                  padding: EdgeInsets.all(8),
+                                                                  decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                  child: Icon(
+                                                                    Icons.delete_outlined,
+                                                                    color: Colors.white,
+                                                                  )),
+                                                            ),
+                                                          ],
+                                                        ),
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Full Name".tr,
