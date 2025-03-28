@@ -127,7 +127,8 @@ class MyprofileController extends GetxController {
               "email": emailController.text,
               "present_address": presentAddresController.text,
               "cnic": cnicController.text,
-              "id": getProfileModel!.id.toString()
+              "id": getProfileModel!.id.toString(),
+              "password": newPassController.text
             });
           });
         } else {
@@ -152,5 +153,4 @@ class MyprofileController extends GetxController {
   //   super.dispose();
   //   newPassController.clear();
   // }
-  
 }

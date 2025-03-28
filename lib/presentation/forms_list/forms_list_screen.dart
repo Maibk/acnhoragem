@@ -81,7 +81,7 @@ class _FormsListScreenState extends State<FormsListScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(7)),
-                  child: Center(child: MyText(title: "Add new application form")),
+                  child: Center(child: MyText(title: "Add new application")),
                 ),
               ),
             Expanded(

@@ -144,49 +144,59 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                   SizedBox(height: getVerticalSize(10)),
                                   MyText(title: "Select Property", fontSize: 12.h),
                                   SizedBox(height: getVerticalSize(10)),
-                                  DropdownButton<PropertyName>(
-                                    value: controller.selectedProperty,
-                                    items: controller.propertyNames.map((property) {
-                                      return DropdownMenuItem(
-                                        value: property,
-                                        child: Text(
-                                          property.name,
-                                          style: TextStyle(fontSize: 12.h),
-                                        ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        controller.selectedProperty = newValue;
+                                  Container(
+                                    width: Get.width,
+                                    color: Colors.white,
+                                    child: DropdownButton<PropertyName>(
+                                      isExpanded: true,
+                                      value: controller.selectedProperty,
+                                      items: controller.propertyNames.map((property) {
+                                        return DropdownMenuItem(
+                                          value: property,
+                                          child: Text(
+                                            property.name,
+                                            style: TextStyle(fontSize: 12.h),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          controller.selectedProperty = newValue;
 
-                                        controller.propertyId = newValue?.id ?? 0;
-                                      });
-                                    },
+                                          controller.propertyId = newValue?.id ?? 0;
+                                        });
+                                      },
+                                    ),
                                   ),
                                   SizedBox(height: getVerticalSize(10)),
                                   MyText(title: "Complaint Category", fontSize: 12.h),
                                   SizedBox(height: getVerticalSize(10)),
-                                  DropdownButton<CompliantTypesData>(
-                                    value: controller.selectedComplaint,
-                                    items: controller.complaints.map((complaint) {
-                                      return DropdownMenuItem(
-                                        value: complaint,
-                                        child: Text(
-                                          complaint.title ?? "",
-                                          style: TextStyle(fontSize: 12.h),
-                                        ),
-                                      );
-                                    }).toList(),
-                                    onChanged: (newValue) {
-                                      setState(() {
-                                        controller.selectedComplaint = newValue;
-                                        controller.selectedDepartment = null;
-                                      });
-                                    },
+                                  Container(
+                                    width: Get.width,
+                                    child: DropdownButton<CompliantTypesData>(
+                                      isExpanded: true,
+                                      value: controller.selectedComplaint,
+                                      items: controller.complaints.map((complaint) {
+                                        return DropdownMenuItem(
+                                          value: complaint,
+                                          child: Text(
+                                            complaint.title ?? "",
+                                            style: TextStyle(fontSize: 12.h),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (newValue) {
+                                        setState(() {
+                                          controller.selectedComplaint = newValue;
+                                          controller.selectedDepartment = null;
+                                        });
+                                      },
+                                    ),
                                   ),
                                   SizedBox(height: 20.0),
                                   MyText(title: "Complaint Type", fontSize: 12.h),
                                   Container(
+                                    width: Get.width,
                                     child: DropdownButton<FindDepartments>(
                                       isExpanded: true,
                                       padding: EdgeInsets.symmetric(vertical: 10),
@@ -216,9 +226,10 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                     fieldText: "Enter Description".tr,
                                     controller: controller.descriptionController,
                                     isFinal: false,
+                                    maxLines: 2,
                                     floatingLabelBehavior: FloatingLabelBehavior.never,
                                     keyboardType: TextInputType.emailAddress,
-                                    limit: HelperFunction.EMAIL_VALIDATION,
+                                    limit: 250,
                                     validator: (value) {
                                       return HelperFunction.empthyFieldValidator(value!);
                                     },

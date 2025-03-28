@@ -110,14 +110,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          // if (controller.profileModel?.appFormApproved == 0) {
-                                          //   Utils.showToast(
-                                          //     "Your application form is not approved yet, kindly wait for Approval",
-                                          //     false,
-                                          //   );
-                                          // } else {
-                                          Get.toNamed(AppRoutes.myComplaintsPage);
-                                          // }
+                                          if (controller.profileModel?.appFormApproved == 0) {
+                                            Utils.showToast(
+                                              "Your application form is not approved yet, kindly wait for Approval",
+                                              false,
+                                            );
+                                          } else {
+                                            Get.toNamed(AppRoutes.myComplaintsPage);
+                                          }
                                         },
                                         child: CommonImageView(
                                           imagePath: ImageConstant.myComplaintIcon,
@@ -378,30 +378,54 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: controller.bills != null
                                   ? <Widget>[
                                       if (controller.bills?.data?.isNotEmpty == true)
-                                        Container(
-                                          child: ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            physics: NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemCount: controller.bills!.data!.length,
-                                            itemBuilder: (context, index) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  Get.toNamed(AppRoutes.billsPage);
+                                        Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                SizedBox(child: MyText(fontSize: 14.sp, title: "Month")),
+                                                MyText(fontSize: 14.sp, title: "Amount"),
+                                                MyText(fontSize: 14.sp, title: "Status"),
+                                              ],
+                                            ).paddingSymmetric(horizontal: 15.w),
+                                            Container(
+                                              child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                physics: NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount: controller.bills!.data!.length,
+                                                itemBuilder: (context, index) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      Get.toNamed(AppRoutes.billsPage);
+                                                    },
+                                                    child: ListTile(
+                                                        contentPadding: EdgeInsets.zero,
+                                                        minTileHeight: 10,
+                                                        title: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Container(
+                                                                // color: Colors.red,
+                                                                width: 70.w,
+                                                                child: MyText(fontSize: 12.sp, title: "${controller.bills!.data![index].billMonth}")),
+                                                            Container(
+                                                                    width: 90.w,
+                                                                    // color: Colors.red,
+                                                                    alignment: Alignment.centerLeft,
+                                                                    child: MyText(
+                                                                        fontSize: 12.sp,
+                                                                        title: "${controller.bills!.data![index].beforeDueDateAmount}"))
+                                                                .paddingOnly(right: 15.w),
+                                                            MyText(fontSize: 12.sp, title: "${controller.bills!.data![index].status}")
+                                                          ],
+                                                        )).paddingSymmetric(horizontal: 15.w),
+                                                  );
                                                 },
-                                                child: ListTile(
-                                                    minTileHeight: 10,
-                                                    title: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        MyText(fontSize: 12.sp, title: "Date : ${controller.bills!.data![index].billMonth}"),
-                                                        MyText(
-                                                            fontSize: 12.sp, title: "Amount :${controller.bills!.data![index].beforeDueDateAmount} ")
-                                                      ],
-                                                    )),
-                                              );
-                                            },
-                                          ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       10.verticalSpace,
                                       InkWell(
@@ -451,95 +475,117 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               children: <Widget>[
                                 if (controller.complaints != null)
-                                  Padding(
-                                    padding: getPadding(left: 10, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start, // Adjusted alignment
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                  Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          MyText(fontSize: 14.sp, title: "Title"),
+                                          MyText(fontSize: 14.sp, title: "Status"),
+                                        ],
+                                      ).paddingSymmetric(horizontal: 20.w),
+                                      Padding(
+                                        padding: getPadding(left: 10, right: 10),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start, // Adjusted alignment
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              width: getHorizontalSize(320), // Set the width explicitly
+                                            Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: getHorizontalSize(320), // Set the width explicitly
 
-                                              child: ListView.builder(
-                                                physics: NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                padding: EdgeInsets.zero,
-                                                scrollDirection: Axis.vertical,
-                                                itemCount: controller.complaints!.data!.length < 3
-                                                    ? controller.complaints?.data?.length
-                                                    : 3, // Increase the itemCount by 1 to accommodate the "View All" item
-                                                itemBuilder: (BuildContext context, int index) {
-                                                  return Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Container(
-                                                        margin: EdgeInsets.only(left: 10),
-                                                        width: 220,
-                                                        child: MyText(
-                                                          title: controller.complaints?.data?[index].description ?? "",
-                                                          clr: ColorConstant.antextGrayDark,
-                                                          fontSize: 12.sp,
-                                                        ),
-                                                      ),
-                                                      Row(
+                                                  child: ListView.builder(
+                                                    physics: NeverScrollableScrollPhysics(),
+                                                    shrinkWrap: true,
+                                                    padding: EdgeInsets.zero,
+                                                    scrollDirection: Axis.vertical,
+                                                    itemCount: controller.complaints!.data!.length < 3
+                                                        ? controller.complaints?.data?.length
+                                                        : 3, // Increase the itemCount by 1 to accommodate the "View All" item
+                                                    itemBuilder: (BuildContext context, int index) {
+                                                      return Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
                                                           Container(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            height: getVerticalSize(20),
-                                                            decoration: BoxDecoration(
-                                                              color: controller.complaints!.data![index].status! == "Resolved"
-                                                                  ? ColorConstant.appgreenColor
-                                                                  : controller.complaints!.data![index].status! == "Pending"
-                                                                      ? ColorConstant.pendingColor
-                                                                      : ColorConstant.assignedColor,
-                                                              borderRadius: BorderRadius.circular(5),
-                                                            ),
-                                                            alignment: Alignment.center,
+                                                            margin: EdgeInsets.only(left: 10),
+                                                            width: 220,
                                                             child: MyText(
-                                                              title: controller.complaints!.data![index].status!,
-                                                              fontSize: 9,
-                                                              clr: ColorConstant.whiteA700,
+                                                              title: controller.complaints?.data?[index].description ?? "",
+                                                              clr: ColorConstant.antextGrayDark,
+                                                              fontSize: 12.sp,
                                                             ),
                                                           ),
+                                                          Row(
+                                                            children: [
+                                                              Container(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                height: getVerticalSize(20),
+                                                                decoration: BoxDecoration(
+                                                                  color: controller.complaints!.data![index].status! == "Resolved"
+                                                                      ? ColorConstant.appgreenColor
+                                                                      : controller.complaints!.data![index].status! == "Pending"
+                                                                          ? ColorConstant.pendingColor
+                                                                          : ColorConstant.assignedColor,
+                                                                  borderRadius: BorderRadius.circular(5),
+                                                                ),
+                                                                alignment: Alignment.center,
+                                                                child: MyText(
+                                                                  title: controller.complaints!.data![index].status!,
+                                                                  fontSize: 9,
+                                                                  clr: ColorConstant.whiteA700,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ],
-                                                      ),
-                                                    ],
-                                                  ).paddingOnly(bottom: 15);
-                                                },
-                                              ),
-                                            ),
-                                            Center(
-                                              child: InkWell(
-                                                onTap: () {
-                                                  if (controller.profileModel?.appFormApproved == 0) {
-                                                    Utils.showToast(
-                                                      "Your application form is not approved yet, kindly wait for Approval",
-                                                      false,
-                                                    );
-                                                  } else {
-                                                    Get.toNamed(AppRoutes.myComplaintsPage);
-                                                  }
-                                                },
-                                                child: Center(
-                                                  child: MyText(
-                                                    title: "View More",
-                                                    fontSize: 16,
-                                                    clr: ColorConstant.antextGrayDark,
-                                                    customWeight: FontWeight.bold,
-                                                    under: true,
+                                                      ).paddingOnly(bottom: 15);
+                                                    },
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            SizedBox(height: getVerticalSize(10)),
+                                                Center(
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      if (controller.profileModel?.appFormApproved == 0) {
+                                                        Utils.showToast(
+                                                          "Your application form is not approved yet, kindly wait for Approval",
+                                                          false,
+                                                        );
+                                                      } else {
+                                                        Get.toNamed(AppRoutes.myComplaintsPage);
+                                                      }
+                                                    },
+                                                    child: Center(
+                                                      child: MyText(
+                                                        title: "View More",
+                                                        fontSize: 16,
+                                                        clr: ColorConstant.antextGrayDark,
+                                                        customWeight: FontWeight.bold,
+                                                        under: true,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: getVerticalSize(10)),
+                                              ],
+                                            )
                                           ],
-                                        )
-                                      ],
-                                    ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                else if (controller.complaints?.data?.isEmpty ?? false)
+                                  Column(
+                                    children: [
+                                      MyText(
+                                        title: "No Complaints Found",
+                                        fontSize: 16,
+                                        clr: ColorConstant.antextGrayDark,
+                                        customWeight: FontWeight.bold,
+                                      ),
+                                    ],
                                   )
                               ],
                             );

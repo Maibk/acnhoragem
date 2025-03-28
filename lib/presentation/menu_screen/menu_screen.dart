@@ -98,9 +98,7 @@ class MenuScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menuprofile.png",
                                       scale: 2,
@@ -136,9 +134,7 @@ class MenuScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menucomplain.png",
                                       scale: 2,
@@ -174,9 +170,7 @@ class MenuScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menubilldetail.png",
                                       scale: 2,
@@ -199,16 +193,13 @@ class MenuScreen extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
-                                Get.toNamed(AppRoutes.propertiesPage,
-                                    arguments: controller.profileModel?.appFormApproved == 0 ? false : true);
+                                Get.toNamed(AppRoutes.propertiesPage, arguments: controller.profileModel?.appFormApproved == 0 ? false : true);
                               },
                               child: Row(
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menuproperty.png",
                                       scale: 2,
@@ -237,9 +228,7 @@ class MenuScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menuOnlineform.png",
                                       scale: 2,
@@ -268,9 +257,7 @@ class MenuScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menudownloadform.png",
                                       scale: 2,
@@ -301,9 +288,7 @@ class MenuScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menudownloadform.png",
                                       scale: 2,
@@ -334,9 +319,7 @@ class MenuScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menudownloadform.png",
                                       scale: 2,
@@ -367,9 +350,7 @@ class MenuScreen extends StatelessWidget {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(color: ColorConstant.whiteA700)),
+                                        shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
                                       imagePath: "assets/images/menudownloadform.png",
                                       scale: 2,
@@ -409,12 +390,10 @@ class MenuScreen extends StatelessWidget {
 
                                                 apiCallStatus.value = ApiCallStatus.loading;
 
-                                                _appPreferences
-                                                    .getAccessToken(prefName: AppPreferences.prefAccessToken)
-                                                    .then((token) async {
-                                                  await BaseClient.get(headers: {
-                                                    'Authorization': "Bearer $token"
-                                                  }, "https://anchorageislamabad.com/api/account-delete?user_id=0&is_delete=1",
+                                                _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+                                                  await BaseClient.get(
+                                                      headers: {'Authorization': "Bearer $token"},
+                                                      "https://anchorageislamabad.com/api/account-delete?user_id=0&is_delete=1",
                                                       onSuccess: (response) {
                                                     Get.offAllNamed(AppRoutes.loginPage);
                                                     log(response.toString());
@@ -445,8 +424,7 @@ class MenuScreen extends StatelessWidget {
                                 },
                                 child: Container(
                                   width: Get.width,
-                                  decoration: BoxDecoration(
-                                      color: ColorConstant.apppWhite, borderRadius: BorderRadius.circular(6)),
+                                  decoration: BoxDecoration(color: ColorConstant.apppWhite, borderRadius: BorderRadius.circular(6)),
                                   child: Center(
                                     child: MyText(
                                       title: "Delete Account",
@@ -480,14 +458,11 @@ class MenuScreen extends StatelessWidget {
 
                                                 apiCallStatus.value = ApiCallStatus.loading;
 
-                                                _appPreferences
-                                                    .getAccessToken(prefName: AppPreferences.prefAccessToken)
-                                                    .then((token) async {
-                                                  await BaseClient.get(
-                                                      headers: {'Authorization': "Bearer $token"},
-                                                      Constants.logout, onSuccess: (response) {
+                                                _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+                                                  await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.logout,
+                                                      onSuccess: (response) {
                                                     Get.close(1);
-                                                    Utils.showToast(response.data['message'], false);
+                                                    Utils.showToast("Logout Successfully", false);
                                                     Get.offAllNamed(AppRoutes.loginPage);
                                                     log(response.toString());
 
@@ -520,8 +495,7 @@ class MenuScreen extends StatelessWidget {
                                 },
                                 child: Container(
                                   width: Get.width,
-                                  decoration: BoxDecoration(
-                                      color: ColorConstant.apppWhite, borderRadius: BorderRadius.circular(6)),
+                                  decoration: BoxDecoration(color: ColorConstant.apppWhite, borderRadius: BorderRadius.circular(6)),
                                   child: Center(
                                     child: MyText(
                                       title: "Logout",

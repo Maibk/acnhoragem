@@ -177,6 +177,7 @@ class BaseClient {
         throw Exception('Failed to load image');
       }
     } catch (e) {
+      Utils.showToast("Error ${e}", true);
       throw Exception('Error fetching image: $e');
     }
   }

@@ -1396,7 +1396,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         width: getHorizontalSize(350),
                                                         color: ColorConstant.whiteA700,
                                                         child: CustomImageView(
-                                                          url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
+                                                          url: controller.ownerFormModel.data?.approvalBuildingPlanUrl ?? "",
                                                         ),
                                                       ),
                                                     ),
@@ -1444,7 +1444,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           width: getHorizontalSize(350),
                                                           color: ColorConstant.whiteA700,
                                                           child: CustomImageView(
-                                                            url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
+                                                            url: controller.ownerFormModel.data?.completionCertificateUrl ?? "",
                                                           ),
                                                         ),
                                                       ),

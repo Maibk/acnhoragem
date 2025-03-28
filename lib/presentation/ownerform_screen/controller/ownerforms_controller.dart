@@ -571,23 +571,20 @@ class OwnerFornsScreenController extends GetxController {
         'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
         'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
         'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
-        'status': '0'
+        'status': '0',
+        'property_user': 'owner',
+        'total_wives': "2",
+        'total_children': "2",
       };
 
       ownerFormdata.addAll(data);
 
-      if (hasVehicle == "Yes") {
-        if (ownerFormModel.data != null) {
-          if (ownerFormModel.data!.vehicle != null) {
-            for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
-              ownerFormdata['vehicle_type[$i]'] = vehicleTypeControllers[i].text;
-              ownerFormdata['registration[$i]'] = vehicleRegisterNoControllers[i].text;
-              ownerFormdata['color[$i]'] = vehicleColorControllers[i].text;
-              ownerFormdata['sticker_no[$i]'] = vehicleStikerControllers[i].text;
-              ownerFormdata['etag[$i]'] = eTag[i].toString();
-            }
-          }
-        }
+      for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
+        ownerFormdata['vehicle_type[$i]'] = vehicleTypeControllers[i].text == "" ? "No" : vehicleTypeControllers[i].text;
+        ownerFormdata['registration[$i]'] = vehicleRegisterNoControllers[i].text == "" ? "No" : vehicleRegisterNoControllers[i].text;
+        ownerFormdata['color[$i]'] = vehicleColorControllers[i].text == "" ? "No" : vehicleColorControllers[i].text;
+        ownerFormdata['sticker_no[$i]'] = vehicleStikerControllers[i].text == "" ? "No" : vehicleStikerControllers[i].text;
+        ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? "No" : eTag[i].toString();
       }
 
       if (alottmentletter == "Yes") {
@@ -615,7 +612,11 @@ class OwnerFornsScreenController extends GetxController {
           );
         }
       } else {
-        ownerFormdata['copy_approval_building_plan'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
+        try {
+          ownerFormdata['copy_approval_building_plan'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
+        } catch (e) {
+          editbtnController.stop();
+        }
       }
 
       if (completionCertificate == "Yes") {
@@ -630,7 +631,7 @@ class OwnerFornsScreenController extends GetxController {
           }
         }
       } else {
-        ownerFormdata['copy_completion_certificate'] = BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.completionCertificateUrl ?? "");
+        ownerFormdata['copy_completion_certificate'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.completionCertificateUrl ?? "");
       }
       if (value) {
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
@@ -664,12 +665,29 @@ class OwnerFornsScreenController extends GetxController {
               );
               log(response.statusMessage.toString());
             }
+            editbtnController.stop();
           } on _dio.DioException catch (error) {
             editbtnController.stop();
-            Utils.showToast(
-              error.message.toString(),
-              true,
-            );
+
+            if (error.response?.statusCode == 404) {
+              Utils.showToast(
+                error.response!.data['message'].toString(),
+                true,
+              );
+            }
+            if (error is Response) {
+              Utils.showToast(
+                error.response!.data['message'].toString(),
+                true,
+              );
+            } else {
+              Utils.showToast(
+                error.message.toString(),
+                true,
+              );
+            }
+            editbtnController.stop();
+
             if (error.response == null) {
               var exception = ApiException(
                 url: 'https://anchorageislamabad.com/api/owner-application',
