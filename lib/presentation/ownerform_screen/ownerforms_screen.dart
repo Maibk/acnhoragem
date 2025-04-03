@@ -39,7 +39,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
     }
     Future.delayed(Duration(), () {
       args['status'] != "" ? controller.getEntryFormsDetails(args['id']) : null;
-      args['status'] != "Pending" ? controller.addvehicleControllers() : null;
+      args['status'] == "" ? controller.addvehicleControllers() : null;
     });
 
     super.initState();
@@ -250,6 +250,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             controller.selectedValue = value!;
                                                             controller.streets.clear();
                                                             controller.plots.clear();
+                                                            controller.streetSelectedValue = null;
                                                             controller.getStreetByBlock(value);
                                                           });
                                                         }
@@ -403,46 +404,15 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             },
                                           ),
                                           SizedBox(
-                                            height: getVerticalSize(20),
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.symmetric(horizontal: 10),
-                                            width: Get.width,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(12),
-                                                border: Border(bottom: BorderSide(color: ColorConstant.gray600))),
-                                            child: DropdownButton<String>(
-                                              underline: Container(
-                                                color: Colors.black,
-                                              ),
-                                              isExpanded: true,
-                                              hint: MyText(
-                                                title: "Total Number of children",
-                                                fontSize: 12,
-                                                clr: ColorConstant.gray600,
-                                              ),
-                                              value: controller.total_children,
-                                              items: controller.children.map((e) {
-                                                return DropdownMenuItem<String>(
-                                                  value: e,
-                                                  child: Text(
-                                                    e,
-                                                    style: TextStyle(fontSize: 12.h),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              onChanged: isEditable
-                                                  ? (newValue) {
-                                                      controller.total_children = null;
-                                                      controller.total_children = newValue;
-                                                      setState(() {});
-                                                    }
-                                                  : null,
-                                            ),
-                                          ),
-                                          SizedBox(
                                             height: getVerticalSize(10),
                                           ),
+                                          MyText(
+                                            clr: ColorConstant.gray600,
+                                            fontSize: 14,
+                                            title: "Total Number of wives",
+                                          ).paddingOnly(
+                                            left: 10,
+                                          ),
                                           Container(
                                             padding: EdgeInsets.symmetric(horizontal: 10),
                                             width: Get.width,
@@ -455,7 +425,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               ),
                                               isExpanded: true,
                                               hint: MyText(
-                                                title: "Total Number of Wives",
+                                                title: "Select",
                                                 fontSize: 12,
                                                 clr: ColorConstant.gray600,
                                               ),
@@ -480,6 +450,51 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           ),
                                           SizedBox(
                                             height: getVerticalSize(10),
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(20),
+                                          ),
+                                          MyText(
+                                            clr: ColorConstant.gray600,
+                                            fontSize: 14,
+                                            title: "Total Number of children",
+                                          ).paddingOnly(
+                                            left: 10,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(horizontal: 10),
+                                            width: Get.width,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(12),
+                                                border: Border(bottom: BorderSide(color: ColorConstant.gray600))),
+                                            child: DropdownButton<String>(
+                                              underline: Container(
+                                                color: Colors.black,
+                                              ),
+                                              isExpanded: true,
+                                              hint: MyText(
+                                                title: "Select",
+                                                fontSize: 12,
+                                                clr: ColorConstant.gray600,
+                                              ),
+                                              value: controller.total_children,
+                                              items: controller.children.map((e) {
+                                                return DropdownMenuItem<String>(
+                                                  value: e,
+                                                  child: Text(
+                                                    e,
+                                                    style: TextStyle(fontSize: 12.h),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                              onChanged: isEditable
+                                                  ? (newValue) {
+                                                      controller.total_children = null;
+                                                      controller.total_children = newValue;
+                                                      setState(() {});
+                                                    }
+                                                  : null,
+                                            ),
                                           ),
                                           AbsorbPointer(
                                             absorbing: !isEditable,
@@ -1014,7 +1029,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   enabled: isEditable,
-                                                                  fieldText: "Bore/Typer".tr,
+                                                                  fieldText: "Bore/Type".tr,
                                                                   controller: controller.privateBoreController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
@@ -1168,7 +1183,11 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         GestureDetector(
                                                                           onTap: () {
                                                                             setState(() {
-                                                                              controller.vehicleTypeControllers.removeAt(index);
+                                                                              if (args['status'] == Constants.formStatusRejected) {
+                                                                                controller.ownerFormModel.data?.vehicle?.removeAt(index);
+                                                                              } else {
+                                                                                controller.vehicleTypeControllers.removeAt(index);
+                                                                              }
                                                                             });
                                                                           },
                                                                           child: Container(

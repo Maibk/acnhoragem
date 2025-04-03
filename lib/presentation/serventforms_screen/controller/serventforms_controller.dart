@@ -245,8 +245,8 @@ class ServentFormsController extends GetxController {
             setSelectedBlock(servantFormDataModel.data?.block.toString() ?? "");
             streetSelectedValue = Street(id: servantFormDataModel.data?.street_id ?? 0, title: servantFormDataModel.data?.street ?? "");
             plotstSelectedValue = Plots(id: servantFormDataModel.data?.house_id ?? 0, title: servantFormDataModel.data?.houseNo ?? "");
-            roadController.text = servantFormDataModel.data?.road ?? "";
-            colonyController.text = servantFormDataModel.data?.residentialArea ?? "";
+            // roadController.text = servantFormDataModel.data?.road ?? "";
+            // colonyController.text = servantFormDataModel.data?.residentialArea ?? "";
             selectedValue = servantFormDataModel.data?.block_id ?? 0;
 
             //Spouse Information
@@ -640,10 +640,10 @@ class ServentFormsController extends GetxController {
           'cnic': cnicController.text,
           'phone': mobileController.text,
           'house': plotstSelectedValue?.id ?? 0,
-          'road': roadController.text,
+          // 'road': roadController.text,
           'street': streetSelectedValue?.id ?? 0,
           'block': selectedValue ?? 0,
-          'residential_area': colonyController.text,
+          // 'residential_area': colonyController.text,
         };
         servantData.addAll(ownerInfoData);
         if (ownerImage != null) {
@@ -768,10 +768,10 @@ class ServentFormsController extends GetxController {
         'cnic': cnicController.text,
         'phone': mobileController.text,
         'house': plotstSelectedValue?.id ?? 0,
-        'road': roadController.text,
+        // 'road': roadController.text,
         'street': streetSelectedValue?.id ?? 0,
         'block': selectedValue ?? 0,
-        'residential_area': colonyController.text,
+        // 'residential_area': colonyController.text,
         'id': id.toString(),
         'status': 0
       };

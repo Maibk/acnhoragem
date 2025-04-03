@@ -422,29 +422,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       })
                                                 ],
                                               ),
-                                              SizedBox(
-                                                height: getVerticalSize(5),
-                                              ),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Expanded(
-                                                    child: CustomTextField(
-                                                      enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                      fieldText: "Colony/Residential Area Name".tr,
-                                                      controller: controller.colonyController,
-                                                      isFinal: false,
-                                                      keyboardType: TextInputType.emailAddress,
-                                                      validator: (value) {
-                                                        return HelperFunction.empthyFieldValidator(value!);
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: getVerticalSize(5),
-                                              ),
+
+                                              // Row(
+                                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              //   children: [
+                                              //     Expanded(
+                                              //       child: CustomTextField(
+                                              //         enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                              //         fieldText: "Colony/Residential Area Name".tr,
+                                              //         controller: controller.colonyController,
+                                              //         isFinal: false,
+                                              //         keyboardType: TextInputType.emailAddress,
+                                              //         validator: (value) {
+                                              //           return HelperFunction.empthyFieldValidator(value!);
+                                              //         },
+                                              //       ),
+                                              //     ),
+                                              //   ],
+                                              // ),
+
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
@@ -492,53 +488,67 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 absorbing: !isEditable,
                                                 child: Padding(
                                                   padding: getPadding(left: 10, top: 10, right: 10),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  child: Column(
                                                     children: [
-                                                      Icon(
-                                                        _value.selectedResidential == 1 ? Icons.circle : Icons.circle_outlined,
-                                                        color: ColorConstant.blackColor,
-                                                        size: 14,
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          Icon(
+                                                            _value.selectedResidential == 1 ? Icons.circle : Icons.circle_outlined,
+                                                            color: ColorConstant.blackColor,
+                                                            size: 14,
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              controller.updateNocStatus("");
+                                                              _value.setselectedResidential(1);
+                                                            },
+                                                            child: MyText(
+                                                              title: " Civilian",
+                                                              clr: ColorConstant.antextlightgray,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 30,
+                                                          ),
+                                                          Icon(
+                                                            _value.selectedResidential == 2 ? Icons.circle : Icons.circle_outlined,
+                                                            color: ColorConstant.blackColor,
+                                                            size: 14,
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              _value.setselectedResidential(2);
+                                                            },
+                                                            child: MyText(
+                                                              title: "Tenant",
+                                                              clr: ColorConstant.antextlightgray,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          controller.updateNocStatus("");
-                                                          _value.setselectedResidential(1);
-                                                        },
-                                                        child: MyText(
-                                                          title: " Civilian",
-                                                          clr: ColorConstant.antextlightgray,
-                                                        ),
+                                                      SizedBox(
+                                                        height: 5,
                                                       ),
-                                                      Icon(
-                                                        _value.selectedResidential == 2 ? Icons.circle : Icons.circle_outlined,
-                                                        color: ColorConstant.blackColor,
-                                                        size: 14,
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          _value.setselectedResidential(2);
-                                                        },
-                                                        child: MyText(
-                                                          title: "Tenant",
-                                                          clr: ColorConstant.antextlightgray,
-                                                        ),
-                                                      ),
-                                                      Icon(
-                                                        _value.selectedResidential == 3 ? Icons.circle : Icons.circle_outlined,
-                                                        color: ColorConstant.blackColor,
-                                                        size: 14,
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          controller.updateNocStatus("");
+                                                      Row(
+                                                        children: [
+                                                          Icon(
+                                                            _value.selectedResidential == 3 ? Icons.circle : Icons.circle_outlined,
+                                                            color: ColorConstant.blackColor,
+                                                            size: 14,
+                                                          ),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              controller.updateNocStatus("");
 
-                                                          _value.setselectedResidential(3);
-                                                        },
-                                                        child: MyText(
-                                                          title: "Visitor / Non-Resident",
-                                                          clr: ColorConstant.antextlightgray,
-                                                        ),
+                                                              _value.setselectedResidential(3);
+                                                            },
+                                                            child: MyText(
+                                                              title: " Visitor / Non-Resident",
+                                                              clr: ColorConstant.antextlightgray,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
@@ -649,176 +659,187 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         SizedBox(
                                           height: getVerticalSize(5),
                                         ),
-                                        GetBuilder(
-                                            init: controller,
-                                            builder: (context) {
-                                              return Form(
-                                                  key: _value.addVehicleFormKey,
-                                                  child: ListView.builder(
-                                                    physics: NeverScrollableScrollPhysics(),
-                                                    shrinkWrap: true,
-                                                    itemCount: args['status'] != ""
-                                                        ? controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0
-                                                        : controller.vehicleNoControllers.length == 0
-                                                            ? 1
-                                                            : controller.vehicleNoControllers.length,
-                                                    itemBuilder: (context, index) {
-                                                      return Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          Padding(
-                                                            padding: getPadding(left: 10),
-                                                            child: MyText(
-                                                              title: "Vehicles Information",
-                                                              fontSize: 20,
-                                                            ),
-                                                          ),
-                                                          if (index != 0)
-                                                            if (args['status'] != Constants.formStatusPending)
-                                                              Row(
-                                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                                children: [
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      setState(() {
-                                                                        controller.vehicleNoControllers.removeAt(index);
-                                                                      });
-                                                                    },
-                                                                    child: Container(
-                                                                        margin: EdgeInsets.only(right: 15),
-                                                                        padding: EdgeInsets.all(8),
-                                                                        decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                        child: Icon(
-                                                                          Icons.delete_outlined,
-                                                                          color: Colors.white,
-                                                                        )),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                          SizedBox(
-                                                            height: getVerticalSize(15),
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Expanded(
-                                                                child: CustomTextField(
-                                                                    enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                    fieldText: "Vehicle No.".tr,
-                                                                    controller: controller.vehicleNoControllers[index],
-                                                                    isFinal: false,
-                                                                    keyboardType: TextInputType.emailAddress,
-                                                                    limit: HelperFunction.EMAIL_VALIDATION,
-                                                                    validator: (value) {
-                                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                                    }),
-                                                              ),
-                                                              Expanded(
-                                                                child: CustomTextField(
-                                                                    fieldText: "Make".tr,
-                                                                    controller: controller.makeControllers[index],
-                                                                    isFinal: false,
-                                                                    keyboardType: TextInputType.emailAddress,
-                                                                    enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                    validator: (value) {
-                                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                                    }),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(
-                                                            height: getVerticalSize(15),
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Expanded(
-                                                                child: CustomTextField(
-                                                                    fieldText: "Model".tr,
-                                                                    enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                    controller: controller.modelControllers[index],
-                                                                    isFinal: false,
-                                                                    keyboardType: TextInputType.emailAddress,
-                                                                    limit: HelperFunction.EMAIL_VALIDATION,
-                                                                    validator: (value) {
-                                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                                    }),
-                                                              ),
-                                                              Expanded(
-                                                                child: CustomTextField(
-                                                                    fieldText: "Color".tr,
-                                                                    enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                    controller: controller.colorControllers[index],
-                                                                    isFinal: false,
-                                                                    keyboardType: TextInputType.emailAddress,
-                                                                    validator: (value) {
-                                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                                    }),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(
-                                                            height: getVerticalSize(15),
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Expanded(
-                                                                child: CustomTextField(
-                                                                    fieldText: "Engine No".tr,
-                                                                    enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                    controller: controller.engineNoControllers[index],
-                                                                    isFinal: false,
-                                                                    keyboardType: TextInputType.emailAddress,
-                                                                    limit: HelperFunction.EMAIL_VALIDATION,
-                                                                    validator: (value) {
-                                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                                    }),
-                                                              ),
-                                                              Expanded(
-                                                                child: CustomTextField(
-                                                                    fieldText: "Chassis No".tr,
-                                                                    enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                    controller: controller.chassisControllers[index],
-                                                                    isFinal: false,
-                                                                    keyboardType: TextInputType.emailAddress,
-                                                                    validator: (value) {
-                                                                      return HelperFunction.empthyFieldValidator(value!);
-                                                                    }),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          SizedBox(
-                                                            height: getVerticalSize(15),
-                                                          ),
-                                                          if (args['status'] == "")
-                                                            Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: MyAnimatedButton(
-                                                                radius: 5.0,
-                                                                height: getVerticalSize(50),
-                                                                width: getHorizontalSize(400),
-                                                                fontSize: 16,
-                                                                bgColor: ColorConstant.anbtnBlue,
-                                                                controller: controller.btnControllerUseless,
-                                                                title: "Add Vehicle".tr,
-                                                                onTap: () async {
-                                                                  _value.addVehicle(index);
-                                                                },
-                                                              ),
-                                                            ),
-                                                          SizedBox(
-                                                            height: getVerticalSize(20),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  ));
-                                            }),
                                       ],
                                     )
                                   ],
                                 ),
+                                SizedBox(
+                                  height: getVerticalSize(10),
+                                ),
+                                CustomExpansionTile(
+                                    title: MyText(
+                                      title: 'Vehicle Information',
+                                      clr: ColorConstant.black900,
+                                      fontSize: 16,
+                                    ),
+                                    children: [
+                                      GetBuilder(
+                                          init: controller,
+                                          builder: (context) {
+                                            return Form(
+                                                key: _value.addVehicleFormKey,
+                                                child: ListView.builder(
+                                                  physics: NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  padding: EdgeInsets.zero,
+                                                  itemCount: args['status'] != ""
+                                                      ? controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0
+                                                      : controller.vehicleNoControllers.length == 0
+                                                          ? 1
+                                                          : controller.vehicleNoControllers.length,
+                                                  itemBuilder: (context, index) {
+                                                    return Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        MyText(
+                                                          title: 'Vehicle ${index + 1}',
+                                                          clr: ColorConstant.black900,
+                                                          fontSize: 16,
+                                                        ).paddingOnly(left: 10, bottom: 10),
+                                                        if (index != 0)
+                                                          if (args['status'] != Constants.formStatusPending)
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.end,
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    setState(() {
+                                                                      if (args['status'] == Constants.formStatusRejected) {
+                                                                        controller.vehicleFormDataModel.data?.vehicleDetail?.removeAt(index);
+                                                                      } else {
+                                                                        controller.vehicleNoControllers.removeAt(index);
+                                                                      }
+                                                                    });
+                                                                  },
+                                                                  child: Container(
+                                                                      margin: EdgeInsets.only(right: 15),
+                                                                      padding: EdgeInsets.all(8),
+                                                                      decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                      child: Icon(
+                                                                        Icons.delete_outlined,
+                                                                        color: Colors.white,
+                                                                      )),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                  fieldText: "Vehicle No.".tr,
+                                                                  controller: controller.vehicleNoControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  limit: HelperFunction.EMAIL_VALIDATION,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Make".tr,
+                                                                  controller: controller.makeControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(15),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Model".tr,
+                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                  controller: controller.modelControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  limit: HelperFunction.EMAIL_VALIDATION,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Color".tr,
+                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                  controller: controller.colorControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(15),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Engine No".tr,
+                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                  controller: controller.engineNoControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  limit: HelperFunction.EMAIL_VALIDATION,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                            Expanded(
+                                                              child: CustomTextField(
+                                                                  fieldText: "Chassis No".tr,
+                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                  controller: controller.chassisControllers[index],
+                                                                  isFinal: false,
+                                                                  keyboardType: TextInputType.emailAddress,
+                                                                  validator: (value) {
+                                                                    return HelperFunction.empthyFieldValidator(value!);
+                                                                  }),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(15),
+                                                        ),
+                                                        if (args['status'] == "")
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: MyAnimatedButton(
+                                                              radius: 5.0,
+                                                              height: getVerticalSize(50),
+                                                              width: getHorizontalSize(400),
+                                                              fontSize: 16,
+                                                              bgColor: ColorConstant.anbtnBlue,
+                                                              controller: controller.btnControllerUseless,
+                                                              title: "Add Vehicle".tr,
+                                                              onTap: () async {
+                                                                _value.addVehicle(index);
+                                                              },
+                                                            ),
+                                                          ),
+                                                        SizedBox(
+                                                          height: getVerticalSize(20),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ));
+                                          }),
+                                    ]),
                                 SizedBox(
                                   height: getVerticalSize(10),
                                 ),
@@ -1874,13 +1895,12 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                     width: getHorizontalSize(400),
                                     fontSize: 16,
                                     bgColor: ColorConstant.anbtnBlue,
-                                    controller: (args['status'] == Constants.formStatusRejected || args['status'] == "")
-                                        ? controller.editbtnController
-                                        : controller.btnController,
+                                    controller:
+                                        (args['status'] == Constants.formStatusRejected) ? controller.editbtnController : controller.btnController,
                                     title: "Submit".tr,
                                     onTap: () async {
-                                      (args['status'] == Constants.formStatusRejected || args['status'] == "")
-                                          ? controller.editSubmitVehicle(context)
+                                      (args['status'] == Constants.formStatusRejected)
+                                          ? controller.editSubmitVehicle(context, args['id'])
                                           : controller.SubmitVehicle(context);
                                     },
                                   ),

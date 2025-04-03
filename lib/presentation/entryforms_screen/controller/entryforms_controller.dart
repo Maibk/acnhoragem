@@ -161,8 +161,8 @@ class EntryFormsController extends GetxController {
             setSelectedBlock(entryFormDataModel.data?.block.toString() ?? "");
             streetSelectedValue = Street(title: entryFormDataModel.data?.street ?? "");
             plotstSelectedValue = Plots(title: entryFormDataModel.data?.houseNo ?? "");
-            roadController.text = entryFormDataModel.data?.road ?? "";
-            colonyController.text = entryFormDataModel.data?.residentialArea ?? "";
+            // roadController.text = entryFormDataModel.data?.road ?? "";
+            // colonyController.text = entryFormDataModel.data?.residentialArea ?? "";
 
             //Spouse Information
 
@@ -366,7 +366,7 @@ class EntryFormsController extends GetxController {
   Future<void> spouseEditEntryFormAPi(context) async {
     Map<String, dynamic> data = {};
 
-    for (int i = 0; i < spousefullNameControllers.length; i++) {
+    for (int i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
       data.addAll({
         'spouse_name[$i]': spousefullNameControllers[i].text,
         'spouse_cnic[$i]': spousecnicControllers[i].text,
@@ -585,7 +585,7 @@ class EntryFormsController extends GetxController {
   Future<void> childEditEntryFormAPi(context) async {
     Map<String, dynamic> data = {};
 
-    for (int i = 0; i < childfullNameControllers.length; i++) {
+    for (int i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
       data.addAll({
         'child_name[$i]': childfullNameControllers[i].text,
         'child_cnic[$i]': childcnicControllers[i].text,
@@ -774,10 +774,10 @@ class EntryFormsController extends GetxController {
           'cnic': cnicController.text,
           'phone': mobileController.text,
           'house_no': plotstSelectedValue?.id ?? 0,
-          'road': roadController.text,
+          // 'road': roadController.text,
           'street': streetSelectedValue?.id ?? 0,
           'block': selectedValue ?? 0,
-          'residential_area': colonyController.text,
+          // 'residential_area': colonyController.text,
           "date": DateTime.now().format("yyyy-MM-dd").toString()
         };
         EntryFormData.addAll(ownerInfoData);
@@ -897,10 +897,10 @@ class EntryFormsController extends GetxController {
         'cnic': cnicController.text,
         'phone': mobileController.text,
         'house_no': plotstSelectedValue?.id ?? 0,
-        'road': roadController.text,
+        // 'road': roadController.text,
         'street': streetSelectedValue?.id ?? 0,
         'block': selectedValue ?? 0,
-        'residential_area': colonyController.text,
+        // 'residential_area': colonyController.text,
         "date": DateTime.now().format("yyyy-MM-dd").toString(),
         "id": id
       };
@@ -989,6 +989,7 @@ class EntryFormsController extends GetxController {
             }
           } on _dio.DioException catch (error) {
             submitEdittedFormButtonController.stop();
+            log(error.response?.data.toString().substring(1, 250) ?? "", name: "Entry card ERROOOOOOORRRRRR");
             Utils.showToast(
               error.response?.data.toString() ?? "Error",
               true,

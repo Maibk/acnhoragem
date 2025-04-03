@@ -1,0 +1,2 @@
+D:/acnhoragem/android/app/.cxx/RelWithDebInfo/4m5dk2a3/x86_64/CMakeFiles/edit_cache.dir
+D:/acnhoragem/android/app/.cxx/RelWithDebInfo/4m5dk2a3/x86_64/CMakeFiles/rebuild_cache.dir

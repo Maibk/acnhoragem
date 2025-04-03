@@ -248,7 +248,7 @@ class VechicleController extends GetxController {
             streetSelectedValue = Street(id: vehicleFormDataModel.data?.street_id ?? 0, title: vehicleFormDataModel.data?.roadStreet ?? "");
             plotstSelectedValue = Plots(id: vehicleFormDataModel.data?.house_id ?? 0, title: vehicleFormDataModel.data?.houseNo ?? "");
             roadController.text = vehicleFormDataModel.data?.roadStreet ?? "";
-            colonyController.text = vehicleFormDataModel.data?.roadStreet ?? "";
+            // colonyController.text = vehicleFormDataModel.data?.roadStreet ?? "";
 
             rankController.text = vehicleFormDataModel.data?.rank ?? "";
             servisController.text = vehicleFormDataModel.data?.serviceNo ?? "";
@@ -433,7 +433,7 @@ class VechicleController extends GetxController {
   }
 
   Future editAddUserInfo() async {
-    for (var i = 0; i < vehicleFormDataModel.data!.vehicleDetail!.length; i++) {
+    for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
       vehicalData['user_name[$i]'] = userfullNameControllers[i].text;
       vehicalData["user_nic[$i]"] = userCnicControllers[i].text;
       vehicalData['user_phone[$i]'] = userMobileControllers[i].text;
@@ -694,7 +694,7 @@ class VechicleController extends GetxController {
                 : selectedResidential == 2
                     ? "Tenant"
                     : "Visitor / Non-Residential",
-            'residential_area': colonyController.text,
+            // 'residential_area': colonyController.text,
           };
           vehicalData.addAll(ownerInfoData);
 
@@ -824,12 +824,13 @@ class VechicleController extends GetxController {
     }
   }
 
-  Future<void> editSubmitVehicle(context) async {
+  Future<void> editSubmitVehicle(context, int id) async {
     editbtnController.start();
     update();
     Utils.check().then((value) async {
       await editAddUserInfo();
       Map<String, dynamic> ownerInfoData = {
+        'id': id,
         'name': fullNameController.text,
         "father_name": fathersController.text,
         "service_category": selectedServiceCategory == 1 ? "civilian" : "service personnel",
@@ -850,7 +851,7 @@ class VechicleController extends GetxController {
             : selectedResidential == 2
                 ? "Tenant"
                 : "Visitor / Non-Residential",
-        'residential_area': colonyController.text,
+        // 'residential_area': colonyController.text,
       };
       vehicalData.addAll(ownerInfoData);
 
@@ -1036,7 +1037,7 @@ class VechicleController extends GetxController {
           var dio = _dio.Dio();
           try {
             var response = await dio.request(
-              'https://anchorageislamabad.com/api/vehicle',
+              'https://anchorageislamabad.com/api/vehicle/update',
               options: _dio.Options(
                 method: 'POST',
                 headers: {

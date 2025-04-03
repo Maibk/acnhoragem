@@ -337,38 +337,39 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   })
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: getVerticalSize(5),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: CustomTextField(
-                                                  fieldText: "Road".tr,
-                                                  controller: controller.roadController,
-                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                  isFinal: false,
-                                                  keyboardType: TextInputType.emailAddress,
-                                                  validator: (value) {
-                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                  },
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: CustomTextField(
-                                                  fieldText: "Colony/Residential Area Name".tr,
-                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                  controller: controller.colonyController,
-                                                  isFinal: false,
-                                                  keyboardType: TextInputType.emailAddress,
-                                                  validator: (value) {
-                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                          // SizedBox(
+                                          //   height: getVerticalSize(5),
+                                          // ),
+                                          // Row(
+                                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          //   children: [
+                                          //     Expanded(
+                                          //       child: CustomTextField(
+                                          //         fieldText: "Road".tr,
+                                          //         controller: controller.roadController,
+                                          //         enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                          //         isFinal: false,
+                                          //         keyboardType: TextInputType.emailAddress,
+                                          //         validator: (value) {
+                                          //           return HelperFunction.empthyFieldValidator(value!);
+                                          //         },
+                                          //       ),
+                                          //     ),
+                                          //     Expanded(
+                                          //       child: CustomTextField(
+                                          //         fieldText: "Colony/Residential Area Name".tr,
+                                          //         enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                          //         controller: controller.colonyController,
+                                          //         isFinal: false,
+                                          //         keyboardType: TextInputType.emailAddress,
+                                          //         validator: (value) {
+                                          //           return HelperFunction.empthyFieldValidator(value!);
+                                          //         },
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
+
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
@@ -543,7 +544,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                             GestureDetector(
                                                               onTap: () {
                                                                 setState(() {
-                                                                  controller.spousefullNameControllers.removeAt(index);
+                                                                  if (args['status'] == Constants.formStatusRejected) {
+                                                                    controller.entryFormDataModel.data?.spouseDetail?.removeAt(index);
+                                                                  } else {
+                                                                    controller.spousefullNameControllers.removeAt(index);
+                                                                  }
                                                                 });
                                                               },
                                                               child: Container(
@@ -956,7 +961,13 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                             GestureDetector(
                                                               onTap: () {
                                                                 setState(() {
-                                                                  controller.childfullNameControllers.removeAt(index);
+                                                                  if (args['status'] == Constants.formStatusRejected) {
+                                                                    log(controller.entryFormDataModel.data?.childDetail?.length.toString() ?? "");
+                                                                    controller.entryFormDataModel.data?.childDetail?.removeAt(index);
+                                                                    log(controller.entryFormDataModel.data?.childDetail?.length.toString() ?? "");
+                                                                  } else {
+                                                                    controller.childfullNameControllers.removeAt(index);
+                                                                  }
                                                                 });
                                                               },
                                                               child: Container(

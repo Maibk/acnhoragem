@@ -220,7 +220,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             } else {
                                               Get.toNamed(AppRoutes.myformsPage);
                                             }
-                                            Get.toNamed(AppRoutes.myformsPage);
                                           },
                                           child: CommonImageView(
                                             imagePath: ImageConstant.myOnlineIcon,

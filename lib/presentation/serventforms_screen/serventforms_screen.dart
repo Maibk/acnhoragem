@@ -330,41 +330,41 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   })
                                             ],
                                           ),
+                                          // SizedBox(
+                                          //   height: getVerticalSize(5),
+                                          // ),
+                                          // Row(
+                                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          //   children: [
+                                          //     Expanded(
+                                          //       child: CustomTextField(
+                                          //         fieldText: "Road".tr,
+                                          //         enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                          //         controller: controller.roadController,
+                                          //         isFinal: false,
+                                          //         keyboardType: TextInputType.emailAddress,
+                                          //         limit: HelperFunction.EMAIL_VALIDATION,
+                                          //         validator: (value) {
+                                          //           return HelperFunction.empthyFieldValidator(value!);
+                                          //         },
+                                          //       ),
+                                          //     ),
+                                          //     Expanded(
+                                          //       child: CustomTextField(
+                                          //         enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                          //         fieldText: "Colony/Residential Area Name".tr,
+                                          //         controller: controller.colonyController,
+                                          //         isFinal: false,
+                                          //         keyboardType: TextInputType.emailAddress,
+                                          //         validator: (value) {
+                                          //           return HelperFunction.empthyFieldValidator(value!);
+                                          //         },
+                                          //       ),
+                                          //     ),
+                                          //   ],
+                                          // ),
                                           SizedBox(
-                                            height: getVerticalSize(5),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: CustomTextField(
-                                                  fieldText: "Road".tr,
-                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                  controller: controller.roadController,
-                                                  isFinal: false,
-                                                  keyboardType: TextInputType.emailAddress,
-                                                  limit: HelperFunction.EMAIL_VALIDATION,
-                                                  validator: (value) {
-                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                  },
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: CustomTextField(
-                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                  fieldText: "Colony/Residential Area Name".tr,
-                                                  controller: controller.colonyController,
-                                                  isFinal: false,
-                                                  keyboardType: TextInputType.emailAddress,
-                                                  validator: (value) {
-                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: getVerticalSize(15),
+                                            height: getVerticalSize(10),
                                           ),
                                           if (args['status'] != "")
                                             Column(
@@ -534,7 +534,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             GestureDetector(
                                                               onTap: () {
                                                                 setState(() {
-                                                                  controller.serventfullNameControllers.removeAt(index);
+                                                                  if (args['status'] == Constants.formStatusRejected) {
+                                                                    controller.servantFormDataModel.data?.servantDetail?.removeAt(index);
+                                                                  } else {
+                                                                    controller.serventfullNameControllers.removeAt(index);
+                                                                  }
                                                                 });
                                                               },
                                                               child: Container(
@@ -1006,7 +1010,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             GestureDetector(
                                                               onTap: () {
                                                                 setState(() {
-                                                                  controller.serventfamfullNameControllers.removeAt(index);
+                                                                  if (args['status'] == Constants.formStatusRejected) {
+                                                                    controller.servantFormDataModel.data?.servantFamilyDetail?.removeAt(index);
+                                                                  } else {
+                                                                    controller.serventfamfullNameControllers.removeAt(index);
+                                                                  }
                                                                 });
                                                               },
                                                               child: Container(

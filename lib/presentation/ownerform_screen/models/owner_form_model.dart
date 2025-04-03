@@ -111,6 +111,7 @@ class Data {
     armQuantity = json['arm_quantity'];
     total_children = json['total_children'];
     total_wives = json['total_wives'];
+    boreType = json['bore_type'];
     ammunitionQuantity = json['ammunition_quantity'];
     vehicleStatus = json['vehicle_status'];
     if (json['vehicle'] != null) {

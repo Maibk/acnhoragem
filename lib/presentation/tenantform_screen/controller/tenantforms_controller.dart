@@ -148,9 +148,32 @@ class TenantFornsScreenController extends GetxController {
 
 //Owner Controllers
   TextEditingController ownerNameController = TextEditingController();
+  TextEditingController ownerPermanentAddressController = TextEditingController();
+  TextEditingController ownerPresenttAddressController = TextEditingController();
+  String? ownerHouseSize;
   TextEditingController ownerPhoneController = TextEditingController();
   TextEditingController ownerCNICController = TextEditingController();
   CscCountry country = CscCountry.Pakistan;
+
+  List<String> ownerHousesSize = [
+    "100",
+    "125",
+    "133",
+    "200",
+    "225",
+    "250",
+    "350",
+    "448",
+    "474",
+    "476",
+    "481",
+    "500",
+    "1000",
+    "1329",
+    "2000",
+    "3539",
+    "4235"
+  ];
 
   Rx<ApiCallStatus> formsLoadingStatus = ApiCallStatus.success.obs;
 
@@ -218,9 +241,16 @@ class TenantFornsScreenController extends GetxController {
   //   eTag.clear();
   // }
 
-  setCountry(input) {
+  void setCountry(String input) {
     String countryName = input.split(' ').last;
-    country = CscCountry.values.firstWhere((element) => element.name == countryName);
+    try {
+      country = CscCountry.values.firstWhere(
+        (element) => element.name == countryName,
+        orElse: () => CscCountry.Pakistan, // Default to Pakistan
+      );
+    } catch (e) {
+      country = CscCountry.Pakistan; // Fallback in case of an unexpected error
+    }
     log(country.toString());
   }
 
@@ -255,14 +285,17 @@ class TenantFornsScreenController extends GetxController {
             cnicController.text = tenantFormModel.data?.tenantCnic ?? "";
             occupationController.text = tenantFormModel.data?.tenantOccupation ?? "";
             presentAddController.text = tenantFormModel.data?.tenantPermanentAddress ?? "";
-            sizeHouseAddController.text = tenantFormModel.data?.sizeOfHousePlot ?? "";
-            permanantAddController.text = tenantFormModel.data?.permanentAddress ?? "";
+            sizeHouseAddController.text = tenantFormModel.data?.tenantSizeOfHousePlot ?? "";
+            permanantAddController.text = tenantFormModel.data?.tenantPermanentAddress ?? "";
 
             // Particulars of owner
 
             ownerNameController.text = tenantFormModel.data?.name ?? "";
             ownerCNICController.text = tenantFormModel.data?.cnic ?? "";
             ownerPhoneController.text = tenantFormModel.data?.phone ?? "";
+            ownerPermanentAddressController.text = tenantFormModel.data?.permanentAddress ?? "";
+            ownerPresenttAddressController.text = tenantFormModel.data?.presentAddress ?? "";
+            ownerHouseSize = tenantFormModel.data?.sizeOfHousePlot ?? "";
 
             if (tenantFormModel.data!.allotmentLetter.toString() == "Yes") {
               updateAllotmentLetter("Yes");
@@ -344,9 +377,9 @@ class TenantFornsScreenController extends GetxController {
           'tenant_street_no': streetSelectedValue?.id ?? 0,
           'tenant_house_no': plotstSelectedValue?.id ?? 0,
           'tenant_size_of_house_plot': sizeHouseAddController.text,
-          'present_address': presentAddController.text,
-          'permanent_address': presentAddController.text,
-          'size_of_house_plot': sizeHouseAddController.text,
+          'present_address': ownerPresenttAddressController.text,
+          'permanent_address': ownerPermanentAddressController.text,
+          'size_of_house_plot': ownerHouseSize,
           'allotment_letter': alottmentletter,
           'completion_certificate': completionCertificate,
           'construction_status': custructionStatusAddController.text,
@@ -552,7 +585,7 @@ class TenantFornsScreenController extends GetxController {
         'tenant_size_of_house_plot': sizeHouseAddController.text,
         'present_address': presentAddController.text,
         'permanent_address': presentAddController.text,
-        'size_of_house_plot': sizeHouseAddController.text,
+        'size_of_house_plot': ownerHouseSize,
         'allotment_letter': alottmentletter,
         'completion_certificate': completionCertificate,
         'construction_status': custructionStatusAddController.text,

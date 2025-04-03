@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
+import 'package:anchorageislamabad/presentation/tenantform_screen/models/tenant_form_model.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:csc_picker_plus/csc_picker_plus.dart';
@@ -286,7 +287,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   fontWeight: FontWeight.w400,
                                                                 ),
                                                               )
-                                                            : Text(controller.selectedValue.toString()),
+                                                            : Text(controller.streetSelectedValue?.title?.toString() ?? ""),
                                                         value: controller.streetSelectedValue,
                                                         items: controller.streets.map((item) {
                                                           return DropdownMenuItem<Street>(
@@ -465,6 +466,76 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                   ),
                                                   SizedBox(
                                                     height: getVerticalSize(5),
+                                                  ),
+                                                  CustomTextField(
+                                                    fieldText: "Present Address".tr,
+                                                    controller: controller.ownerPresenttAddressController,
+                                                    isFinal: false,
+                                                    enabled: isEditable,
+                                                    keyboardType: TextInputType.emailAddress,
+                                                    limit: HelperFunction.EMAIL_VALIDATION,
+                                                    validator: (value) {
+                                                      return HelperFunction.validateAlphabetsOnly(value!);
+                                                    },
+                                                  ),
+                                                  SizedBox(
+                                                    height: getVerticalSize(5),
+                                                  ),
+                                                  CustomTextField(
+                                                    fieldText: "Permanent Address".tr,
+                                                    controller: controller.ownerPermanentAddressController,
+                                                    isFinal: false,
+                                                    enabled: isEditable,
+                                                    keyboardType: TextInputType.emailAddress,
+                                                    limit: HelperFunction.EMAIL_VALIDATION,
+                                                    validator: (value) {
+                                                      return HelperFunction.validateAlphabetsOnly(value!);
+                                                    },
+                                                  ),
+                                                  SizedBox(
+                                                    height: getVerticalSize(10),
+                                                  ),
+                                                  MyText(
+                                                    clr: ColorConstant.gray600,
+                                                    fontSize: 14,
+                                                    title: "Size of House/Plot ",
+                                                  ).paddingOnly(
+                                                    left: 10,
+                                                  ),
+                                                  Container(
+                                                    padding: EdgeInsets.symmetric(horizontal: 10),
+                                                    width: Get.width,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(12),
+                                                        border: Border(bottom: BorderSide(color: ColorConstant.gray600))),
+                                                    child: DropdownButton<String>(
+                                                      underline: Container(
+                                                        color: Colors.black,
+                                                      ),
+                                                      isExpanded: true,
+                                                      hint: MyText(
+                                                        title: "Select",
+                                                        fontSize: 12,
+                                                        clr: ColorConstant.gray600,
+                                                      ),
+                                                      value: controller.ownerHouseSize,
+                                                      items: controller.ownerHousesSize.map((e) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: e,
+                                                          child: Text(
+                                                            e,
+                                                            style: TextStyle(fontSize: 12),
+                                                          ),
+                                                        );
+                                                      }).toList(),
+                                                      onChanged: isEditable
+                                                          ? (newValue) {
+                                                              controller.ownerHouseSize = null;
+                                                              controller.ownerHouseSize = newValue;
+                                                              setState(() {});
+                                                            }
+                                                          : null,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1138,8 +1209,16 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               return GestureDetector(
                                                                 behavior: HitTestBehavior.opaque,
                                                                 onTap: () {
-                                                                  // controller.addvehicleControllers();
                                                                   controller.updateVehicle("Yes");
+
+                                                                  if (controller.tenantFormModel.data?.vehicleStatus?.toLowerCase() == "no" &&
+                                                                      args['status'] == Constants.formStatusRejected) {
+                                                                    controller.tenantFormModel.data?.vehicle?.add(Vehicle(
+                                                                          
+
+
+                                                                    ));
+                                                                  }
                                                                 },
                                                                 child: Row(
                                                                   children: [
@@ -1227,7 +1306,11 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                           GestureDetector(
                                                                             onTap: () {
                                                                               setState(() {
-                                                                                controller.vehicleTypeControllers.removeAt(index);
+                                                                                if (args['status'] == Constants.formStatusRejected) {
+                                                                                  controller.tenantFormModel.data?.vehicle?.removeAt(index);
+                                                                                } else {
+                                                                                  controller.vehicleTypeControllers.removeAt(index);
+                                                                                }
                                                                               });
                                                                             },
                                                                             child: Container(
@@ -1832,7 +1915,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         fontSize: 12.sp,
                                                         fontWeight: FontWeight.w700,
                                                         color: ColorConstant.whiteA700,
-                                                        label: "COMPLETION CERTIFICATE (IF APPLICABLE)".tr,
+                                                        label: "COMPLETION CERTIFICATE".tr,
                                                         textColor: ColorConstant.anbtnBlue,
                                                         borderColor: ColorConstant.anbtnBlue,
                                                         prefix: Icon(
