@@ -1,6 +1,7 @@
 import 'package:anchorageislamabad/presentation/splash_screen/controller/splash_controller.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:anchorageislamabad/widgets/custom_textfield_new.dart';
+import 'package:anchorageislamabad/widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -260,6 +261,9 @@ class MyprofileScreen extends StatelessWidget {
                                               controller.isShowPassword.value = HelperFunction.showPassword(controller.isShowPassword.value);
                                               controller.update();
                                             },
+                                            validator: (value) {
+                                              return HelperFunction.passwordValidate(value!);
+                                            },
                                             //  maxLines: 8,
                                           );
                                         }),
@@ -283,7 +287,7 @@ class MyprofileScreen extends StatelessWidget {
                                 ),
                               );
                             } else {
-                              return Center(child: CircularProgressIndicator.adaptive());
+                              return Loader();
                             }
                           }),
                     ),
@@ -295,10 +299,5 @@ class MyprofileScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  /// Navigates to the previous screen.
-  onTapArrowLeft() {
-    Get.back();
   }
 }

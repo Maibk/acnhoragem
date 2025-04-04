@@ -212,14 +212,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            if (controller.profileModel?.appFormApproved == 0) {
-                                              Utils.showToast(
-                                                "Your application form is not approved yet, kindly wait for Approval",
-                                                false,
-                                              );
-                                            } else {
-                                              Get.toNamed(AppRoutes.myformsPage);
-                                            }
+                                            // if (controller.profileModel?.appFormApproved == 0) {
+                                            //   Utils.showToast(
+                                            //     "Your application form is not approved yet, kindly wait for Approval",
+                                            //     false,
+                                            //   );
+                                            // } else {
+                                            //   Get.toNamed(AppRoutes.myformsPage);
+                                            // }
+                                            Get.toNamed(AppRoutes.myformsPage);
                                           },
                                           child: CommonImageView(
                                             imagePath: ImageConstant.myOnlineIcon,
@@ -401,50 +402,56 @@ class _HomeScreenState extends State<HomeScreen> {
                                         if (controller.bills?.data?.isNotEmpty == true)
                                           Column(
                                             children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  SizedBox(child: MyText(fontSize: 14.sp, title: "Month")),
-                                                  MyText(fontSize: 14.sp, title: "Amount"),
-                                                  MyText(fontSize: 14.sp, title: "Status"),
-                                                ],
-                                              ).paddingSymmetric(horizontal: 15.w),
                                               Container(
-                                                child: ListView.builder(
-                                                  padding: EdgeInsets.zero,
-                                                  physics: NeverScrollableScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  itemCount: controller.bills!.data!.length,
-                                                  itemBuilder: (context, index) {
-                                                    return GestureDetector(
-                                                      onTap: () {
-                                                        Get.toNamed(AppRoutes.billsPage);
-                                                      },
-                                                      child: ListTile(
-                                                          contentPadding: EdgeInsets.zero,
-                                                          minTileHeight: 10,
-                                                          title: Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                                            children: [
-                                                              Container(
-                                                                  // color: Colors.red,
-                                                                  width: 70.w,
-                                                                  child:
-                                                                      MyText(fontSize: 12.sp, title: "${controller.bills!.data![index].billMonth}")),
-                                                              Container(
-                                                                      width: 90.w,
-                                                                      // color: Colors.red,
-                                                                      alignment: Alignment.centerLeft,
-                                                                      child: MyText(
-                                                                          fontSize: 12.sp,
-                                                                          title: "${controller.bills!.data![index].beforeDueDateAmount}"))
-                                                                  .paddingOnly(right: 15.w),
-                                                              MyText(fontSize: 12.sp, title: "${controller.bills!.data![index].status}")
-                                                            ],
-                                                          )).paddingSymmetric(horizontal: 15.w),
+                                                child: DataTable(
+                                                  horizontalMargin: 0,
+                                                  columnSpacing: .2.sw,
+                                                  dataRowMaxHeight: 50.0,
+                                                  showBottomBorder: false,
+                                                  dividerThickness: 0.0,
+                                                  columns: const [
+                                                    DataColumn(label: Text('Month')),
+                                                    DataColumn(label: Text('Amount')),
+                                                    DataColumn(label: Text('Status')),
+                                                  ],
+                                                  rows: controller.bills!.data!.map((bill) {
+                                                    return DataRow(
+                                                      cells: [
+                                                        DataCell(
+                                                          MyText(
+                                                            title: "${bill.billMonth}",
+                                                            fontSize: 12.sp,
+                                                          ),
+                                                        ),
+                                                        DataCell(
+                                                          MyText(
+                                                            title: "${bill.beforeDueDateAmount}",
+                                                            fontSize: 12.sp,
+                                                          ),
+                                                        ),
+                                                        DataCell(
+                                                          Container(
+                                                            width: 60.w,
+                                                            height: 20,
+                                                            alignment: Alignment.center,
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(5),
+                                                              color: bill.status! == "Paid"
+                                                                  ? ColorConstant.appgreenColor
+                                                                  : bill.status! == "Pending"
+                                                                      ? ColorConstant.pendingColor
+                                                                      : Colors.red,
+                                                            ),
+                                                            child: MyText(
+                                                              title: "${bill.status}",
+                                                              fontSize: 11.sp,
+                                                              clr: ColorConstant.whiteA700,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     );
-                                                  },
+                                                  }).toList(),
                                                 ),
                                               ),
                                             ],

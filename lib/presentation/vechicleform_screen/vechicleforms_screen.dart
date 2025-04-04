@@ -1763,7 +1763,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               fontSize: 12,
                                               fontWeight: FontWeight.w700,
                                               color: ColorConstant.whiteA700,
-                                              label: "Attachllotment Letter Image".tr,
+                                              label: "Attach allotment Letter Image".tr,
                                               textColor: ColorConstant.anbtnBlue,
                                               borderColor: ColorConstant.anbtnBlue,
                                               prefix: Icon(

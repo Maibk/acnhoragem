@@ -145,6 +145,7 @@ class _CustomTextFieldFormsState extends State<CustomTextFieldForms> {
                       fontSize: widget.lableFontSize ?? 16, color: widget.lableColor ?? ColorConstant.blackColor, fontWeight: FontWeight.normal),
 
                   decoration: InputDecoration(
+                    errorMaxLines: 4,
                     prefixIconConstraints: BoxConstraints(minWidth: 15, minHeight: 38),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(top: 5.0, bottom: 5, right: 10),

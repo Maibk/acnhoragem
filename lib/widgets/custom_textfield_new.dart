@@ -158,6 +158,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       fontWeight: FontWeight.normal),
 
                   decoration: InputDecoration(
+                    errorMaxLines: 4,
                     floatingLabelBehavior: widget.floatingLabelBehavior ?? FloatingLabelBehavior.auto,
                     prefixIconConstraints: BoxConstraints(minWidth: 15, minHeight: 38),
                     prefixIcon: Padding(

@@ -55,9 +55,6 @@ class Constants {
   //S3 presigned url
   static const preSignedHeaderValue = "ehK2wPZR54qDHNJKNtw5";
 
-
-
-
   static const String formStatusPending = "Pending";
   static const String formStatusApproved = "Approved";
   static const String formStatusRejected = "Rejected";
@@ -120,7 +117,7 @@ class Constants {
   static const forgotPasswordUrl = baseUrl + '/forget-password';
 
   static const String agreementText = """
-I, S/O or D/O CNIC NO. hereby solemnly affirm that the above-mentioned information given by me about business at Naval Anchorage Islamabad is true to the best of my knowledge, if found incorrect at any stage I will be liable to be persecuted under special conditions for residing in Anchorage Society.
+solemnly affirm that the above-mentioned information given by me about business at Naval Anchorage Islamabad is true to the best of my knowledge, if found incorrect at any stage I will be liable to be persecuted under special conditions for residing in Anchorage Society.
 
 I will ensure that utility charges / bills will be paid by me timely. In case of non-compliance owner will be responsible for the same.
 
@@ -179,5 +176,3 @@ Allotee(s)/ occupants (s) are required not to throw any waste material in dustbi
 No building, structure, or any part thereof should be occupied or used without obtaining completion certificate (permission to occupy).
 """;
 }
-
-

@@ -24,6 +24,9 @@ class TenantFormModel {
 
 class Data {
   int? userId;
+  int? blockId;
+  int? streetId;
+  int? houseId;
   String? tenantName;
   String? fatherName;
   String? tenantCnic;
@@ -63,6 +66,9 @@ class Data {
 
   Data(
       {this.userId,
+      this.blockId,
+      this.streetId,
+      this.houseId,
       this.tenantName,
       this.fatherName,
       this.tenantCnic,
@@ -102,6 +108,9 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
+    blockId = json['block_id'];
+    streetId = json['street_id']; 
+    houseId = json['house_id'];
     tenantName = json['tenant_name'];
     fatherName = json['father_name'];
     tenantCnic = json['tenant_cnic'];

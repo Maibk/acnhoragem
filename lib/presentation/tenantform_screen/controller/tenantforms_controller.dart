@@ -274,14 +274,18 @@ class TenantFornsScreenController extends GetxController {
         update();
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
           await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.tenantFormUrl + id.toString(), onSuccess: (response) {
+            log(response.data.toString(), name: "Tenant Form data>>");
             tenantFormModel = TenantFormModel.fromJson(response.data);
             fullNameController.text = tenantFormModel.data?.tenantName ?? "";
             fathersController.text = tenantFormModel.data?.fatherName ?? "";
             telephoneController.text = tenantFormModel.data?.tenantPhone ?? "";
-            setSelectedBlock(tenantFormModel.data?.tenantBlockCommercial.toString() ?? "");
-            streetSelectedValue = Street(title: tenantFormModel.data?.tenantStreetNo ?? "");
-            plotstSelectedValue =
-                Plots(title: tenantFormModel.data?.tenantHouseNo ?? "", sq_yards: tenantFormModel.data?.tenantSizeOfHousePlot ?? "");
+            selectedValue = tenantFormModel.data?.blockId;
+
+            streetSelectedValue = Street(id: tenantFormModel.data?.streetId ?? 0, title: tenantFormModel.data?.tenantStreetNo ?? "");
+            plotstSelectedValue = Plots(
+                id: tenantFormModel.data?.houseId ?? 0,
+                title: tenantFormModel.data?.tenantHouseNo ?? "",
+                sq_yards: tenantFormModel.data?.tenantSizeOfHousePlot ?? "");
             cnicController.text = tenantFormModel.data?.tenantCnic ?? "";
             occupationController.text = tenantFormModel.data?.tenantOccupation ?? "";
             presentAddController.text = tenantFormModel.data?.tenantPermanentAddress ?? "";
@@ -580,8 +584,8 @@ class TenantFornsScreenController extends GetxController {
         'tenant_occupation': occupationController.text,
         'tenant_permanent_address': presentAddController.text,
         'tenant_block_commercial': selectedValue,
-        'tenant_street_no': streetSelectedValue?.title ?? "",
-        'tenant_house_no': plotstSelectedValue?.title ?? "",
+        'tenant_street_no': streetSelectedValue?.id ?? "",
+        'tenant_house_no': plotstSelectedValue?.id ?? "",
         'tenant_size_of_house_plot': sizeHouseAddController.text,
         'present_address': presentAddController.text,
         'permanent_address': presentAddController.text,

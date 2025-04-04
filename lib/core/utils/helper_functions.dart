@@ -119,8 +119,7 @@ class HelperFunction {
       return "Password is really short please enter at least 8 character.";
     }
     if (!regex.hasMatch(value)) {
-      return 'Please enter at least one character uppercase,\none lower case,one special character and one digit';
-      // return 'Weak password please enter at least one character uppercase,\none lower case,one special character and one digit';
+      return 'Please enter at least one character uppercase, one lower case,one special character and one digit.';
     }
     if (isConfirmPassword) {
       if (value != password) {

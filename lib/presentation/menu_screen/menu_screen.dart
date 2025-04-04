@@ -8,6 +8,7 @@ import 'package:anchorageislamabad/data/services/base_client.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/common_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:anchorageislamabad/widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -451,7 +452,7 @@ class MenuScreen extends StatelessWidget {
                                                 showDialog(
                                                   context: context,
                                                   builder: (context) {
-                                                    return Center(child: CircularProgressIndicator.adaptive());
+                                                    return Loader();
                                                   },
                                                 );
                                                 isInternetAvailable.value = true;
@@ -465,7 +466,6 @@ class MenuScreen extends StatelessWidget {
                                                     Utils.showToast("Logout Successfully", false);
                                                     Get.offAllNamed(AppRoutes.loginPage);
                                                     log(response.toString());
-
                                                     _appPreferences.getAppPreferences().isPreferenceReady;
                                                     _appPreferences.clearPreference();
 

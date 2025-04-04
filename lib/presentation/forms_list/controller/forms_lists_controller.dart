@@ -39,7 +39,12 @@ class FormsListsController extends GetxController {
           await BaseClient.get(headers: {'Authorization': "Bearer $token"}, url, onSuccess: (response) {
             if (response.statusCode == 200) {
               formsListModel = AllFormsListModel.fromJson(response.data);
-              apiCallStatus.value = ApiCallStatus.success;
+              if (formsListModel.data?.isEmpty ?? false) {
+                apiCallStatus.value = ApiCallStatus.empty;
+              } else {
+                apiCallStatus.value = ApiCallStatus.success;
+              }
+
               update();
               return true;
             }

@@ -5,6 +5,7 @@ import 'package:anchorageislamabad/core/utils/size_utils.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/forms_list/controller/forms_lists_controller.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:anchorageislamabad/widgets/loader_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -92,9 +93,23 @@ class _FormsListScreenState extends State<FormsListScreen> {
                       init: controller,
                       builder: (context) {
                         if (controller.apiCallStatus.value == ApiCallStatus.loading) {
+                          return Loader();
+                        } else if (controller.apiCallStatus.value == ApiCallStatus.empty) {
                           return Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
+                            child: MyText(
+                              title: "No Record Found",
+                              fontSize: 20,
+                              customWeight: FontWeight.w500,
+                              clr: Colors.white,
+                            ),
+                          );
+                        } else if (controller.apiCallStatus.value == ApiCallStatus.error) {
+                          return Center(
+                            child: MyText(
+                              title: "Something went wrong",
+                              fontSize: 20,
+                              customWeight: FontWeight.w500,
+                              clr: Colors.white,
                             ),
                           );
                         } else {
