@@ -855,15 +855,13 @@ class VechicleController extends GetxController {
       };
       vehicalData.addAll(ownerInfoData);
 
-      for (var i = 0; i < vehicleNoControllers.length; i++) {
-        vehicalData['vehicle_no[$i]'] = vehicleNoControllers[i].text;
-        vehicalData["vehicle_make[$i]"] = makeControllers[i].text;
-        vehicalData['vehicle_model[$i]'] = modelControllers[i].text;
-
-        vehicalData['vehicle_color[$i]'] = colorControllers[i].text;
-        vehicalData['vehicle_engine[$i]'] = engineNoControllers[i].text;
-
-        vehicalData['vehicle_chassis[$i]'] = chassisControllers[i].text;
+      for (var i = 0; i < vehicleFormDataModel.data!.vehicleDetail!.length; i++) {
+        vehicalData['vehicle_no[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleNoController.text;
+        vehicalData["vehicle_make[$i]"] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleMakeController.text;
+        vehicalData['vehicle_model[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleModelController.text;
+        vehicalData['vehicle_color[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleColorController.text;
+        vehicalData['vehicle_engine[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleEngineController.text;
+        vehicalData['vehicle_chassis[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleChassisController.text;
       }
 
       if (underTakingLicenseFrontSideImage == null) {

@@ -935,36 +935,35 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "")
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: MyAnimatedButton(
-                                                          controller: _value.btnControllerUseLess,
-                                                          radius: 5.0,
-                                                          height: getVerticalSize(50),
-                                                          width: getHorizontalSize(400),
-                                                          fontSize: 16,
-                                                          bgColor: ColorConstant.anbtnBlue,
-                                                          title: "Add Servant".tr,
-                                                          onTap: () async {
-                                                            if (controller.servantImages.isEmpty) {
-                                                              Utils.showToast("Please select servant Images", true);
-                                                            } else if (controller.servantCnicFronts.isEmpty) {
-                                                              Utils.showToast("Please select servant cnic front images", true);
-                                                            } else if (controller.servantCnicBacks.isEmpty) {
-                                                              Utils.showToast("Please select servant cnic back images", true);
+                                                    Padding(
+                                                      padding: getPadding(left: 10, right: 10),
+                                                      child: MyAnimatedButton(
+                                                        controller: _value.btnControllerUseLess,
+                                                        radius: 5.0,
+                                                        height: getVerticalSize(50),
+                                                        width: getHorizontalSize(400),
+                                                        fontSize: 16,
+                                                        bgColor: ColorConstant.anbtnBlue,
+                                                        title: "Add Servant".tr,
+                                                        onTap: () async {
+                                                          if (controller.servantImages.isEmpty) {
+                                                            Utils.showToast("Please select servant Images", true);
+                                                          } else if (controller.servantCnicFronts.isEmpty) {
+                                                            Utils.showToast("Please select servant cnic front images", true);
+                                                          } else if (controller.servantCnicBacks.isEmpty) {
+                                                            Utils.showToast("Please select servant cnic back images", true);
+                                                          } else {
+                                                            if (args['status'] == "Rejected") {
+                                                              controller.addServantControllers();
+                                                              controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
+                                                              setState(() {});
                                                             } else {
-                                                              if (args['status'] == "Rejected") {
-                                                                controller.addServantControllers();
-                                                                controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
-                                                                setState(() {});
-                                                              } else {
-                                                                controller.addServant(index);
-                                                              }
+                                                              controller.addServant(index);
                                                             }
-                                                          },
-                                                        ),
+                                                          }
+                                                        },
                                                       ),
+                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(20),
                                                     ),

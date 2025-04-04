@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class VehicleFormDataModel {
   bool? success;
   Data? data;
@@ -181,6 +183,13 @@ class VehicleDetail {
   String? vehicleEngine;
   String? vehicleChassis;
 
+  TextEditingController vehicleNoController = TextEditingController();
+  TextEditingController vehicleMakeController = TextEditingController();
+  TextEditingController vehicleModelController = TextEditingController();
+  TextEditingController vehicleColorController = TextEditingController();
+  TextEditingController vehicleEngineController = TextEditingController();
+  TextEditingController vehicleChassisController = TextEditingController();
+
   VehicleDetail({this.vehicleNo, this.vehicleMake, this.vehicleModel, this.vehicleColor, this.vehicleEngine, this.vehicleChassis});
 
   VehicleDetail.fromJson(Map<String, dynamic> json) {
@@ -190,6 +199,13 @@ class VehicleDetail {
     vehicleColor = json['vehicle_color'];
     vehicleEngine = json['vehicle_engine'];
     vehicleChassis = json['vehicle_chassis'];
+
+    vehicleNoController.text = vehicleNo ?? "";
+    vehicleMakeController.text = vehicleMake ?? "";
+    vehicleModelController.text = vehicleModel ?? "";
+    vehicleColorController.text = vehicleColor ?? "";
+    vehicleEngineController.text = vehicleEngine ?? "";
+    vehicleChassisController.text = vehicleChassis ?? "";
   }
 
   Map<String, dynamic> toJson() {

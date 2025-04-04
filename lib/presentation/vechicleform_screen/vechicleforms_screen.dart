@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
+import 'package:anchorageislamabad/presentation/vechicleform_screen/models/Vehicle_form_model.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -688,6 +689,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ? 1
                                                           : controller.vehicleNoControllers.length,
                                                   itemBuilder: (context, index) {
+                                                    VehicleDetail? detail;
+                                                    if ((controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0) > 0) {
+                                                      detail = controller.vehicleFormDataModel.data?.vehicleDetail?[index];
+                                                    }
+
                                                     return Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
@@ -729,7 +735,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               child: CustomTextField(
                                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                   fieldText: "Vehicle No.".tr,
-                                                                  controller: controller.vehicleNoControllers[index],
+                                                                  controller: isEditable
+                                                                      ? detail?.vehicleNoController
+                                                                      : controller.vehicleNoControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
@@ -740,7 +748,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             Expanded(
                                                               child: CustomTextField(
                                                                   fieldText: "Make".tr,
-                                                                  controller: controller.makeControllers[index],
+                                                                  controller:
+                                                                      isEditable ? detail?.vehicleMakeController : controller.makeControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -760,7 +769,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               child: CustomTextField(
                                                                   fieldText: "Model".tr,
                                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  controller: controller.modelControllers[index],
+                                                                  controller: isEditable
+                                                                      ? detail?.vehicleModelController
+                                                                      : controller.modelControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
@@ -772,7 +783,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               child: CustomTextField(
                                                                   fieldText: "Color".tr,
                                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  controller: controller.colorControllers[index],
+                                                                  controller: isEditable
+                                                                      ? detail?.vehicleColorController
+                                                                      : controller.colorControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   validator: (value) {
@@ -791,7 +804,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               child: CustomTextField(
                                                                   fieldText: "Engine No".tr,
                                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  controller: controller.engineNoControllers[index],
+                                                                  controller: isEditable
+                                                                      ? detail?.vehicleEngineController
+                                                                      : controller.engineNoControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   limit: HelperFunction.EMAIL_VALIDATION,
@@ -803,7 +818,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               child: CustomTextField(
                                                                   fieldText: "Chassis No".tr,
                                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  controller: controller.chassisControllers[index],
+                                                                  controller: isEditable
+                                                                      ? detail?.vehicleChassisController
+                                                                      : controller.chassisControllers[index],
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
                                                                   validator: (value) {
@@ -815,22 +832,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         SizedBox(
                                                           height: getVerticalSize(15),
                                                         ),
-                                                        if (args['status'] == "")
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: MyAnimatedButton(
-                                                              radius: 5.0,
-                                                              height: getVerticalSize(50),
-                                                              width: getHorizontalSize(400),
-                                                              fontSize: 16,
-                                                              bgColor: ColorConstant.anbtnBlue,
-                                                              controller: controller.btnControllerUseless,
-                                                              title: "Add Vehicle".tr,
-                                                              onTap: () async {
-                                                                _value.addVehicle(index);
-                                                              },
-                                                            ),
+                                                        // if (args['status'] == "")
+                                                        Padding(
+                                                          padding: getPadding(left: 10, right: 10),
+                                                          child: MyAnimatedButton(
+                                                            radius: 5.0,
+                                                            height: getVerticalSize(50),
+                                                            width: getHorizontalSize(400),
+                                                            fontSize: 16,
+                                                            bgColor: ColorConstant.anbtnBlue,
+                                                            controller: controller.btnControllerUseless,
+                                                            title: "Add Vehicle".tr,
+                                                            onTap: () async {
+                                                              if (isEditable) {
+                                                                controller.vehicleFormDataModel.data?.vehicleDetail?.add(VehicleDetail());
+                                                              }
+                                                              _value.addVehicle(index);
+                                                            },
                                                           ),
+                                                        ),
                                                         SizedBox(
                                                           height: getVerticalSize(20),
                                                         ),
