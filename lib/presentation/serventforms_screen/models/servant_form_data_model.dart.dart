@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ServantFormDataModel {
   bool? success;
   Data? data;
@@ -153,6 +155,19 @@ class ServantDetail {
   String? servantPo;
   String? servantCity;
   String? servantProvince;
+
+  TextEditingController servantNameController = TextEditingController();
+  TextEditingController servantFatherController = TextEditingController();
+  TextEditingController servantCnicController = TextEditingController();
+  TextEditingController servantPhoneController = TextEditingController();
+  TextEditingController servantHouseController = TextEditingController();
+  TextEditingController servantRoadController = TextEditingController();
+  TextEditingController servantStreetController = TextEditingController();
+  TextEditingController servantVillageController = TextEditingController();
+  TextEditingController servantPoController = TextEditingController();
+  TextEditingController servantCityController = TextEditingController();
+  TextEditingController servantProvinceController = TextEditingController();
+
   String? servantImage;
   String? servantCnicFront;
   String? servantCnicBack;
@@ -188,6 +203,18 @@ class ServantDetail {
     servantImage = json['servant_image'];
     servantCnicFront = json['servant_cnic_front'];
     servantCnicBack = json['servant_cnic_back'];
+
+    servantNameController.text = servantName ?? '';
+    servantFatherController.text = servantFather ?? '';
+    servantCnicController.text = servantCnic ?? '';
+    servantPhoneController.text = servantPhone ?? '';
+    servantHouseController.text = servantHouse ?? '';
+    servantRoadController.text = servantRoad ?? '';
+    servantStreetController.text = servantStreet ?? '';
+    servantVillageController.text = servantVillage ?? '';
+    servantPoController.text = servantPo ?? '';
+    servantCityController.text = servantCity ?? '';
+    servantProvinceController.text = servantProvince ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -216,6 +243,13 @@ class ServantFamilyDetail {
   String? familyNic;
   String? familyCell;
   String? familyAddress;
+
+  final TextEditingController familyNameController = TextEditingController();
+  final TextEditingController familyOccupationController = TextEditingController();
+  final TextEditingController familyNicController = TextEditingController();
+  final TextEditingController familyCellController = TextEditingController();
+  final TextEditingController familyAddressController = TextEditingController();
+
   String? attachment;
 
   ServantFamilyDetail({this.familyName, this.familyOccupation, this.familyNic, this.familyCell, this.familyAddress, this.attachment});
@@ -227,6 +261,12 @@ class ServantFamilyDetail {
     familyCell = json['family_cell'];
     familyAddress = json['family_address'];
     attachment = json['attachment'];
+
+    familyNameController.text = familyName ?? "";
+    familyOccupationController.text = familyOccupation ?? "";
+    familyNicController.text = familyNic ?? "";
+    familyCellController.text = familyCell ?? "";
+    familyAddressController.text = familyAddress ?? "";
   }
 
   Map<String, dynamic> toJson() {

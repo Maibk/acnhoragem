@@ -6,6 +6,7 @@ import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/vechicleform_screen/models/Vehicle_form_model.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -832,25 +833,27 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         SizedBox(
                                                           height: getVerticalSize(15),
                                                         ),
-                                                        // if (args['status'] == "")
-                                                        Padding(
-                                                          padding: getPadding(left: 10, right: 10),
-                                                          child: MyAnimatedButton(
-                                                            radius: 5.0,
-                                                            height: getVerticalSize(50),
-                                                            width: getHorizontalSize(400),
-                                                            fontSize: 16,
-                                                            bgColor: ColorConstant.anbtnBlue,
-                                                            controller: controller.btnControllerUseless,
-                                                            title: "Add Vehicle".tr,
-                                                            onTap: () async {
-                                                              if (isEditable) {
-                                                                controller.vehicleFormDataModel.data?.vehicleDetail?.add(VehicleDetail());
-                                                              }
-                                                              _value.addVehicle(index);
-                                                            },
+                                                        if (isEditable)
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: MyAnimatedButton(
+                                                              radius: 5.0,
+                                                              height: getVerticalSize(50),
+                                                              width: getHorizontalSize(400),
+                                                              fontSize: 16,
+                                                              bgColor: ColorConstant.anbtnBlue,
+                                                              controller: controller.btnControllerUseless,
+                                                              title: "Add Vehicle".tr,
+                                                              onTap: () async {
+                                                                if (isEditable) {
+                                                                  controller.vehicleFormDataModel.data?.vehicleDetail?.add(VehicleDetail());
+                                                                  controller.update();
+                                                                } else {
+                                                                  _value.addVehicle(index);
+                                                                }
+                                                              },
+                                                            ),
                                                           ),
-                                                        ),
                                                         SizedBox(
                                                           height: getVerticalSize(20),
                                                         ),
@@ -878,9 +881,16 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                             ListView.builder(
                                               shrinkWrap: true,
                                               physics: NeverScrollableScrollPhysics(),
-                                              itemCount:
-                                                  controller.userfullNameControllers.length == 0 ? 1 : controller.userfullNameControllers.length,
+                                              itemCount: args['status'] != ""
+                                                  ? controller.vehicleFormDataModel.data?.vehicleUserDetail?.length ?? 0
+                                                  : controller.userfullNameControllers.length == 0
+                                                      ? 1
+                                                      : controller.userfullNameControllers.length,
                                               itemBuilder: (context, index) {
+                                                VehicleUserDetail? detail;
+                                                if ((controller.vehicleFormDataModel.data?.vehicleUserDetail?.length ?? 0) > 0) {
+                                                  detail = controller.vehicleFormDataModel.data?.vehicleUserDetail?[index];
+                                                }
                                                 return Column(
                                                   children: [
                                                     if (index != 0)
@@ -891,7 +901,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             GestureDetector(
                                                               onTap: () {
                                                                 setState(() {
-                                                                  controller.userfullNameControllers.removeAt(index);
+                                                                  if (isEditable) {
+                                                                    controller.vehicleFormDataModel.data?.vehicleUserDetail?.removeAt(index);
+                                                                  } else {
+                                                                    controller.userfullNameControllers.removeAt(index);
+                                                                  }
                                                                 });
                                                               },
                                                               child: Container(
@@ -907,7 +921,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         ),
                                                     CustomTextField(
                                                         fieldText: "Full Name".tr,
-                                                        controller: controller.userfullNameControllers[index],
+                                                        controller:
+                                                            isEditable ? detail?.userNameController : controller.userfullNameControllers[index],
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -925,7 +940,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           child: CustomTextField(
                                                               fieldText: "CNIC No.".tr,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              controller: controller.userCnicControllers[index],
+                                                              controller:
+                                                                  isEditable ? detail?.userNicController : controller.userCnicControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.number,
                                                               limit: HelperFunction.EMAIL_VALIDATION,
@@ -941,7 +957,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           child: CustomTextField(
                                                               fieldText: "Mobile number".tr,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              controller: controller.userMobileControllers[index],
+                                                              controller:
+                                                                  isEditable ? detail?.userPhoneController : controller.userMobileControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.phone,
                                                               validator: (value) {
@@ -994,13 +1011,14 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: "Attach Driving License Front Side Image".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: controller.userDrivingLicenseFrontSideImages[index].path == ""
+                                                          prefix: (controller.userDrivingLicenseFrontSideImages.length > index &&
+                                                                  controller.userDrivingLicenseFrontSideImages[index].path != "")
                                                               ? Icon(
-                                                                  Icons.add_circle_outline,
+                                                                  Icons.check_circle_sharp,
                                                                   color: ColorConstant.anbtnBlue,
                                                                 )
                                                               : Icon(
-                                                                  Icons.check_circle_sharp,
+                                                                  Icons.add_circle_outline,
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
@@ -1055,7 +1073,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: "Attach Driving License Back Side Image".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: controller.userDrivingLicenseBackSideImages[index].path == ""
+                                                          prefix: (controller.userDrivingLicenseBackSideImages.length > index &&
+                                                                  controller.userDrivingLicenseBackSideImages[index].path != "")
                                                               ? Icon(
                                                                   Icons.add_circle_outline,
                                                                   color: ColorConstant.anbtnBlue,
@@ -1117,7 +1136,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: "Attach image of your CNIC front side".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: controller.userCnicFrontSideImages[index].path == ""
+                                                          prefix: (controller.userCnicFrontSideImages.length > index &&
+                                                                  controller.userCnicFrontSideImages[index].path != "")
                                                               ? Icon(
                                                                   Icons.add_circle_outline,
                                                                   color: ColorConstant.anbtnBlue,
@@ -1166,7 +1186,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                         ],
                                                       ),
-                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
+                                                    if (args['status'] != Constants.formStatusPending)
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: CustomButton(
@@ -1177,7 +1197,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: "Attach image of your CNIC back side".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: controller.userCnicBacktSideImages[index].path == ""
+                                                          prefix: (controller.userCnicBacktSideImages.length > index &&
+                                                                  controller.userCnicBacktSideImages[index].path != "")
                                                               ? Icon(
                                                                   Icons.add_circle_outline,
                                                                   color: ColorConstant.anbtnBlue,
@@ -1200,7 +1221,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "")
+                                                    if (args['status'] != Constants.formStatusPending)
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: MyAnimatedButton(
@@ -1212,7 +1233,17 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           controller: controller.btnControllerUseless,
                                                           title: "Add User".tr,
                                                           onTap: () async {
-                                                            controller.addUserInfo(index);
+                                                            if (isEditable) {
+                                                              controller.userDrivingLicenseFrontSideImages.add(File(""));
+                                                              controller.userDrivingLicenseBackSideImages.add(File(""));
+                                                              controller.userCnicFrontSideImages.add(File(""));
+                                                              controller.userCnicBacktSideImages.add(File(""));
+                                                              controller.vehicleFormDataModel.data?.vehicleUserDetail?.add(VehicleUserDetail());
+
+                                                              controller.update();
+                                                            } else {
+                                                              controller.addUserInfo(index);
+                                                            }
                                                           },
                                                         ),
                                                       ),
@@ -1924,6 +1955,12 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                           : controller.SubmitVehicle(context);
                                     },
                                   ),
+                                if (kDebugMode)
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        controller.editSubmitVehicle(context, args['id']);
+                                      },
+                                      child: Text("Test Button"))
                               ],
                             ),
                           ),

@@ -199,7 +199,7 @@ class PropertiesScreen extends StatelessWidget {
                                 if (args) {
                                   await showDialog(
                                     context: context,
-                                    barrierDismissible: false,
+                                    barrierDismissible: true,
                                     builder: (_) => AlertDialog(
                                       backgroundColor: Colors.transparent,
                                       shadowColor: Colors.transparent,
@@ -237,7 +237,7 @@ class PropertiesScreen extends StatelessWidget {
                                                       child: GestureDetector(
                                                         onTap: () {
                                                           controller.userTypeContoller.text = "Owner";
-                                                          Navigator.pop(context);
+                                                          Get.toNamed(AppRoutes.ownerFormsPage, arguments: {'status': "", 'id': ""});
                                                         },
                                                         child: Container(
                                                           decoration: BoxDecoration(
@@ -264,7 +264,7 @@ class PropertiesScreen extends StatelessWidget {
                                                       child: GestureDetector(
                                                         onTap: () {
                                                           controller.userTypeContoller.text = "Tenant";
-                                                          Navigator.pop(context);
+                                                          Get.toNamed(AppRoutes.tenantFormsPage, arguments: {'status': "", 'id': ""});
                                                         },
                                                         child: Container(
                                                           decoration: BoxDecoration(
@@ -291,9 +291,6 @@ class PropertiesScreen extends StatelessWidget {
                                       ],
                                     ),
                                   );
-                                  controller.userTypeContoller.text == "Owner"
-                                      ? Get.toNamed(AppRoutes.ownerFormsPage, arguments: {'status': "", 'id': ""})
-                                      : Get.toNamed(AppRoutes.tenantFormsPage, arguments: {'status': "", 'id': ""});
                                 } else {
                                   Utils.showToast(
                                     "Your application form is not approved yet, kindly wait for Approval",

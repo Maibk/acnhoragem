@@ -20,7 +20,7 @@ void main() async {
     SystemUiOverlayStyle.light,
   );
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   await Permission.location.request();
   SystemChrome.setPreferredOrientations([

@@ -61,7 +61,7 @@ class CustomTextField extends StatefulWidget {
       this.sufixIconOnTap,
       this.onTap,
       this.isPassword = false,
-      this.limit,
+      this.limit = 150,
       this.maxLines,
       this.nameWidth,
       this.focusNode,
@@ -124,13 +124,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   onChanged: (String newVal) {
                     if (newVal.startsWith(' ')) {
                       widget.controller!.text = '';
-                    } else if (newVal.length <= widget.limit!) {
+                    } else if (newVal.length <= (widget.limit ?? 0)) {
                       text = newVal;
                     } else {
                       widget.controller!.value = TextEditingValue(
                           text: text,
                           selection: TextSelection(
-                              baseOffset: widget.limit!, extentOffset: widget.limit!, affinity: TextAffinity.downstream, isDirectional: false),
+                              baseOffset: widget.limit ?? 0, extentOffset: widget.limit!, affinity: TextAffinity.downstream, isDirectional: false),
                           composing: TextRange(start: 0, end: widget.limit!));
                     }
                     if (widget.onChanged != null) {

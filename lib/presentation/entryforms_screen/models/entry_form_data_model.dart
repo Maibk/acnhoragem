@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class EntryFormDataModel {
   bool? success;
   Data? data;
@@ -123,6 +125,18 @@ class SpouseDetail {
   String? spousePo;
   String? spouseCity;
   String? spouseProvince;
+
+  final TextEditingController spouseNameController = TextEditingController();
+  final TextEditingController spouseCnicController = TextEditingController();
+  final TextEditingController spousePhoneController = TextEditingController();
+  final TextEditingController spouseHouseController = TextEditingController();
+  final TextEditingController spouseRoadController = TextEditingController();
+  final TextEditingController spouseStreetController = TextEditingController();
+  final TextEditingController spouseVillageController = TextEditingController();
+  final TextEditingController spousePoController = TextEditingController();
+  final TextEditingController spouseCityController = TextEditingController();
+  final TextEditingController spouseProvinceController = TextEditingController();
+
   String? spouseImage;
   String? spouseCnicFront;
   String? spouseCnicBack;
@@ -156,6 +170,17 @@ class SpouseDetail {
     spouseImage = json['spouse_image'];
     spouseCnicFront = json['spouse_cnic_front'];
     spouseCnicBack = json['spouse_cnic_back'];
+
+    spouseNameController.text = spouseName ?? '';
+    spouseCnicController.text = spouseCnic ?? '';
+    spousePhoneController.text = spousePhone ?? '';
+    spouseHouseController.text = spouseHouse ?? '';
+    spouseRoadController.text = spouseRoad ?? '';
+    spouseStreetController.text = spouseStreet ?? '';
+    spouseVillageController.text = spouseVillage ?? '';
+    spousePoController.text = spousePo ?? '';
+    spouseCityController.text = spouseCity ?? '';
+    spouseProvinceController.text = spouseProvince ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -188,6 +213,19 @@ class ChildDetail {
   String? childPo;
   String? childCity;
   String? childProvince;
+
+  final TextEditingController childNameController = TextEditingController();
+  final TextEditingController childCnicController = TextEditingController();
+  final TextEditingController childPhoneController = TextEditingController();
+  final TextEditingController childHouseController = TextEditingController();
+  final TextEditingController childRoadController = TextEditingController();
+  final TextEditingController childStreetController = TextEditingController();
+  final TextEditingController childVillageController = TextEditingController();
+  final TextEditingController childPoController = TextEditingController();
+  final TextEditingController childCityController = TextEditingController();
+  final TextEditingController childProvinceController = TextEditingController();
+
+
   String? childImage;
   String? childCnicFront;
   String? childCnicBack;
@@ -221,6 +259,20 @@ class ChildDetail {
     childImage = json['child_image'];
     childCnicFront = json['child_cnic_front'];
     childCnicBack = json['child_cnic_back'];
+
+
+
+     childNameController.text = childName ?? '';
+     
+    childCnicController.text = childCnic ?? '';
+    childPhoneController.text = childPhone ?? '';
+    childHouseController.text = childHouse ?? '';
+    childRoadController.text = childRoad ?? '';
+    childStreetController.text = childStreet ?? '';
+    childVillageController.text = childVillage ?? '';
+    childPoController.text = childPo ?? '';
+    childCityController.text = childCity ?? '';
+    childProvinceController.text = childProvince ?? '';
   }
 
   Map<String, dynamic> toJson() {

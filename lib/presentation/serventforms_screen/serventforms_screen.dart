@@ -7,6 +7,7 @@ import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/serventforms_screen/models/servant_form_data_model.dart.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,9 +37,13 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
   HomeController homecontroller = Get.put(HomeController());
 
   final args = Get.arguments;
+  bool isEditable = false;
 
   @override
-  void initState() {
+  initState() {
+    if (args['status'] == Constants.formStatusRejected || args['status'] == "") {
+      isEditable = true;
+    }
     controller.servantDataIndex = 0;
     controller.servantFamilyDataIndex = 0;
     controller.servantCnicBack = null;
@@ -524,6 +529,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       ? 1
                                                       : controller.serventfullNameControllers.length,
                                               itemBuilder: (context, index) {
+                                                ServantDetail? detail;
+                                                if ((controller.servantFormDataModel.data?.servantDetail?.length ?? 0) > 0) {
+                                                  detail = controller.servantFormDataModel.data?.servantDetail?[index];
+                                                }
                                                 return Column(
                                                   children: [
                                                     if (index != 0)
@@ -555,7 +564,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Full Name".tr,
-                                                        controller: controller.serventfullNameControllers[index],
+                                                        controller:
+                                                            isEditable ? detail?.servantNameController : controller.serventfullNameControllers[index],
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -568,7 +578,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Father’s Name".tr,
-                                                        controller: controller.serventfathersControllers[index],
+                                                        controller: isEditable
+                                                            ? detail?.servantFatherController
+                                                            : controller.serventfathersControllers[index],
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -585,7 +597,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "CNIC No.".tr,
-                                                              controller: controller.serventcnicControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantCnicController
+                                                                  : controller.serventcnicControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.number,
                                                               inputFormatters: [
@@ -601,7 +615,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Mobile number".tr,
-                                                              controller: controller.serventmobileControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantPhoneController
+                                                                  : controller.serventmobileControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.phone,
                                                               validator: (value) {
@@ -635,7 +651,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "House/Plot".tr,
-                                                              controller: controller.serventhouseControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantHouseController
+                                                                  : controller.serventhouseControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
                                                               limit: HelperFunction.EMAIL_VALIDATION,
@@ -647,7 +665,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Road".tr,
-                                                              controller: controller.serventroadControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantRoadController
+                                                                  : controller.serventroadControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
                                                               validator: (value) {
@@ -666,7 +686,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Street".tr,
-                                                              controller: controller.serventstreetControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantStreetController
+                                                                  : controller.serventstreetControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
                                                               limit: HelperFunction.EMAIL_VALIDATION,
@@ -678,7 +700,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Mohalla/Village".tr,
-                                                              controller: controller.serventcolonyVillageControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantVillageController
+                                                                  : controller.serventcolonyVillageControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
                                                               validator: (value) {
@@ -700,7 +724,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Post Office/Thana".tr,
-                                                              controller: controller.serventpostOfficeControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantPoController
+                                                                  : controller.serventpostOfficeControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
                                                               limit: HelperFunction.EMAIL_VALIDATION,
@@ -712,7 +738,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "City".tr,
-                                                              controller: controller.serventCityControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantCityController
+                                                                  : controller.serventCityControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
                                                               validator: (value) {
@@ -731,7 +759,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Province".tr,
-                                                              controller: controller.serventProvinceControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.servantProvinceController
+                                                                  : controller.serventProvinceControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
                                                               limit: HelperFunction.EMAIL_VALIDATION,
@@ -801,7 +831,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          MyText(title: "Servant CNIC front").paddingOnly(left: 10),
                                                           5.verticalSpace,
                                                           GestureDetector(
                                                             onTap: () async {
@@ -816,26 +846,6 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                   url: controller.servantFormDataModel.data?.servantDetail?[index].servantCnicFront ??
                                                                       "",
                                                                 ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
-                                                    if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: Container(
-                                                              width: getHorizontalSize(350),
-                                                              color: ColorConstant.whiteA700,
-                                                              child: CustomImageView(
-                                                                url: controller.servantFormDataModel.data?.servantDetail?[index].servantCnicFront ??
-                                                                    "",
                                                               ),
                                                             ),
                                                           ),
@@ -880,7 +890,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
+                                                          MyText(title: "Servant CNIC BACK").paddingOnly(left: 10),
                                                           5.verticalSpace,
                                                           GestureDetector(
                                                             onTap: () async {
@@ -935,35 +945,38 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    Padding(
-                                                      padding: getPadding(left: 10, right: 10),
-                                                      child: MyAnimatedButton(
-                                                        controller: _value.btnControllerUseLess,
-                                                        radius: 5.0,
-                                                        height: getVerticalSize(50),
-                                                        width: getHorizontalSize(400),
-                                                        fontSize: 16,
-                                                        bgColor: ColorConstant.anbtnBlue,
-                                                        title: "Add Servant".tr,
-                                                        onTap: () async {
-                                                          if (controller.servantImages.isEmpty) {
-                                                            Utils.showToast("Please select servant Images", true);
-                                                          } else if (controller.servantCnicFronts.isEmpty) {
-                                                            Utils.showToast("Please select servant cnic front images", true);
-                                                          } else if (controller.servantCnicBacks.isEmpty) {
-                                                            Utils.showToast("Please select servant cnic back images", true);
-                                                          } else {
-                                                            if (args['status'] == "Rejected") {
-                                                              controller.addServantControllers();
-                                                              controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
-                                                              setState(() {});
+                                                    if (args['status'] != Constants.formStatusPending)
+                                                      Padding(
+                                                        padding: getPadding(left: 10, right: 10),
+                                                        child: MyAnimatedButton(
+                                                          controller: _value.btnControllerUseLess,
+                                                          radius: 5.0,
+                                                          height: getVerticalSize(50),
+                                                          width: getHorizontalSize(400),
+                                                          fontSize: 16,
+                                                          bgColor: ColorConstant.anbtnBlue,
+                                                          title: "Add Servant".tr,
+                                                          onTap: () async {
+                                                            if (controller.servantImages.isEmpty) {
+                                                              Utils.showToast("Please select servant Images", true);
+                                                            } else if (controller.servantCnicFronts.isEmpty) {
+                                                              Utils.showToast("Please select servant cnic front images", true);
+                                                            } else if (controller.servantCnicBacks.isEmpty) {
+                                                              Utils.showToast("Please select servant cnic back images", true);
                                                             } else {
-                                                              controller.addServant(index);
+                                                              if (args['status'] == "Rejected") {
+                                                                controller.servantImages.add(File(""));
+                                                                controller.servantCnicFronts.add(File(""));
+                                                                controller.servantCnicBacks.add(File(""));
+                                                                controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
+                                                                setState(() {});
+                                                              } else {
+                                                                controller.addServant(index);
+                                                              }
                                                             }
-                                                          }
-                                                        },
+                                                          },
+                                                        ),
                                                       ),
-                                                    ),
                                                     SizedBox(
                                                       height: getVerticalSize(20),
                                                     ),
@@ -999,6 +1012,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       ? 1
                                                       : controller.serventfamfullNameControllers.length,
                                               itemBuilder: (context, index) {
+                                                ServantFamilyDetail? detail;
+                                                if ((controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0) > 0) {
+                                                  detail = controller.servantFormDataModel.data?.servantFamilyDetail?[index];
+                                                }
+
                                                 return Column(
                                                   children: [
                                                     if (index != 0)
@@ -1011,6 +1029,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                 setState(() {
                                                                   if (args['status'] == Constants.formStatusRejected) {
                                                                     controller.servantFormDataModel.data?.servantFamilyDetail?.removeAt(index);
+                                                                    controller.servantFamilyImages.removeAt(index);
                                                                   } else {
                                                                     controller.serventfamfullNameControllers.removeAt(index);
                                                                   }
@@ -1030,7 +1049,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Full Name".tr,
-                                                        controller: controller.serventfamfullNameControllers[index],
+                                                        controller: isEditable
+                                                            ? detail?.familyNameController
+                                                            : controller.serventfamfullNameControllers[index],
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -1043,7 +1064,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Occupation".tr,
-                                                        controller: controller.serventfamoccutionControllers[index],
+                                                        controller: isEditable
+                                                            ? detail?.familyOccupationController
+                                                            : controller.serventfamoccutionControllers[index],
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -1060,7 +1083,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "N.I.C / FORM ‘B’".tr,
-                                                              controller: controller.serventfamCnicControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.familyNicController
+                                                                  : controller.serventfamCnicControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.phone,
                                                               inputFormatters: [
@@ -1076,7 +1101,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Mobile number".tr,
-                                                              controller: controller.serventfamMobControllers[index],
+                                                              controller: isEditable
+                                                                  ? detail?.familyCellController
+                                                                  : controller.serventfamMobControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.phone,
                                                               validator: (value) {
@@ -1091,7 +1118,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Present Address".tr,
-                                                        controller: controller.serventfampresentAddControllers[index],
+                                                        controller: isEditable
+                                                            ? detail?.familyAddressController
+                                                            : controller.serventfampresentAddControllers[index],
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -1156,7 +1185,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     SizedBox(
                                                       height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] == "")
+                                                    if (args['status'] == Constants.formStatusRejected)
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
                                                         child: MyAnimatedButton(
@@ -1168,10 +1197,16 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           controller: _value.btnControllerUseLess,
                                                           title: "Add Family Member".tr,
                                                           onTap: () async {
-                                                            if (controller.servantFamilyImages.isEmpty) {
-                                                              Utils.showToast("Please select servant family images", true);
+                                                            if (args['status'] == Constants.formStatusRejected) {
+                                                              controller.servantFamilyImages.add(File(""));
+                                                              controller.servantFormDataModel.data?.servantFamilyDetail?.add(ServantFamilyDetail());
+                                                              controller.update();
                                                             } else {
-                                                              await controller.addServantFamily(index);
+                                                              if (controller.servantFamilyImages.isEmpty) {
+                                                                Utils.showToast("Please select servant family images", true);
+                                                              } else {
+                                                                await controller.addServantFamily(index);
+                                                              }
                                                             }
                                                           },
                                                         ),
@@ -1263,6 +1298,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                       },
                                     ),
                                   ),
+                                if (kDebugMode)
+                                  ElevatedButton(onPressed: () => _value.submitEditServantApi(context, args['id']), child: Text("Test button")),
                                 SizedBox(
                                   height: getVerticalSize(20),
                                 ),

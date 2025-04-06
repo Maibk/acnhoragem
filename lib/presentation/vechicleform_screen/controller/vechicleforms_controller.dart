@@ -277,10 +277,10 @@ class VechicleController extends GetxController {
               userfullNameControllers.add(TextEditingController(text: element.userName));
               userCnicControllers.add(TextEditingController(text: element.userNic));
               userMobileControllers.add(TextEditingController(text: element.userPhone));
-              userDrivingLicenseFrontSideImages.add(File(''));
-              userDrivingLicenseBackSideImages.add(File(''));
-              userCnicFrontSideImages.add(File(''));
-              userCnicBacktSideImages.add(File(''));
+              userDrivingLicenseFrontSideImages.add(File(element.userLicenseFront!));
+              userDrivingLicenseBackSideImages.add(File(element.userLicenseBack!));
+              userCnicFrontSideImages.add(File(element.userCnicFront!));
+              userCnicBacktSideImages.add(File(element.userCnicBack!));
             }
 
             formsLoadingStatus.value = ApiCallStatus.success;
@@ -425,7 +425,6 @@ class VechicleController extends GetxController {
           "User Info ${userInfoDataIndex + 1} Added Successfully",
           false,
         );
-        // clearAddUserInfo();
         userInfoDataIndex = userInfoDataIndex + 1;
         update();
       }
@@ -434,145 +433,199 @@ class VechicleController extends GetxController {
 
   Future editAddUserInfo() async {
     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-      vehicalData['user_name[$i]'] = userfullNameControllers[i].text;
-      vehicalData["user_nic[$i]"] = userCnicControllers[i].text;
-      vehicalData['user_phone[$i]'] = userMobileControllers[i].text;
+      vehicalData['user_name[$i]'] = vehicleFormDataModel.data!.vehicleUserDetail![i].userNameController.text;
+      vehicalData["user_nic[$i]"] = vehicleFormDataModel.data!.vehicleUserDetail![i].userNicController.text;
+      vehicalData['user_phone[$i]'] = vehicleFormDataModel.data!.vehicleUserDetail![i].userPhoneController.text;
     }
 
-    if (userDrivingLicenseFrontSideImages.isNotEmpty) {
-      bool hasEmptyPath = userDrivingLicenseFrontSideImages.any((file) => file.path.isEmpty);
+    final userDetails = vehicleFormDataModel.data!.vehicleUserDetail!;
 
-      if (hasEmptyPath) {
-        for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-          vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
-            vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
-          );
-        }
-      } else {
-        for (var i = 0; i < userDrivingLicenseFrontSideImages.length; i++) {
-          vehicalData['user_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-            userDrivingLicenseFrontSideImages[i].path,
-            filename: userDrivingLicenseFrontSideImages[i].path.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-    } else {
-      for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-        vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
-          vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
-        );
-      }
-    }
+    await prepareMultipartList(
+      imageList: userDrivingLicenseBackSideImages,
+      userDetails: userDetails,
+      vehicalData: vehicalData,
+      keyPrefix: 'user_cnic_back',
+      getUrlFromModel: (user) => user.userCnicBack ?? "",
+    );
 
-    // for (var element in userDrivingLicenseBackSideImages) {
-    //   String filePath1 = element.path;
-    //   if (filePath1.isNotEmpty) {
-    //     vehicalData['user_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
-    //       filePath1,
-    //       filename: filePath1.split('/').last,
-    //       contentType: _http.MediaType.parse('image/jpeg'),
+    await prepareMultipartList(
+      imageList: userCnicFrontSideImages,
+      userDetails: userDetails,
+      vehicalData: vehicalData,
+      keyPrefix: 'user_license_front',
+      getUrlFromModel: (user) => user.userLicenseFront ?? "",
+    );
+
+    await prepareMultipartList(
+      imageList: userCnicBacktSideImages,
+      userDetails: userDetails,
+      vehicalData: vehicalData,
+      keyPrefix: 'user_license_back',
+      getUrlFromModel: (user) => user.userLicenseBack ?? "",
+    );
+
+    await prepareMultipartList(
+      imageList: userDrivingLicenseFrontSideImages,
+      userDetails: userDetails,
+      vehicalData: vehicalData,
+      keyPrefix: 'user_cnic_front',
+      getUrlFromModel: (user) => user.userLicenseFront ?? "",
+    );
+
+    // if (userDrivingLicenseFrontSideImages.isNotEmpty) {
+    //   for (var i = 0; i < userDrivingLicenseFrontSideImages.length; i++) {
+    //     final path = userDrivingLicenseFrontSideImages[i].path;
+
+    //     if (path.startsWith('http')) {
+    //       // It's a URL, download it
+    //       vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(path);
+    //     } else {
+    //       // It's a local file, send it as multipart
+    //       vehicalData['user_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
+    //         path,
+    //         filename: path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   // Fallback: if list is empty, use the URLs from vehicleFormDataModel
+    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //     final url = vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "";
+    //     vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(url);
+    //   }
+    // }
+
+    // if (userDrivingLicenseFrontSideImages.isNotEmpty) {
+    //   bool hasEmptyPath = userDrivingLicenseFrontSideImages.any((file) => file.path.isEmpty);
+
+    //   if (hasEmptyPath) {
+    //     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //       vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
+    //         vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
+    //       );
+    //     }
+    //   } else {
+    //     for (var i = 0; i < userDrivingLicenseFrontSideImages.length; i++) {
+    //       vehicalData['user_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
+    //         userDrivingLicenseFrontSideImages[i].path,
+    //         filename: userDrivingLicenseFrontSideImages[i].path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //     vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
+    //       vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
     //     );
     //   }
     // }
 
-    if (userDrivingLicenseBackSideImages.isNotEmpty) {
-      bool hasEmptyPath = userDrivingLicenseBackSideImages.any((file) => file.path.isEmpty);
+    // if (userDrivingLicenseBackSideImages.isNotEmpty) {
+    //   bool hasEmptyPath = userDrivingLicenseBackSideImages.any((file) => file.path.isEmpty);
 
-      if (hasEmptyPath) {
-        for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-          vehicalData['user_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
-            vehicleFormDataModel.data!.vehicleUserDetail![i].userCnicBack ?? "",
-          );
-        }
-      } else {
-        for (var i = 0; i < userDrivingLicenseBackSideImages.length; i++) {
-          vehicalData['user_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
-            userDrivingLicenseBackSideImages[i].path,
-            filename: userDrivingLicenseBackSideImages[i].path.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-    } else {
-      for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-        vehicalData['user_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
-          vehicleFormDataModel.data!.vehicleUserDetail![i].userCnicBack ?? "",
-        );
-      }
-    }
-
-    // for (var element in userCnicFrontSideImages) {
-    //   String filePath1 = element.path;
-    //   if (filePath1.isNotEmpty) {
-    //     vehicalData['user_license_front[$index]'] = await _dio.MultipartFile.fromFile(
-    //       filePath1,
-    //       filename: filePath1.split('/').last,
-    //       contentType: _http.MediaType.parse('image/jpeg'),
+    //   if (hasEmptyPath) {
+    //     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //       vehicalData['user_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
+    //         vehicleFormDataModel.data!.vehicleUserDetail![i].userCnicBack ?? "",
+    //       );
+    //     }
+    //   } else {
+    //     for (var i = 0; i < userDrivingLicenseBackSideImages.length; i++) {
+    //       vehicalData['user_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
+    //         userDrivingLicenseBackSideImages[i].path,
+    //         filename: userDrivingLicenseBackSideImages[i].path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //     vehicalData['user_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
+    //       vehicleFormDataModel.data!.vehicleUserDetail![i].userCnicBack ?? "",
     //     );
     //   }
     // }
 
-    if (userCnicFrontSideImages.isNotEmpty) {
-      bool hasEmptyPath = userCnicFrontSideImages.any((file) => file.path.isEmpty);
+    // if (userCnicFrontSideImages.isNotEmpty) {
+    //   bool hasEmptyPath = userCnicFrontSideImages.any((file) => file.path.isEmpty);
 
-      if (hasEmptyPath) {
-        for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-          vehicalData['user_license_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
-            vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
-          );
-        }
-      } else {
-        for (var i = 0; i < userCnicFrontSideImages.length; i++) {
-          vehicalData['user_license_front[$i]'] = await _dio.MultipartFile.fromFile(
-            userCnicFrontSideImages[i].path,
-            filename: userCnicFrontSideImages[i].path.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-    } else {
-      for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-        vehicalData['user_license_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
-          vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
-        );
-      }
-    }
-
-    // for (var element in userCnicBacktSideImages) {
-    //   String filePath1 = element.path;
-    //   if (filePath1.isNotEmpty) {
-    //     vehicalData['user_license_back[$index]'] = await _dio.MultipartFile.fromFile(
-    //       filePath1,
-    //       filename: filePath1.split('/').last,
-    //       contentType: _http.MediaType.parse('image/jpeg'),
+    //   if (hasEmptyPath) {
+    //     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //       vehicalData['user_license_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
+    //         vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
+    //       );
+    //     }
+    //   } else {
+    //     for (var i = 0; i < userCnicFrontSideImages.length; i++) {
+    //       vehicalData['user_license_front[$i]'] = await _dio.MultipartFile.fromFile(
+    //         userCnicFrontSideImages[i].path,
+    //         filename: userCnicFrontSideImages[i].path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //     vehicalData['user_license_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
+    //       vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
     //     );
     //   }
     // }
 
-    if (userCnicBacktSideImages.isNotEmpty) {
-      bool hasEmptyPath = userCnicBacktSideImages.any((file) => file.path.isEmpty);
+    // if (userCnicBacktSideImages.isNotEmpty) {
+    //   bool hasEmptyPath = userCnicBacktSideImages.any((file) => file.path.isEmpty);
 
-      if (hasEmptyPath) {
-        for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-          vehicalData['user_license_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
-            vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseBack ?? "",
-          );
-        }
-      } else {
-        for (var i = 0; i < userCnicBacktSideImages.length; i++) {
-          vehicalData['user_license_back[$i]'] = await _dio.MultipartFile.fromFile(
-            userCnicBacktSideImages[i].path,
-            filename: userCnicBacktSideImages[i].path.split('/').last,
+    //   if (hasEmptyPath) {
+    //     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //       vehicalData['user_license_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
+    //         vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseBack ?? "",
+    //       );
+    //     }
+    //   } else {
+    //     for (var i = 0; i < userCnicBacktSideImages.length; i++) {
+    //       vehicalData['user_license_back[$i]'] = await _dio.MultipartFile.fromFile(
+    //         userCnicBacktSideImages[i].path,
+    //         filename: userCnicBacktSideImages[i].path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
+    //     vehicalData['user_license_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
+    //       vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseBack ?? "",
+    //     );
+    //   }
+    // }
+  }
+
+  Future<void> prepareMultipartList({
+    required List<File> imageList,
+    required List<VehicleUserDetail> userDetails,
+    required Map<String, dynamic> vehicalData,
+    required String keyPrefix,
+    required String Function(VehicleUserDetail) getUrlFromModel,
+  }) async {
+    if (imageList.isNotEmpty) {
+      for (var i = 0; i < imageList.length; i++) {
+        final path = imageList[i].path;
+
+        if (path.startsWith('http')) {
+          vehicalData['$keyPrefix[$i]'] = await BaseClient.getMultipartFileFromUrl(path);
+        } else {
+          vehicalData['$keyPrefix[$i]'] = await _dio.MultipartFile.fromFile(
+            path,
+            filename: path.split('/').last,
             contentType: _http.MediaType.parse('image/jpeg'),
           );
         }
       }
     } else {
-      for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-        vehicalData['user_license_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
-          vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseBack ?? "",
-        );
+      for (var i = 0; i < userDetails.length; i++) {
+        final url = getUrlFromModel(userDetails[i]);
+        vehicalData['$keyPrefix[$i]'] = await BaseClient.getMultipartFileFromUrl(url);
       }
     }
   }

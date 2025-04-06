@@ -224,6 +224,11 @@ class VehicleUserDetail {
   String? userName;
   String? userNic;
   String? userPhone;
+
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController userNicController = TextEditingController();
+  TextEditingController userPhoneController = TextEditingController();
+
   String? userLicenseFront;
   String? userLicenseBack;
   String? userCnicFront;
@@ -240,6 +245,10 @@ class VehicleUserDetail {
     userLicenseBack = json['user_license_back'];
     userCnicFront = json['user_cnic_front'];
     userCnicBack = json['user_cnic_back'];
+
+    userNameController.text = userName ?? "";
+    userNicController.text = userNic ?? "";
+    userPhoneController.text = userPhone ?? '';
   }
 
   Map<String, dynamic> toJson() {

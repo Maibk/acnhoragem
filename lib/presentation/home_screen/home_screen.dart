@@ -212,15 +212,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            // if (controller.profileModel?.appFormApproved == 0) {
-                                            //   Utils.showToast(
-                                            //     "Your application form is not approved yet, kindly wait for Approval",
-                                            //     false,
-                                            //   );
-                                            // } else {
-                                            //   Get.toNamed(AppRoutes.myformsPage);
-                                            // }
-                                            Get.toNamed(AppRoutes.myformsPage);
+                                            if (controller.profileModel?.appFormApproved == 0) {
+                                              Utils.showToast(
+                                                "Your application form is not approved yet, kindly wait for Approval",
+                                                false,
+                                              );
+                                            } else {
+                                              Get.toNamed(AppRoutes.myformsPage);
+                                            }
                                           },
                                           child: CommonImageView(
                                             imagePath: ImageConstant.myOnlineIcon,

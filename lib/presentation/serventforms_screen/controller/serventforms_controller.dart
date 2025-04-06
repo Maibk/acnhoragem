@@ -263,10 +263,9 @@ class ServentFormsController extends GetxController {
               serventpostOfficeControllers.add(TextEditingController(text: element.servantPo));
               serventCityControllers.add(TextEditingController(text: element.servantCity));
               serventProvinceControllers.add(TextEditingController(text: element.servantProvince));
-              servantImages.add(File(""));
-              servantCnicFronts.add(File(""));
-              servantCnicBacks.add(File(""));
-              servantFamilyImages.add(File(""));
+              servantImages.add(File(element.servantImage!));
+              servantCnicFronts.add(File(element.servantCnicFront!));
+              servantCnicBacks.add(File(element.servantCnicBack!));
             }
             servantDataIndex = servantFormDataModel.data?.servantDetail?.length ?? 0;
 
@@ -276,7 +275,7 @@ class ServentFormsController extends GetxController {
               serventfamCnicControllers.add(TextEditingController(text: element.familyNic));
               serventfamMobControllers.add(TextEditingController(text: element.familyCell));
               serventfampresentAddControllers.add(TextEditingController(text: element.familyAddress));
-              servantFamilyImages.add(File(""));
+              servantFamilyImages.add(File(element.attachment!));
             }
             servantFamilyDataIndex = servantFormDataModel.data?.servantFamilyDetail?.length ?? 0;
             formsLoadingStatus.value = ApiCallStatus.success;
@@ -383,47 +382,83 @@ class ServentFormsController extends GetxController {
     }
   }
 
-  addEditServant() async {
-    ownerSignatureController?.text = fullNameController.text;
-    update();
+  Future<void> prepareMultipartList({
+    required List<File> imageList,
+    required List<dynamic> userDetails,
+    required Map<String, dynamic> vehicalData,
+    required String keyPrefix,
+    required String Function(dynamic) getUrlFromModel,
+  }) async {
+    if (imageList.isNotEmpty) {
+      for (var i = 0; i < imageList.length; i++) {
+        final path = imageList[i].path;
 
-    for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-      servantData['servant_name[$i]'] = serventfullNameControllers[i].text;
-      servantData["servant_father[$i]"] = serventfathersControllers[i].text;
-      servantData['servant_cnic[$i]'] = serventcnicControllers[i].text;
-      servantData['servant_mobile[$i]'] = serventmobileControllers[i].text;
-      servantData['servant_house[$i]'] = serventhouseControllers[i].text;
-      servantData['servant_road[$i]'] = serventroadControllers[i].text;
-      servantData['servant_street[$i]'] = serventstreetControllers[i].text;
-      servantData['servant_village[$i]'] = serventcolonyVillageControllers[i].text;
-      // servantData['servant_block[$i]'] = servantselectedValue ?? 0;
-      servantData['servant_po[$i]'] = serventpostOfficeControllers[i].text;
-      servantData['servant_city[$i]'] = serventpostOfficeControllers[i].text;
-      servantData['servant_province[$i]'] = serventProvinceControllers[i].text;
-    }
-
-    if (servantImages.isNotEmpty) {
-      bool hasEmptyPath = servantImages.any((file) => file.path.toString().isEmpty);
-
-      if (hasEmptyPath) {
-        for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-          servantData['servant_image[$i]'] =
-              await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantImage ?? "");
-        }
-      } else {
-        for (var i = 0; i < servantImages.length; i++) {
-          servantData['servant_image[$i]'] = await _dio.MultipartFile.fromFile(
-            servantImages[i].path,
-            filename: servantImages[i].path.split('/').last,
+        if (path.startsWith('http')) {
+          vehicalData['$keyPrefix[$i]'] = await BaseClient.getMultipartFileFromUrl(path);
+        } else {
+          vehicalData['$keyPrefix[$i]'] = await _dio.MultipartFile.fromFile(
+            path,
+            filename: path.split('/').last,
             contentType: _http.MediaType.parse('image/jpeg'),
           );
         }
       }
     } else {
-      for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-        servantData['servant_image[$i]'] = await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantImage ?? "");
+      for (var i = 0; i < userDetails.length; i++) {
+        final url = getUrlFromModel(userDetails[i]);
+        vehicalData['$keyPrefix[$i]'] = await BaseClient.getMultipartFileFromUrl(url);
       }
     }
+  }
+
+  addEditServant() async {
+    ownerSignatureController?.text = fullNameController.text;
+    update();
+
+    for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
+      servantData['servant_name[$i]'] = servantFormDataModel.data!.servantDetail![i].servantNameController.text;
+      servantData["servant_father[$i]"] = servantFormDataModel.data!.servantDetail![i].servantFatherController.text;
+      servantData['servant_cnic[$i]'] = servantFormDataModel.data!.servantDetail![i].servantCnicController.text;
+      servantData['servant_mobile[$i]'] = servantFormDataModel.data!.servantDetail![i].servantPhoneController.text;
+      servantData['servant_house[$i]'] = servantFormDataModel.data!.servantDetail![i].servantHouseController.text;
+      servantData['servant_road[$i]'] = servantFormDataModel.data!.servantDetail![i].servantRoadController.text;
+      servantData['servant_street[$i]'] = servantFormDataModel.data!.servantDetail![i].servantStreetController.text;
+      servantData['servant_village[$i]'] = servantFormDataModel.data!.servantDetail![i].servantVillageController.text;
+      servantData['servant_po[$i]'] = servantFormDataModel.data!.servantDetail![i].servantPoController.text;
+      servantData['servant_city[$i]'] = servantFormDataModel.data!.servantDetail![i].servantCityController.text;
+      servantData['servant_province[$i]'] = servantFormDataModel.data!.servantDetail![i].servantProvinceController.text;
+    }
+    final userDetails = servantFormDataModel.data!.servantDetail!;
+
+    await prepareMultipartList(
+      imageList: servantImages,
+      userDetails: userDetails,
+      vehicalData: servantData,
+      keyPrefix: 'servant_image',
+      getUrlFromModel: (user) => user.servantImage ?? "",
+    );
+    // if (servantImages.isNotEmpty) {
+    //   bool hasEmptyPath = servantImages.any((file) => file.path.toString().isEmpty);
+
+    //   if (hasEmptyPath) {
+    //     for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
+    //       servantData['servant_image[$i]'] =
+    //           await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantImage ?? "");
+    //     }
+    //   } else {
+    //     for (var i = 0; i < servantImages.length; i++) {
+    //       servantData['servant_image[$i]'] = await _dio.MultipartFile.fromFile(
+    //         servantImages[i].path,
+    //         filename: servantImages[i].path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
+    //     servantData['servant_image[$i]'] = await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantImage ?? "");
+    //   }
+    // }
 
     // for (var element in servantImages) {
     //   String filePath1 = element.path;
@@ -447,29 +482,37 @@ class ServentFormsController extends GetxController {
     //   }
     // }
 
-    if (servantCnicFronts.isNotEmpty) {
-      bool hasEmptyPath = servantCnicFronts.any((file) => file.path.toString().isEmpty);
+    await prepareMultipartList(
+      imageList: servantCnicFronts,
+      userDetails: userDetails,
+      vehicalData: servantData,
+      keyPrefix: 'servant_cnic_front',
+      getUrlFromModel: (user) => user.servantCnicFront ?? "",
+    );
 
-      if (hasEmptyPath) {
-        for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-          servantData['servant_cnic_front[$i]'] =
-              await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicFront ?? "");
-        }
-      } else {
-        for (var i = 0; i < servantCnicFronts.length; i++) {
-          servantData['servant_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-            servantCnicFronts[i].path,
-            filename: servantCnicFronts[i].path.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-    } else {
-      for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-        servantData['servant_cnic_front[$i]'] =
-            await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicFront ?? "");
-      }
-    }
+    // if (servantCnicFronts.isNotEmpty) {
+    //   bool hasEmptyPath = servantCnicFronts.any((file) => file.path.toString().isEmpty);
+
+    //   if (hasEmptyPath) {
+    //     for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
+    //       servantData['servant_cnic_front[$i]'] =
+    //           await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicFront ?? "");
+    //     }
+    //   } else {
+    //     for (var i = 0; i < servantCnicFronts.length; i++) {
+    //       servantData['servant_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
+    //         servantCnicFronts[i].path,
+    //         filename: servantCnicFronts[i].path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
+    //     servantData['servant_cnic_front[$i]'] =
+    //         await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicFront ?? "");
+    //   }
+    // }
 
     // for (var element in servantCnicBacks) {
     //   String filePath1 = element.path;
@@ -481,29 +524,37 @@ class ServentFormsController extends GetxController {
     //     );
     //   }
     // }
-    if (servantCnicBacks.isNotEmpty) {
-      bool hasEmptyPath = servantCnicBacks.any((file) => file.path.toString().isEmpty);
 
-      if (hasEmptyPath) {
-        for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-          servantData['servant_cnic_back[$i]'] =
-              await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicBack ?? "");
-        }
-      } else {
-        for (var i = 0; i < servantCnicBacks.length; i++) {
-          servantData['servant_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
-            servantCnicBacks[i].path,
-            filename: servantCnicBacks[i].path.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-    } else {
-      for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-        servantData['servant_cnic_back[$i]'] =
-            await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicBack ?? "");
-      }
-    }
+    await prepareMultipartList(
+      imageList: servantCnicBacks,
+      userDetails: userDetails,
+      vehicalData: servantData,
+      keyPrefix: 'servant_cnic_back',
+      getUrlFromModel: (user) => user.servantCnicBack ?? "",
+    );
+    // if (servantCnicBacks.isNotEmpty) {
+    //   bool hasEmptyPath = servantCnicBacks.any((file) => file.path.toString().isEmpty);
+
+    //   if (hasEmptyPath) {
+    //     for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
+    //       servantData['servant_cnic_back[$i]'] =
+    //           await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicBack ?? "");
+    //     }
+    //   } else {
+    //     for (var i = 0; i < servantCnicBacks.length; i++) {
+    //       servantData['servant_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
+    //         servantCnicBacks[i].path,
+    //         filename: servantCnicBacks[i].path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
+    //     servantData['servant_cnic_back[$i]'] =
+    //         await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicBack ?? "");
+    //   }
+    // }
 
     servantDataIndex = servantFormDataModel.data?.servantDetail?.length ?? 0;
     update();
@@ -563,11 +614,11 @@ class ServentFormsController extends GetxController {
 
   addEditServantFamily() async {
     for (var i = 0; i < servantFormDataModel.data!.servantFamilyDetail!.length; i++) {
-      servantData['family_name[$i]'] = serventfamfullNameControllers[i].text;
-      servantData["family_occupation[$i]"] = serventfamoccutionControllers[i].text;
-      servantData['family_nic[$i]'] = serventfamCnicControllers[i].text;
-      servantData['family_cell[$i]'] = serventfamMobControllers[i].text;
-      servantData['family_address[$i]'] = serventfampresentAddControllers[i].text;
+      servantData['family_name[$i]'] = servantFormDataModel.data!.servantFamilyDetail![i].familyNameController.text;
+      servantData["family_occupation[$i]"] = servantFormDataModel.data!.servantFamilyDetail![i].familyOccupationController.text;
+      servantData['family_nic[$i]'] = servantFormDataModel.data!.servantFamilyDetail![i].familyNicController.text;
+      servantData['family_cell[$i]'] = servantFormDataModel.data!.servantFamilyDetail![i].familyCellController.text;
+      servantData['family_address[$i]'] = servantFormDataModel.data!.servantFamilyDetail![i].familyAddressController.text;
     }
 
     // for (var element in servantFamilyImages) {
@@ -580,29 +631,39 @@ class ServentFormsController extends GetxController {
     //     );
     //   }
 
-    if (servantFamilyImages.isNotEmpty) {
-      bool hasEmptyPath = servantFamilyImages.any((file) => file.path.toString().isEmpty);
+    final userDetails = servantFormDataModel.data!.servantFamilyDetail!;
 
-      if (hasEmptyPath) {
-        for (var i = 0; i < servantFormDataModel.data!.servantFamilyDetail!.length; i++) {
-          servantData['servant_family_image[$i]'] =
-              await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantFamilyDetail![i].attachment ?? "");
-        }
-      } else {
-        for (var i = 0; i < servantFamilyImages.length; i++) {
-          servantData['servant_family_image[$i]'] = await _dio.MultipartFile.fromFile(
-            servantFamilyImages[i].path,
-            filename: servantFamilyImages[i].path.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-    } else {
-      for (var i = 0; i < servantFormDataModel.data!.servantFamilyDetail!.length; i++) {
-        servantData['servant_family_image[$i]'] =
-            await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantFamilyDetail![i].attachment ?? "");
-      }
-    }
+    await prepareMultipartList(
+      imageList: servantFamilyImages,
+      userDetails: userDetails,
+      vehicalData: servantData,
+      keyPrefix: 'servant_family_image',
+      getUrlFromModel: (user) => user.attachment ?? "",
+    );
+
+    // if (servantFamilyImages.isNotEmpty) {
+    //   bool hasEmptyPath = servantFamilyImages.any((file) => file.path.toString().isEmpty);
+
+    //   if (hasEmptyPath) {
+    //     for (var i = 0; i < servantFormDataModel.data!.servantFamilyDetail!.length; i++) {
+    //       servantData['servant_family_image[$i]'] =
+    //           await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantFamilyDetail![i].attachment ?? "");
+    //     }
+    //   } else {
+    //     for (var i = 0; i < servantFamilyImages.length; i++) {
+    //       servantData['servant_family_image[$i]'] = await _dio.MultipartFile.fromFile(
+    //         servantFamilyImages[i].path,
+    //         filename: servantFamilyImages[i].path.split('/').last,
+    //         contentType: _http.MediaType.parse('image/jpeg'),
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   for (var i = 0; i < servantFormDataModel.data!.servantFamilyDetail!.length; i++) {
+    //     servantData['servant_family_image[$i]'] =
+    //         await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantFamilyDetail![i].attachment ?? "");
+    //   }
+    // }
 
     servantFamilyDataIndex = servantFormDataModel.data?.servantFamilyDetail?.length ?? 0;
     update();

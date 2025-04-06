@@ -1443,16 +1443,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         controller: controller.uselessbtnController,
                                                                         title: "Add Vehicle".tr,
                                                                         onTap: () async {
-                                                                          // if (controller.vehicleDataIndex > 0) {
-                                                                          //   if (controller.vehicleTypeController?.text == "" &&
-                                                                          //       controller.vehicleRegisterNoController?.text ==
-                                                                          //           "" &&
-                                                                          //       controller.vehicleColorController?.text == "" &&
-                                                                          //       controller.vehicleEngineNoController.text == "" &&
-                                                                          //       controller.vehicleEtagController.text == "") {
-                                                                          //     Utils.showToast(
-                                                                          //         "Please fill in the required fields", true);
-                                                                          //   } else {
+                                                                         
                                                                           controller.addvehicle(context, index);
                                                                           //   }
                                                                           // } else if (controller.vehicleDataIndex == 0) {
