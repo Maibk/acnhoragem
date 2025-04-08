@@ -110,10 +110,20 @@ class HelperFunction {
     }
   }
 
-  static String? passwordValidate(String value, {bool isConfirmPassword = false, String? password}) {
+  static String? passwordValidate(
+    String value, {
+    bool isConfirmPassword = false,
+    String? password,
+    bool isRequired = true,
+  }) {
     RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{6,}$');
+
     if (value.isEmpty || value == "") {
-      return "Password is required";
+      if (isRequired == false) {
+        return null;
+      } else {
+        return "Password is required";
+      }
     }
     if (value.length < 8) {
       return "Password is really short please enter at least 8 character.";

@@ -5,6 +5,7 @@ import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/entryforms_screen/models/entry_form_data_model.dart';
+import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/foundation.dart';
@@ -152,6 +153,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                     ),
                                     children: <Widget>[
                                       Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           CustomTextField(
                                             fieldText: "Full Name".tr,
@@ -216,7 +218,14 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             ],
                                           ),
                                           SizedBox(
-                                            height: getVerticalSize(5),
+                                            height: getVerticalSize(10),
+                                          ),
+                                          Text(
+                                            "Block/COMM ",
+                                            style: AppStyle.txtSourceSansProRegular16Gray600
+                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                          ).paddingOnly(
+                                            left: 14,
                                           ),
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.start,
@@ -228,7 +237,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   padding: EdgeInsets.symmetric(horizontal: 2),
                                                   hint: controller.selectedValue == null
                                                       ? Text(
-                                                          "Block/COMM ",
+                                                          "Select",
                                                           style: TextStyle(
                                                             fontSize: 14,
                                                             color: ColorConstant.blackColor.withOpacity(0.5),
@@ -270,70 +279,100 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(5),
                                           ),
+
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisSize: MainAxisSize.max,
                                             children: [
+                                              Expanded(
+                                                child: GetBuilder(
+                                                    init: controller,
+                                                    builder: (context) {
+                                                      return Column(
+                                                        mainAxisSize: MainAxisSize.max,
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            "Street ",
+                                                            style: AppStyle.txtSourceSansProRegular16Gray600
+                                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          ).paddingOnly(
+                                                            left: 14,
+                                                          ),
+                                                          DropdownButton<Street>(
+                                                            isExpanded: true,
+                                                            hint: controller.streetSelectedValue?.title == null
+                                                                ? Text(
+                                                                    "Select",
+                                                                    style: TextStyle(
+                                                                      fontSize: 14,
+                                                                      color: ColorConstant.blackColor.withOpacity(0.5),
+                                                                      fontFamily: AppFonts.lucidaBright,
+                                                                      fontWeight: FontWeight.w400,
+                                                                    ),
+                                                                  )
+                                                                : Text(controller.selectedValue.toString()),
+                                                            value: controller.streetSelectedValue,
+                                                            items: controller.streets.map((item) {
+                                                              return DropdownMenuItem<Street>(
+                                                                value: item,
+                                                                child: Text(item.title.toString()),
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                controller.streetSelectedValue = value;
+                                                                controller.plots.clear();
+                                                                controller.getPlotNoByStreet(value!.id);
+                                                              });
+                                                            },
+                                                          ).paddingOnly(left: 12),
+                                                        ],
+                                                      );
+                                                    }),
+                                              ),
                                               GetBuilder(
                                                   init: controller,
                                                   builder: (context) {
                                                     return Expanded(
-                                                        child: DropdownButton<Street>(
-                                                      hint: controller.streetSelectedValue?.title == null
-                                                          ? Text(
-                                                              "Select Street",
-                                                              style: TextStyle(
-                                                                fontSize: 14,
-                                                                color: ColorConstant.blackColor.withOpacity(0.5),
-                                                                fontFamily: AppFonts.lucidaBright,
-                                                                fontWeight: FontWeight.w400,
-                                                              ),
-                                                            )
-                                                          : Text(controller.selectedValue.toString()),
-                                                      value: controller.streetSelectedValue,
-                                                      items: controller.streets.map((item) {
-                                                        return DropdownMenuItem<Street>(
-                                                          value: item,
-                                                          child: Text(item.title.toString()),
-                                                        );
-                                                      }).toList(),
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          controller.streetSelectedValue = value;
-                                                          controller.plots.clear();
-                                                          controller.getPlotNoByStreet(value!.id);
-                                                        });
-                                                      },
-                                                    ).paddingOnly(left: 12));
-                                                  }),
-                                              GetBuilder(
-                                                  init: controller,
-                                                  builder: (context) {
-                                                    return Expanded(
-                                                        child: DropdownButton<Plots>(
-                                                      hint: controller.plotstSelectedValue == null
-                                                          ? Text(
-                                                              controller.plots.isEmpty ? "Select Plot" : controller.plotPlaceHolder,
-                                                              style: TextStyle(
-                                                                fontSize: 14,
-                                                                color: ColorConstant.blackColor.withOpacity(0.5),
-                                                                fontFamily: AppFonts.lucidaBright,
-                                                                fontWeight: FontWeight.w400,
-                                                              ),
-                                                            )
-                                                          : Text(controller.plotstSelectedValue?.title.toString() ?? ""),
-                                                      value: controller.plotstSelectedValue,
-                                                      items: controller.plots.map((item) {
-                                                        return DropdownMenuItem<Plots>(
-                                                          value: item,
-                                                          child: Text(item.title.toString()),
-                                                        );
-                                                      }).toList(),
-                                                      onChanged: (value) {
-                                                        setState(() {
-                                                          controller.plotstSelectedValue = value;
-                                                        });
-                                                      },
-                                                    ).paddingOnly(left: 12));
+                                                        child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "Plot ",
+                                                          style: AppStyle.txtSourceSansProRegular16Gray600
+                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        ).paddingOnly(
+                                                          left: 14,
+                                                        ),
+                                                        DropdownButton<Plots>(
+                                                          isExpanded: true,
+                                                          hint: controller.plotstSelectedValue == null
+                                                              ? Text(
+                                                                  controller.plots.isEmpty ? "Select" : controller.plotPlaceHolder,
+                                                                  style: TextStyle(
+                                                                    fontSize: 14,
+                                                                    color: ColorConstant.blackColor.withOpacity(0.5),
+                                                                    fontFamily: AppFonts.lucidaBright,
+                                                                    fontWeight: FontWeight.w400,
+                                                                  ),
+                                                                )
+                                                              : Text(controller.plotstSelectedValue?.title.toString() ?? ""),
+                                                          value: controller.plotstSelectedValue,
+                                                          items: controller.plots.map((item) {
+                                                            return DropdownMenuItem<Plots>(
+                                                              value: item,
+                                                              child: Text(item.title.toString()),
+                                                            );
+                                                          }).toList(),
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              controller.plotstSelectedValue = value;
+                                                            });
+                                                          },
+                                                        ).paddingOnly(left: 12),
+                                                      ],
+                                                    ).paddingOnly(right: 12));
                                                   })
                                             ],
                                           ),

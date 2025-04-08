@@ -4,6 +4,7 @@ import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/tenantform_screen/models/tenant_form_model.dart';
+import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:csc_picker_plus/csc_picker_plus.dart';
@@ -37,7 +38,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
   bool isEditable = false;
   @override
   initState() {
-    if (args['status'] == Constants.formStatusRejected || args['status'] == "") {
+    if ((args['status']) == Constants.formStatusRejected || args['status'] == "") {
       isEditable = true;
     }
     Future.delayed(Duration(), () {
@@ -206,62 +207,83 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 Expanded(
                                                   child: Padding(
                                                     padding: const EdgeInsets.only(left: 8.0, top: 5),
-                                                    child: CSCPickerPlus(
-                                                      currentCountry: controller.natinalityController.text,
-                                                      countryDropdownLabel: "Nationality",
-                                                      disableCountry: isEditable ? false : true,
-                                                      disabledDropdownDecoration: BoxDecoration(
-                                                        color: Colors.transparent,
-                                                        border:
-                                                            Border(bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray.withOpacity(.3))),
-                                                      ),
-                                                      onCountryChanged: isEditable
-                                                          ? (value) {
-                                                              controller.natinalityController.text = value;
-                                                            }
-                                                          : null,
-                                                      dropdownHeadingStyle: TextStyle(color: ColorConstant.appBorderGray),
-                                                      onCityChanged: (value) {},
-                                                      onStateChanged: (value) {},
-                                                      showCities: false,
-                                                      showStates: false,
-                                                      dropdownDecoration: BoxDecoration(
-                                                          border: Border(bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray)),
-                                                          color: Colors.transparent,
-                                                          borderRadius: BorderRadius.circular(00.0)),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "Nationality",
+                                                          style: AppStyle.txtSourceSansProRegular16Gray600
+                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        ).paddingOnly(
+                                                          left: 10,
+                                                        ),
+                                                        CSCPickerPlus(
+                                                          currentCountry: controller.natinalityController.text,
+                                                          countryDropdownLabel: "Select",
+                                                          disableCountry: isEditable ? false : true,
+                                                          disabledDropdownDecoration: BoxDecoration(
+                                                            color: Colors.transparent,
+                                                            border: Border(
+                                                                bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray.withOpacity(.3))),
+                                                          ),
+                                                          onCountryChanged: isEditable
+                                                              ? (value) {
+                                                                  controller.natinalityController.text = value;
+                                                                }
+                                                              : null,
+                                                          dropdownHeadingStyle: TextStyle(color: ColorConstant.appBorderGray),
+                                                          onCityChanged: (value) {},
+                                                          onStateChanged: (value) {},
+                                                          showCities: false,
+                                                          showStates: false,
+                                                          dropdownDecoration: BoxDecoration(
+                                                              border: Border(bottom: BorderSide(width: .5, color: ColorConstant.appBorderGray)),
+                                                              color: Colors.transparent,
+                                                              borderRadius: BorderRadius.circular(00.0)),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
                                                 Expanded(
-                                                  child: DropdownButton(
-                                                    hint: controller.selectedValue == null
-                                                        ? Text(
-                                                            "Block/COMM ",
-                                                            style: TextStyle(
-                                                              fontSize: 14.sp,
-                                                              color: ColorConstant.blackColor.withOpacity(0.5),
-                                                              fontFamily: AppFonts.lucidaBright,
-                                                              fontWeight: FontWeight.w400,
-                                                            ),
-                                                          )
-                                                        : Text(controller.selectedValue.toString()),
-                                                    value: controller.selectedValue,
-                                                    items: controller.block.map((item) {
-                                                      return DropdownMenuItem<int>(
-                                                        value: item['id'],
-                                                        child: Text(item['title']),
-                                                      );
-                                                    }).toList(),
-                                                    onChanged: isEditable
-                                                        ? (int? value) {
-                                                            setState(() {
-                                                              controller.selectedValue = value!;
-                                                              controller.streets.clear();
-                                                              controller.plots.clear();
-                                                              controller.getStreetByBlock(value);
-                                                            });
-                                                          }
-                                                        : null,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Block/COMM ",
+                                                        style: AppStyle.txtSourceSansProRegular16Gray600
+                                                            .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                      ).paddingOnly(
+                                                        left: 0,
+                                                      ),
+                                                      DropdownButton(
+                                                        isExpanded: true,
+                                                        hint: controller.selectedValue == null
+                                                            ? Text(
+                                                                "Select",
+                                                                style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                    fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                              )
+                                                            : Text(controller.selectedValue.toString()),
+                                                        value: controller.selectedValue,
+                                                        items: controller.block.map((item) {
+                                                          return DropdownMenuItem<int>(
+                                                            value: item['id'],
+                                                            child: Text(item['title']),
+                                                          );
+                                                        }).toList(),
+                                                        onChanged: isEditable
+                                                            ? (int? value) {
+                                                                setState(() {
+                                                                  controller.selectedValue = value!;
+                                                                  controller.streets.clear();
+                                                                  controller.plots.clear();
+                                                                  controller.getStreetByBlock(value);
+                                                                });
+                                                              }
+                                                            : null,
+                                                      ),
+                                                    ],
                                                   ).paddingOnly(left: 12),
                                                 ),
                                               ],
@@ -276,72 +298,90 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     init: controller,
                                                     builder: (_) {
                                                       return Expanded(
-                                                          child: DropdownButton<Street>(
-                                                        hint: controller.streetSelectedValue == null
-                                                            ? Text(
-                                                                "Select Street",
-                                                                style: TextStyle(
-                                                                  fontSize: 14.sp,
-                                                                  color: ColorConstant.blackColor.withOpacity(0.5),
-                                                                  fontFamily: AppFonts.lucidaBright,
-                                                                  fontWeight: FontWeight.w400,
-                                                                ),
-                                                              )
-                                                            : Text(controller.streetSelectedValue?.title?.toString() ?? ""),
-                                                        value: controller.streetSelectedValue,
-                                                        items: controller.streets.map((item) {
-                                                          return DropdownMenuItem<Street>(
-                                                            value: item,
-                                                            child: Text(item.title.toString()),
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            controller.streetSelectedValue = value;
-                                                            controller.plots.clear();
-                                                            controller.getPlotNoByStreet(value!.id);
-                                                          });
-                                                        },
-                                                      ).paddingOnly(left: 12));
+                                                          child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            "Street",
+                                                            style: AppStyle.txtSourceSansProRegular16Gray600
+                                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          ).paddingOnly(
+                                                            left: 14,
+                                                          ),
+                                                          DropdownButton<Street>(
+                                                            isExpanded: true,
+                                                            hint: controller.streetSelectedValue == null
+                                                                ? Text(
+                                                                    "Select",
+                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                        fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                                  )
+                                                                : Text(controller.streetSelectedValue?.title?.toString() ?? ""),
+                                                            value: controller.streetSelectedValue,
+                                                            items: controller.streets.map((item) {
+                                                              return DropdownMenuItem<Street>(
+                                                                value: item,
+                                                                child: Text(item.title.toString()),
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                controller.streetSelectedValue = value;
+                                                                controller.plots.clear();
+                                                                controller.getPlotNoByStreet(value!.id);
+                                                              });
+                                                            },
+                                                          ).paddingOnly(left: 12),
+                                                        ],
+                                                      ));
                                                     }),
                                                 GetBuilder(
                                                     init: controller,
                                                     builder: (_) {
                                                       return Expanded(
-                                                          child: DropdownButton<Plots>(
-                                                        hint: controller.plotstSelectedValue == null
-                                                            ? Text(
-                                                                "Select Plot",
-                                                                style: TextStyle(
-                                                                  fontSize: 14.sp,
-                                                                  color: ColorConstant.blackColor.withOpacity(0.5),
-                                                                  fontFamily: AppFonts.lucidaBright,
-                                                                  fontWeight: FontWeight.w400,
-                                                                ),
-                                                              )
-                                                            : Text(controller.plotstSelectedValue?.title.toString() ?? ""),
-                                                        value: controller.plotstSelectedValue,
-                                                        items: controller.plots.map((item) {
-                                                          return DropdownMenuItem<Plots>(
-                                                            value: item,
-                                                            child: Text(item.title.toString()),
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            controller.plotstSelectedValue = value;
-                                                            log(controller.plotstSelectedValue!.id.toString());
-                                                            for (var i = 0; i < controller.plots.length; i++) {
-                                                              controller.plotstSelectedValue?.id == controller.plots[i].id;
-                                                              if (controller.plotstSelectedValue?.id == controller.plots[i].id) {
-                                                                controller.sizeHouseAddController.text = controller.plots[i].sq_yards.toString();
-                                                                log("Square yard found ${controller.sizeHouseAddController.text}");
-                                                                break;
-                                                              }
-                                                            }
-                                                          });
-                                                        },
-                                                      ).paddingOnly(left: 12));
+                                                          child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            "Plot",
+                                                            style: AppStyle.txtSourceSansProRegular16Gray600
+                                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          ).paddingOnly(
+                                                            left: 14,
+                                                          ),
+                                                          DropdownButton<Plots>(
+                                                            isExpanded: true,
+                                                            hint: controller.plotstSelectedValue == null
+                                                                ? Text(
+                                                                    "Select",
+                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                        fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                                  )
+                                                                : Text(controller.plotstSelectedValue?.title.toString() ?? ""),
+                                                            value: controller.plotstSelectedValue,
+                                                            items: controller.plots.map((item) {
+                                                              return DropdownMenuItem<Plots>(
+                                                                value: item,
+                                                                child: Text(item.title.toString()),
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (value) {
+                                                              setState(() {
+                                                                controller.plotstSelectedValue = value;
+                                                                log(controller.plotstSelectedValue!.id.toString());
+                                                                for (var i = 0; i < controller.plots.length; i++) {
+                                                                  controller.plotstSelectedValue?.id == controller.plots[i].id;
+                                                                  if (controller.plotstSelectedValue?.id == controller.plots[i].id) {
+                                                                    controller.sizeHouseAddController.text = controller.plots[i].sq_yards.toString();
+                                                                    log("Square yard found ${controller.sizeHouseAddController.text}");
+                                                                    break;
+                                                                  }
+                                                                }
+                                                              });
+                                                            },
+                                                          ).paddingOnly(left: 12),
+                                                        ],
+                                                      ));
                                                     })
                                               ],
                                             ),
@@ -1443,7 +1483,6 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         controller: controller.uselessbtnController,
                                                                         title: "Add Vehicle".tr,
                                                                         onTap: () async {
-                                                                         
                                                                           controller.addvehicle(context, index);
                                                                           //   }
                                                                           // } else if (controller.vehicleDataIndex == 0) {

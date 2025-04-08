@@ -4,6 +4,7 @@ import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/vechicleform_screen/models/Vehicle_form_model.dart';
+import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/foundation.dart';
@@ -308,50 +309,62 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 ],
                                               ),
                                               SizedBox(
-                                                height: getVerticalSize(5),
+                                                height: getVerticalSize(10),
                                               ),
                                               SizedBox(
                                                 width: getHorizontalSize(330),
-                                                child: DropdownButton(
-                                                  isExpanded: true,
-                                                  padding: EdgeInsets.symmetric(horizontal: 2),
-                                                  hint: controller.selectedValue == null
-                                                      ? Text(
-                                                          "Block/COMM ",
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            color: ColorConstant.blackColor.withOpacity(0.5),
-                                                            fontFamily: AppFonts.lucidaBright,
-                                                            fontWeight: FontWeight.w400,
-                                                          ),
-                                                        )
-                                                      : Text(controller.selectedValue.toString()),
-                                                  value: controller.selectedValue,
-                                                  disabledHint: Text(
-                                                    "  ",
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: ColorConstant.blackColor.withOpacity(0.5),
-                                                      fontFamily: AppFonts.lucidaBright,
-                                                      fontWeight: FontWeight.w400,
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "Block/COMM ",
+                                                      style: AppStyle.txtSourceSansProRegular16Gray600
+                                                          .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                    ).paddingOnly(
+                                                      left: 0,
                                                     ),
-                                                  ),
-                                                  items: controller.block.map((item) {
-                                                    return DropdownMenuItem<int>(
-                                                      value: item['id'],
-                                                      child: Text(item['title']),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: args['status'] == Constants.formStatusPending
-                                                      ? null
-                                                      : (int? value) {
-                                                          setState(() {
-                                                            controller.selectedValue = value!;
-                                                            controller.servantstreets.clear();
-                                                            controller.servantplots.clear();
-                                                            controller.getStreetByBlock(value);
-                                                          });
-                                                        },
+                                                    DropdownButton(
+                                                      isExpanded: true,
+                                                      padding: EdgeInsets.symmetric(horizontal: 2),
+                                                      hint: controller.selectedValue == null
+                                                          ? Text(
+                                                              "Select ",
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: ColorConstant.blackColor.withOpacity(0.5),
+                                                                fontFamily: AppFonts.lucidaBright,
+                                                                fontWeight: FontWeight.w400,
+                                                              ),
+                                                            )
+                                                          : Text(controller.selectedValue.toString()),
+                                                      value: controller.selectedValue,
+                                                      disabledHint: Text(
+                                                        "  ",
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: ColorConstant.blackColor.withOpacity(0.5),
+                                                          fontFamily: AppFonts.lucidaBright,
+                                                          fontWeight: FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                      items: controller.block.map((item) {
+                                                        return DropdownMenuItem<int>(
+                                                          value: item['id'],
+                                                          child: Text(item['title']),
+                                                        );
+                                                      }).toList(),
+                                                      onChanged: args['status'] == Constants.formStatusPending
+                                                          ? null
+                                                          : (int? value) {
+                                                              setState(() {
+                                                                controller.selectedValue = value!;
+                                                                controller.servantstreets.clear();
+                                                                controller.servantplots.clear();
+                                                                controller.getStreetByBlock(value);
+                                                              });
+                                                            },
+                                                    ),
+                                                  ],
                                                 ).paddingOnly(left: 12),
                                               ),
                                               SizedBox(
@@ -364,85 +377,92 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       init: controller,
                                                       builder: (context) {
                                                         return Expanded(
-                                                            child: DropdownButton<Street>(
-                                                          hint: controller.streetSelectedValue == null
-                                                              ? Text(
-                                                                  "Select Street",
-                                                                  style: TextStyle(
-                                                                    fontSize: 14,
-                                                                    color: ColorConstant.blackColor.withOpacity(0.5),
-                                                                    fontFamily: AppFonts.lucidaBright,
-                                                                    fontWeight: FontWeight.w400,
-                                                                  ),
-                                                                )
-                                                              : Text(controller.selectedValue.toString()),
-                                                          value: controller.streetSelectedValue,
-                                                          items: controller.streets.map((item) {
-                                                            return DropdownMenuItem<Street>(
-                                                              value: item,
-                                                              child: Text(item.title.toString()),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              controller.streetSelectedValue = value;
-                                                              controller.plots.clear();
-                                                              controller.getPlotNoByStreet(value!.id);
-                                                            });
-                                                          },
-                                                        ).paddingOnly(left: 12));
+                                                            child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              "Street",
+                                                              style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                  fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                            ).paddingOnly(
+                                                              left: 14,
+                                                            ),
+                                                            DropdownButton<Street>(
+                                                              isExpanded: true,
+                                                              hint: controller.streetSelectedValue == null
+                                                                  ? Text(
+                                                                      "Select",
+                                                                      style: TextStyle(
+                                                                        fontSize: 14,
+                                                                        color: ColorConstant.blackColor.withOpacity(0.5),
+                                                                        fontFamily: AppFonts.lucidaBright,
+                                                                        fontWeight: FontWeight.w400,
+                                                                      ),
+                                                                    )
+                                                                  : Text(controller.selectedValue.toString()),
+                                                              value: controller.streetSelectedValue,
+                                                              items: controller.streets.map((item) {
+                                                                return DropdownMenuItem<Street>(
+                                                                  value: item,
+                                                                  child: Text(item.title.toString()),
+                                                                );
+                                                              }).toList(),
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  controller.streetSelectedValue = value;
+                                                                  controller.plots.clear();
+                                                                  controller.getPlotNoByStreet(value!.id);
+                                                                });
+                                                              },
+                                                            ).paddingOnly(left: 12),
+                                                          ],
+                                                        ));
                                                       }),
                                                   GetBuilder(
                                                       init: controller,
                                                       builder: (context) {
                                                         return Expanded(
-                                                            child: DropdownButton<Plots>(
-                                                          hint: controller.plotstSelectedValue == null
-                                                              ? Text(
-                                                                  "Select Plot",
-                                                                  style: TextStyle(
-                                                                    fontSize: 14,
-                                                                    color: ColorConstant.blackColor.withOpacity(0.5),
-                                                                    fontFamily: AppFonts.lucidaBright,
-                                                                    fontWeight: FontWeight.w400,
-                                                                  ),
-                                                                )
-                                                              : Text(controller.plotstSelectedValue?.title.toString() ?? ""),
-                                                          value: controller.plotstSelectedValue,
-                                                          items: controller.plots.map((item) {
-                                                            return DropdownMenuItem<Plots>(
-                                                              value: item,
-                                                              child: Text(item.title.toString()),
-                                                            );
-                                                          }).toList(),
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              controller.plotstSelectedValue = value;
-                                                            });
-                                                          },
-                                                        ).paddingOnly(left: 12));
+                                                            child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              "Plot",
+                                                              style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                  fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                            ).paddingOnly(
+                                                              left: 14,
+                                                            ),
+                                                            DropdownButton<Plots>(
+                                                              isExpanded: true,
+                                                              hint: controller.plotstSelectedValue == null
+                                                                  ? Text(
+                                                                      "Select",
+                                                                      style: TextStyle(
+                                                                        fontSize: 14,
+                                                                        color: ColorConstant.blackColor.withOpacity(0.5),
+                                                                        fontFamily: AppFonts.lucidaBright,
+                                                                        fontWeight: FontWeight.w400,
+                                                                      ),
+                                                                    )
+                                                                  : Text(controller.plotstSelectedValue?.title.toString() ?? ""),
+                                                              value: controller.plotstSelectedValue,
+                                                              items: controller.plots.map((item) {
+                                                                return DropdownMenuItem<Plots>(
+                                                                  value: item,
+                                                                  child: Text(item.title.toString()),
+                                                                );
+                                                              }).toList(),
+                                                              onChanged: (value) {
+                                                                setState(() {
+                                                                  controller.plotstSelectedValue = value;
+                                                                });
+                                                              },
+                                                            ).paddingOnly(left: 12),
+                                                          ],
+                                                        ).paddingOnly(right: 14));
                                                       })
                                                 ],
                                               ),
-
-                                              // Row(
-                                              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              //   children: [
-                                              //     Expanded(
-                                              //       child: CustomTextField(
-                                              //         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                              //         fieldText: "Colony/Residential Area Name".tr,
-                                              //         controller: controller.colonyController,
-                                              //         isFinal: false,
-                                              //         keyboardType: TextInputType.emailAddress,
-                                              //         validator: (value) {
-                                              //           return HelperFunction.empthyFieldValidator(value!);
-                                              //         },
-                                              //       ),
-                                              //     ),
-                                              //   ],
-                                              // ),
-
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
@@ -678,162 +698,162 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       GetBuilder(
                                           init: controller,
                                           builder: (context) {
-                                            return Form(
-                                                key: _value.addVehicleFormKey,
-                                                child: ListView.builder(
-                                                  physics: NeverScrollableScrollPhysics(),
-                                                  shrinkWrap: true,
-                                                  padding: EdgeInsets.zero,
-                                                  itemCount: args['status'] != ""
-                                                      ? controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0
-                                                      : controller.vehicleNoControllers.length == 0
-                                                          ? 1
-                                                          : controller.vehicleNoControllers.length,
-                                                  itemBuilder: (context, index) {
-                                                    VehicleDetail? detail;
-                                                    if ((controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0) > 0) {
-                                                      detail = controller.vehicleFormDataModel.data?.vehicleDetail?[index];
-                                                    }
+                                            return ListView.builder(
+                                              physics: NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              padding: EdgeInsets.zero,
+                                              itemCount: args['status'] != ""
+                                                  ? (controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0)
+                                                  : controller.vehicleNoControllers.length == 0
+                                                      ? 1
+                                                      : controller.vehicleNoControllers.length,
 
-                                                    return Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        MyText(
-                                                          title: 'Vehicle ${index + 1}',
-                                                          clr: ColorConstant.black900,
-                                                          fontSize: 16,
-                                                        ).paddingOnly(left: 10, bottom: 10),
-                                                        if (index != 0)
-                                                          if (args['status'] != Constants.formStatusPending)
-                                                            Row(
-                                                              mainAxisAlignment: MainAxisAlignment.end,
-                                                              children: [
-                                                                GestureDetector(
-                                                                  onTap: () {
-                                                                    setState(() {
-                                                                      if (args['status'] == Constants.formStatusRejected) {
-                                                                        controller.vehicleFormDataModel.data?.vehicleDetail?.removeAt(index);
-                                                                      } else {
-                                                                        controller.vehicleNoControllers.removeAt(index);
-                                                                      }
-                                                                    });
-                                                                  },
-                                                                  child: Container(
-                                                                      margin: EdgeInsets.only(right: 15),
-                                                                      padding: EdgeInsets.all(8),
-                                                                      decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                      child: Icon(
-                                                                        Icons.delete_outlined,
-                                                                        color: Colors.white,
-                                                                      )),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Expanded(
-                                                              child: CustomTextField(
-                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  fieldText: "Vehicle No.".tr,
-                                                                  controller: isEditable
-                                                                      ? detail?.vehicleNoController
-                                                                      : controller.vehicleNoControllers[index],
-                                                                  isFinal: false,
-                                                                  keyboardType: TextInputType.emailAddress,
-                                                                  limit: HelperFunction.EMAIL_VALIDATION,
-                                                                  validator: (value) {
-                                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                                  }),
-                                                            ),
-                                                            Expanded(
-                                                              child: CustomTextField(
-                                                                  fieldText: "Make".tr,
-                                                                  controller:
-                                                                      isEditable ? detail?.vehicleMakeController : controller.makeControllers[index],
-                                                                  isFinal: false,
-                                                                  keyboardType: TextInputType.emailAddress,
-                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  validator: (value) {
-                                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                                  }),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: getVerticalSize(15),
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Expanded(
-                                                              child: CustomTextField(
-                                                                  fieldText: "Model".tr,
-                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  controller: isEditable
-                                                                      ? detail?.vehicleModelController
-                                                                      : controller.modelControllers[index],
-                                                                  isFinal: false,
-                                                                  keyboardType: TextInputType.emailAddress,
-                                                                  limit: HelperFunction.EMAIL_VALIDATION,
-                                                                  validator: (value) {
-                                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                                  }),
-                                                            ),
-                                                            Expanded(
-                                                              child: CustomTextField(
-                                                                  fieldText: "Color".tr,
-                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  controller: isEditable
-                                                                      ? detail?.vehicleColorController
-                                                                      : controller.colorControllers[index],
-                                                                  isFinal: false,
-                                                                  keyboardType: TextInputType.emailAddress,
-                                                                  validator: (value) {
-                                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                                  }),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: getVerticalSize(15),
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Expanded(
-                                                              child: CustomTextField(
-                                                                  fieldText: "Engine No".tr,
-                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  controller: isEditable
-                                                                      ? detail?.vehicleEngineController
-                                                                      : controller.engineNoControllers[index],
-                                                                  isFinal: false,
-                                                                  keyboardType: TextInputType.emailAddress,
-                                                                  limit: HelperFunction.EMAIL_VALIDATION,
-                                                                  validator: (value) {
-                                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                                  }),
-                                                            ),
-                                                            Expanded(
-                                                              child: CustomTextField(
-                                                                  fieldText: "Chassis No".tr,
-                                                                  enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                  controller: isEditable
-                                                                      ? detail?.vehicleChassisController
-                                                                      : controller.chassisControllers[index],
-                                                                  isFinal: false,
-                                                                  keyboardType: TextInputType.emailAddress,
-                                                                  validator: (value) {
-                                                                    return HelperFunction.empthyFieldValidator(value!);
-                                                                  }),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: getVerticalSize(15),
-                                                        ),
-                                                        if (isEditable)
+                                              //////////////////
+                                              itemBuilder: (context, index) {
+                                                VehicleDetail? detail;
+                                                if ((controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0) > 0) {
+                                                  detail = controller.vehicleFormDataModel.data?.vehicleDetail?[index];
+                                                }
+                                                return Form(
+                                                  key: _value.addVehicleFormKey[index],
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      MyText(
+                                                        title: 'Vehicle ${index + 1}',
+                                                        clr: ColorConstant.black900,
+                                                        fontSize: 16,
+                                                      ).paddingOnly(left: 10, bottom: 10),
+                                                      if (index != 0)
+                                                        if (args['status'] != Constants.formStatusPending)
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                            children: [
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    if (args['status'] == Constants.formStatusRejected) {
+                                                                      controller.vehicleFormDataModel.data?.vehicleDetail?.removeAt(index);
+                                                                      _value.addVehicleFormKey.removeAt(index);
+                                                                    } else {
+                                                                      controller.vehicleNoControllers.removeAt(index);
+                                                                    }
+                                                                  });
+                                                                },
+                                                                child: Container(
+                                                                    margin: EdgeInsets.only(right: 15),
+                                                                    padding: EdgeInsets.all(8),
+                                                                    decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                    child: Icon(
+                                                                      Icons.delete_outlined,
+                                                                      color: Colors.white,
+                                                                    )),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                fieldText: "Vehicle No.".tr,
+                                                                controller:
+                                                                    isEditable ? detail?.vehicleNoController : controller.vehicleNoControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                fieldText: "Make".tr,
+                                                                controller:
+                                                                    isEditable ? detail?.vehicleMakeController : controller.makeControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(15),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                fieldText: "Model".tr,
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                controller:
+                                                                    isEditable ? detail?.vehicleModelController : controller.modelControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                fieldText: "Color".tr,
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                controller:
+                                                                    isEditable ? detail?.vehicleColorController : controller.colorControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(15),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                fieldText: "Engine No".tr,
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                controller: isEditable
+                                                                    ? detail?.vehicleEngineController
+                                                                    : controller.engineNoControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                fieldText: "Chassis No".tr,
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                controller: isEditable
+                                                                    ? detail?.vehicleChassisController
+                                                                    : controller.chassisControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(15),
+                                                      ),
+                                                      if (args['status'] == Constants.formStatusRejected)
+                                                        if ((controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0) - 1 == index)
                                                           Padding(
                                                             padding: getPadding(left: 10, right: 10),
                                                             child: MyAnimatedButton(
@@ -845,22 +865,51 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               controller: controller.btnControllerUseless,
                                                               title: "Add Vehicle".tr,
                                                               onTap: () async {
-                                                                if (isEditable) {
-                                                                  controller.vehicleFormDataModel.data?.vehicleDetail?.add(VehicleDetail());
-                                                                  controller.update();
+                                                                if (args['status'] == Constants.formStatusRejected) {
+                                                                  if (_value.addVehicleFormKey[index].currentState?.validate() ?? true) {
+                                                                    controller.vehicleFormDataModel.data?.vehicleDetail?.add(VehicleDetail());
+                                                                    _value.addVehicleFormKey.add(GlobalKey());
+                                                                    controller.update();
+                                                                  }
                                                                 } else {
                                                                   _value.addVehicle(index);
                                                                 }
                                                               },
                                                             ),
-                                                          ),
-                                                        SizedBox(
-                                                          height: getVerticalSize(20),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                ));
+                                                          )
+                                                        else if (args['status'] == "")
+                                                          if ((controller.vehicleNoControllers.length) == index)
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: MyAnimatedButton(
+                                                                radius: 5.0,
+                                                                height: getVerticalSize(50),
+                                                                width: getHorizontalSize(400),
+                                                                fontSize: 16,
+                                                                bgColor: ColorConstant.anbtnBlue,
+                                                                controller: controller.btnControllerUseless,
+                                                                title: "Add Vehicle".tr,
+                                                                onTap: () async {
+                                                                  if (args['status'] == Constants.formStatusRejected) {
+                                                                    if (_value.addVehicleFormKey[index].currentState?.validate() ?? true) {
+                                                                      controller.vehicleFormDataModel.data?.vehicleDetail?.add(VehicleDetail());
+                                                                      _value.addVehicleFormKey.add(GlobalKey());
+                                                                      controller.update();
+                                                                    }
+                                                                  } else {
+                                                                    _value.addVehicle(index);
+                                                                  }
+                                                                },
+                                                              ),
+                                                            ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(20),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            );
                                           }),
                                     ]),
                                 SizedBox(
@@ -974,32 +1023,36 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "User license front").paddingOnly(left: 10),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                          GestureDetector(
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller
-                                                                          .vehicleFormDataModel.data?.vehicleUserDetail?[index].userLicenseFront ??
-                                                                      "",
+                                                      if (controller.userDrivingLicenseFrontSideImages[index].path.isEmpty ||
+                                                          !controller.userCnicBacktSideImages[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "User license front").paddingOnly(left: 10),
+                                                            SizedBox(
+                                                              height: 5.h,
+                                                            ),
+                                                            GestureDetector(
+                                                              child: Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    url: controller
+                                                                            .vehicleFormDataModel.data?.vehicleUserDetail?[index].userLicenseFront ??
+                                                                        "",
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                        ],
-                                                      ),
+                                                            SizedBox(
+                                                              height: 5.h,
+                                                            ),
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -1011,8 +1064,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: "Attach Driving License Front Side Image".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: (controller.userDrivingLicenseFrontSideImages.length > index &&
-                                                                  controller.userDrivingLicenseFrontSideImages[index].path != "")
+                                                          prefix: controller.userDrivingLicenseFrontSideImages[index].path.isNotEmpty
                                                               ? Icon(
                                                                   Icons.check_circle_sharp,
                                                                   color: ColorConstant.anbtnBlue,
@@ -1036,32 +1088,36 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "User license back").paddingOnly(left: 10),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                          GestureDetector(
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller
-                                                                          .vehicleFormDataModel.data?.vehicleUserDetail?[index].userLicenseBack ??
-                                                                      "",
+                                                      if (controller.userDrivingLicenseBackSideImages[index].path.isEmpty ||
+                                                          !controller.userCnicBacktSideImages[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "User license back").paddingOnly(left: 10),
+                                                            SizedBox(
+                                                              height: 5.h,
+                                                            ),
+                                                            GestureDetector(
+                                                              child: Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    url: controller
+                                                                            .vehicleFormDataModel.data?.vehicleUserDetail?[index].userLicenseBack ??
+                                                                        "",
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                        ],
-                                                      ),
+                                                            SizedBox(
+                                                              height: 5.h,
+                                                            ),
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -1073,8 +1129,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: "Attach Driving License Back Side Image".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: (controller.userDrivingLicenseBackSideImages.length > index &&
-                                                                  controller.userDrivingLicenseBackSideImages[index].path != "")
+                                                          prefix: (controller.userDrivingLicenseBackSideImages[index].path.toString()) == ""
                                                               ? Icon(
                                                                   Icons.add_circle_outline,
                                                                   color: ColorConstant.anbtnBlue,
@@ -1085,7 +1140,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 ),
                                                           onPressed: () async {
                                                             final result = await controller.picker.pickImage(source: ImageSource.gallery);
-
                                                             if (result != null) {
                                                               setState(() {
                                                                 controller.userDrivingLicenseBackSideImages[index] = File(result.path);
@@ -1099,32 +1153,36 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "User CNIC front").paddingOnly(left: 10),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                          GestureDetector(
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url:
-                                                                      controller.vehicleFormDataModel.data?.vehicleUserDetail?[index].userCnicFront ??
-                                                                          "",
+                                                      if (controller.userCnicFrontSideImages[index].path.isEmpty ||
+                                                          !controller.userCnicBacktSideImages[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "User CNIC front").paddingOnly(left: 10),
+                                                            SizedBox(
+                                                              height: 5.h,
+                                                            ),
+                                                            GestureDetector(
+                                                              child: Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    url: controller
+                                                                            .vehicleFormDataModel.data?.vehicleUserDetail?[index].userCnicFront ??
+                                                                        "",
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                        ],
-                                                      ),
+                                                            SizedBox(
+                                                              height: 5.h,
+                                                            ),
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -1136,8 +1194,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: "Attach image of your CNIC front side".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: (controller.userCnicFrontSideImages.length > index &&
-                                                                  controller.userCnicFrontSideImages[index].path != "")
+                                                          prefix: controller.userCnicFrontSideImages[index].path.isEmpty
                                                               ? Icon(
                                                                   Icons.add_circle_outline,
                                                                   color: ColorConstant.anbtnBlue,
@@ -1161,31 +1218,36 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "User CNIC back").paddingOnly(left: 10),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                          GestureDetector(
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.vehicleFormDataModel.data?.vehicleUserDetail?[index].userCnicBack ??
-                                                                      "",
+                                                      if (controller.userCnicBacktSideImages[index].path.isEmpty ||
+                                                          !controller.userCnicBacktSideImages[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "User CNIC back").paddingOnly(left: 10),
+                                                            SizedBox(
+                                                              height: 5.h,
+                                                            ),
+                                                            GestureDetector(
+                                                              child: Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    url: controller
+                                                                            .vehicleFormDataModel.data?.vehicleUserDetail?[index].userCnicBack ??
+                                                                        "",
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 5.h,
-                                                          ),
-                                                        ],
-                                                      ),
+                                                            SizedBox(
+                                                              height: 5.h,
+                                                            ),
+                                                          ],
+                                                        ),
                                                     if (args['status'] != Constants.formStatusPending)
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -1197,8 +1259,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: "Attach image of your CNIC back side".tr,
                                                           textColor: ColorConstant.anbtnBlue,
                                                           borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: (controller.userCnicBacktSideImages.length > index &&
-                                                                  controller.userCnicBacktSideImages[index].path != "")
+                                                          prefix: controller.userCnicBacktSideImages[index].path.isEmpty
                                                               ? Icon(
                                                                   Icons.add_circle_outline,
                                                                   color: ColorConstant.anbtnBlue,
@@ -1233,7 +1294,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           controller: controller.btnControllerUseless,
                                                           title: "Add User".tr,
                                                           onTap: () async {
-                                                            if (isEditable) {
+                                                            if (args['status'] == Constants.formStatusRejected) {
                                                               controller.userDrivingLicenseFrontSideImages.add(File(""));
                                                               controller.userDrivingLicenseBackSideImages.add(File(""));
                                                               controller.userCnicFrontSideImages.add(File(""));

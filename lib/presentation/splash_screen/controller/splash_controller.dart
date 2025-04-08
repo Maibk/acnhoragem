@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:anchorageislamabad/data/services/base_client.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // import 'package:package_info/package_info.dart';
@@ -94,11 +95,27 @@ class SplashController extends GetxController {
     });
   }
 
-  getFCMtoken() {
-    FirebaseMessaging.instance.getToken().then((value) async {
-      appPreferences.setDeviceToken(deviceId: value ?? "");
-      Constants.device_token = value ?? "";
-    });
+  Future<void> getFCMtoken() async {
+    try {
+      NotificationSettings settings = await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        String? token = await FirebaseMessaging.instance.getToken();
+        if (token != null) {
+          appPreferences.setDeviceToken(deviceId: token);
+          Constants.device_token = token;
+          debugPrint("FCM Token: $token");
+        }
+      } else {
+        debugPrint('User declined or has not accepted permission');
+      }
+    } catch (e) {
+      debugPrint('FCM Token Error: $e');
+    }
   }
 
   @override

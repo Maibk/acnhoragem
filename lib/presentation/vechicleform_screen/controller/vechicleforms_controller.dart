@@ -271,6 +271,7 @@ class VechicleController extends GetxController {
               colorControllers.add(TextEditingController(text: element.vehicleColor));
               engineNoControllers.add(TextEditingController(text: element.vehicleEngine));
               chassisControllers.add(TextEditingController(text: element.vehicleChassis));
+              addVehicleFormKey.add(GlobalKey());
             }
 
             for (var element in vehicleFormDataModel.data!.vehicleUserDetail!) {
@@ -315,7 +316,7 @@ class VechicleController extends GetxController {
     getProfileData();
   }
 
-  GlobalKey<FormState> addVehicleFormKey = GlobalKey();
+  List<GlobalKey<FormState>> addVehicleFormKey = [GlobalKey<FormState>()];
 
   GlobalKey<FormState> addUserInfoFormKey = GlobalKey();
   GlobalKey<FormState> sticketProformaFormKey = GlobalKey();
@@ -326,7 +327,7 @@ class VechicleController extends GetxController {
   int vehicleDataIndex = 0;
 
   addVehicle(index) async {
-    final formState = addVehicleFormKey.currentState;
+    final formState = addVehicleFormKey[index].currentState;
 
     if (formState!.validate()) {
       addVehicleControllers();

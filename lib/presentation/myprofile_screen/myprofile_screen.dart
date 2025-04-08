@@ -16,9 +16,22 @@ import '../../widgets/common_image_view.dart';
 import '../../widgets/custom_textfield_forms.dart';
 import 'controller/myprofile_controller.dart';
 
-class MyprofileScreen extends StatelessWidget {
+class MyprofileScreen extends StatefulWidget {
+  @override
+  State<MyprofileScreen> createState() => _MyprofileScreenState();
+}
+
+class _MyprofileScreenState extends State<MyprofileScreen> {
   MyprofileController controller = Get.put(MyprofileController());
-  // const DiscoverScreen({Key? key}) : super(key: key);
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getProfile();
+      controller.newPassController.clear();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -262,7 +275,7 @@ class MyprofileScreen extends StatelessWidget {
                                               controller.update();
                                             },
                                             validator: (value) {
-                                              return HelperFunction.passwordValidate(value!);
+                                              return HelperFunction.passwordValidate(value!, isRequired: false);
                                             },
                                             //  maxLines: 8,
                                           );

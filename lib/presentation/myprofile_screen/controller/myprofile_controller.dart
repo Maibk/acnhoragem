@@ -141,16 +141,4 @@ class MyprofileController extends GetxController {
       print("Form validation failed");
     }
   }
-
-  @override
-  onInit() async {
-    super.onInit();
-    newPassController.clear();
-    getProfile();
-  }
-
-  // onC() {
-  //   super.dispose();
-  //   newPassController.clear();
-  // }
 }

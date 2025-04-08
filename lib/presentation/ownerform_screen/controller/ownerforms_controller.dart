@@ -99,7 +99,7 @@ class OwnerFornsScreenController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController fathersController = TextEditingController();
   TextEditingController telephoneController = TextEditingController();
-  TextEditingController natinalityController = TextEditingController(text: "Nationality");
+  TextEditingController natinalityController = TextEditingController(text: "Select");
   TextEditingController occupationController = TextEditingController();
   TextEditingController presentAddController = TextEditingController();
   TextEditingController permanantAddController = TextEditingController();

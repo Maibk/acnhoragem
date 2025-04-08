@@ -65,7 +65,7 @@ class LoginController extends GetxController {
                 if (loginResponseModel?.data?.userCategory == "Owner") {
                   Get.offAllNamed(AppRoutes.ownerFormsPage, arguments: {'status': "", 'id': ""});
                 } else {
-                  Get.offAllNamed(AppRoutes.tenantFormsPage);
+                  Get.offAllNamed(AppRoutes.tenantFormsPage, arguments: {'status': "", 'id': ""});
                 }
               } else if (loginResponseModel?.data?.appFormApproved == 0) {
                 Get.offAllNamed(AppRoutes.homePage);
