@@ -26,6 +26,7 @@ class VechicleController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController editbtnController = RoundedLoadingButtonController();
   final RoundedLoadingButtonController btnControllerUseless = RoundedLoadingButtonController();
+  RxBool isLoading = false.obs;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController fathersController = TextEditingController();
   TextEditingController cnicController = TextEditingController();
@@ -222,6 +223,10 @@ class VechicleController extends GetxController {
   }
 
   getEntryFormsDetails(id) {
+    userDrivingLicenseFrontSideImages.clear();
+    userDrivingLicenseBackSideImages.clear();
+    userCnicFrontSideImages.clear();
+    userCnicBacktSideImages.clear();
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
@@ -282,6 +287,7 @@ class VechicleController extends GetxController {
               userDrivingLicenseBackSideImages.add(File(element.userLicenseBack!));
               userCnicFrontSideImages.add(File(element.userCnicFront!));
               userCnicBacktSideImages.add(File(element.userCnicBack!));
+              addUserInfoFormKey.add(GlobalKey());
             }
 
             formsLoadingStatus.value = ApiCallStatus.success;
@@ -318,7 +324,8 @@ class VechicleController extends GetxController {
 
   List<GlobalKey<FormState>> addVehicleFormKey = [GlobalKey<FormState>()];
 
-  GlobalKey<FormState> addUserInfoFormKey = GlobalKey();
+  List<GlobalKey<FormState>> addUserInfoFormKey = [GlobalKey<FormState>()];
+
   GlobalKey<FormState> sticketProformaFormKey = GlobalKey();
 
   Map<String, dynamic> vehicalData = {};
@@ -371,7 +378,7 @@ class VechicleController extends GetxController {
         true,
       );
     } else {
-      final formState = addUserInfoFormKey.currentState;
+      final formState = addUserInfoFormKey[index].currentState;
       if (formState!.validate()) {
         addUserControllers();
         vehicalData['user_name[$index]'] = userfullNameControllers[index].text;
@@ -750,6 +757,15 @@ class VechicleController extends GetxController {
                     : "Visitor / Non-Residential",
             // 'residential_area': colonyController.text,
           };
+
+          for (var i = 0; i < vehicleNoControllers.length; i++) {
+            vehicalData['vehicle_no[$i]'] = vehicleNoControllers[i].text;
+            vehicalData["vehicle_make[$i]"] = makeControllers[i].text;
+            vehicalData['vehicle_model[$i]'] = modelControllers[i].text;
+            vehicalData['vehicle_color[$i]'] = colorControllers[i].text;
+            vehicalData['vehicle_engine[$i]'] = engineNoControllers[i].text;
+            vehicalData['vehicle_chassis[$i]'] = chassisControllers[i].text;
+          }
           vehicalData.addAll(ownerInfoData);
 
           vehicalData['driving_license_front'] = await _dio.MultipartFile.fromFile(
@@ -802,6 +818,7 @@ class VechicleController extends GetxController {
           if (value) {
             log(vehicalData.toString());
             btnController.start();
+            isLoading.value = true;
             _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
               var dio = _dio.Dio();
               try {
@@ -821,6 +838,8 @@ class VechicleController extends GetxController {
                     false,
                   );
                   btnController.stop();
+                  isLoading.value = false;
+
                   log(json.encode(response.data));
 
                   Get.offAllNamed(AppRoutes.homePage);
@@ -832,6 +851,7 @@ class VechicleController extends GetxController {
                   Get.offAllNamed(AppRoutes.homePage);
                 } else {
                   btnController.stop();
+                  isLoading.value = false;
 
                   Utils.showToast(
                     response.data['message'],
@@ -841,6 +861,8 @@ class VechicleController extends GetxController {
                 }
               } on _dio.DioException catch (error) {
                 btnController.stop();
+                isLoading.value = false;
+
                 Utils.showToast(
                   error.response?.toString() ?? error.error.toString(),
                   true,
@@ -855,6 +877,8 @@ class VechicleController extends GetxController {
 
                 if (error.response?.statusCode == 500) {
                   btnController.stop();
+                  isLoading.value = false;
+
                   Utils.showToast(
                     "Internal Server Error",
                     true,
@@ -866,6 +890,7 @@ class VechicleController extends GetxController {
             CustomSnackBar.showCustomErrorToast(
               message: Strings.noInternetConnection,
             );
+            isLoading.value = false;
           }
         });
       } else {
@@ -1034,53 +1059,6 @@ class VechicleController extends GetxController {
           );
         }
       }
-
-      // vehicalData['driving_license_front'] = await _dio.MultipartFile.fromFile(
-      //   underTakingLicenseFrontSideImage!.path,
-      //   filename: underTakingLicenseFrontSideImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
-      // vehicalData['driving_license_back'] = await _dio.MultipartFile.fromFile(
-      //   underTakingLicenseBackSideImage!.path,
-      //   filename: underTakingLicenseBackSideImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
-
-      // vehicalData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-      //   underTakingCnicFrontSideImage!.path,
-      //   filename: underTakingCnicFrontSideImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
-      // vehicalData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-      //   underTakingCnicBackSideImage!.path,
-      //   filename: underTakingCnicBackSideImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
-      // vehicalData['registration_image'] = await _dio.MultipartFile.fromFile(
-      //   underTakingVehicalRegistrationImage!.path,
-      //   filename: underTakingVehicalRegistrationImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
-      // vehicalData['owner_image'] = await _dio.MultipartFile.fromFile(
-      //   underTakingOwnerImage!.path,
-      //   filename: underTakingOwnerImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
-      // vehicalData['allotment_letter_image'] = await _dio.MultipartFile.fromFile(
-      //   underTakingAllotmentLetterImage!.path,
-      //   filename: underTakingAllotmentLetterImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
-      // vehicalData['maintenance_bill_image'] = await _dio.MultipartFile.fromFile(
-      //   underTakingMaintenanceBillImage!.path,
-      //   filename: underTakingMaintenanceBillImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
-      // vehicalData['old_sticker_image'] = await _dio.MultipartFile.fromFile(
-      //   underTakingOldStickerImage!.path,
-      //   filename: underTakingOldStickerImage!.path.split('/').last,
-      //   contentType: _http.MediaType.parse('image/jpeg'),
-      // );
 
       if (value) {
         log(vehicalData.toString());

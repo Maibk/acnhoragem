@@ -263,6 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         MyText(
                                           title: "Download Forms",
+                                          center: true,
                                           clr: ColorConstant.antextGrayDark,
                                           fontSize: 11,
                                         ),

@@ -85,7 +85,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
           centerTitle: true,
           leading: InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.myformsPage);
+                Get.offAllNamed(AppRoutes.myformsPage);
               },
               child: Icon(
                 Icons.arrow_back_ios,
@@ -550,29 +550,76 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                 GetBuilder(
                                     init: controller,
                                     builder: (context) {
-                                      return Form(
-                                        key: controller.addServantFormKey,
-                                        child: CustomExpansionTile(
-                                          title: MyText(
-                                            title: 'Servant Information',
-                                            clr: ColorConstant.black900,
-                                            fontSize: 16,
-                                          ),
-                                          children: <Widget>[
-                                            ListView.builder(
-                                              shrinkWrap: true,
-                                              physics: NeverScrollableScrollPhysics(),
-                                              itemCount: args['status'] != ""
-                                                  ? controller.servantFormDataModel.data?.servantDetail?.length ?? 0
-                                                  : controller.serventfullNameControllers.length == 0
-                                                      ? 1
-                                                      : controller.serventfullNameControllers.length,
-                                              itemBuilder: (context, index) {
-                                                ServantDetail? detail;
-                                                if ((controller.servantFormDataModel.data?.servantDetail?.length ?? 0) > 0) {
-                                                  detail = controller.servantFormDataModel.data?.servantDetail?[index];
-                                                }
-                                                return Column(
+                                      return CustomExpansionTile(
+                                        title: MyText(
+                                          title: 'Servant Information',
+                                          clr: ColorConstant.black900,
+                                          fontSize: 16,
+                                        ),
+                                        children: <Widget>[
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: NeverScrollableScrollPhysics(),
+                                            padding: EdgeInsets.zero,
+                                            itemCount: args['status'] != ""
+                                                ? (controller.servantFormDataModel.data?.servantDetail?.length ?? 0) +
+                                                    (args['status'] == Constants.formStatusRejected ? 1 : 0)
+                                                : controller.serventfullNameControllers.length + 1,
+                                            itemBuilder: (context, index) {
+                                              bool isLastIndex = index ==
+                                                  (args['status'] != ""
+                                                      ? (controller.servantFormDataModel.data?.servantDetail?.length ?? 0)
+                                                      : controller.serventfullNameControllers.length);
+
+                                              if (isLastIndex && (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
+                                                return Padding(
+                                                  padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
+                                                  child: MyAnimatedButton(
+                                                    radius: 5.0,
+                                                    height: getVerticalSize(50),
+                                                    width: getHorizontalSize(400),
+                                                    fontSize: 16,
+                                                    bgColor: ColorConstant.anbtnBlue,
+                                                    controller: _value.btnControllerUseLess,
+                                                    title: "Add Servant".tr,
+                                                    onTap: () async {
+                                                      if (args['status'] == Constants.formStatusRejected) {
+                                                        if (_value.addServantFormKey[index - 1].currentState?.validate() ?? true) {
+                                                          controller.servantImages.add(File(""));
+                                                          controller.servantCnicFronts.add(File(""));
+                                                          controller.servantCnicBacks.add(File(""));
+                                                          controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
+                                                          _value.addServantFormKey.add(GlobalKey<FormState>());
+                                                          controller.update();
+                                                        }
+                                                      } else {
+                                                        _value.addServantFormKey.add(GlobalKey<FormState>());
+                                                        controller.addServant(index - 1);
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              }
+                                              ServantDetail? detail;
+                                              if ((controller.servantFormDataModel.data?.servantDetail?.length ?? 0) > 0 &&
+                                                  index < (controller.servantFormDataModel.data?.servantDetail?.length ?? 0)) {
+                                                detail = controller.servantFormDataModel.data?.servantDetail?[index];
+                                              }
+                                              // shrinkWrap: true,
+                                              // physics: NeverScrollableScrollPhysics(),
+                                              // itemCount: args['status'] != ""
+                                              //     ? controller.servantFormDataModel.data?.servantDetail?.length ?? 0
+                                              //     : controller.serventfullNameControllers.length == 0
+                                              //         ? 1
+                                              //         : controller.serventfullNameControllers.length,
+                                              // itemBuilder: (context, index) {
+                                              //   ServantDetail? detail;
+                                              //   if ((controller.servantFormDataModel.data?.servantDetail?.length ?? 0) > 0) {
+                                              //     detail = controller.servantFormDataModel.data?.servantDetail?[index];
+                                              //   }
+                                              return Form(
+                                                key: controller.addServantFormKey[index],
+                                                child: Column(
                                                   children: [
                                                     if (index != 0)
                                                       if (args['status'] != Constants.formStatusPending)
@@ -583,6 +630,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               onTap: () {
                                                                 setState(() {
                                                                   if (args['status'] == Constants.formStatusRejected) {
+                                                                    controller.servantImages.removeAt(index);
+                                                                    controller.servantCnicFronts.removeAt(index);
+                                                                    controller.servantCnicBacks.removeAt(index);
                                                                     controller.servantFormDataModel.data?.servantDetail?.removeAt(index);
                                                                   } else {
                                                                     controller.serventfullNameControllers.removeAt(index);
@@ -590,7 +640,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                 });
                                                               },
                                                               child: Container(
-                                                                  margin: EdgeInsets.only(right: 15),
+                                                                  margin: EdgeInsets.only(right: 15, top: 10),
                                                                   padding: EdgeInsets.all(8),
                                                                   decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                                   child: Icon(
@@ -603,8 +653,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Full Name".tr,
-                                                        controller:
-                                                            isEditable ? detail?.servantNameController : controller.serventfullNameControllers[index],
+                                                        controller: args['status'] == Constants.formStatusRejected
+                                                            ? detail?.servantNameController
+                                                            : controller.serventfullNameControllers[index],
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -617,7 +668,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Father’s Name".tr,
-                                                        controller: isEditable
+                                                        controller: args['status'] == Constants.formStatusRejected
                                                             ? detail?.servantFatherController
                                                             : controller.serventfathersControllers[index],
                                                         isFinal: false,
@@ -636,7 +687,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "CNIC No.".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantCnicController
                                                                   : controller.serventcnicControllers[index],
                                                               isFinal: false,
@@ -654,7 +705,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Mobile number".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantPhoneController
                                                                   : controller.serventmobileControllers[index],
                                                               isFinal: false,
@@ -690,7 +741,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "House/Plot".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantHouseController
                                                                   : controller.serventhouseControllers[index],
                                                               isFinal: false,
@@ -704,7 +755,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Road".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantRoadController
                                                                   : controller.serventroadControllers[index],
                                                               isFinal: false,
@@ -725,7 +776,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Street".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantStreetController
                                                                   : controller.serventstreetControllers[index],
                                                               isFinal: false,
@@ -739,7 +790,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Mohalla/Village".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantVillageController
                                                                   : controller.serventcolonyVillageControllers[index],
                                                               isFinal: false,
@@ -763,7 +814,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Post Office/Thana".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantPoController
                                                                   : controller.serventpostOfficeControllers[index],
                                                               isFinal: false,
@@ -777,7 +828,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "City".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantCityController
                                                                   : controller.serventCityControllers[index],
                                                               isFinal: false,
@@ -798,7 +849,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Province".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantProvinceController
                                                                   : controller.serventProvinceControllers[index],
                                                               isFinal: false,
@@ -814,24 +865,28 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       height: getVerticalSize(5),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: Container(
-                                                              width: getHorizontalSize(350),
-                                                              color: ColorConstant.whiteA700,
-                                                              child: CustomImageView(
-                                                                url: controller.servantFormDataModel.data?.servantDetail?[index].servantImage ?? "",
+                                                      if (controller.servantImages[index].path.isEmpty ||
+                                                          !controller.servantImages[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Attachment").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  url: controller.servantFormDataModel.data?.servantDetail?[index].servantImage ?? "",
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -867,30 +922,35 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Servant CNIC front").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () async {
-                                                              controller.ownerImage = await controller.imagePicker();
-                                                            },
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.servantFormDataModel.data?.servantDetail?[index].servantCnicFront ??
-                                                                      "",
+                                                      if (controller.servantCnicFronts[index].path.isEmpty ||
+                                                          !controller.servantCnicFronts[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Servant CNIC front").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                controller.ownerImage = await controller.imagePicker();
+                                                              },
+                                                              child: Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    url: controller
+                                                                            .servantFormDataModel.data?.servantDetail?[index].servantCnicFront ??
+                                                                        "",
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -926,30 +986,35 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Servant CNIC BACK").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () async {
-                                                              controller.ownerImage = await controller.imagePicker();
-                                                            },
-                                                            child: Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  url: controller.servantFormDataModel.data?.servantDetail?[index].servantCnicBack ??
-                                                                      "",
+                                                      if (controller.servantCnicBacks[index].path.isEmpty ||
+                                                          !controller.servantCnicBacks[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Servant CNIC BACK").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            GestureDetector(
+                                                              onTap: () async {
+                                                                controller.ownerImage = await controller.imagePicker();
+                                                              },
+                                                              child: Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    url:
+                                                                        controller.servantFormDataModel.data?.servantDetail?[index].servantCnicBack ??
+                                                                            "",
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -981,50 +1046,50 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           },
                                                         ),
                                                       ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(15),
-                                                    ),
-                                                    if (args['status'] != Constants.formStatusPending)
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: MyAnimatedButton(
-                                                          controller: _value.btnControllerUseLess,
-                                                          radius: 5.0,
-                                                          height: getVerticalSize(50),
-                                                          width: getHorizontalSize(400),
-                                                          fontSize: 16,
-                                                          bgColor: ColorConstant.anbtnBlue,
-                                                          title: "Add Servant".tr,
-                                                          onTap: () async {
-                                                            if (controller.servantImages.isEmpty) {
-                                                              Utils.showToast("Please select servant Images", true);
-                                                            } else if (controller.servantCnicFronts.isEmpty) {
-                                                              Utils.showToast("Please select servant cnic front images", true);
-                                                            } else if (controller.servantCnicBacks.isEmpty) {
-                                                              Utils.showToast("Please select servant cnic back images", true);
-                                                            } else {
-                                                              if (args['status'] == "Rejected") {
-                                                                controller.servantImages.add(File(""));
-                                                                controller.servantCnicFronts.add(File(""));
-                                                                controller.servantCnicBacks.add(File(""));
-                                                                controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
-                                                                setState(() {});
-                                                              } else {
-                                                                controller.addServant(index);
-                                                              }
-                                                            }
-                                                          },
-                                                        ),
-                                                      ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(20),
-                                                    ),
+                                                    // SizedBox(
+                                                    //   height: getVerticalSize(15),
+                                                    // ),
+                                                    // if (args['status'] != Constants.formStatusPending)
+                                                    //   Padding(
+                                                    //     padding: getPadding(left: 10, right: 10),
+                                                    //     child: MyAnimatedButton(
+                                                    //       controller: _value.btnControllerUseLess,
+                                                    //       radius: 5.0,
+                                                    //       height: getVerticalSize(50),
+                                                    //       width: getHorizontalSize(400),
+                                                    //       fontSize: 16,
+                                                    //       bgColor: ColorConstant.anbtnBlue,
+                                                    //       title: "Add Servant".tr,
+                                                    //       onTap: () async {
+                                                    //         if (controller.servantImages.isEmpty) {
+                                                    //           Utils.showToast("Please select servant Images", true);
+                                                    //         } else if (controller.servantCnicFronts.isEmpty) {
+                                                    //           Utils.showToast("Please select servant cnic front images", true);
+                                                    //         } else if (controller.servantCnicBacks.isEmpty) {
+                                                    //           Utils.showToast("Please select servant cnic back images", true);
+                                                    //         } else {
+                                                    //           if (args['status'] == "Rejected") {
+                                                    //             controller.servantImages.add(File(""));
+                                                    //             controller.servantCnicFronts.add(File(""));
+                                                    //             controller.servantCnicBacks.add(File(""));
+                                                    //             controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
+                                                    //             setState(() {});
+                                                    //           } else {
+                                                    //             controller.addServant(index);
+                                                    //           }
+                                                    //         }
+                                                    //       },
+                                                    //     ),
+                                                    //   ),
+                                                    // SizedBox(
+                                                    //   height: getVerticalSize(20),
+                                                    // ),
                                                   ],
-                                                );
-                                              },
-                                            )
-                                          ],
-                                        ),
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        ],
                                       );
                                     }),
                                 SizedBox(
@@ -1033,232 +1098,333 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                 GetBuilder(
                                     init: controller,
                                     builder: (context) {
-                                      return Form(
-                                        key: controller.addServantFamilyFormKey,
-                                        child: CustomExpansionTile(
-                                          title: MyText(
-                                            title: 'Servants Family Details (if residing)',
-                                            clr: ColorConstant.black900,
-                                            fontSize: 16,
+                                      return CustomExpansionTile(
+                                        title: MyText(
+                                          title: 'Servants Family Details',
+                                          clr: ColorConstant.black900,
+                                          fontSize: 16,
+                                        ),
+                                        children: <Widget>[
+                                          AbsorbPointer(
+                                            absorbing: !isEditable,
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding: getPadding(left: 10),
+                                                  child: Text(
+                                                    "Residing",
+                                                    style: AppStyle.txtSourceSansProRegular16Gray600
+                                                        .copyWith(fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: getHorizontalSize(20),
+                                                ),
+                                                GetBuilder(
+                                                  init: controller,
+                                                  builder: (controller) {
+                                                    return GestureDetector(
+                                                      behavior: HitTestBehavior.opaque,
+                                                      onTap: () {
+                                                        controller.updateFamilyStatus("Yes");
+                                                      },
+                                                      child: Row(
+                                                        children: [
+                                                          controller.isFamilyResiding == "Yes"
+                                                              ? Icon(
+                                                                  Icons.circle,
+                                                                  color: ColorConstant.blackColor,
+                                                                  size: 14,
+                                                                )
+                                                              : Icon(
+                                                                  Icons.circle_outlined,
+                                                                  color: ColorConstant.blackColor,
+                                                                  size: 14,
+                                                                ),
+                                                          SizedBox(
+                                                            width: getHorizontalSize(10),
+                                                          ),
+                                                          Text(
+                                                            "Yes",
+                                                            style: AppStyle.txtSourceSansProRegular16Gray600
+                                                                .copyWith(fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                                SizedBox(
+                                                  width: getHorizontalSize(20),
+                                                ),
+                                                GetBuilder(
+                                                  init: controller,
+                                                  builder: (controller) {
+                                                    return GestureDetector(
+                                                      onTap: () {
+                                                        controller.updateFamilyStatus("No");
+                                                      },
+                                                      child: Row(
+                                                        children: [
+                                                          controller.isFamilyResiding == "No"
+                                                              ? Icon(
+                                                                  Icons.circle,
+                                                                  color: ColorConstant.blackColor,
+                                                                  size: 14,
+                                                                )
+                                                              : Icon(
+                                                                  Icons.circle_outlined,
+                                                                  color: ColorConstant.blackColor,
+                                                                  size: 14,
+                                                                ),
+                                                          SizedBox(
+                                                            width: getHorizontalSize(10),
+                                                          ),
+                                                          Text(
+                                                            "No",
+                                                            style: AppStyle.txtSourceSansProRegular16Gray600
+                                                                .copyWith(fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          children: <Widget>[
-                                            ListView.builder(
+                                          SizedBox(
+                                            height: getVerticalSize(5),
+                                          ),
+                                          Visibility(
+                                            visible: (controller.isFamilyResiding == "Yes") ? true : false,
+                                            child: ListView.builder(
                                               shrinkWrap: true,
+                                              padding: EdgeInsets.zero,
                                               physics: NeverScrollableScrollPhysics(),
                                               itemCount: args['status'] != ""
-                                                  ? controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0
-                                                  : controller.serventfamfullNameControllers.length == 0
-                                                      ? 1
-                                                      : controller.serventfamfullNameControllers.length,
+                                                  ? (controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0) +
+                                                      (args['status'] == Constants.formStatusRejected ? 1 : 0)
+                                                  : controller.serventfamfullNameControllers.length + 1,
                                               itemBuilder: (context, index) {
+                                                bool isLastIndex = index ==
+                                                    (args['status'] != ""
+                                                        ? (controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0)
+                                                        : controller.serventfamfullNameControllers.length);
+
+                                                if (isLastIndex && (args['status'] != Constants.formStatusPending)) {
+                                                  return Padding(
+                                                    padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
+                                                    child: MyAnimatedButton(
+                                                      radius: 5.0,
+                                                      height: getVerticalSize(50),
+                                                      width: getHorizontalSize(400),
+                                                      fontSize: 16,
+                                                      bgColor: ColorConstant.anbtnBlue,
+                                                      controller: _value.btnControllerUseLess,
+                                                      title: "Add Family Member".tr,
+                                                      onTap: () async {
+                                                        if (args['status'] == Constants.formStatusRejected) {
+                                                          if (_value.addServantFamilyFormKey[index - 1].currentState?.validate() ?? true) {
+                                                            controller.servantFamilyImages.add(File(""));
+                                                            controller.servantFormDataModel.data?.servantFamilyDetail?.add(ServantFamilyDetail());
+                                                            _value.addServantFamilyFormKey.add(GlobalKey<FormState>());
+                                                            controller.update();
+                                                          }
+                                                        } else {
+                                                          _value.addServantFamilyFormKey.add(GlobalKey<FormState>());
+                                                          await controller.addServantFamily(index - 1);
+                                                        }
+                                                      },
+                                                    ),
+                                                  );
+                                                }
                                                 ServantFamilyDetail? detail;
-                                                if ((controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0) > 0) {
+                                                if ((controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0) > 0 &&
+                                                    index < (controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0)) {
                                                   detail = controller.servantFormDataModel.data?.servantFamilyDetail?[index];
                                                 }
 
-                                                return Column(
-                                                  children: [
-                                                    if (index != 0)
-                                                      if (args['status'] != Constants.formStatusPending)
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.end,
-                                                          children: [
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  if (args['status'] == Constants.formStatusRejected) {
-                                                                    controller.servantFormDataModel.data?.servantFamilyDetail?.removeAt(index);
-                                                                    controller.servantFamilyImages.removeAt(index);
-                                                                  } else {
-                                                                    controller.serventfamfullNameControllers.removeAt(index);
-                                                                  }
-                                                                });
-                                                              },
-                                                              child: Container(
-                                                                  margin: EdgeInsets.only(right: 15),
-                                                                  padding: EdgeInsets.all(8),
-                                                                  decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                  child: Icon(
-                                                                    Icons.delete_outlined,
-                                                                    color: Colors.white,
-                                                                  )),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                    CustomTextField(
-                                                        enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Full Name".tr,
-                                                        controller: isEditable
-                                                            ? detail?.familyNameController
-                                                            : controller.serventfamfullNameControllers[index],
-                                                        isFinal: false,
-                                                        keyboardType: TextInputType.emailAddress,
-                                                        limit: HelperFunction.EMAIL_VALIDATION,
-                                                        validator: (value) {
-                                                          return HelperFunction.validateAlphabetsOnly(value!);
-                                                        }),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    CustomTextField(
-                                                        enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Occupation".tr,
-                                                        controller: isEditable
-                                                            ? detail?.familyOccupationController
-                                                            : controller.serventfamoccutionControllers[index],
-                                                        isFinal: false,
-                                                        keyboardType: TextInputType.emailAddress,
-                                                        limit: HelperFunction.EMAIL_VALIDATION,
-                                                        validator: (value) {
-                                                          return HelperFunction.validateAlphabetsOnly(value!);
-                                                        }),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "N.I.C / FORM ‘B’".tr,
-                                                              controller: isEditable
-                                                                  ? detail?.familyNicController
-                                                                  : controller.serventfamCnicControllers[index],
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.phone,
-                                                              inputFormatters: [
-                                                                FilteringTextInputFormatter.digitsOnly,
-                                                                TextInputFormatterWithPattern('#####-#######-#'),
-                                                              ],
-                                                              limit: HelperFunction.EMAIL_VALIDATION,
-                                                              validator: (value) {
-                                                                return HelperFunction.cnicValidator(value!);
-                                                              }),
-                                                        ),
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "Mobile number".tr,
-                                                              controller: isEditable
-                                                                  ? detail?.familyCellController
-                                                                  : controller.serventfamMobControllers[index],
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.phone,
-                                                              validator: (value) {
-                                                                return HelperFunction.validatePakistaniPhoneNumber(value!);
-                                                              }),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    CustomTextField(
-                                                        enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Present Address".tr,
-                                                        controller: isEditable
-                                                            ? detail?.familyAddressController
-                                                            : controller.serventfampresentAddControllers[index],
-                                                        isFinal: false,
-                                                        keyboardType: TextInputType.emailAddress,
-                                                        limit: HelperFunction.EMAIL_VALIDATION,
-                                                        validator: (value) {
-                                                          return HelperFunction.empthyFieldValidator(value!);
-                                                        }),
-                                                    SizedBox(
-                                                      height: getVerticalSize(15),
-                                                    ),
-                                                    if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: Container(
-                                                              width: getHorizontalSize(350),
-                                                              color: ColorConstant.whiteA700,
-                                                              child: CustomImageView(
-                                                                url: controller.servantFormDataModel.data?.servantFamilyDetail?[index].attachment ??
-                                                                    "",
+                                                return Form(
+                                                  key: controller.addServantFamilyFormKey[index],
+                                                  child: Column(
+                                                    children: [
+                                                      if (index != 0)
+                                                        if (args['status'] != Constants.formStatusPending)
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                            children: [
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    if (args['status'] == Constants.formStatusRejected) {
+                                                                      controller.servantFamilyImages.removeAt(index);
+                                                                      controller.servantFormDataModel.data?.servantFamilyDetail?.removeAt(index);
+                                                                      controller.servantFamilyImages.removeAt(index);
+                                                                    } else {
+                                                                      controller.serventfamfullNameControllers.removeAt(index);
+                                                                    }
+                                                                  });
+                                                                },
+                                                                child: Container(
+                                                                    margin: EdgeInsets.only(right: 15, top: 10),
+                                                                    padding: EdgeInsets.all(8),
+                                                                    decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                    child: Icon(
+                                                                      Icons.delete_outlined,
+                                                                      color: Colors.white,
+                                                                    )),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
-                                                          5.verticalSpace,
+                                                      CustomTextField(
+                                                          enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                          fieldText: "Full Name".tr,
+                                                          controller: args['status'] == Constants.formStatusRejected
+                                                              ? detail?.familyNameController
+                                                              : controller.serventfamfullNameControllers[index],
+                                                          isFinal: false,
+                                                          keyboardType: TextInputType.emailAddress,
+                                                          limit: HelperFunction.EMAIL_VALIDATION,
+                                                          validator: (value) {
+                                                            return HelperFunction.validateAlphabetsOnly(value!);
+                                                          }),
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
+                                                      ),
+                                                      CustomTextField(
+                                                          enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                          fieldText: "Occupation".tr,
+                                                          controller: args['status'] == Constants.formStatusRejected
+                                                              ? detail?.familyOccupationController
+                                                              : controller.serventfamoccutionControllers[index],
+                                                          isFinal: false,
+                                                          keyboardType: TextInputType.emailAddress,
+                                                          limit: HelperFunction.EMAIL_VALIDATION,
+                                                          validator: (value) {
+                                                            return HelperFunction.validateAlphabetsOnly(value!);
+                                                          }),
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                fieldText: "N.I.C / FORM ‘B’".tr,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.familyNicController
+                                                                    : controller.serventfamCnicControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.phone,
+                                                                inputFormatters: [
+                                                                  FilteringTextInputFormatter.digitsOnly,
+                                                                  TextInputFormatterWithPattern('#####-#######-#'),
+                                                                ],
+                                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                                validator: (value) {
+                                                                  return HelperFunction.cnicValidator(value!);
+                                                                }),
+                                                          ),
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                fieldText: "Mobile number".tr,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.familyCellController
+                                                                    : controller.serventfamMobControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.phone,
+                                                                validator: (value) {
+                                                                  return HelperFunction.validatePakistaniPhoneNumber(value!);
+                                                                }),
+                                                          ),
                                                         ],
                                                       ),
-                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: CustomButton(
-                                                          width: getHorizontalSize(350),
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorConstant.whiteA700,
-                                                          label: "Attach clear image of servant".tr,
-                                                          textColor: ColorConstant.anbtnBlue,
-                                                          borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: controller.servantFamilyImages[index].path == "" ||
-                                                                  controller.servantFamilyImages[index].isBlank!
-                                                              ? Icon(
-                                                                  Icons.add_circle_outline,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                )
-                                                              : Icon(
-                                                                  Icons.check_circle_sharp,
-                                                                  color: ColorConstant.anbtnBlue,
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
+                                                      ),
+                                                      CustomTextField(
+                                                          enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                          fieldText: "Present Address".tr,
+                                                          controller: args['status'] == Constants.formStatusRejected
+                                                              ? detail?.familyAddressController
+                                                              : controller.serventfampresentAddControllers[index],
+                                                          isFinal: false,
+                                                          keyboardType: TextInputType.emailAddress,
+                                                          limit: HelperFunction.EMAIL_VALIDATION,
+                                                          validator: (value) {
+                                                            return HelperFunction.empthyFieldValidator(value!);
+                                                          }),
+                                                      SizedBox(
+                                                        height: getVerticalSize(15),
+                                                      ),
+                                                      if (args['status'] != "")
+                                                        if (controller.servantFamilyImages[index].path.isEmpty ||
+                                                            !controller.servantFamilyImages[index].path.startsWith("http"))
+                                                          SizedBox.shrink()
+                                                        else
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                                              5.verticalSpace,
+                                                              Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    url: controller
+                                                                            .servantFormDataModel.data?.servantFamilyDetail?[index].attachment ??
+                                                                        "",
+                                                                  ),
                                                                 ),
-                                                          onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                              ),
+                                                              5.verticalSpace,
+                                                            ],
+                                                          ),
+                                                      if (args['status'] == Constants.formStatusRejected || args['status'] == "")
+                                                        Padding(
+                                                          padding: getPadding(left: 10, right: 10),
+                                                          child: CustomButton(
+                                                            width: getHorizontalSize(350),
+                                                            fontSize: 12.sp,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: ColorConstant.whiteA700,
+                                                            label: "Attach clear image of servant".tr,
+                                                            textColor: ColorConstant.anbtnBlue,
+                                                            borderColor: ColorConstant.anbtnBlue,
+                                                            prefix: controller.servantFamilyImages[index].path == "" ||
+                                                                    controller.servantFamilyImages[index].isBlank!
+                                                                ? Icon(
+                                                                    Icons.add_circle_outline,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                  )
+                                                                : Icon(
+                                                                    Icons.check_circle_sharp,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                  ),
+                                                            onPressed: () async {
+                                                              final result = await controller.picker.pickImage(source: ImageSource.gallery);
 
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.servantFamilyImages[index] = File(result.path);
-                                                              });
-                                                            }
-                                                          },
-                                                        ),
-                                                      ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(15),
-                                                    ),
-                                                    if (args['status'] == Constants.formStatusRejected)
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: MyAnimatedButton(
-                                                          radius: 5.0,
-                                                          height: getVerticalSize(50),
-                                                          width: getHorizontalSize(400),
-                                                          fontSize: 16,
-                                                          bgColor: ColorConstant.anbtnBlue,
-                                                          controller: _value.btnControllerUseLess,
-                                                          title: "Add Family Member".tr,
-                                                          onTap: () async {
-                                                            if (args['status'] == Constants.formStatusRejected) {
-                                                              controller.servantFamilyImages.add(File(""));
-                                                              controller.servantFormDataModel.data?.servantFamilyDetail?.add(ServantFamilyDetail());
-                                                              controller.update();
-                                                            } else {
-                                                              if (controller.servantFamilyImages.isEmpty) {
-                                                                Utils.showToast("Please select servant family images", true);
-                                                              } else {
-                                                                await controller.addServantFamily(index);
+                                                              if (result != null) {
+                                                                setState(() {
+                                                                  controller.servantFamilyImages[index] = File(result.path);
+                                                                });
                                                               }
-                                                            }
-                                                          },
+                                                            },
+                                                          ),
                                                         ),
-                                                      ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(20),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 );
                                               },
-                                            )
-                                          ],
-                                        ),
+                                            ),
+                                          )
+                                        ],
                                       );
                                     }),
                                 SizedBox(

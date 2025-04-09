@@ -118,6 +118,8 @@ class ServentFormsController extends GetxController {
   Street? servantstreetSelectedValue;
   Plots? servantplotstSelectedValue;
 
+  String isFamilyResiding = "";
+
   int? selectedValue;
   Street? streetSelectedValue;
   Plots? plotstSelectedValue;
@@ -143,6 +145,11 @@ class ServentFormsController extends GetxController {
     {"id": 17, "title": "NS-5"},
     {"id": 18, "title": "NS-3"},
   ];
+
+  updateFamilyStatus(value) {
+    isFamilyResiding = value;
+    update();
+  }
 
   List<Street> streets = [];
   List<Plots> plots = [];
@@ -230,6 +237,10 @@ class ServentFormsController extends GetxController {
   }
 
   getEntryFormsDetails(id) {
+    servantImages.clear();
+    servantCnicFronts.clear();
+    servantCnicBacks.clear();
+    servantFamilyImages.clear();
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
@@ -266,18 +277,26 @@ class ServentFormsController extends GetxController {
               servantImages.add(File(element.servantImage!));
               servantCnicFronts.add(File(element.servantCnicFront!));
               servantCnicBacks.add(File(element.servantCnicBack!));
+              addServantFormKey.add(GlobalKey<FormState>());
             }
             servantDataIndex = servantFormDataModel.data?.servantDetail?.length ?? 0;
 
-            for (var element in servantFormDataModel.data!.servantFamilyDetail!) {
-              serventfamfullNameControllers.add(TextEditingController(text: element.familyName));
-              serventfamoccutionControllers.add(TextEditingController(text: element.familyOccupation));
-              serventfamCnicControllers.add(TextEditingController(text: element.familyNic));
-              serventfamMobControllers.add(TextEditingController(text: element.familyCell));
-              serventfampresentAddControllers.add(TextEditingController(text: element.familyAddress));
-              servantFamilyImages.add(File(element.attachment!));
+            if (servantFormDataModel.data!.servantFamilyDetail!.isNotEmpty) {
+              updateFamilyStatus("Yes");
+              for (var element in servantFormDataModel.data!.servantFamilyDetail!) {
+                serventfamfullNameControllers.add(TextEditingController(text: element.familyName));
+                serventfamoccutionControllers.add(TextEditingController(text: element.familyOccupation));
+                serventfamCnicControllers.add(TextEditingController(text: element.familyNic));
+                serventfamMobControllers.add(TextEditingController(text: element.familyCell));
+                serventfampresentAddControllers.add(TextEditingController(text: element.familyAddress));
+                servantFamilyImages.add(File(element.attachment!));
+                addServantFamilyFormKey.add(GlobalKey<FormState>());
+              }
+              servantFamilyDataIndex = servantFormDataModel.data?.servantFamilyDetail?.length ?? 0;
+            } else {
+              updateFamilyStatus("No");
             }
-            servantFamilyDataIndex = servantFormDataModel.data?.servantFamilyDetail?.length ?? 0;
+
             formsLoadingStatus.value = ApiCallStatus.success;
 
             update();
@@ -312,8 +331,8 @@ class ServentFormsController extends GetxController {
   }
 
   GlobalKey<FormState> ownerFormKeyy = GlobalKey();
-  GlobalKey<FormState> addServantFormKey = GlobalKey();
-  GlobalKey<FormState> addServantFamilyFormKey = GlobalKey();
+  List<GlobalKey<FormState>> addServantFormKey = [GlobalKey<FormState>()];
+  List<GlobalKey<FormState>> addServantFamilyFormKey = [GlobalKey<FormState>()];
 
   Map<String, dynamic> servantData = {};
   int servantDataIndex = 0;
@@ -323,7 +342,7 @@ class ServentFormsController extends GetxController {
     ownerSignatureController?.text = fullNameController.text;
     update();
 
-    final formState = addServantFormKey.currentState;
+    final formState = addServantFormKey[index].currentState;
     if (formState!.validate()) {
       addServantControllers();
       servantData['servant_name[$servantDataIndex]'] = serventfullNameControllers[index].text;
@@ -582,7 +601,7 @@ class ServentFormsController extends GetxController {
   // }
 
   addServantFamily(index) async {
-    final formState = addServantFamilyFormKey.currentState;
+    final formState = addServantFamilyFormKey[index].currentState;
     if (formState!.validate()) {
       addServantFamControllers();
       servantData['family_name[$index]'] = serventfamfullNameControllers[index].text;

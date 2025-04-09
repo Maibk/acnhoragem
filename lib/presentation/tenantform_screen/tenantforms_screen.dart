@@ -1484,10 +1484,6 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         title: "Add Vehicle".tr,
                                                                         onTap: () async {
                                                                           controller.addvehicle(context, index);
-                                                                          //   }
-                                                                          // } else if (controller.vehicleDataIndex == 0) {
-                                                                          //   controller.addvehicle(context);
-                                                                          // }
                                                                         },
                                                                       ),
                                                                     ),

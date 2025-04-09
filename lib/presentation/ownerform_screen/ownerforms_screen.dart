@@ -33,6 +33,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
 
   final args = Get.arguments;
   bool isEditable = false;
+  int index = 0;
   @override
   initState() {
     if (args['status'] == Constants.formStatusRejected || args['status'] == "") {
@@ -545,99 +546,96 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       return Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Row(
+                                                          Column(
+                                                            mainAxisSize: MainAxisSize.min,
                                                             children: [
                                                               Padding(
-                                                                padding: getPadding(left: 10),
+                                                                padding: getPadding(left: 10, top: 20),
                                                                 child: MyText(
                                                                   title: "Allotment Letter held:",
                                                                   clr: ColorConstant.antextlightgray,
                                                                   fontSize: 14,
                                                                 ),
                                                               ),
-                                                              SizedBox(
-                                                                width: getHorizontalSize(20),
-                                                              ),
-                                                              GetBuilder(
-                                                                init: controller,
-                                                                builder: (controller) {
-                                                                  return GestureDetector(
-                                                                    behavior: HitTestBehavior.opaque,
-                                                                    onTap: () {
-                                                                      controller.updateAllotmentLetter("Yes");
+                                                              Row(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                children: [
+                                                                  GetBuilder(
+                                                                    init: controller,
+                                                                    builder: (controller) {
+                                                                      return GestureDetector(
+                                                                        behavior: HitTestBehavior.opaque,
+                                                                        onTap: () {
+                                                                          controller.updateAllotmentLetter("Yes");
+                                                                        },
+                                                                        child: Row(
+                                                                          children: [
+                                                                            controller.alottmentletter == "Yes"
+                                                                                ? Icon(
+                                                                                    Icons.circle,
+                                                                                    color: ColorConstant.blackColor,
+                                                                                    size: 14,
+                                                                                  )
+                                                                                : Icon(
+                                                                                    Icons.circle_outlined,
+                                                                                    color: ColorConstant.blackColor,
+                                                                                    size: 14,
+                                                                                  ),
+                                                                            SizedBox(
+                                                                              width: getHorizontalSize(10),
+                                                                            ),
+                                                                            MyText(
+                                                                              title: "Yes",
+                                                                              clr: ColorConstant.antextlightgray,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
                                                                     },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        controller.alottmentletter == "Yes"
-                                                                            ? Icon(
-                                                                                Icons.circle,
-                                                                                color: ColorConstant.blackColor,
-                                                                                size: 14,
-                                                                              )
-                                                                            : Icon(
-                                                                                Icons.circle_outlined,
-                                                                                color: ColorConstant.blackColor,
-                                                                                size: 14,
-                                                                              ),
-                                                                        SizedBox(
-                                                                          width: getHorizontalSize(10),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(20),
+                                                                  ),
+                                                                  GetBuilder(
+                                                                    init: controller,
+                                                                    builder: (controller) {
+                                                                      return GestureDetector(
+                                                                        behavior: HitTestBehavior.opaque,
+                                                                        onTap: () {
+                                                                          controller.updateAllotmentLetter("No");
+                                                                          controller.allotmentletter = null;
+                                                                        },
+                                                                        child: Row(
+                                                                          children: [
+                                                                            controller.alottmentletter == "No"
+                                                                                ? Icon(
+                                                                                    Icons.circle,
+                                                                                    color: ColorConstant.blackColor,
+                                                                                    size: 14,
+                                                                                  )
+                                                                                : Icon(
+                                                                                    Icons.circle_outlined,
+                                                                                    color: ColorConstant.blackColor,
+                                                                                    size: 14,
+                                                                                  ),
+                                                                            SizedBox(
+                                                                              width: getHorizontalSize(10),
+                                                                            ),
+                                                                            MyText(
+                                                                              title: "No",
+                                                                              clr: ColorConstant.antextlightgray,
+                                                                            ),
+                                                                          ],
                                                                         ),
-                                                                        MyText(
-                                                                          title: "Yes",
-                                                                          clr: ColorConstant.antextlightgray,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              ),
-                                                              SizedBox(
-                                                                width: getHorizontalSize(20),
-                                                              ),
-                                                              GetBuilder(
-                                                                init: controller,
-                                                                builder: (controller) {
-                                                                  return GestureDetector(
-                                                                    behavior: HitTestBehavior.opaque,
-                                                                    onTap: () {
-                                                                      controller.updateAllotmentLetter("No");
-                                                                      controller.allotmentletter = null;
+                                                                      );
                                                                     },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        controller.alottmentletter == "No"
-                                                                            ? Icon(
-                                                                                Icons.circle,
-                                                                                color: ColorConstant.blackColor,
-                                                                                size: 14,
-                                                                              )
-                                                                            : Icon(
-                                                                                Icons.circle_outlined,
-                                                                                color: ColorConstant.blackColor,
-                                                                                size: 14,
-                                                                              ),
-                                                                        SizedBox(
-                                                                          width: getHorizontalSize(10),
-                                                                        ),
-                                                                        MyText(
-                                                                          title: "No",
-                                                                          clr: ColorConstant.antextlightgray,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                },
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ],
                                                           ),
                                                           SizedBox(
-                                                            height: getVerticalSize(5),
-                                                          ),
-                                                          SizedBox(
-                                                            height: getVerticalSize(5),
-                                                          ),
-                                                          SizedBox(
-                                                            height: getVerticalSize(20),
+                                                            height: getVerticalSize(10),
                                                           ),
                                                         ],
                                                       );
@@ -659,7 +657,8 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       return Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Row(
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
                                                               Padding(
                                                                 padding: getPadding(left: 10),
@@ -672,80 +671,81 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               SizedBox(
                                                                 width: getHorizontalSize(20),
                                                               ),
-                                                              GetBuilder(
-                                                                init: controller,
-                                                                builder: (controller) {
-                                                                  return GestureDetector(
-                                                                    behavior: HitTestBehavior.opaque,
-                                                                    onTap: () {
-                                                                      controller.updateCompletionCertificate("Yes");
+                                                              Row(
+                                                                children: [
+                                                                  GetBuilder(
+                                                                    init: controller,
+                                                                    builder: (controller) {
+                                                                      return GestureDetector(
+                                                                        behavior: HitTestBehavior.opaque,
+                                                                        onTap: () {
+                                                                          controller.updateCompletionCertificate("Yes");
+                                                                        },
+                                                                        child: Row(
+                                                                          children: [
+                                                                            controller.completionCertificate == "Yes"
+                                                                                ? Icon(
+                                                                                    Icons.circle,
+                                                                                    color: ColorConstant.blackColor,
+                                                                                    size: 14,
+                                                                                  )
+                                                                                : Icon(
+                                                                                    Icons.circle_outlined,
+                                                                                    color: ColorConstant.blackColor,
+                                                                                    size: 14,
+                                                                                  ),
+                                                                            SizedBox(
+                                                                              width: getHorizontalSize(10),
+                                                                            ),
+                                                                            MyText(
+                                                                              title: "Yes",
+                                                                              clr: ColorConstant.antextlightgray,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
                                                                     },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        controller.completionCertificate == "Yes"
-                                                                            ? Icon(
-                                                                                Icons.circle,
-                                                                                color: ColorConstant.blackColor,
-                                                                                size: 14,
-                                                                              )
-                                                                            : Icon(
-                                                                                Icons.circle_outlined,
-                                                                                color: ColorConstant.blackColor,
-                                                                                size: 14,
-                                                                              ),
-                                                                        SizedBox(
-                                                                          width: getHorizontalSize(10),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(20),
+                                                                  ),
+                                                                  GetBuilder(
+                                                                    init: controller,
+                                                                    builder: (controller) {
+                                                                      return GestureDetector(
+                                                                        behavior: HitTestBehavior.opaque,
+                                                                        onTap: () {
+                                                                          controller.updateCompletionCertificate("No");
+                                                                          controller.certificate = null;
+                                                                        },
+                                                                        child: Row(
+                                                                          children: [
+                                                                            controller.completionCertificate == "No"
+                                                                                ? Icon(
+                                                                                    Icons.circle,
+                                                                                    color: ColorConstant.blackColor,
+                                                                                    size: 14,
+                                                                                  )
+                                                                                : Icon(
+                                                                                    Icons.circle_outlined,
+                                                                                    color: ColorConstant.blackColor,
+                                                                                    size: 14,
+                                                                                  ),
+                                                                            SizedBox(
+                                                                              width: getHorizontalSize(10),
+                                                                            ),
+                                                                            MyText(
+                                                                              title: "No",
+                                                                              clr: ColorConstant.antextlightgray,
+                                                                            ),
+                                                                          ],
                                                                         ),
-                                                                        MyText(
-                                                                          title: "Yes",
-                                                                          clr: ColorConstant.antextlightgray,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              ),
-                                                              SizedBox(
-                                                                width: getHorizontalSize(20),
-                                                              ),
-                                                              GetBuilder(
-                                                                init: controller,
-                                                                builder: (controller) {
-                                                                  return GestureDetector(
-                                                                    behavior: HitTestBehavior.opaque,
-                                                                    onTap: () {
-                                                                      controller.updateCompletionCertificate("No");
-                                                                      controller.certificate = null;
+                                                                      );
                                                                     },
-                                                                    child: Row(
-                                                                      children: [
-                                                                        controller.completionCertificate == "No"
-                                                                            ? Icon(
-                                                                                Icons.circle,
-                                                                                color: ColorConstant.blackColor,
-                                                                                size: 14,
-                                                                              )
-                                                                            : Icon(
-                                                                                Icons.circle_outlined,
-                                                                                color: ColorConstant.blackColor,
-                                                                                size: 14,
-                                                                              ),
-                                                                        SizedBox(
-                                                                          width: getHorizontalSize(10),
-                                                                        ),
-                                                                        MyText(
-                                                                          title: "No",
-                                                                          clr: ColorConstant.antextlightgray,
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              ),
+                                                                  ),
+                                                                ],
+                                                              ).paddingOnly(left: 20),
                                                             ],
-                                                          ),
-                                                          SizedBox(
-                                                            height: getVerticalSize(20),
                                                           ),
                                                         ],
                                                       );
@@ -789,7 +789,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         mainAxisAlignment: MainAxisAlignment.start,
                                                         children: [
-                                                          Row(
+                                                          Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
                                                               Padding(
@@ -801,7 +801,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 ),
                                                               ),
                                                               SizedBox(
-                                                                width: getHorizontalSize(20),
+                                                                height: getVerticalSize(10),
                                                               ),
                                                               Column(
                                                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -880,7 +880,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                     },
                                                                   ),
                                                                 ],
-                                                              ),
+                                                              ).paddingOnly(left: 12),
                                                             ],
                                                           ),
                                                           SizedBox(
@@ -1203,14 +1203,61 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                   ),
                                                   controller.hasVehicle == "Yes"
                                                       ? ListView.builder(
+                                                          // shrinkWrap: true,
+                                                          // physics: NeverScrollableScrollPhysics(),
+                                                          // itemCount: args['status'] != ""
+                                                          //     ? controller.ownerFormModel.data?.vehicle?.length ?? 0
+                                                          //     : controller.vehicleTypeControllers.length == 0
+                                                          //         ? 1
+                                                          //         : controller.vehicleTypeControllers.length,
+                                                          // itemBuilder: (context, index) {
+
                                                           shrinkWrap: true,
-                                                          physics: NeverScrollableScrollPhysics(),
+                                                          padding: EdgeInsets.zero,
                                                           itemCount: args['status'] != ""
-                                                              ? controller.ownerFormModel.data?.vehicle?.length ?? 0
-                                                              : controller.vehicleTypeControllers.length == 0
-                                                                  ? 1
-                                                                  : controller.vehicleTypeControllers.length,
+                                                              ? (controller.ownerFormModel.data?.vehicle?.length ?? 0) +
+                                                                  (args['status'] == Constants.formStatusRejected ? 1 : 0)
+                                                              : controller.vehicleTypeControllers.length + 1,
                                                           itemBuilder: (context, index) {
+                                                            bool isLastIndex = index ==
+                                                                (args['status'] != ""
+                                                                    ? (controller.ownerFormModel.data?.vehicle?.length ?? 0)
+                                                                    : controller.vehicleTypeControllers.length);
+
+                                                            if (isLastIndex &&
+                                                                (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
+                                                              return Padding(
+                                                                padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
+                                                                child: MyAnimatedButton(
+                                                                  radius: 5.0,
+                                                                  height: getVerticalSize(50),
+                                                                  width: getHorizontalSize(400),
+                                                                  fontSize: 16,
+                                                                  bgColor: ColorConstant.anbtnBlue,
+                                                                       controller: controller.uselessbtnController,
+                                                                  title: "Add Vehicle".tr,
+                                                                  onTap: () async {
+                                                                    if (args['status'] == Constants.formStatusRejected) {
+                                                                      if (controller.addVehicleFormKey[index - 1].currentState?.validate() ?? true) {
+                                                                        controller.ownerFormModel.data?.vehicle?.add(vehicle());
+                                                                        controller.addVehicleFormKey.add(GlobalKey());
+                                                                        controller.update();
+                                                                      }
+                                                                    } else {
+                                                                      controller.addVehicleFormKey.add(GlobalKey());
+
+                                                                      controller.addVehicle(index - 1);
+                                                                    }
+                                                                  },
+                                                                ),
+                                                              );
+                                                            }
+                                                            vehicle? detail;
+                                                            if ((controller.ownerFormModel.data?.vehicle?.length ?? 0) > 0 &&
+                                                                index < (controller.ownerFormModel.data?.vehicle?.length ?? 0)) {
+                                                              detail = controller.ownerFormModel.data?.vehicle?[index];
+                                                            }
+
                                                             return Column(
                                                               children: [
                                                                 if (index != 0)

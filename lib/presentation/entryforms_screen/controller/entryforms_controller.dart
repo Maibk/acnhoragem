@@ -146,6 +146,12 @@ class EntryFormsController extends GetxController {
   }
 
   getEntryFormsDetails(id) {
+    spouseImages.clear();
+    spouseCnicsfronts.clear();
+    spouseCnicBacks.clear();
+    childImages.clear();
+    childCnicsfronts.clear();
+    childCnicBacks.clear();
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
@@ -180,6 +186,7 @@ class EntryFormsController extends GetxController {
               spouseImages.add(File(element.spouseImage!));
               spouseCnicsfronts.add(File(element.spouseCnicFront!));
               spouseCnicBacks.add(File(element.spouseCnicBack!));
+              spouseEntryFormKey.add(GlobalKey<FormState>());
             }
             spouseDataIndex = entryFormDataModel.data?.spouseDetail?.length ?? 0;
 
@@ -197,6 +204,7 @@ class EntryFormsController extends GetxController {
               childImages.add(File(element.childImage!));
               childCnicsfronts.add(File(element.childCnicFront!));
               childCnicBacks.add(File(element.childCnicBack!));
+              childEntryFormKey.add(GlobalKey<FormState>());
             }
             childDataIndex = entryFormDataModel.data?.childDetail?.length ?? 0;
             formsLoadingStatus.value = ApiCallStatus.success;
@@ -291,11 +299,12 @@ class EntryFormsController extends GetxController {
   }
 
   Map<String, dynamic> EntryFormData = {};
-  GlobalKey<FormState> spouseEntryFormKey = GlobalKey();
+  // GlobalKey<FormState> spouseEntryFormKey = GlobalKey();
+  List<GlobalKey<FormState>> spouseEntryFormKey = [GlobalKey<FormState>()];
   int spouseDataIndex = 0;
 
   Future<void> spouseEntryFormAPi(context, index) async {
-    final formState = spouseEntryFormKey.currentState;
+    final formState = spouseEntryFormKey[index].currentState;
     if (formState!.validate()) {
       addSpouse();
       Utils.check().then((value) async {
@@ -395,45 +404,6 @@ class EntryFormsController extends GetxController {
       getUrlFromModel: (user) => user.spouseImage ?? "",
     );
 
-    // if (spouseImages.isNotEmpty) {
-    //   bool hasEmptyPath = spouseImages.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //       EntryFormData['spouse_image[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseImage ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < spouseImages.length; i++) {
-    //       EntryFormData['spouse_image[$i]'] = await _dio.MultipartFile.fromFile(
-    //         spouseImages[i].path,
-    //         filename: spouseImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //     EntryFormData['spouse_image[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseImage ?? "");
-    //   }
-    // }
-
-    // if (spouseImages.isNotEmpty) {
-    //   for (var i = 0; i < spouseImages.length; i++) {
-    //     if (spouseImages[i].path.toString() == "") {
-    //     } else {
-    //       EntryFormData['spouse_image[$i]'] = await _dio.MultipartFile.fromFile(
-    //         spouseImages[i].path,
-    //         filename: spouseImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //     EntryFormData['spouse_image[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseImage ?? "");
-    //   }
-    // }
-
     await prepareMultipartList(
       imageList: spouseCnicsfronts,
       userDetails: userDetails,
@@ -442,66 +412,6 @@ class EntryFormsController extends GetxController {
       getUrlFromModel: (user) => user.spouseCnicFront ?? "",
     );
 
-    // if (spouseCnicsfronts.isNotEmpty) {
-    //   bool hasEmptyPath = spouseCnicsfronts.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //       EntryFormData['spouse_cnic_front[$i]'] =
-    //           await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseCnicFront ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < spouseCnicsfronts.length; i++) {
-    //       EntryFormData['spouse_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-    //         spouseCnicsfronts[i].path,
-    //         filename: spouseCnicsfronts[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //     EntryFormData['spouse_cnic_front[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseCnicFront ?? "");
-    //   }
-    // }
-
-    // if (spouseCnicsfronts.isNotEmpty  ) {
-    //   for (var i = 0; i < spouseCnicsfronts.length; i++) {
-    //     if (spouseCnicsfronts[i].path.toString() == "") {
-    //     } else {
-    //       EntryFormData['spouse_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-    //         spouseCnicsfronts[i].path,
-    //         filename: spouseCnicsfronts[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //     EntryFormData['spouse_cnic_front[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseCnicFront ?? "");
-    //   }
-    // }
-
-    // if (spouseCnicBacks.isNotEmpty) {
-    //   for (var i = 0; i < spouseCnicBacks.length; i++) {
-    //     if (spouseCnicBacks[i].path.toString() == "") {
-    //     } else {
-    //       EntryFormData['spouse_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
-    //         spouseCnicBacks[i].path,
-    //         filename: spouseCnicBacks[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //     EntryFormData['spouse_cnic_back[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseCnicBack ?? "");
-    //   }
-    // }
-
     await prepareMultipartList(
       imageList: spouseCnicBacks,
       userDetails: userDetails,
@@ -509,38 +419,15 @@ class EntryFormsController extends GetxController {
       keyPrefix: 'spouse_cnic_back',
       getUrlFromModel: (user) => user.spouseCnicBack ?? "",
     );
-
-    // if (spouseCnicBacks.isNotEmpty) {
-    //   bool hasEmptyPath = spouseCnicBacks.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //       EntryFormData['spouse_cnic_back[$i]'] =
-    //           await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseCnicBack ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < spouseCnicBacks.length; i++) {
-    //       EntryFormData['spouse_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
-    //         spouseCnicBacks[i].path,
-    //         filename: spouseCnicBacks[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.spouseDetail!.length; i++) {
-    //     EntryFormData['spouse_cnic_back[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.spouseDetail![i].spouseCnicBack ?? "");
-    //   }
-    // }
   }
 
-  GlobalKey<FormState> childEntryFormKey = GlobalKey();
+  // GlobalKey<FormState> childEntryFormKey = GlobalKey();
+  List<GlobalKey<FormState>> childEntryFormKey = [GlobalKey<FormState>()];
 
   int childDataIndex = 0;
 
   Future<void> childEntryFormAPi(context, index) async {
-    final formState = childEntryFormKey.currentState;
+    final formState = childEntryFormKey[index].currentState;
 
     if (formState!.validate()) {
       addChild();
@@ -668,63 +555,6 @@ class EntryFormsController extends GetxController {
       getUrlFromModel: (user) => user.childImage ?? "",
     );
 
-    // if (childImages.isNotEmpty) {
-    //   bool hasEmptyPath = childImages.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //       EntryFormData['child_image[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childImage ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < childImages.length; i++) {
-    //       EntryFormData['child_image[$i]'] = await _dio.MultipartFile.fromFile(
-    //         childImages[i].path,
-    //         filename: childImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //     EntryFormData['child_image[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childImage ?? "");
-    //   }
-    // }
-
-    // if (childImages.isNotEmpty) {
-    //   for (var i = 0; i < childImages.length; i++) {
-    //     if (childImages[i].path.toString() == "") {
-    //     } else {
-    //       EntryFormData['child_image[$i]'] = await _dio.MultipartFile.fromFile(
-    //         childImages[i].path,
-    //         filename: childImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //     EntryFormData['child_image[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childImage ?? "");
-    //   }
-    // }
-
-    // if (childCnicsfronts.isNotEmpty) {
-    //   for (var i = 0; i < childCnicsfronts.length; i++) {
-    //     if (childCnicsfronts[i].path.toString() == "") {
-    //     } else {
-    //       EntryFormData['child_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-    //         childCnicsfronts[i].path,
-    //         filename: childCnicsfronts[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //     EntryFormData['child_cnic_front[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childCnicFront ?? "");
-    //   }
-    // }
-
     await prepareMultipartList(
       imageList: childCnicsfronts,
       userDetails: userDetails,
@@ -733,47 +563,6 @@ class EntryFormsController extends GetxController {
       getUrlFromModel: (user) => user.childCnicFront ?? "",
     );
 
-    // if (childCnicsfronts.isNotEmpty) {
-    //   bool hasEmptyPath = childCnicsfronts.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //       EntryFormData['child_cnic_front[$i]'] =
-    //           await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childCnicFront ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < childCnicsfronts.length; i++) {
-    //       EntryFormData['child_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-    //         childCnicsfronts[i].path,
-    //         filename: childCnicsfronts[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //     EntryFormData['child_cnic_front[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childCnicFront ?? "");
-    //   }
-    // }
-
-    // if (childCnicBacks.isNotEmpty) {
-    //   for (var i = 0; i < childCnicBacks.length; i++) {
-    //     if (childCnicBacks[i].path.toString() == "") {
-    //     } else {
-    //       EntryFormData['child_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
-    //         childCnicBacks[i].path,
-    //         filename: childCnicBacks[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //     EntryFormData['child_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childCnicBack ?? "");
-    //   }
-    // }
-
     await prepareMultipartList(
       imageList: childCnicBacks,
       userDetails: userDetails,
@@ -781,29 +570,6 @@ class EntryFormsController extends GetxController {
       keyPrefix: 'child_cnic_back',
       getUrlFromModel: (user) => user.childCnicBack ?? "",
     );
-
-    // if (childCnicBacks.isNotEmpty) {
-    //   bool hasEmptyPath = childCnicBacks.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //       EntryFormData['child_cnic_back[$i]'] =
-    //           await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childCnicBack ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < childCnicBacks.length; i++) {
-    //       EntryFormData['child_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
-    //         childCnicBacks[i].path,
-    //         filename: childCnicBacks[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
-    //     EntryFormData['child_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data!.childDetail![i].childCnicBack ?? "");
-    //   }
-    // }
   }
 
   GlobalKey<FormState> EntryCardFormKey = GlobalKey();

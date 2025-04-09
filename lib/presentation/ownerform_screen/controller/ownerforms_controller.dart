@@ -146,11 +146,12 @@ class OwnerFornsScreenController extends GetxController {
 
   Map<String, dynamic> ownerFormdata = {};
 
-  GlobalKey<FormState> vehicleFormKey = GlobalKey();
+  // GlobalKey<FormState> vehicleFormKey = GlobalKey();
+  List<GlobalKey<FormState>> vehicleFormKey = [GlobalKey<FormState>()];
   int vehicleDataIndex = 0;
 
   Future<void> addvehicle(contex, index) async {
-    final formState = vehicleFormKey.currentState;
+    final formState = vehicleFormKey[index].currentState;
 
     if (formState!.validate()) {
       Utils.check().then((value) async {
@@ -289,11 +290,11 @@ class OwnerFornsScreenController extends GetxController {
     log(country.toString());
   }
 
-  Future<void> ownerFormApi(context) async {
+  Future<void> ownerFormApi(context, index) async {
     final formState = formKey.currentState;
     if (formState!.validate()) {
       if (hasVehicle == "Yes") {
-        if (vehicleFormKey.currentState!.validate()) {
+        if (vehicleFormKey[index].currentState!.validate()) {
           Utils.check().then((value) async {
             Map<String, dynamic> data = {
               'name': fullNameController.text,

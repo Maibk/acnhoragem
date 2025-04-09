@@ -79,7 +79,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
           centerTitle: true,
           leading: InkWell(
               onTap: () {
-                Get.toNamed(AppRoutes.myformsPage);
+                Get.offAllNamed(AppRoutes.myformsPage);
               },
               child: Icon(
                 Icons.arrow_back_ios,
@@ -311,7 +311,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                       fontWeight: FontWeight.w400,
                                                                     ),
                                                                   )
-                                                                : Text(controller.selectedValue.toString()),
+                                                                : Text(controller.streetSelectedValue!.title.toString()),
                                                             value: controller.streetSelectedValue,
                                                             items: controller.streets.map((item) {
                                                               return DropdownMenuItem<Street>(
@@ -555,30 +555,65 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                 GetBuilder(
                                     init: controller,
                                     builder: (context) {
-                                      return Form(
-                                        key: controller.spouseEntryFormKey,
-                                        child: CustomExpansionTile(
-                                          title: MyText(
-                                            title: 'Spouse',
-                                            clr: ColorConstant.black900,
-                                            fontSize: 16,
-                                          ),
-                                          children: <Widget>[
-                                            ListView.builder(
-                                              shrinkWrap: true,
-                                              physics: NeverScrollableScrollPhysics(),
-                                              itemCount: args['status'] != ""
-                                                  ? controller.entryFormDataModel.data?.spouseDetail?.length ?? 0
-                                                  : controller.spousefullNameControllers.length == 0
-                                                      ? 1
-                                                      : controller.spousefullNameControllers.length,
-                                              itemBuilder: (context, index) {
-                                                SpouseDetail? detail;
-                                                if ((controller.entryFormDataModel.data?.spouseDetail?.length ?? 0) > 0) {
-                                                  detail = controller.entryFormDataModel.data?.spouseDetail?[index];
-                                                }
+                                      return CustomExpansionTile(
+                                        title: MyText(
+                                          title: 'Spouse',
+                                          clr: ColorConstant.black900,
+                                          fontSize: 16,
+                                        ),
+                                        children: <Widget>[
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            padding: EdgeInsets.zero,
+                                            itemCount: args['status'] != ""
+                                                ? (controller.entryFormDataModel.data?.spouseDetail?.length ?? 0) +
+                                                    (args['status'] == Constants.formStatusRejected ? 1 : 0)
+                                                : controller.spousefullNameControllers.length + 1,
+                                            itemBuilder: (context, index) {
+                                              bool isLastIndex = index ==
+                                                  (args['status'] != ""
+                                                      ? (controller.entryFormDataModel.data?.spouseDetail?.length ?? 0)
+                                                      : controller.spousefullNameControllers.length);
 
-                                                return Column(
+                                              if (isLastIndex && (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
+                                                return Padding(
+                                                  padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
+                                                  child: MyAnimatedButton(
+                                                    radius: 5.0,
+                                                    height: getVerticalSize(50),
+                                                    width: getHorizontalSize(400),
+                                                    fontSize: 16,
+                                                    bgColor: ColorConstant.anbtnBlue,
+                                                    controller: controller.btnControllerUseLess,
+                                                    title: "Add Spouse".tr,
+                                                    onTap: () async {
+                                                      if (args['status'] == Constants.formStatusRejected) {
+                                                        if (_value.spouseEntryFormKey[index - 1].currentState?.validate() ?? true) {
+                                                          controller.spouseImages.add(File(""));
+                                                          controller.spouseCnicsfronts.add(File(""));
+                                                          controller.spouseCnicBacks.add(File(""));
+                                                          controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
+                                                          _value.spouseEntryFormKey.add(GlobalKey());
+                                                          controller.update();
+                                                        }
+                                                      } else {
+                                                        _value.spouseEntryFormKey.add(GlobalKey());
+                                                        controller.spouseEntryFormAPi(context, index - 1);
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              }
+                                              SpouseDetail? detail;
+                                              if ((controller.entryFormDataModel.data?.spouseDetail?.length ?? 0) > 0 &&
+                                                  index < (controller.entryFormDataModel.data?.spouseDetail?.length ?? 0)) {
+                                                detail = controller.entryFormDataModel.data?.spouseDetail?[index];
+                                              }
+
+                                              return Form(
+                                                key: controller.spouseEntryFormKey[index],
+                                                child: Column(
                                                   children: [
                                                     if (index != 0)
                                                       if (args['status'] != Constants.formStatusPending)
@@ -589,6 +624,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               onTap: () {
                                                                 setState(() {
                                                                   if (args['status'] == Constants.formStatusRejected) {
+                                                                    controller.spouseImages.removeAt(index);
+                                                                    controller.spouseCnicsfronts.removeAt(index);
+                                                                    controller.spouseCnicBacks.removeAt(index);
                                                                     controller.entryFormDataModel.data?.spouseDetail?.removeAt(index);
                                                                   } else {
                                                                     controller.spousefullNameControllers.removeAt(index);
@@ -596,7 +634,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                 });
                                                               },
                                                               child: Container(
-                                                                  margin: EdgeInsets.only(right: 15),
+                                                                  margin: EdgeInsets.only(right: 15, top: 10),
                                                                   padding: EdgeInsets.all(8),
                                                                   decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                                   child: Icon(
@@ -608,8 +646,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                     CustomTextField(
                                                         fieldText: "Full Name".tr,
-                                                        controller:
-                                                            isEditable ? detail?.spouseNameController : controller.spousefullNameControllers[index],
+                                                        controller: args['status'] == Constants.formStatusRejected
+                                                            ? detail?.spouseNameController
+                                                            : controller.spousefullNameControllers[index],
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
@@ -623,8 +662,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "CNIC No.".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.spouseCnicController : controller.spousecnicControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.spouseCnicController
+                                                                  : controller.spousecnicControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               isFinal: false,
                                                               keyboardType: TextInputType.phone,
@@ -639,7 +679,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Mobile number".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spousePhoneController
                                                                   : controller.spousemobileControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -660,7 +700,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "House/Plot".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseHouseController
                                                                   : controller.spousehouseControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -674,8 +714,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Road".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.spouseRoadController : controller.spouseroadControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.spouseRoadController
+                                                                  : controller.spouseroadControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
@@ -694,7 +735,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Street".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseStreetController
                                                                   : controller.spousestreetControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -716,7 +757,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Mohalla/Village.".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseVillageController
                                                                   : controller.spouseMohallaControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -729,8 +770,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Post Office/Thana".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.spousePoController : controller.spouseThanaControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.spousePoController
+                                                                  : controller.spouseThanaControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               isFinal: false,
                                                               keyboardType: TextInputType.text,
@@ -749,8 +791,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "City".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.spouseCityController : controller.spouseCityControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.spouseCityController
+                                                                  : controller.spouseCityControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               isFinal: false,
                                                               keyboardType: TextInputType.text,
@@ -761,7 +804,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Province".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseProvinceController
                                                                   : controller.spouseProvinceControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -943,50 +986,50 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           },
                                                         ),
                                                       ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(15),
-                                                    ),
-                                                    if (args['status'] != Constants.formStatusPending)
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: MyAnimatedButton(
-                                                          radius: 5.0,
-                                                          height: getVerticalSize(50),
-                                                          width: getHorizontalSize(400),
-                                                          fontSize: 16,
-                                                          bgColor: ColorConstant.anbtnBlue,
-                                                          controller: controller.btnControllerUseLess,
-                                                          title: "Add Spouse".tr,
-                                                          onTap: () async {
-                                                            if (controller.spouseImages.isEmpty) {
-                                                              Utils.showToast("Please select spouse Images", true);
-                                                            } else if (controller.spouseCnicsfronts.isEmpty) {
-                                                              Utils.showToast("Please select spouse cnic front images", true);
-                                                            } else if (controller.spouseCnicBacks.isEmpty) {
-                                                              Utils.showToast("Please select spouse cnic back images", true);
-                                                            } else {
-                                                              if (args['status'] == "Rejected") {
-                                                                controller.spouseImages.add(File(""));
-                                                                controller.spouseCnicsfronts.add(File(""));
-                                                                controller.spouseCnicBacks.add(File(""));
-                                                                controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
-                                                                controller.update();
-                                                              } else {
-                                                                controller.spouseEntryFormAPi(context, index);
-                                                              }
-                                                            }
-                                                          },
-                                                        ),
-                                                      ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(20),
-                                                    ),
+                                                    // SizedBox(
+                                                    //   height: getVerticalSize(15),
+                                                    // ),
+                                                    // if (args['status'] != Constants.formStatusPending)
+                                                    //   Padding(
+                                                    //     padding: getPadding(left: 10, right: 10),
+                                                    //     child: MyAnimatedButton(
+                                                    //       radius: 5.0,
+                                                    //       height: getVerticalSize(50),
+                                                    //       width: getHorizontalSize(400),
+                                                    //       fontSize: 16,
+                                                    //       bgColor: ColorConstant.anbtnBlue,
+                                                    //       controller: controller.btnControllerUseLess,
+                                                    //       title: "Add Spouse".tr,
+                                                    //       onTap: () async {
+                                                    //         if (controller.spouseImages.isEmpty) {
+                                                    //           Utils.showToast("Please select spouse Images", true);
+                                                    //         } else if (controller.spouseCnicsfronts.isEmpty) {
+                                                    //           Utils.showToast("Please select spouse cnic front images", true);
+                                                    //         } else if (controller.spouseCnicBacks.isEmpty) {
+                                                    //           Utils.showToast("Please select spouse cnic back images", true);
+                                                    //         } else {
+                                                    //           if (args['status'] == "Rejected") {
+                                                    //             controller.spouseImages.add(File(""));
+                                                    //             controller.spouseCnicsfronts.add(File(""));
+                                                    //             controller.spouseCnicBacks.add(File(""));
+                                                    //             controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
+                                                    //             controller.update();
+                                                    //           } else {
+                                                    //             controller.spouseEntryFormAPi(context, index);
+                                                    //           }
+                                                    //         }
+                                                    //       },
+                                                    //     ),
+                                                    //   ),
+                                                    // SizedBox(
+                                                    //   height: getVerticalSize(20),
+                                                    // ),
                                                   ],
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ],
                                       );
                                     }),
                                 SizedBox(
@@ -995,30 +1038,66 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                 GetBuilder(
                                     init: controller,
                                     builder: (context) {
-                                      return Form(
-                                        key: controller.childEntryFormKey,
-                                        child: CustomExpansionTile(
-                                          title: MyText(
-                                            title: 'Child',
-                                            clr: ColorConstant.black900,
-                                            fontSize: 16,
-                                          ),
-                                          children: <Widget>[
-                                            ListView.builder(
-                                              shrinkWrap: true,
-                                              physics: NeverScrollableScrollPhysics(),
-                                              itemCount: args['status'] != ""
-                                                  ? controller.entryFormDataModel.data?.childDetail?.length ?? 0
-                                                  : controller.childfullNameControllers.length == 0
-                                                      ? 1
-                                                      : controller.childfullNameControllers.length,
-                                              itemBuilder: (context, index) {
-                                                ChildDetail? detail;
-                                                if ((controller.entryFormDataModel.data?.childDetail?.length ?? 0) > 0) {
-                                                  detail = controller.entryFormDataModel.data?.childDetail?[index];
-                                                }
+                                      return CustomExpansionTile(
+                                        title: MyText(
+                                          title: 'Child',
+                                          clr: ColorConstant.black900,
+                                          fontSize: 16,
+                                        ),
+                                        children: <Widget>[
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            padding: EdgeInsets.zero,
+                                            itemCount: args['status'] != ""
+                                                ? (controller.entryFormDataModel.data?.childDetail?.length ?? 0) +
+                                                    (args['status'] == Constants.formStatusRejected ? 1 : 0)
+                                                : controller.childfullNameControllers.length + 1,
+                                            itemBuilder: (context, index) {
+                                              bool isLastIndex = index ==
+                                                  (args['status'] != ""
+                                                      ? (controller.entryFormDataModel.data?.childDetail?.length ?? 0)
+                                                      : controller.childfullNameControllers.length);
 
-                                                return Column(
+                                              if (isLastIndex && (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
+                                                return Padding(
+                                                  padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
+                                                  child: MyAnimatedButton(
+                                                    radius: 5.0,
+                                                    height: getVerticalSize(50),
+                                                    width: getHorizontalSize(400),
+                                                    fontSize: 16,
+                                                    bgColor: ColorConstant.anbtnBlue,
+                                                    controller: controller.btnControllerUseLess,
+                                                    title: "Add Child".tr,
+                                                    onTap: () async {
+                                                      if (args['status'] == Constants.formStatusRejected) {
+                                                        if (_value.childEntryFormKey[index - 1].currentState?.validate() ?? true) {
+                                                          controller.childImages.add(File(""));
+                                                          controller.childCnicsfronts.add(File(""));
+                                                          controller.childCnicBacks.add(File(""));
+                                                          controller.entryFormDataModel.data?.childDetail?.add(ChildDetail());
+                                                          _value.childEntryFormKey.add(GlobalKey<FormState>());
+                                                          controller.update();
+                                                        }
+                                                      } else {
+                                                        _value.childEntryFormKey.add(GlobalKey<FormState>());
+
+                                                        controller.childEntryFormAPi(context, index - 1);
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              }
+                                              ChildDetail? detail;
+                                              if ((controller.entryFormDataModel.data?.childDetail?.length ?? 0) > 0 &&
+                                                  index < (controller.entryFormDataModel.data?.childDetail?.length ?? 0)) {
+                                                detail = controller.entryFormDataModel.data?.childDetail?[index];
+                                              }
+
+                                              return Form(
+                                                key: controller.childEntryFormKey[index],
+                                                child: Column(
                                                   children: [
                                                     if (index != 0)
                                                       if (args['status'] != Constants.formStatusPending)
@@ -1048,8 +1127,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                     CustomTextField(
                                                         fieldText: "Full Name".tr,
-                                                        controller:
-                                                            isEditable ? detail?.childNameController : controller.childfullNameControllers[index],
+                                                        controller: args['status'] == Constants.formStatusRejected
+                                                            ? detail?.childNameController
+                                                            : controller.childfullNameControllers[index],
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
@@ -1063,8 +1143,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "CNIC No.".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.childCnicController : controller.childcnicControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.childCnicController
+                                                                  : controller.childcnicControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               isFinal: false,
                                                               inputFormatters: [
@@ -1080,7 +1161,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Mobile number".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childPhoneController
                                                                   : controller.childmobileControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -1101,8 +1182,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "House/Plot".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.childHouseController : controller.childhouseControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.childHouseController
+                                                                  : controller.childhouseControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
@@ -1115,8 +1197,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           child: CustomTextField(
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               fieldText: "Road".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.childRoadController : controller.childroadControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.childRoadController
+                                                                  : controller.childroadControllers[index],
                                                               isFinal: false,
                                                               keyboardType: TextInputType.emailAddress,
                                                               validator: (value) {
@@ -1134,7 +1217,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Street".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childStreetController
                                                                   : controller.childstreetControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -1156,7 +1239,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Mohalla/Village.".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childVillageController
                                                                   : controller.childMohallaControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -1169,8 +1252,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Post Office/Thana".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.childPoController : controller.childThanaControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.childPoController
+                                                                  : controller.childThanaControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               isFinal: false,
                                                               keyboardType: TextInputType.text,
@@ -1189,8 +1273,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "City".tr,
-                                                              controller:
-                                                                  isEditable ? detail?.childCityController : controller.childCityControllers[index],
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.childCityController
+                                                                  : controller.childCityControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               isFinal: false,
                                                               keyboardType: TextInputType.text,
@@ -1201,7 +1286,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         Expanded(
                                                           child: CustomTextField(
                                                               fieldText: "Province".tr,
-                                                              controller: isEditable
+                                                              controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childProvinceController
                                                                   : controller.childProvinceControllers[index],
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -1383,49 +1468,12 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           },
                                                         ),
                                                       ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(15),
-                                                    ),
-                                                    if (args['status'] != Constants.formStatusPending)
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: MyAnimatedButton(
-                                                          radius: 5.0,
-                                                          height: getVerticalSize(50),
-                                                          width: getHorizontalSize(400),
-                                                          fontSize: 16,
-                                                          bgColor: ColorConstant.anbtnBlue,
-                                                          controller: controller.btnControllerUseLess,
-                                                          title: "Add Child".tr,
-                                                          onTap: () async {
-                                                            if (controller.childImages.isEmpty) {
-                                                              Utils.showToast("Please select child images", true);
-                                                            } else if (controller.childCnicsfronts.isEmpty) {
-                                                              Utils.showToast("Please select child cnic front images", true);
-                                                            } else if (controller.childCnicBacks.isEmpty) {
-                                                              Utils.showToast("Please select child cnic back images", true);
-                                                            } else {
-                                                              controller.childEntryFormAPi(context, index);
-                                                              if (args['status'] == "Rejected") {
-                                                                controller.childImages.add(File(""));
-                                                                controller.childCnicsfronts.add(File(""));
-                                                                controller.childCnicBacks.add(File(""));
-                                                                controller.entryFormDataModel.data!.childDetail!.add(ChildDetail());
-                                                                log(controller.entryFormDataModel.data!.childDetail!.length.toString());
-                                                              }
-                                                            }
-                                                          },
-                                                        ),
-                                                      ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(20),
-                                                    ),
                                                   ],
-                                                );
-                                              },
-                                            )
-                                          ],
-                                        ),
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        ],
                                       );
                                     }),
                                 SizedBox(
