@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
+import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
@@ -33,7 +34,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
 
   final args = Get.arguments;
   bool isEditable = false;
-  int index = 0;
+  int vehicleFormIndex = 0;
   @override
   initState() {
     if (args['status'] == Constants.formStatusRejected || args['status'] == "") {
@@ -1107,158 +1108,158 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                       GetBuilder(
                                           init: controller,
                                           builder: (context) {
-                                            return Form(
-                                              key: controller.vehicleFormKey,
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  AbsorbPointer(
-                                                    absorbing: !isEditable,
-                                                    child: Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding: getPadding(left: 10),
-                                                          child: MyText(
-                                                            title: "VEHICLE(s) IN USE",
-                                                            clr: ColorConstant.antextlightgray,
-                                                            fontSize: 14,
-                                                          ),
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                AbsorbPointer(
+                                                  absorbing: !isEditable,
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding: getPadding(left: 10),
+                                                        child: MyText(
+                                                          title: "VEHICLE(s) IN USE",
+                                                          clr: ColorConstant.antextlightgray,
+                                                          fontSize: 14,
                                                         ),
-                                                        SizedBox(
-                                                          width: getHorizontalSize(20),
-                                                        ),
-                                                        GetBuilder(
-                                                          init: controller,
-                                                          builder: (controller) {
-                                                            return GestureDetector(
-                                                              behavior: HitTestBehavior.opaque,
-                                                              onTap: () {
-                                                                controller.updateVehicle("Yes");
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  controller.hasVehicle == "Yes"
-                                                                      ? Icon(
-                                                                          Icons.circle,
-                                                                          color: ColorConstant.blackColor,
-                                                                          size: 14,
-                                                                        )
-                                                                      : Icon(
-                                                                          Icons.circle_outlined,
-                                                                          color: ColorConstant.blackColor,
-                                                                          size: 14,
-                                                                        ),
-                                                                  SizedBox(
-                                                                    width: getHorizontalSize(10),
-                                                                  ),
-                                                                  MyText(
-                                                                    title: "Yes",
-                                                                    clr: ColorConstant.antextlightgray,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                        SizedBox(
-                                                          width: getHorizontalSize(20),
-                                                        ),
-                                                        GetBuilder(
-                                                          init: controller,
-                                                          builder: (controller) {
-                                                            return GestureDetector(
-                                                              onTap: () {
-                                                                controller.updateVehicle("No");
-                                                              },
-                                                              child: Row(
-                                                                children: [
-                                                                  controller.hasVehicle == "No"
-                                                                      ? Icon(
-                                                                          Icons.circle,
-                                                                          color: ColorConstant.blackColor,
-                                                                          size: 14,
-                                                                        )
-                                                                      : Icon(
-                                                                          Icons.circle_outlined,
-                                                                          color: ColorConstant.blackColor,
-                                                                          size: 14,
-                                                                        ),
-                                                                  SizedBox(
-                                                                    width: getHorizontalSize(10),
-                                                                  ),
-                                                                  MyText(
-                                                                    title: "No",
-                                                                    clr: ColorConstant.antextlightgray,
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: getVerticalSize(5),
-                                                  ),
-                                                  controller.hasVehicle == "Yes"
-                                                      ? ListView.builder(
-                                                          // shrinkWrap: true,
-                                                          // physics: NeverScrollableScrollPhysics(),
-                                                          // itemCount: args['status'] != ""
-                                                          //     ? controller.ownerFormModel.data?.vehicle?.length ?? 0
-                                                          //     : controller.vehicleTypeControllers.length == 0
-                                                          //         ? 1
-                                                          //         : controller.vehicleTypeControllers.length,
-                                                          // itemBuilder: (context, index) {
-
-                                                          shrinkWrap: true,
-                                                          padding: EdgeInsets.zero,
-                                                          itemCount: args['status'] != ""
-                                                              ? (controller.ownerFormModel.data?.vehicle?.length ?? 0) +
-                                                                  (args['status'] == Constants.formStatusRejected ? 1 : 0)
-                                                              : controller.vehicleTypeControllers.length + 1,
-                                                          itemBuilder: (context, index) {
-                                                            bool isLastIndex = index ==
-                                                                (args['status'] != ""
-                                                                    ? (controller.ownerFormModel.data?.vehicle?.length ?? 0)
-                                                                    : controller.vehicleTypeControllers.length);
-
-                                                            if (isLastIndex &&
-                                                                (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
-                                                              return Padding(
-                                                                padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
-                                                                child: MyAnimatedButton(
-                                                                  radius: 5.0,
-                                                                  height: getVerticalSize(50),
-                                                                  width: getHorizontalSize(400),
-                                                                  fontSize: 16,
-                                                                  bgColor: ColorConstant.anbtnBlue,
-                                                                       controller: controller.uselessbtnController,
-                                                                  title: "Add Vehicle".tr,
-                                                                  onTap: () async {
-                                                                    if (args['status'] == Constants.formStatusRejected) {
-                                                                      if (controller.addVehicleFormKey[index - 1].currentState?.validate() ?? true) {
-                                                                        controller.ownerFormModel.data?.vehicle?.add(vehicle());
-                                                                        controller.addVehicleFormKey.add(GlobalKey());
-                                                                        controller.update();
-                                                                      }
-                                                                    } else {
-                                                                      controller.addVehicleFormKey.add(GlobalKey());
-
-                                                                      controller.addVehicle(index - 1);
-                                                                    }
-                                                                  },
+                                                      ),
+                                                      SizedBox(
+                                                        width: getHorizontalSize(20),
+                                                      ),
+                                                      GetBuilder(
+                                                        init: controller,
+                                                        builder: (controller) {
+                                                          return GestureDetector(
+                                                            behavior: HitTestBehavior.opaque,
+                                                            onTap: () {
+                                                              controller.updateVehicle("Yes");
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                controller.hasVehicle == "Yes"
+                                                                    ? Icon(
+                                                                        Icons.circle,
+                                                                        color: ColorConstant.blackColor,
+                                                                        size: 14,
+                                                                      )
+                                                                    : Icon(
+                                                                        Icons.circle_outlined,
+                                                                        color: ColorConstant.blackColor,
+                                                                        size: 14,
+                                                                      ),
+                                                                SizedBox(
+                                                                  width: getHorizontalSize(10),
                                                                 ),
-                                                              );
-                                                            }
-                                                            vehicle? detail;
-                                                            if ((controller.ownerFormModel.data?.vehicle?.length ?? 0) > 0 &&
-                                                                index < (controller.ownerFormModel.data?.vehicle?.length ?? 0)) {
-                                                              detail = controller.ownerFormModel.data?.vehicle?[index];
-                                                            }
+                                                                MyText(
+                                                                  title: "Yes",
+                                                                  clr: ColorConstant.antextlightgray,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                      SizedBox(
+                                                        width: getHorizontalSize(20),
+                                                      ),
+                                                      GetBuilder(
+                                                        init: controller,
+                                                        builder: (controller) {
+                                                          return GestureDetector(
+                                                            onTap: () {
+                                                              controller.updateVehicle("No");
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                controller.hasVehicle == "No"
+                                                                    ? Icon(
+                                                                        Icons.circle,
+                                                                        color: ColorConstant.blackColor,
+                                                                        size: 14,
+                                                                      )
+                                                                    : Icon(
+                                                                        Icons.circle_outlined,
+                                                                        color: ColorConstant.blackColor,
+                                                                        size: 14,
+                                                                      ),
+                                                                SizedBox(
+                                                                  width: getHorizontalSize(10),
+                                                                ),
+                                                                MyText(
+                                                                  title: "No",
+                                                                  clr: ColorConstant.antextlightgray,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: getVerticalSize(5),
+                                                ),
+                                                controller.hasVehicle == "Yes"
+                                                    ? ListView.builder(
+                                                        // shrinkWrap: true,
+                                                        // physics: NeverScrollableScrollPhysics(),
+                                                        // itemCount: args['status'] != ""
+                                                        //     ? controller.ownerFormModel.data?.vehicle?.length ?? 0
+                                                        //     : controller.vehicleTypeControllers.length == 0
+                                                        //         ? 1
+                                                        //         : controller.vehicleTypeControllers.length,
+                                                        // itemBuilder: (context, index) {
+                                                        physics: NeverScrollableScrollPhysics(),
+                                                        shrinkWrap: true,
+                                                        padding: EdgeInsets.zero,
+                                                        itemCount: args['status'] != ""
+                                                            ? (controller.ownerFormModel.data?.vehicle?.length ?? 0) +
+                                                                (args['status'] == Constants.formStatusRejected ? 1 : 0)
+                                                            : controller.vehicleTypeControllers.length + 1,
+                                                        itemBuilder: (context, index) {
+                                                          vehicleFormIndex = index;
+                                                          bool isLastIndex = index ==
+                                                              (args['status'] != ""
+                                                                  ? (controller.ownerFormModel.data?.vehicle?.length ?? 0)
+                                                                  : controller.vehicleTypeControllers.length);
 
-                                                            return Column(
+                                                          if (isLastIndex &&
+                                                              (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
+                                                            return Padding(
+                                                              padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
+                                                              child: MyAnimatedButton(
+                                                                radius: 5.0,
+                                                                height: getVerticalSize(50),
+                                                                width: getHorizontalSize(400),
+                                                                fontSize: 16,
+                                                                bgColor: ColorConstant.anbtnBlue,
+                                                                controller: controller.uselessbtnController,
+                                                                title: "Add Vehicle".tr,
+                                                                onTap: () async {
+                                                                  if (args['status'] == Constants.formStatusRejected) {
+                                                                    if (controller.vehicleFormKey[index - 1].currentState?.validate() ?? true) {
+                                                                      controller.ownerFormModel.data?.vehicle?.add(Vehicle());
+                                                                      controller.vehicleFormKey.add(GlobalKey());
+                                                                      controller.update();
+                                                                    }
+                                                                  } else {
+                                                                    controller.vehicleFormKey.add(GlobalKey());
+                                                                    controller.addvehicle(context, index - 1);
+                                                                  }
+                                                                },
+                                                              ),
+                                                            );
+                                                          }
+                                                          Vehicle? detail;
+                                                          if ((controller.ownerFormModel.data?.vehicle?.length ?? 0) > 0 &&
+                                                              index < (controller.ownerFormModel.data?.vehicle?.length ?? 0)) {
+                                                            detail = controller.ownerFormModel.data?.vehicle?[index];
+                                                          }
+
+                                                          return Form(
+                                                            key: controller.vehicleFormKey[index],
+                                                            child: Column(
                                                               children: [
                                                                 if (index != 0)
                                                                   if (args['status'] != Constants.formStatusPending)
@@ -1348,6 +1349,11 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         controller: controller.vehicleStikerControllers[index],
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
+                                                                        validator: controller.vehicleDataIndex < 1
+                                                                            ? (value) {
+                                                                                return HelperFunction.empthyFieldValidator(value!);
+                                                                              }
+                                                                            : null,
                                                                       ),
                                                                     ),
                                                                   ],
@@ -1456,32 +1462,32 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 SizedBox(
                                                                   height: getVerticalSize(15),
                                                                 ),
-                                                                if (args['status'] == "")
-                                                                  Padding(
-                                                                    padding: getPadding(left: 10, right: 10),
-                                                                    child: MyAnimatedButton(
-                                                                      radius: 5.0,
-                                                                      height: getVerticalSize(50),
-                                                                      width: getHorizontalSize(400),
-                                                                      fontSize: 16.h,
-                                                                      bgColor: ColorConstant.anbtnBlue,
-                                                                      controller: controller.uselessbtnController,
-                                                                      title: "Add Vehicle".tr,
-                                                                      onTap: () async {
-                                                                        controller.addvehicle(context, index);
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                SizedBox(
-                                                                  height: getVerticalSize(15),
-                                                                ),
+                                                                // if (args['status'] == "")
+                                                                //   Padding(
+                                                                //     padding: getPadding(left: 10, right: 10),
+                                                                //     child: MyAnimatedButton(
+                                                                //       radius: 5.0,
+                                                                //       height: getVerticalSize(50),
+                                                                //       width: getHorizontalSize(400),
+                                                                //       fontSize: 16.h,
+                                                                //       bgColor: ColorConstant.anbtnBlue,
+                                                                //       controller: controller.uselessbtnController,
+                                                                //       title: "Add Vehicle".tr,
+                                                                //       onTap: () async {
+                                                                //         controller.addvehicle(context, index);
+                                                                //       },
+                                                                //     ),
+                                                                //   ),
+                                                                // SizedBox(
+                                                                //   height: getVerticalSize(15),
+                                                                // ),
                                                               ],
-                                                            );
-                                                          },
-                                                        )
-                                                      : Column(),
-                                                ],
-                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      )
+                                                    : Column(),
+                                              ],
                                             );
                                           })
                                     ],
@@ -1681,7 +1687,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             true,
                                                           );
                                                         } else {
-                                                          controller.ownerFormApi(context);
+                                                          controller.ownerFormApi(context, vehicleFormIndex);
                                                         }
                                                       }
                                                     },
