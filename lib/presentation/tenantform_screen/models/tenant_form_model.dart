@@ -1,3 +1,5 @@
+import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
+
 class TenantFormModel {
   bool? success;
   Data? data;
@@ -109,7 +111,7 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     blockId = json['block_id'];
-    streetId = json['street_id']; 
+    streetId = json['street_id'];
     houseId = json['house_id'];
     tenantName = json['tenant_name'];
     fatherName = json['father_name'];
@@ -201,34 +203,6 @@ class Data {
     data['completion_certificate_url'] = this.completionCertificateUrl;
     data['property_user'] = this.propertyUser;
     data['status'] = this.status;
-    return data;
-  }
-}
-
-class Vehicle {
-  String? vehicleType;
-  String? registration;
-  String? color;
-  String? stickerNo;
-  String? etag;
-
-  Vehicle({this.vehicleType, this.registration, this.color, this.stickerNo, this.etag});
-
-  Vehicle.fromJson(Map<String, dynamic> json) {
-    vehicleType = json['vehicle_type'];
-    registration = json['registration'];
-    color = json['color'];
-    stickerNo = json['sticker_no'];
-    etag = json['etag'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['vehicle_type'] = this.vehicleType;
-    data['registration'] = this.registration;
-    data['color'] = this.color;
-    data['sticker_no'] = this.stickerNo;
-    data['etag'] = this.etag;
     return data;
   }
 }

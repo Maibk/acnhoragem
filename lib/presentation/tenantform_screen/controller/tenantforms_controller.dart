@@ -199,7 +199,7 @@ class TenantFornsScreenController extends GetxController {
 
   Map<String, dynamic> NovehicleFormdata = {'vehicle_type[]': 'No', 'registration[]': 'NO', 'color[]': 'NO', 'sticker_no[]': 'NO', 'etag[]': 'NO'};
 
-  GlobalKey<FormState> vehicleFormKey = GlobalKey();
+  List<GlobalKey<FormState>> vehicleFormKey = [GlobalKey<FormState>()];
   int vehicleDataIndex = 0;
 
   addvehicleControllers() {
@@ -211,35 +211,33 @@ class TenantFornsScreenController extends GetxController {
   }
 
   Future<void> addvehicle(context, index) async {
-    final formState = vehicleFormKey.currentState;
+    final formState = vehicleFormKey[index].currentState;
     if (formState!.validate()) {
-      Utils.check().then((value) async {
-        addvehicleControllers();
-        tenantFormdata['vehicle_type[$index]'] = vehicleTypeControllers[index].text;
-        tenantFormdata['registration[$index]'] = vehicleRegisterNoControllers[index].text;
-        tenantFormdata['color[$index]'] = vehicleColorControllers[index].text;
-        tenantFormdata['sticker_no[$index]'] = vehicleStikerControllers[index].text;
-        tenantFormdata['etag[$index]'] = eTag[index];
+      if (eTag[index] == "") {
         Utils.showToast(
-          "Vehicle Added Successfully",
-          false,
+          "Please select E-Tag",
+          true,
         );
-        vehicleDataIndex = vehicleDataIndex + 1;
-        update();
-        log(tenantFormdata.toString());
-      });
+        return;
+      } else {
+        Utils.check().then((value) async {
+          addvehicleControllers();
+          tenantFormdata['vehicle_type[$index]'] = vehicleTypeControllers[index].text;
+          tenantFormdata['registration[$index]'] = vehicleRegisterNoControllers[index].text;
+          tenantFormdata['color[$index]'] = vehicleColorControllers[index].text;
+          tenantFormdata['sticker_no[$index]'] = vehicleStikerControllers[index].text;
+          tenantFormdata['etag[$index]'] = eTag[index];
+          Utils.showToast(
+            "Vehicle Added Successfully",
+            false,
+          );
+          vehicleDataIndex = vehicleDataIndex + 1;
+          update();
+          log(tenantFormdata.toString());
+        });
+      }
     }
   }
-
-  // clearVehicleForm() {
-  //   vehicleTypeControllers?.clear();
-  //   vehicleRegisterNoControllers?.clear();
-  //   vehicleColorControllers?.clear();
-  //   vehicleStikerControllers?.clear();
-  //   vehicleEtagController.clear();
-  //   hasVehicle = "";
-  //   eTag.clear();
-  // }
 
   void setCountry(String input) {
     String countryName = input.split(' ').last;
@@ -267,6 +265,7 @@ class TenantFornsScreenController extends GetxController {
   }
 
   getEntryFormsDetails(id) {
+    eTag.clear();
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
@@ -323,23 +322,24 @@ class TenantFornsScreenController extends GetxController {
             } else {
               updateCompletionCertificate("No");
             }
-
+            if (tenantFormModel.data?.vehicleStatus == "Yes") {
+              updateVehicle("Yes");
+            } else {
+              updateVehicle("No");
+            }
             setCountry(tenantFormModel.data?.tenantNationality ?? "");
 
-            if (tenantFormModel.data!.vehicleStatus == "Yes") {
-              updateVehicle("Yes");
-
+            if (tenantFormModel.data!.vehicle != null) {
               for (var element in tenantFormModel.data!.vehicle!) {
                 vehicleTypeControllers.add(TextEditingController(text: element.vehicleType));
                 vehicleRegisterNoControllers.add(TextEditingController(text: element.registration));
                 vehicleColorControllers.add(TextEditingController(text: element.color));
                 vehicleStikerControllers.add(TextEditingController(text: element.stickerNo));
                 eTag.add(element.etag ?? "Yes");
+                vehicleFormKey.add(GlobalKey<FormState>());
               }
 
               vehicleDataIndex = tenantFormModel.data!.vehicle!.length;
-            } else {
-              updateVehicle("No");
             }
 
             update();
@@ -540,6 +540,8 @@ class TenantFornsScreenController extends GetxController {
                 log(response.statusMessage.toString());
               }
             } on _dio.DioException catch (error) {
+              btnController.stop();
+
               if (error.response == null) {
                 btnController.stop();
                 var exception = ApiException(
@@ -604,13 +606,19 @@ class TenantFornsScreenController extends GetxController {
         'property_user': 'tenant',
       });
 
-      if (tenantFormModel.data!.vehicleStatus == "Yes" && hasVehicle == "Yes") {
+      if (hasVehicle == "Yes") {
         for (var i = 0; i < tenantFormModel.data!.vehicle!.length; i++) {
-          tenantFormdata['vehicle_type[$i]'] = vehicleTypeControllers[i].text;
-          tenantFormdata['registration[$i]'] = vehicleRegisterNoControllers[i].text;
-          tenantFormdata['color[$i]'] = vehicleColorControllers[i].text;
-          tenantFormdata['sticker_no[$i]'] = vehicleStikerControllers[i].text;
-          tenantFormdata['etag[$i]'] = eTag[i];
+          tenantFormdata['vehicle_type[$i]'] = tenantFormModel.data!.vehicle![i].vehicleTypeController.text == ""
+              ? "No"
+              : tenantFormModel.data!.vehicle![i].vehicleTypeController.text;
+          tenantFormdata['registration[$i]'] = tenantFormModel.data!.vehicle![i].registrationController.text == ""
+              ? "No"
+              : tenantFormModel.data!.vehicle![i].registrationController.text;
+          tenantFormdata['color[$i]'] =
+              tenantFormModel.data!.vehicle![i].colorController.text == "" ? "No" : tenantFormModel.data!.vehicle![i].colorController.text;
+          tenantFormdata['sticker_no[$i]'] =
+              tenantFormModel.data!.vehicle![i].stickerNoController.text == "" ? "No" : tenantFormModel.data!.vehicle![i].stickerNoController.text;
+          tenantFormdata['etag[$i]'] = eTag[i].toString() == "" ? "No" : eTag[i].toString();
         }
       }
       vehicleDataIndex > 0

@@ -407,7 +407,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                           fontWeight: FontWeight.w400,
                                                                         ),
                                                                       )
-                                                                    : Text(controller.selectedValue.toString()),
+                                                                    : Text(controller.streetSelectedValue?.title.toString() ?? ''),
                                                                 value: controller.streetSelectedValue,
                                                                 items: controller.streets.map((item) {
                                                                   return DropdownMenuItem<Street>(
@@ -734,6 +734,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       onTap: () async {
                                                         if (args['status'] == Constants.formStatusRejected) {
                                                           if (_value.addVehicleFormKey[index - 1].currentState?.validate() ?? true) {
+                                                            
                                                             controller.vehicleFormDataModel.data?.vehicleDetail?.add(VehicleDetail());
                                                             _value.addVehicleFormKey.add(GlobalKey());
                                                             controller.update();

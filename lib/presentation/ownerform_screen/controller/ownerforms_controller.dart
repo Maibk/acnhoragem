@@ -154,21 +154,29 @@ class OwnerFornsScreenController extends GetxController {
     final formState = vehicleFormKey[index].currentState;
 
     if (formState!.validate()) {
-      Utils.check().then((value) async {
-        addvehicleControllers();
-        ownerFormdata['vehicle_type[$index]'] = vehicleTypeControllers[index].text;
-        ownerFormdata['registration[$index]'] = vehicleRegisterNoControllers[index].text;
-        ownerFormdata['color[$index]'] = vehicleColorControllers[index].text;
-        ownerFormdata['sticker_no[$index]'] = vehicleStikerControllers[index].text;
-        ownerFormdata['etag[$index]'] = eTag[index].toString();
+      if (eTag[index] == "") {
         Utils.showToast(
-          "Vehicle ${vehicleDataIndex + 1} Added Successfully",
-          false,
+          "Please select E-Tag",
+          true,
         );
-        vehicleDataIndex = vehicleDataIndex + 1;
+        return;
+      } else {
+        Utils.check().then((value) async {
+          addvehicleControllers();
+          ownerFormdata['vehicle_type[$index]'] = vehicleTypeControllers[index].text;
+          ownerFormdata['registration[$index]'] = vehicleRegisterNoControllers[index].text;
+          ownerFormdata['color[$index]'] = vehicleColorControllers[index].text;
+          ownerFormdata['sticker_no[$index]'] = vehicleStikerControllers[index].text;
+          ownerFormdata['etag[$index]'] = eTag[index].toString();
+          Utils.showToast(
+            "Vehicle ${vehicleDataIndex + 1} Added Successfully",
+            false,
+          );
+          vehicleDataIndex = vehicleDataIndex + 1;
 
-        update();
-      });
+          update();
+        });
+      }
     }
   }
 
@@ -193,6 +201,8 @@ class OwnerFornsScreenController extends GetxController {
   }
 
   getEntryFormsDetails(id) {
+    eTag.clear();
+    vehicleFormKey.clear();
     Utils.check().then((value) async {
       if (value) {
         isInternetAvailable.value = true;
@@ -252,6 +262,7 @@ class OwnerFornsScreenController extends GetxController {
                 vehicleColorControllers.add(TextEditingController(text: element.color));
                 vehicleStikerControllers.add(TextEditingController(text: element.stickerNo));
                 eTag.add(element.etag ?? "Yes");
+                vehicleFormKey.add(GlobalKey<FormState>());
               }
 
               vehicleDataIndex = ownerFormModel.data!.vehicle!.length;
@@ -593,10 +604,14 @@ class OwnerFornsScreenController extends GetxController {
       ownerFormdata.addAll(data);
 
       for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
-        ownerFormdata['vehicle_type[$i]'] = vehicleTypeControllers[i].text == "" ? "No" : vehicleTypeControllers[i].text;
-        ownerFormdata['registration[$i]'] = vehicleRegisterNoControllers[i].text == "" ? "No" : vehicleRegisterNoControllers[i].text;
-        ownerFormdata['color[$i]'] = vehicleColorControllers[i].text == "" ? "No" : vehicleColorControllers[i].text;
-        ownerFormdata['sticker_no[$i]'] = vehicleStikerControllers[i].text == "" ? "No" : vehicleStikerControllers[i].text;
+        ownerFormdata['vehicle_type[$i]'] =
+            ownerFormModel.data!.vehicle![i].vehicleTypeController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].vehicleTypeController.text;
+        ownerFormdata['registration[$i]'] =
+            ownerFormModel.data!.vehicle![i].registrationController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].registrationController.text;
+        ownerFormdata['color[$i]'] =
+            ownerFormModel.data!.vehicle![i].colorController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].colorController.text;
+        ownerFormdata['sticker_no[$i]'] =
+            ownerFormModel.data!.vehicle![i].stickerNoController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].stickerNoController.text;
         ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? "No" : eTag[i].toString();
       }
 
@@ -609,9 +624,9 @@ class OwnerFornsScreenController extends GetxController {
               filename: filePath1.split('/').last,
               contentType: _http.MediaType.parse('image/jpeg'),
             );
+          } else {
+            ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.allotmentLetterUrl ?? "");
           }
-        } else {
-          ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.allotmentLetterUrl ?? "");
         }
       }
 
@@ -642,9 +657,10 @@ class OwnerFornsScreenController extends GetxController {
               contentType: _http.MediaType.parse('image/jpeg'),
             );
           }
+        } else {
+          ownerFormdata['copy_completion_certificate'] =
+              await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.completionCertificateUrl ?? "");
         }
-      } else {
-        ownerFormdata['copy_completion_certificate'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.completionCertificateUrl ?? "");
       }
       if (value) {
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {

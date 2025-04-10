@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class OwnerFormModel {
   bool? success;
   Data? data;
@@ -171,6 +173,11 @@ class Vehicle {
   String? registration;
   String? color;
   String? stickerNo;
+  TextEditingController vehicleTypeController = TextEditingController();
+  TextEditingController registrationController = TextEditingController();
+  TextEditingController colorController = TextEditingController();
+  TextEditingController stickerNoController = TextEditingController();
+
   String? etag;
 
   Vehicle({this.vehicleType, this.registration, this.color, this.stickerNo, this.etag});
@@ -181,6 +188,10 @@ class Vehicle {
     color = json['color'];
     stickerNo = json['sticker_no'];
     etag = json['etag'];
+    vehicleTypeController.text = vehicleType ?? "";
+    registrationController.text = registration ?? "";  
+    colorController.text = color ?? "";    
+    stickerNoController.text = stickerNo ?? "";
   }
 
   Map<String, dynamic> toJson() {

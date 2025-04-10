@@ -9,6 +9,7 @@ import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 // import 'package:csc_picker/csc_picker.dart';
 import 'package:csc_picker_plus/csc_picker_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -309,7 +310,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                   style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
                                                                       fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                 )
-                                                              : Text(controller.selectedValue.toString()),
+                                                              : Text(controller.streetSelectedValue?.title.toString() ?? ""),
                                                           value: controller.streetSelectedValue,
                                                           items: controller.streets.map((item) {
                                                             return DropdownMenuItem<Street>(
@@ -551,11 +552,11 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             mainAxisSize: MainAxisSize.min,
                                                             children: [
                                                               Padding(
-                                                                padding: getPadding(left: 10, top: 20),
-                                                                child: MyText(
-                                                                  title: "Allotment Letter held:",
-                                                                  clr: ColorConstant.antextlightgray,
-                                                                  fontSize: 14,
+                                                                padding: getPadding(left: 8, top: 20),
+                                                                child: Text(
+                                                                  "Allotment Letter held:",
+                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                      fontSize: 15, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                 ),
                                                               ),
                                                               Row(
@@ -585,9 +586,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                             SizedBox(
                                                                               width: getHorizontalSize(10),
                                                                             ),
-                                                                            MyText(
-                                                                              title: "Yes",
-                                                                              clr: ColorConstant.antextlightgray,
+                                                                            Text(
+                                                                              "Yes",
+                                                                              style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                  fontSize: 16,
+                                                                                  color: ColorConstant.gray600,
+                                                                                  fontWeight: FontWeight.normal),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -622,9 +626,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                             SizedBox(
                                                                               width: getHorizontalSize(10),
                                                                             ),
-                                                                            MyText(
-                                                                              title: "No",
-                                                                              clr: ColorConstant.antextlightgray,
+                                                                            Text(
+                                                                              "No",
+                                                                              style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                  fontSize: 16,
+                                                                                  color: ColorConstant.gray600,
+                                                                                  fontWeight: FontWeight.normal),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -663,10 +670,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             children: [
                                                               Padding(
                                                                 padding: getPadding(left: 10),
-                                                                child: MyText(
-                                                                  title: "Completion certificate held:",
-                                                                  clr: ColorConstant.antextlightgray,
-                                                                  fontSize: 14,
+                                                                child: Text(
+                                                                  "Completion certificate held:",
+                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                      fontSize: 15, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                 ),
                                                               ),
                                                               SizedBox(
@@ -698,9 +705,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                             SizedBox(
                                                                               width: getHorizontalSize(10),
                                                                             ),
-                                                                            MyText(
-                                                                              title: "Yes",
-                                                                              clr: ColorConstant.antextlightgray,
+                                                                            Text(
+                                                                              "Yes",
+                                                                              style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                  fontSize: 16,
+                                                                                  color: ColorConstant.gray600,
+                                                                                  fontWeight: FontWeight.normal),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -735,9 +745,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                             SizedBox(
                                                                               width: getHorizontalSize(10),
                                                                             ),
-                                                                            MyText(
-                                                                              title: "No",
-                                                                              clr: ColorConstant.antextlightgray,
+                                                                            Text(
+                                                                              "No",
+                                                                              style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                  fontSize: 16,
+                                                                                  color: ColorConstant.gray600,
+                                                                                  fontWeight: FontWeight.normal),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -795,10 +808,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             children: [
                                                               Padding(
                                                                 padding: getPadding(left: 10),
-                                                                child: MyText(
-                                                                  title: "Construction Status:",
-                                                                  clr: ColorConstant.antextlightgray,
-                                                                  fontSize: 14,
+                                                                child: Text(
+                                                                  "Construction Status:",
+                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                      fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                 ),
                                                               ),
                                                               SizedBox(
@@ -831,9 +844,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                             SizedBox(
                                                                               width: getHorizontalSize(10),
                                                                             ),
-                                                                            MyText(
-                                                                              title: "Under Construction",
-                                                                              clr: ColorConstant.antextlightgray,
+                                                                            Text(
+                                                                              "Under Construction",
+                                                                              style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                  fontSize: 16,
+                                                                                  color: ColorConstant.gray600,
+                                                                                  fontWeight: FontWeight.normal),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -871,9 +887,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                             SizedBox(
                                                                               width: getHorizontalSize(10),
                                                                             ),
-                                                                            MyText(
-                                                                              title: "Complete",
-                                                                              clr: ColorConstant.antextlightgray,
+                                                                            Text(
+                                                                              "Complete",
+                                                                              style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                  fontSize: 16,
+                                                                                  color: ColorConstant.gray600,
+                                                                                  fontWeight: FontWeight.normal),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -962,9 +981,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 SizedBox(
                                                                   width: getHorizontalSize(10),
                                                                 ),
-                                                                MyText(
-                                                                  title: "Yes",
-                                                                  clr: ColorConstant.antextlightgray,
+                                                                Text(
+                                                                  "Yes",
+                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                      fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                 ),
                                                               ],
                                                             ),
@@ -998,9 +1018,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 SizedBox(
                                                                   width: getHorizontalSize(10),
                                                                 ),
-                                                                MyText(
-                                                                  title: "No",
-                                                                  clr: ColorConstant.antextlightgray,
+                                                                Text(
+                                                                  "No",
+                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                      fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                 ),
                                                               ],
                                                             ),
@@ -1133,6 +1154,15 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             behavior: HitTestBehavior.opaque,
                                                             onTap: () {
                                                               controller.updateVehicle("Yes");
+                                                              if (args['status'] == Constants.formStatusRejected) {
+                                                                setState(() {
+                                                                  controller.eTag.add("");
+                                                                  controller.ownerFormModel.data?.vehicle = [Vehicle()];
+                                                                  controller.vehicleFormKey.add(GlobalKey());
+                                                                });
+                                                              }
+                                                              log(controller.ownerFormModel.data?.vehicle?.toString() ?? "NO VEHICLE");
+                                                              log(controller.ownerFormModel.data?.vehicle?.length.toString() ?? " VEHICLE LENGHT");
                                                             },
                                                             child: Row(
                                                               children: [
@@ -1150,9 +1180,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 SizedBox(
                                                                   width: getHorizontalSize(10),
                                                                 ),
-                                                                MyText(
-                                                                  title: "Yes",
-                                                                  clr: ColorConstant.antextlightgray,
+                                                                Text(
+                                                                  "Yes",
+                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                      fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                 ),
                                                               ],
                                                             ),
@@ -1185,9 +1216,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 SizedBox(
                                                                   width: getHorizontalSize(10),
                                                                 ),
-                                                                MyText(
-                                                                  title: "No",
-                                                                  clr: ColorConstant.antextlightgray,
+                                                                Text(
+                                                                  "No",
+                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                      fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                 ),
                                                               ],
                                                             ),
@@ -1202,14 +1234,6 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                 ),
                                                 controller.hasVehicle == "Yes"
                                                     ? ListView.builder(
-                                                        // shrinkWrap: true,
-                                                        // physics: NeverScrollableScrollPhysics(),
-                                                        // itemCount: args['status'] != ""
-                                                        //     ? controller.ownerFormModel.data?.vehicle?.length ?? 0
-                                                        //     : controller.vehicleTypeControllers.length == 0
-                                                        //         ? 1
-                                                        //         : controller.vehicleTypeControllers.length,
-                                                        // itemBuilder: (context, index) {
                                                         physics: NeverScrollableScrollPhysics(),
                                                         shrinkWrap: true,
                                                         padding: EdgeInsets.zero,
@@ -1237,14 +1261,18 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 controller: controller.uselessbtnController,
                                                                 title: "Add Vehicle".tr,
                                                                 onTap: () async {
+                                                                  final formKey = controller.vehicleFormKey[index - 1];
+                                                                  final formState = formKey.currentState;
+
                                                                   if (args['status'] == Constants.formStatusRejected) {
-                                                                    if (controller.vehicleFormKey[index - 1].currentState?.validate() ?? true) {
+                                                                    if (formState != null && formState.validate()) {
+                                                                      controller.eTag.add("");
                                                                       controller.ownerFormModel.data?.vehicle?.add(Vehicle());
-                                                                      controller.vehicleFormKey.add(GlobalKey());
+                                                                      controller.vehicleFormKey.add(GlobalKey<FormState>());
                                                                       controller.update();
                                                                     }
                                                                   } else {
-                                                                    controller.vehicleFormKey.add(GlobalKey());
+                                                                    controller.vehicleFormKey.add(GlobalKey<FormState>());
                                                                     controller.addvehicle(context, index - 1);
                                                                   }
                                                                 },
@@ -1270,6 +1298,8 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                           onTap: () {
                                                                             setState(() {
                                                                               if (args['status'] == Constants.formStatusRejected) {
+                                                                                controller.eTag.removeAt(index);
+
                                                                                 controller.ownerFormModel.data?.vehicle?.removeAt(index);
                                                                               } else {
                                                                                 controller.vehicleTypeControllers.removeAt(index);
@@ -1294,7 +1324,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                       child: CustomTextField(
                                                                         enabled: isEditable,
                                                                         fieldText: "Vehicle Type".tr,
-                                                                        controller: controller.vehicleTypeControllers[index],
+                                                                        controller: args['status'] == Constants.formStatusRejected
+                                                                            ? detail?.vehicleTypeController
+                                                                            : controller.vehicleTypeControllers[index],
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
                                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -1309,7 +1341,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                       child: CustomTextField(
                                                                         enabled: isEditable,
                                                                         fieldText: "Registration No.".tr,
-                                                                        controller: controller.vehicleRegisterNoControllers[index],
+                                                                        controller: args['status'] == Constants.formStatusRejected
+                                                                            ? detail?.registrationController
+                                                                            : controller.vehicleRegisterNoControllers[index],
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
                                                                         validator: controller.vehicleDataIndex < 1
@@ -1331,7 +1365,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                       child: CustomTextField(
                                                                         enabled: isEditable,
                                                                         fieldText: "Color".tr,
-                                                                        controller: controller.vehicleColorControllers[index],
+                                                                        controller: args['status'] == Constants.formStatusRejected
+                                                                            ? detail?.colorController
+                                                                            : controller.vehicleColorControllers[index],
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
                                                                         limit: HelperFunction.EMAIL_VALIDATION,
@@ -1346,7 +1382,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                       child: CustomTextField(
                                                                         enabled: isEditable,
                                                                         fieldText: "Sticker No.".tr,
-                                                                        controller: controller.vehicleStikerControllers[index],
+                                                                        controller: args['status'] == Constants.formStatusRejected
+                                                                            ? detail?.stickerNoController
+                                                                            : controller.vehicleStikerControllers[index],
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
                                                                         validator: controller.vehicleDataIndex < 1
@@ -1600,8 +1638,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w700,
                                                     color: ColorConstant.whiteA700,
-                                                    label:
-                                                        controller.allotmentletter != null ? "Building Plan" : "Attach Approval of Building Plan".tr,
+                                                    label: controller.buildingplan != null ? "Building Plan" : "Attach Approval of Building Plan".tr,
                                                     textColor: ColorConstant.anbtnBlue,
                                                     borderColor: ColorConstant.anbtnBlue,
                                                     prefix: Icon(
@@ -1687,12 +1724,29 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             true,
                                                           );
                                                         } else {
-                                                          controller.ownerFormApi(context, vehicleFormIndex);
+                                                          controller.ownerFormApi(context, vehicleFormIndex - 1);
                                                         }
                                                       }
                                                     },
                                                   ),
                                                 ),
+                                              if (kDebugMode)
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      if (args['status'] == Constants.formStatusRejected) {
+                                                        controller.editOwnerFormApi(context, args['id']);
+                                                      } else {
+                                                        if (controller.buildingplan == null) {
+                                                          Utils.showToast(
+                                                            "Please select building plan",
+                                                            true,
+                                                          );
+                                                        } else {
+                                                          controller.ownerFormApi(context, vehicleFormIndex - 1);
+                                                        }
+                                                      }
+                                                    },
+                                                    child: Text("data")),
                                               SizedBox(
                                                 height: getVerticalSize(15),
                                               ),

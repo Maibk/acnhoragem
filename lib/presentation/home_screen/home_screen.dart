@@ -440,7 +440,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   ? ColorConstant.appgreenColor
                                                                   : bill.status! == "Pending"
                                                                       ? ColorConstant.pendingColor
-                                                                      : Colors.red,
+                                                                      : bill.status!.toLowerCase() == "review"
+                                                                          ? Colors.grey
+                                                                          : Colors.red,
                                                             ),
                                                             child: MyText(
                                                               title: "${bill.status}",

@@ -86,6 +86,9 @@ class HomeController extends GetxController {
 
             bills = Bills.fromJson(response.data);
 
+
+            
+
             update();
 
             return true;

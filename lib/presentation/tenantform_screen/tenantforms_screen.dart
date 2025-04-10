@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
+import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
 import 'package:anchorageislamabad/presentation/tenantform_screen/models/tenant_form_model.dart';
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
@@ -35,6 +36,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
   TenantFornsScreenController controller = Get.put(TenantFornsScreenController());
 
   final args = Get.arguments;
+  int vehicleFormIndex = 0;
+
   bool isEditable = false;
   @override
   initState() {
@@ -276,6 +279,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                             ? (int? value) {
                                                                 setState(() {
                                                                   controller.selectedValue = value!;
+                                                                  controller.streetSelectedValue = null;
                                                                   controller.streets.clear();
                                                                   controller.plots.clear();
                                                                   controller.getStreetByBlock(value);
@@ -327,6 +331,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                             onChanged: (value) {
                                                               setState(() {
                                                                 controller.streetSelectedValue = value;
+                                                                controller.plotstSelectedValue = null;
                                                                 controller.plots.clear();
                                                                 controller.getPlotNoByStreet(value!.id);
                                                               });
@@ -594,96 +599,101 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         return Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Row(
+                                                            Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Padding(
-                                                                  padding: getPadding(left: 10),
-                                                                  child: MyText(
-                                                                    title: "Allotment Letter held:",
-                                                                    clr: ColorConstant.antextlightgray,
-                                                                    fontSize: 14.sp,
+                                                                  padding: getPadding(
+                                                                    left: 10,
+                                                                  ),
+                                                                  child: Text(
+                                                                    "Allotment Letter held:",
+                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                        fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                  width: getHorizontalSize(20),
+                                                                  height: getVerticalSize(10),
                                                                 ),
-                                                                GetBuilder(
-                                                                  init: controller,
-                                                                  builder: (controller) {
-                                                                    return GestureDetector(
-                                                                      onTap: () {
-                                                                        controller.updateAllotmentLetter("Yes");
+                                                                Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    GetBuilder(
+                                                                      init: controller,
+                                                                      builder: (controller) {
+                                                                        return GestureDetector(
+                                                                          onTap: () {
+                                                                            controller.updateAllotmentLetter("Yes");
+                                                                          },
+                                                                          child: Row(
+                                                                            children: [
+                                                                              controller.alottmentletter == "Yes"
+                                                                                  ? Icon(
+                                                                                      Icons.circle,
+                                                                                      color: ColorConstant.blackColor,
+                                                                                      size: 14,
+                                                                                    )
+                                                                                  : Icon(
+                                                                                      Icons.circle_outlined,
+                                                                                      color: ColorConstant.blackColor,
+                                                                                      size: 14,
+                                                                                    ),
+                                                                              SizedBox(
+                                                                                width: getHorizontalSize(10),
+                                                                              ),
+                                                                              Text(
+                                                                                "Yes",
+                                                                                style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                    fontSize: 14,
+                                                                                    color: ColorConstant.gray600,
+                                                                                    fontWeight: FontWeight.normal),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        );
                                                                       },
-                                                                      child: Row(
-                                                                        children: [
-                                                                          controller.alottmentletter == "Yes"
-                                                                              ? Icon(
-                                                                                  Icons.circle,
-                                                                                  color: ColorConstant.blackColor,
-                                                                                  size: 14,
-                                                                                )
-                                                                              : Icon(
-                                                                                  Icons.circle_outlined,
-                                                                                  color: ColorConstant.blackColor,
-                                                                                  size: 14,
-                                                                                ),
-                                                                          SizedBox(
-                                                                            width: getHorizontalSize(10),
+                                                                    ),
+                                                                    GetBuilder(
+                                                                      init: controller,
+                                                                      builder: (controller) {
+                                                                        return GestureDetector(
+                                                                          onTap: () {
+                                                                            controller.updateAllotmentLetter("No");
+                                                                          },
+                                                                          child: Row(
+                                                                            children: [
+                                                                              controller.alottmentletter == "No"
+                                                                                  ? Icon(
+                                                                                      Icons.circle,
+                                                                                      color: ColorConstant.blackColor,
+                                                                                      size: 14,
+                                                                                    )
+                                                                                  : Icon(
+                                                                                      Icons.circle_outlined,
+                                                                                      color: ColorConstant.blackColor,
+                                                                                      size: 14,
+                                                                                    ),
+                                                                              SizedBox(
+                                                                                width: getHorizontalSize(10),
+                                                                              ),
+                                                                              Text(
+                                                                                "No",
+                                                                                style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                    fontSize: 14,
+                                                                                    color: ColorConstant.gray600,
+                                                                                    fontWeight: FontWeight.normal),
+                                                                              ),
+                                                                            ],
                                                                           ),
-                                                                          MyText(
-                                                                            title: "Yes",
-                                                                            clr: ColorConstant.antextlightgray,
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                ),
-                                                                SizedBox(
-                                                                  width: getHorizontalSize(20),
-                                                                ),
-                                                                GetBuilder(
-                                                                  init: controller,
-                                                                  builder: (controller) {
-                                                                    return GestureDetector(
-                                                                      onTap: () {
-                                                                        controller.updateAllotmentLetter("No");
+                                                                        );
                                                                       },
-                                                                      child: Row(
-                                                                        children: [
-                                                                          controller.alottmentletter == "No"
-                                                                              ? Icon(
-                                                                                  Icons.circle,
-                                                                                  color: ColorConstant.blackColor,
-                                                                                  size: 14,
-                                                                                )
-                                                                              : Icon(
-                                                                                  Icons.circle_outlined,
-                                                                                  color: ColorConstant.blackColor,
-                                                                                  size: 14,
-                                                                                ),
-                                                                          SizedBox(
-                                                                            width: getHorizontalSize(10),
-                                                                          ),
-                                                                          MyText(
-                                                                            title: "No",
-                                                                            clr: ColorConstant.antextlightgray,
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                ),
+                                                                    ),
+                                                                  ],
+                                                                ).paddingOnly(left: 14),
                                                               ],
                                                             ),
                                                             SizedBox(
-                                                              height: getVerticalSize(5),
-                                                            ),
-                                                            SizedBox(
-                                                              height: getVerticalSize(5),
-                                                            ),
-                                                            SizedBox(
-                                                              height: getVerticalSize(20),
+                                                              height: getVerticalSize(10),
                                                             ),
                                                           ],
                                                         );
@@ -705,21 +715,22 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         return Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Row(
+                                                            Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Container(
                                                                   width: .5.sw,
                                                                   child: Padding(
-                                                                    padding: getPadding(left: 10.w),
-                                                                    child: MyText(
-                                                                      title: "Completion certificate held:",
-                                                                      clr: ColorConstant.antextlightgray,
-                                                                      fontSize: 14.sp,
+                                                                    padding: getPadding(left: 0.w),
+                                                                    child: Text(
+                                                                      "Completion certificate held:",
+                                                                      style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                          fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                     ),
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                  width: getHorizontalSize(20.w),
+                                                                  height: getVerticalSize(10),
                                                                 ),
                                                                 GetBuilder(
                                                                   init: controller,
@@ -744,9 +755,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                           SizedBox(
                                                                             width: getHorizontalSize(10.w),
                                                                           ),
-                                                                          MyText(
-                                                                            title: "Yes",
-                                                                            clr: ColorConstant.antextlightgray,
+                                                                          Text(
+                                                                            "Yes",
+                                                                            style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                fontSize: 15,
+                                                                                color: ColorConstant.gray600,
+                                                                                fontWeight: FontWeight.normal),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -779,9 +793,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                           SizedBox(
                                                                             width: getHorizontalSize(10),
                                                                           ),
-                                                                          MyText(
-                                                                            title: "No",
-                                                                            clr: ColorConstant.antextlightgray,
+                                                                          Text(
+                                                                            "No",
+                                                                            style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                fontSize: 15,
+                                                                                color: ColorConstant.gray600,
+                                                                                fontWeight: FontWeight.normal),
                                                                           ),
                                                                         ],
                                                                       ),
@@ -789,7 +806,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   },
                                                                 ),
                                                               ],
-                                                            ),
+                                                            ).paddingOnly(left: 10),
                                                             SizedBox(
                                                               height: getVerticalSize(20),
                                                             ),
@@ -1002,10 +1019,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   SizedBox(
                                                                     width: getHorizontalSize(10),
                                                                   ),
-                                                                  MyText(
-                                                                    title: "Yes",
-                                                                    fontSize: 16,
-                                                                    clr: ColorConstant.antextlightgray,
+                                                                  Text(
+                                                                    "Yes",
+                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                        fontSize: 15, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                   ),
                                                                 ],
                                                               ),
@@ -1038,9 +1055,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   SizedBox(
                                                                     width: getHorizontalSize(10),
                                                                   ),
-                                                                  MyText(
-                                                                    title: "No",
-                                                                    clr: ColorConstant.antextlightgray,
+                                                                  Text(
+                                                                    "No",
+                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                        fontSize: 15, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                                   ),
                                                                 ],
                                                               ),
@@ -1142,139 +1160,171 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       title: MyText(
                                         title: 'Vehicles Information',
                                         clr: ColorConstant.black900,
-                                        fontSize: 16.sp,
+                                        fontSize: 16,
                                       ),
                                       children: <Widget>[
                                         GetBuilder(
                                             init: controller,
-                                            builder: (_) {
-                                              return Form(
-                                                key: controller.vehicleFormKey,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    // if (controller.vehicleDataIndex != 0)
-                                                    //   Row(
-                                                    //     mainAxisAlignment: MainAxisAlignment.start,
-                                                    //     children: [
-                                                    //       Container(
-                                                    //         margin: EdgeInsets.only(left: 15),
-                                                    //         padding: EdgeInsets.all(10),
-                                                    //         decoration:
-                                                    //             BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-                                                    //         child: MyText(
-                                                    //           title: controller.vehicleDataIndex.toString(),
-                                                    //           clr: ColorConstant.whiteA700,
-                                                    //           fontSize: 16,
-                                                    //         ),
-                                                    //       ),
-                                                    //     ],
-                                                    //   ),
-                                                    AbsorbPointer(
-                                                      absorbing: !isEditable,
-                                                      child: Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding: getPadding(left: 10),
-                                                            child: MyText(
-                                                              title: "VEHICLE(s) IN USE",
-                                                              clr: ColorConstant.antextlightgray,
-                                                              fontSize: 14.sp,
-                                                            ),
+                                            builder: (context) {
+                                              return Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  AbsorbPointer(
+                                                    absorbing: !isEditable,
+                                                    child: Row(
+                                                      children: [
+                                                        Padding(
+                                                          padding: getPadding(left: 10),
+                                                          child: MyText(
+                                                            title: "VEHICLE(s) IN USE",
+                                                            clr: ColorConstant.antextlightgray,
+                                                            fontSize: 14,
                                                           ),
-                                                          SizedBox(
-                                                            width: getHorizontalSize(20),
-                                                          ),
-                                                          GetBuilder(
-                                                            init: controller,
-                                                            builder: (controller) {
-                                                              return GestureDetector(
-                                                                behavior: HitTestBehavior.opaque,
-                                                                onTap: () {
-                                                                  controller.updateVehicle("Yes");
+                                                        ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(20),
+                                                        ),
+                                                        GetBuilder(
+                                                          init: controller,
+                                                          builder: (controller) {
+                                                            return GestureDetector(
+                                                              behavior: HitTestBehavior.opaque,
+                                                              onTap: () {
+                                                                controller.updateVehicle("Yes");
+                                                                if (args['status'] == Constants.formStatusRejected) {
+                                                                  setState(() {
+                                                                    controller.eTag.add("");
+                                                                    controller.tenantFormModel.data?.vehicle = [Vehicle()];
+                                                                    controller.vehicleFormKey.add(GlobalKey());
+                                                                  });
+                                                                }
+                                                                log(controller.tenantFormModel.data?.vehicle?.toString() ?? "NO VEHICLE");
+                                                                log(controller.tenantFormModel.data?.vehicle?.length.toString() ?? " VEHICLE LENGHT");
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  controller.hasVehicle == "Yes"
+                                                                      ? Icon(
+                                                                          Icons.circle,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons.circle_outlined,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(10),
+                                                                  ),
+                                                                  Text(
+                                                                    "Yes",
+                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                        fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                        SizedBox(
+                                                          width: getHorizontalSize(20),
+                                                        ),
+                                                        GetBuilder(
+                                                          init: controller,
+                                                          builder: (controller) {
+                                                            return GestureDetector(
+                                                              onTap: () {
+                                                                controller.updateVehicle("No");
+                                                              },
+                                                              child: Row(
+                                                                children: [
+                                                                  controller.hasVehicle == "No"
+                                                                      ? Icon(
+                                                                          Icons.circle,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        )
+                                                                      : Icon(
+                                                                          Icons.circle_outlined,
+                                                                          color: ColorConstant.blackColor,
+                                                                          size: 14,
+                                                                        ),
+                                                                  SizedBox(
+                                                                    width: getHorizontalSize(10),
+                                                                  ),
+                                                                  Text(
+                                                                    "No",
+                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                        fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: getVerticalSize(5),
+                                                  ),
+                                                  controller.hasVehicle == "Yes"
+                                                      ? ListView.builder(
+                                                          physics: NeverScrollableScrollPhysics(),
+                                                          shrinkWrap: true,
+                                                          padding: EdgeInsets.zero,
+                                                          itemCount: args['status'] != ""
+                                                              ? (controller.tenantFormModel.data?.vehicle?.length ?? 0) +
+                                                                  (args['status'] == Constants.formStatusRejected ? 1 : 0)
+                                                              : controller.vehicleTypeControllers.length + 1,
+                                                          itemBuilder: (context, index) {
+                                                            vehicleFormIndex = index;
+                                                            bool isLastIndex = index ==
+                                                                (args['status'] != ""
+                                                                    ? (controller.tenantFormModel.data?.vehicle?.length ?? 0)
+                                                                    : controller.vehicleTypeControllers.length);
 
-                                                                  if (controller.tenantFormModel.data?.vehicleStatus?.toLowerCase() == "no" &&
-                                                                      args['status'] == Constants.formStatusRejected) {
-                                                                    controller.tenantFormModel.data?.vehicle?.add(Vehicle());
-                                                                  }
-                                                                },
-                                                                child: Row(
-                                                                  children: [
-                                                                    controller.hasVehicle == "Yes"
-                                                                        ? Icon(
-                                                                            Icons.circle,
-                                                                            color: ColorConstant.blackColor,
-                                                                            size: 14,
-                                                                          )
-                                                                        : Icon(
-                                                                            Icons.circle_outlined,
-                                                                            color: ColorConstant.blackColor,
-                                                                            size: 14,
-                                                                          ),
-                                                                    SizedBox(
-                                                                      width: getHorizontalSize(10),
-                                                                    ),
-                                                                    MyText(
-                                                                      title: "Yes",
-                                                                      clr: ColorConstant.antextlightgray,
-                                                                    ),
-                                                                  ],
+                                                            if (isLastIndex &&
+                                                                (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
+                                                              return Padding(
+                                                                padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
+                                                                child: MyAnimatedButton(
+                                                                  radius: 5.0,
+                                                                  height: getVerticalSize(50),
+                                                                  width: getHorizontalSize(400),
+                                                                  fontSize: 16,
+                                                                  bgColor: ColorConstant.anbtnBlue,
+                                                                  controller: controller.uselessbtnController,
+                                                                  title: "Add Vehicle".tr,
+                                                                  onTap: () async {
+                                                                    final formKey = controller.vehicleFormKey[index - 1];
+                                                                    final formState = formKey.currentState;
+
+                                                                    if (args['status'] == Constants.formStatusRejected) {
+                                                                      if (formState != null && formState.validate()) {
+                                                                        controller.eTag.add("");
+                                                                        controller.tenantFormModel.data?.vehicle?.add(Vehicle());
+                                                                        controller.vehicleFormKey.add(GlobalKey<FormState>());
+                                                                        controller.update();
+                                                                      }
+                                                                    } else {
+                                                                      controller.vehicleFormKey.add(GlobalKey<FormState>());
+                                                                      controller.addvehicle(context, index - 1);
+                                                                    }
+                                                                  },
                                                                 ),
                                                               );
-                                                            },
-                                                          ),
-                                                          SizedBox(
-                                                            width: getHorizontalSize(20),
-                                                          ),
-                                                          GetBuilder(
-                                                            init: controller,
-                                                            builder: (controller) {
-                                                              return GestureDetector(
-                                                                onTap: () {
-                                                                  controller.updateVehicle("No");
-                                                                },
-                                                                child: Row(
-                                                                  children: [
-                                                                    controller.hasVehicle == "No"
-                                                                        ? Icon(
-                                                                            Icons.circle,
-                                                                            color: ColorConstant.blackColor,
-                                                                            size: 14,
-                                                                          )
-                                                                        : Icon(
-                                                                            Icons.circle_outlined,
-                                                                            color: ColorConstant.blackColor,
-                                                                            size: 14,
-                                                                          ),
-                                                                    SizedBox(
-                                                                      width: getHorizontalSize(10),
-                                                                    ),
-                                                                    MyText(
-                                                                      title: "No",
-                                                                      clr: ColorConstant.antextlightgray,
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    controller.hasVehicle == "Yes"
-                                                        ? ListView.builder(
-                                                            shrinkWrap: true,
-                                                            physics: NeverScrollableScrollPhysics(),
-                                                            itemCount: args['status'] != ""
-                                                                ? controller.tenantFormModel.data?.vehicle?.length ?? 0
-                                                                : controller.vehicleTypeControllers.length == 0
-                                                                    ? 1
-                                                                    : controller.vehicleTypeControllers.length,
-                                                            itemBuilder: (context, index) {
-                                                              return Column(
+                                                            }
+                                                            Vehicle? detail;
+                                                            if ((controller.tenantFormModel.data?.vehicle?.length ?? 0) > 0 &&
+                                                                index < (controller.tenantFormModel.data?.vehicle?.length ?? 0)) {
+                                                              detail = controller.tenantFormModel.data?.vehicle?[index];
+                                                            }
+
+                                                            return Form(
+                                                              key: controller.vehicleFormKey[index],
+                                                              child: Column(
                                                                 children: [
                                                                   if (index != 0)
                                                                     if (args['status'] != Constants.formStatusPending)
@@ -1285,6 +1335,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                             onTap: () {
                                                                               setState(() {
                                                                                 if (args['status'] == Constants.formStatusRejected) {
+                                                                                  controller.eTag.removeAt(index);
+
                                                                                   controller.tenantFormModel.data?.vehicle?.removeAt(index);
                                                                                 } else {
                                                                                   controller.vehicleTypeControllers.removeAt(index);
@@ -1307,10 +1359,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                     children: [
                                                                       Expanded(
                                                                         child: CustomTextField(
-                                                                          fieldText: "Vehicle Type".tr,
-                                                                          controller: controller.vehicleTypeControllers[index],
-                                                                          isFinal: false,
                                                                           enabled: isEditable,
+                                                                          fieldText: "Vehicle Type".tr,
+                                                                          controller: args['status'] == Constants.formStatusRejected
+                                                                              ? detail?.vehicleTypeController
+                                                                              : controller.vehicleTypeControllers[index],
+                                                                          isFinal: false,
                                                                           keyboardType: TextInputType.emailAddress,
                                                                           limit: HelperFunction.EMAIL_VALIDATION,
                                                                           validator: controller.vehicleDataIndex < 1
@@ -1322,10 +1376,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                       ),
                                                                       Expanded(
                                                                         child: CustomTextField(
-                                                                          fieldText: "Registration No.".tr,
-                                                                          controller: controller.vehicleRegisterNoControllers[index],
-                                                                          isFinal: false,
                                                                           enabled: isEditable,
+                                                                          fieldText: "Registration No.".tr,
+                                                                          controller: args['status'] == Constants.formStatusRejected
+                                                                              ? detail?.registrationController
+                                                                              : controller.vehicleRegisterNoControllers[index],
+                                                                          isFinal: false,
                                                                           keyboardType: TextInputType.emailAddress,
                                                                           validator: controller.vehicleDataIndex < 1
                                                                               ? (value) {
@@ -1344,10 +1400,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                     children: [
                                                                       Expanded(
                                                                         child: CustomTextField(
-                                                                          fieldText: "Color".tr,
-                                                                          controller: controller.vehicleColorControllers[index],
-                                                                          isFinal: false,
                                                                           enabled: isEditable,
+                                                                          fieldText: "Color".tr,
+                                                                          controller: args['status'] == Constants.formStatusRejected
+                                                                              ? detail?.colorController
+                                                                              : controller.vehicleColorControllers[index],
+                                                                          isFinal: false,
                                                                           keyboardType: TextInputType.emailAddress,
                                                                           limit: HelperFunction.EMAIL_VALIDATION,
                                                                           validator: controller.vehicleDataIndex < 1
@@ -1359,11 +1417,18 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                       ),
                                                                       Expanded(
                                                                         child: CustomTextField(
-                                                                          fieldText: "Sticker No.".tr,
-                                                                          controller: controller.vehicleStikerControllers[index],
-                                                                          isFinal: false,
                                                                           enabled: isEditable,
+                                                                          fieldText: "Sticker No.".tr,
+                                                                          controller: args['status'] == Constants.formStatusRejected
+                                                                              ? detail?.stickerNoController
+                                                                              : controller.vehicleStikerControllers[index],
+                                                                          isFinal: false,
                                                                           keyboardType: TextInputType.emailAddress,
+                                                                          validator: controller.vehicleDataIndex < 1
+                                                                              ? (value) {
+                                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                                }
+                                                                              : null,
                                                                         ),
                                                                       ),
                                                                     ],
@@ -1378,7 +1443,53 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         child: MyText(
                                                                           title: "E-Tag",
                                                                           clr: ColorConstant.antextlightgray,
-                                                                          fontSize: 14.sp,
+                                                                          fontSize: 14,
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width: getHorizontalSize(20),
+                                                                      ),
+                                                                      AbsorbPointer(
+                                                                        absorbing: !isEditable,
+                                                                        child: GetBuilder(
+                                                                          init: controller,
+                                                                          builder: (controller) {
+                                                                            return GestureDetector(
+                                                                              behavior: HitTestBehavior.opaque,
+                                                                              onTap: () {
+                                                                                setState(() {
+                                                                                  controller.eTag[index] = "Yes";
+                                                                                });
+
+                                                                                log(controller.eTag.toString());
+                                                                              },
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  controller.eTag[index] == "Yes"
+                                                                                      ? Icon(
+                                                                                          Icons.circle,
+                                                                                          color: ColorConstant.blackColor,
+                                                                                          size: 14,
+                                                                                        )
+                                                                                      : Icon(
+                                                                                          Icons.circle_outlined,
+                                                                                          color: ColorConstant.blackColor,
+                                                                                          size: 14,
+                                                                                        ),
+                                                                                  SizedBox(
+                                                                                    width: getHorizontalSize(10),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    "Yes",
+                                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                        fontSize: 15,
+                                                                                        color: ColorConstant.gray600,
+                                                                                        fontWeight: FontWeight.normal),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            );
+                                                                          },
                                                                         ),
                                                                       ),
                                                                       SizedBox(
@@ -1389,48 +1500,6 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                         builder: (controller) {
                                                                           return GestureDetector(
                                                                             behavior: HitTestBehavior.opaque,
-                                                                            onTap: () {
-                                                                              setState(() {
-                                                                                controller.eTag[index] = "Yes";
-                                                                              });
-                                                                              // controller.updateEtag(
-                                                                              //   "Yes",
-                                                                              // );
-                                                                              // controller.eTag.add("Yes");
-                                                                              log(controller.eTag.toString());
-                                                                            },
-                                                                            child: Row(
-                                                                              children: [
-                                                                                controller.eTag[index] == "Yes"
-                                                                                    ? Icon(
-                                                                                        Icons.circle,
-                                                                                        color: ColorConstant.blackColor,
-                                                                                        size: 14,
-                                                                                      )
-                                                                                    : Icon(
-                                                                                        Icons.circle_outlined,
-                                                                                        color: ColorConstant.blackColor,
-                                                                                        size: 14,
-                                                                                      ),
-                                                                                SizedBox(
-                                                                                  width: getHorizontalSize(10),
-                                                                                ),
-                                                                                MyText(
-                                                                                  title: "Yes",
-                                                                                  clr: ColorConstant.antextlightgray,
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      ),
-                                                                      SizedBox(
-                                                                        width: getHorizontalSize(20),
-                                                                      ),
-                                                                      GetBuilder(
-                                                                        init: controller,
-                                                                        builder: (controller) {
-                                                                          return GestureDetector(
                                                                             onTap: () {
                                                                               setState(() {
                                                                                 controller.eTag[index] = "No";
@@ -1454,9 +1523,12 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                                 SizedBox(
                                                                                   width: getHorizontalSize(10),
                                                                                 ),
-                                                                                MyText(
-                                                                                  title: "No",
-                                                                                  clr: ColorConstant.antextlightgray,
+                                                                                Text(
+                                                                                  "No",
+                                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                                      fontSize: 15,
+                                                                                      color: ColorConstant.gray600,
+                                                                                      fontWeight: FontWeight.normal),
                                                                                 ),
                                                                               ],
                                                                             ),
@@ -1471,32 +1543,32 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   SizedBox(
                                                                     height: getVerticalSize(15),
                                                                   ),
-                                                                  if (args['status'] == "")
-                                                                    Padding(
-                                                                      padding: getPadding(left: 10, right: 10),
-                                                                      child: MyAnimatedButton(
-                                                                        radius: 5.0,
-                                                                        height: getVerticalSize(50),
-                                                                        width: getHorizontalSize(400),
-                                                                        fontSize: 16.sp,
-                                                                        bgColor: ColorConstant.anbtnBlue,
-                                                                        controller: controller.uselessbtnController,
-                                                                        title: "Add Vehicle".tr,
-                                                                        onTap: () async {
-                                                                          controller.addvehicle(context, index);
-                                                                        },
-                                                                      ),
-                                                                    ),
-                                                                  SizedBox(
-                                                                    height: getVerticalSize(15),
-                                                                  ),
+                                                                  // if (args['status'] == "")
+                                                                  //   Padding(
+                                                                  //     padding: getPadding(left: 10, right: 10),
+                                                                  //     child: MyAnimatedButton(
+                                                                  //       radius: 5.0,
+                                                                  //       height: getVerticalSize(50),
+                                                                  //       width: getHorizontalSize(400),
+                                                                  //       fontSize: 16.h,
+                                                                  //       bgColor: ColorConstant.anbtnBlue,
+                                                                  //       controller: controller.uselessbtnController,
+                                                                  //       title: "Add Vehicle".tr,
+                                                                  //       onTap: () async {
+                                                                  //         controller.addvehicle(context, index);
+                                                                  //       },
+                                                                  //     ),
+                                                                  //   ),
+                                                                  // SizedBox(
+                                                                  //   height: getVerticalSize(15),
+                                                                  // ),
                                                                 ],
-                                                              );
-                                                            },
-                                                          )
-                                                        : Column(),
-                                                  ],
-                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        )
+                                                      : Column(),
+                                                ],
                                               );
                                             })
                                       ],
