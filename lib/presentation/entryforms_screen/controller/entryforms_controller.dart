@@ -8,6 +8,7 @@ import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/entryforms_screen/models/entry_form_data_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
+import 'package:anchorageislamabad/widgets/loader_widget.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -299,7 +300,7 @@ class EntryFormsController extends GetxController {
   }
 
   Map<String, dynamic> EntryFormData = {};
-  // GlobalKey<FormState> spouseEntryFormKey = GlobalKey();
+
   List<GlobalKey<FormState>> spouseEntryFormKey = [GlobalKey<FormState>()];
   int spouseDataIndex = 0;
 
@@ -318,7 +319,7 @@ class EntryFormsController extends GetxController {
           'spouse_road': spouseroadControllers[index].text,
           'spouse_street': spousestreetControllers[index].text,
           'spouse_block': 0,
-          "spouse_po": spouseProvinceControllers[index].text,
+          "spouse_po": spouseThanaControllers[index].text,
           "spouse_city": spouseCityControllers[index].text,
           "spouse_province": spouseProvinceControllers[index].text,
           'spouse_village': spouseMohallaControllers[index].text,
@@ -442,7 +443,7 @@ class EntryFormsController extends GetxController {
           'child_road': childroadControllers[index].text,
           'child_street': childstreetControllers[index].text,
           'child_block': 0,
-          "child_po": childProvinceControllers[index].text,
+          "child_po": childThanaControllers[index].text,
           "child_city": childCityControllers[index].text,
           "child_province": childProvinceControllers[index].text,
           'child_village': childMohallaControllers[index].text,
@@ -663,6 +664,8 @@ class EntryFormsController extends GetxController {
         log(EntryFormData.toString(), name: "EntryFormData");
         if (value) {
           btnController.start();
+          formsLoader(context);
+
           _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
             var dio = _dio.Dio();
             try {
@@ -685,11 +688,14 @@ class EntryFormsController extends GetxController {
                   false,
                 );
                 btnController.stop();
+                Navigator.pop(context);
                 log(json.encode(response.data));
 
                 Get.offAllNamed(AppRoutes.homePage);
               } else {
                 btnController.stop();
+                Navigator.pop(context);
+
                 log(response.data['message'].toString(), name: "eeror api");
                 Utils.showToast(
                   response.data['message'],
@@ -698,6 +704,8 @@ class EntryFormsController extends GetxController {
                 log(response.statusMessage.toString());
               }
             } on _dio.DioException catch (error) {
+              Navigator.pop(context);
+
               // dio error (api reach the server but not performed successfully
               // no response
 
@@ -716,6 +724,8 @@ class EntryFormsController extends GetxController {
               }
 
               if (error.response?.statusCode == 500) {
+                Navigator.pop(context);
+
                 btnController.stop();
                 Utils.showToast(
                   "Internal Server Error",
@@ -737,6 +747,7 @@ class EntryFormsController extends GetxController {
 
   Future<void> SubmitEdittedEntryFormApi(context, id) async {
     submitEdittedFormButtonController.start();
+    formsLoader(context);
     Utils.check().then((value) async {
       Map<String, dynamic> ownerInfoData = {
         'name': fullNameController.text,
@@ -797,7 +808,6 @@ class EntryFormsController extends GetxController {
       await spouseEditEntryFormAPi(context);
 
       if (value) {
-        btnController.start();
         log(Constants.entryCardUpdateUrl, name: "URL -----------------------------------");
         log(EntryFormData.toString(), name: "DATA -----------------------------------");
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
@@ -822,11 +832,14 @@ class EntryFormsController extends GetxController {
                 false,
               );
               submitEdittedFormButtonController.stop();
+              Navigator.pop(context);
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
               btnController.stop();
+              Navigator.pop(context);
+
               log(response.data['message'].toString(), name: "eeror api");
               Utils.showToast(
                 response.data['message'],
@@ -836,6 +849,8 @@ class EntryFormsController extends GetxController {
             }
           } on _dio.DioException catch (error) {
             submitEdittedFormButtonController.stop();
+            Navigator.pop(context);
+
             log(error.response?.data.toString().substring(1, 250) ?? "", name: "Entry card ERROOOOOOORRRRRR");
             Utils.showToast(
               error.response?.data.toString() ?? "Error",
@@ -843,6 +858,8 @@ class EntryFormsController extends GetxController {
             );
 
             if (error.response == null) {
+              Navigator.pop(context);
+
               var exception = ApiException(
                 url: Constants.entryCardUpdateUrl,
                 message: error.message!,
@@ -851,6 +868,8 @@ class EntryFormsController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
+              Navigator.pop(context);
+
               submitEdittedFormButtonController.stop();
               Utils.showToast(
                 "Internal Server Error",

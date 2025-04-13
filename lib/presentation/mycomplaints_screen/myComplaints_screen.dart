@@ -147,7 +147,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  width: 120,
+                                                  width: MediaQuery.of(context).size.width / 3.8,
                                                   child: MyText(
                                                     title: controller.complaints?.data?[index].complaintType ?? "N/A",
                                                     clr: ColorConstant.antextGrayDark,

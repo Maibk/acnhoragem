@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
+import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
 import 'package:anchorageislamabad/theme/app_style.dart';
@@ -13,10 +13,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/size_utils.dart';
-import '../../core/utils/utils.dart';
 import '../../routes/app_routes.dart';
 import '../../widgets/animated_custom_button.dart';
 import '../../widgets/custom_button.dart';
@@ -113,7 +113,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
             key: controller.formKey,
             child: GetBuilder(
                 init: controller,
-                builder: (context) {
+                builder: (_) {
                   if (args['status'] != "" && controller.formsLoadingStatus == ApiCallStatus.loading) {
                     return Column(
                       children: [
@@ -1128,7 +1128,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                     children: <Widget>[
                                       GetBuilder(
                                           init: controller,
-                                          builder: (context) {
+                                          builder: (_) {
                                             return Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -1161,8 +1161,6 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                   controller.vehicleFormKey.add(GlobalKey());
                                                                 });
                                                               }
-                                                              log(controller.ownerFormModel.data?.vehicle?.toString() ?? "NO VEHICLE");
-                                                              log(controller.ownerFormModel.data?.vehicle?.length.toString() ?? " VEHICLE LENGHT");
                                                             },
                                                             child: Row(
                                                               children: [
@@ -1272,8 +1270,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                       controller.update();
                                                                     }
                                                                   } else {
-                                                                    controller.vehicleFormKey.add(GlobalKey<FormState>());
-                                                                    controller.addvehicle(context, index - 1);
+                                                                    if (formState != null && formState.validate()) {
+                                                                      controller.vehicleFormKey.add(GlobalKey<FormState>());
+                                                                      controller.addvehicle(context, index - 1);
+                                                                    }
                                                                   }
                                                                 },
                                                               ),
@@ -1288,6 +1288,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           return Form(
                                                             key: controller.vehicleFormKey[index],
                                                             child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 if (index != 0)
                                                                   if (args['status'] != Constants.formStatusPending)
@@ -1317,6 +1318,11 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         ),
                                                                       ],
                                                                     ),
+                                                                MyText(
+                                                                  title: 'Vehicle ${index + 1}',
+                                                                  clr: ColorConstant.black900,
+                                                                  fontSize: 16,
+                                                                ).paddingOnly(left: 10, bottom: 6, top: 7),
                                                                 Row(
                                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                   children: [
@@ -1330,11 +1336,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
                                                                         limit: HelperFunction.EMAIL_VALIDATION,
-                                                                        validator: controller.vehicleDataIndex < 1
-                                                                            ? (value) {
-                                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                                              }
-                                                                            : null,
+                                                                        validator: (value) {
+                                                                          return HelperFunction.empthyFieldValidator(value!);
+                                                                        },
                                                                       ),
                                                                     ),
                                                                     Expanded(
@@ -1346,11 +1350,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                             : controller.vehicleRegisterNoControllers[index],
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
-                                                                        validator: controller.vehicleDataIndex < 1
-                                                                            ? (value) {
-                                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                                              }
-                                                                            : null,
+                                                                        validator: (value) {
+                                                                          return HelperFunction.empthyFieldValidator(value!);
+                                                                        },
+                                                                        // : null,
                                                                       ),
                                                                     ),
                                                                   ],
@@ -1371,11 +1374,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
                                                                         limit: HelperFunction.EMAIL_VALIDATION,
-                                                                        validator: controller.vehicleDataIndex < 1
-                                                                            ? (value) {
-                                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                                              }
-                                                                            : null,
+                                                                        validator: (value) {
+                                                                          return HelperFunction.empthyFieldValidator(value!);
+                                                                        },
                                                                       ),
                                                                     ),
                                                                     Expanded(
@@ -1387,11 +1388,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                             : controller.vehicleStikerControllers[index],
                                                                         isFinal: false,
                                                                         keyboardType: TextInputType.emailAddress,
-                                                                        validator: controller.vehicleDataIndex < 1
-                                                                            ? (value) {
-                                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                                              }
-                                                                            : null,
+                                                                        validator: (value) {
+                                                                          return HelperFunction.empthyFieldValidator(value!);
+                                                                        },
                                                                       ),
                                                                     ),
                                                                   ],
@@ -1574,6 +1573,8 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           width: getHorizontalSize(350),
                                                           color: ColorConstant.whiteA700,
                                                           child: CustomImageView(
+                                                            radius: BorderRadius.circular(6),
+                                                            border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                             url: controller.ownerFormModel.data?.allotmentLetterUrl ?? "",
                                                           ),
                                                         ),
@@ -1621,6 +1622,8 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         width: getHorizontalSize(350),
                                                         color: ColorConstant.whiteA700,
                                                         child: CustomImageView(
+                                                          radius: BorderRadius.circular(6),
+                                                          border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                           url: controller.ownerFormModel.data?.approvalBuildingPlanUrl ?? "",
                                                         ),
                                                       ),
@@ -1668,6 +1671,8 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           width: getHorizontalSize(350),
                                                           color: ColorConstant.whiteA700,
                                                           child: CustomImageView(
+                                                            radius: BorderRadius.circular(6),
+                                                            border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                             url: controller.ownerFormModel.data?.completionCertificateUrl ?? "",
                                                           ),
                                                         ),
@@ -1775,10 +1780,5 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
         ),
       ),
     );
-  }
-
-  /// Navigates to the previous screen.
-  onTapArrowLeft() {
-    Get.back();
   }
 }

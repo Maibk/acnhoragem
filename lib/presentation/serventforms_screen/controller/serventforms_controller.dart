@@ -10,6 +10,7 @@ import 'package:anchorageislamabad/presentation/home_screen/controller/home_cont
 import 'package:anchorageislamabad/presentation/serventforms_screen/models/servant_form_data_model.dart.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
+import 'package:anchorageislamabad/widgets/loader_widget.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -355,7 +356,7 @@ class ServentFormsController extends GetxController {
       servantData['servant_village[$servantDataIndex]'] = serventcolonyVillageControllers[index].text;
       servantData['servant_block[$servantDataIndex]'] = servantselectedValue ?? 0;
       servantData['servant_po[$servantDataIndex]'] = serventpostOfficeControllers[index].text;
-      servantData['servant_city[$servantDataIndex]'] = serventpostOfficeControllers[index].text;
+      servantData['servant_city[$servantDataIndex]'] = serventCityControllers[index].text;
       servantData['servant_province[$servantDataIndex]'] = serventProvinceControllers[index].text;
       for (var element in servantImages) {
         String filePath1 = element.path;
@@ -640,16 +641,6 @@ class ServentFormsController extends GetxController {
       servantData['family_address[$i]'] = servantFormDataModel.data!.servantFamilyDetail![i].familyAddressController.text;
     }
 
-    // for (var element in servantFamilyImages) {
-    //   String filePath1 = element.path;
-    //   if (filePath1.isNotEmpty) {
-    //     servantData['servant_family_image[$index]'] = await _dio.MultipartFile.fromFile(
-    //       filePath1,
-    //       filename: filePath1.split('/').last,
-    //       contentType: _http.MediaType.parse('image/jpeg'),
-    //     );
-    //   }
-
     final userDetails = servantFormDataModel.data!.servantFamilyDetail!;
 
     await prepareMultipartList(
@@ -659,30 +650,6 @@ class ServentFormsController extends GetxController {
       keyPrefix: 'servant_family_image',
       getUrlFromModel: (user) => user.attachment ?? "",
     );
-
-    // if (servantFamilyImages.isNotEmpty) {
-    //   bool hasEmptyPath = servantFamilyImages.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < servantFormDataModel.data!.servantFamilyDetail!.length; i++) {
-    //       servantData['servant_family_image[$i]'] =
-    //           await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantFamilyDetail![i].attachment ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < servantFamilyImages.length; i++) {
-    //       servantData['servant_family_image[$i]'] = await _dio.MultipartFile.fromFile(
-    //         servantFamilyImages[i].path,
-    //         filename: servantFamilyImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < servantFormDataModel.data!.servantFamilyDetail!.length; i++) {
-    //     servantData['servant_family_image[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantFamilyDetail![i].attachment ?? "");
-    //   }
-    // }
 
     servantFamilyDataIndex = servantFormDataModel.data?.servantFamilyDetail?.length ?? 0;
     update();
@@ -769,6 +736,8 @@ class ServentFormsController extends GetxController {
         } else {
           if (value) {
             btnController.start();
+
+            formsLoader(context);
             _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
               var dio = _dio.Dio(_dio.BaseOptions(
                 baseUrl: "https://anchorageislamabad.com/api",
@@ -791,11 +760,14 @@ class ServentFormsController extends GetxController {
                     false,
                   );
                   btnController.stop();
+                  Navigator.pop(context);
+
                   log(json.encode(response.data));
 
                   Get.offAllNamed(AppRoutes.homePage);
                 } else {
                   btnController.stop();
+                  Navigator.pop(context);
 
                   Utils.showToast(
                     response.data['message'],
@@ -805,6 +777,8 @@ class ServentFormsController extends GetxController {
                 }
               } on _dio.DioException catch (error) {
                 btnController.stop();
+                Navigator.pop(context);
+
                 Utils.showToast(
                   error.response?.data["message"].toString() ?? error.error.toString(),
                   true,
@@ -819,6 +793,8 @@ class ServentFormsController extends GetxController {
 
                 if (error.response?.statusCode == 500) {
                   btnController.stop();
+                  Navigator.pop(context);
+
                   Utils.showToast(
                     "Internal Server Error",
                     true,
@@ -838,7 +814,9 @@ class ServentFormsController extends GetxController {
 
   Future<void> submitEditServantApi(context, id) async {
     submitEdittedFormButtonController.start();
+    formsLoader(context);
     update();
+    formsLoader(context);
     Utils.check().then((value) async {
       servantData['date'] = serventdateController.text;
 
@@ -856,16 +834,7 @@ class ServentFormsController extends GetxController {
         'status': 0
       };
       servantData.addAll(ownerInfoData);
-      // if (ownerImage != null) {
-      //   String filePath1 = ownerImage?.path ?? '';
-      //   if (filePath1.isNotEmpty) {
-      //     servantData['image'] = await _dio.MultipartFile.fromFile(
-      //       filePath1,
-      //       filename: filePath1.split('/').last,
-      //       contentType: _http.MediaType.parse('image/jpeg'),
-      //     );
-      //   }
-      // }
+
       if (ownerImage != null && ownerImage!.path.isNotEmpty) {
         servantData['image'] = await _dio.MultipartFile.fromFile(
           ownerImage!.path,
@@ -878,17 +847,6 @@ class ServentFormsController extends GetxController {
         );
       }
 
-      // if (ownerCnicFront != null) {
-      //   String filePath1 = ownerCnicFront?.path ?? '';
-      //   if (filePath1.isNotEmpty) {
-      //     servantData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-      //       filePath1,
-      //       filename: filePath1.split('/').last,
-      //       contentType: _http.MediaType.parse('image/jpeg'),
-      //     );
-      //   }
-      // }
-
       if (ownerCnicFront != null && ownerCnicFront!.path.isNotEmpty) {
         servantData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
           ownerCnicFront!.path,
@@ -900,17 +858,6 @@ class ServentFormsController extends GetxController {
           servantFormDataModel.data?.cnicImage?.ownerCnicFront ?? "",
         );
       }
-
-      // if (ownerCnicBack != null) {
-      //   String filePath1 = ownerCnicBack?.path ?? '';
-      //   if (filePath1.isNotEmpty) {
-      //     servantData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-      //       filePath1,
-      //       filename: filePath1.split('/').last,
-      //       contentType: _http.MediaType.parse('image/jpeg'),
-      //     );
-      //   }
-      // }
 
       if (ownerCnicBack != null && ownerCnicBack!.path.isNotEmpty) {
         servantData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
@@ -953,12 +900,17 @@ class ServentFormsController extends GetxController {
                 false,
               );
               submitEdittedFormButtonController.stop();
+
+              Navigator.pop(context);
+
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
               submitEdittedFormButtonController.stop();
+
               update();
+              Navigator.pop(context);
 
               Utils.showToast(
                 response.data['message'],
@@ -968,8 +920,8 @@ class ServentFormsController extends GetxController {
             }
           } on _dio.DioException catch (error) {
             submitEdittedFormButtonController.stop();
+            Navigator.pop(context);
             update();
-
             if (error is Map) {
               Utils.showToast(
                 error.response?.data["message"].toString() ?? error.error.toString(),
@@ -994,6 +946,8 @@ class ServentFormsController extends GetxController {
 
             if (error.response?.statusCode == 500) {
               submitEdittedFormButtonController.stop();
+              Navigator.pop(context);
+
               Utils.showToast(
                 "Internal Server Error",
                 true,

@@ -337,7 +337,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
-                                                          "Plot ",
+                                                          "Plot",
                                                           style: AppStyle.txtSourceSansProRegular16Gray600
                                                               .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                         ).paddingOnly(
@@ -363,7 +363,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               child: Text(item.title.toString()),
                                                             );
                                                           }).toList(),
-                                                          onChanged: (value) {
+                                                          onChanged: (Plots? value) {
                                                             setState(() {
                                                               controller.plotstSelectedValue = value;
                                                             });
@@ -422,6 +422,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     width: getHorizontalSize(350),
                                                     color: ColorConstant.whiteA700,
                                                     child: CustomImageView(
+                                                      radius: BorderRadius.circular(6),
+                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                       url: controller.servantFormDataModel.data?.cnicImage?.ownerImage ?? "",
                                                     ),
                                                   ),
@@ -464,6 +466,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     width: getHorizontalSize(350),
                                                     color: ColorConstant.whiteA700,
                                                     child: CustomImageView(
+                                                      radius: BorderRadius.circular(6),
+                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                       url: controller.servantFormDataModel.data?.cnicImage?.ownerCnicFront ?? "",
                                                     ),
                                                   ),
@@ -506,6 +510,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     width: getHorizontalSize(350),
                                                     color: ColorConstant.whiteA700,
                                                     child: CustomImageView(
+                                                      radius: BorderRadius.circular(6),
+                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                       url: controller.servantFormDataModel.data?.cnicImage?.ownerCnicFront ?? "",
                                                     ),
                                                   ),
@@ -620,6 +626,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               return Form(
                                                 key: controller.addServantFormKey[index],
                                                 child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     if (index != 0)
                                                       if (args['status'] != Constants.formStatusPending)
@@ -650,6 +657,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             ),
                                                           ],
                                                         ),
+                                                    MyText(
+                                                      title: 'Servant ${index + 1}',
+                                                      clr: ColorConstant.black900,
+                                                      fontSize: 16,
+                                                    ).paddingOnly(left: 10, bottom: 10),
                                                     CustomTextField(
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         fieldText: "Full Name".tr,
@@ -880,6 +892,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                 width: getHorizontalSize(350),
                                                                 color: ColorConstant.whiteA700,
                                                                 child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                   url: controller.servantFormDataModel.data?.servantDetail?[index].servantImage ?? "",
                                                                 ),
                                                               ),
@@ -931,20 +945,16 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           children: [
                                                             MyText(title: "Servant CNIC front").paddingOnly(left: 10),
                                                             5.verticalSpace,
-                                                            GestureDetector(
-                                                              onTap: () async {
-                                                                controller.ownerImage = await controller.imagePicker();
-                                                              },
-                                                              child: Padding(
-                                                                padding: getPadding(left: 10, right: 10),
-                                                                child: Container(
-                                                                  width: getHorizontalSize(350),
-                                                                  color: ColorConstant.whiteA700,
-                                                                  child: CustomImageView(
-                                                                    url: controller
-                                                                            .servantFormDataModel.data?.servantDetail?[index].servantCnicFront ??
-                                                                        "",
-                                                                  ),
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                  url: controller.servantFormDataModel.data?.servantDetail?[index].servantCnicFront ??
+                                                                      "",
                                                                 ),
                                                               ),
                                                             ),
@@ -995,20 +1005,16 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           children: [
                                                             MyText(title: "Servant CNIC BACK").paddingOnly(left: 10),
                                                             5.verticalSpace,
-                                                            GestureDetector(
-                                                              onTap: () async {
-                                                                controller.ownerImage = await controller.imagePicker();
-                                                              },
-                                                              child: Padding(
-                                                                padding: getPadding(left: 10, right: 10),
-                                                                child: Container(
-                                                                  width: getHorizontalSize(350),
-                                                                  color: ColorConstant.whiteA700,
-                                                                  child: CustomImageView(
-                                                                    url:
-                                                                        controller.servantFormDataModel.data?.servantDetail?[index].servantCnicBack ??
-                                                                            "",
-                                                                  ),
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                  url: controller.servantFormDataModel.data?.servantDetail?[index].servantCnicBack ??
+                                                                      "",
                                                                 ),
                                                               ),
                                                             ),
@@ -1127,6 +1133,13 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       behavior: HitTestBehavior.opaque,
                                                       onTap: () {
                                                         controller.updateFamilyStatus("Yes");
+                                                        if (args['status'] == Constants.formStatusRejected) {
+                                                          setState(() {
+                                                            controller.servantFormDataModel.data?.servantFamilyDetail = [ServantFamilyDetail()];
+                                                            controller.addServantFamilyFormKey.add(GlobalKey());
+                                                            controller.servantFamilyImages.add(File(""));
+                                                          });
+                                                        }
                                                       },
                                                       child: Row(
                                                         children: [
@@ -1248,6 +1261,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 return Form(
                                                   key: controller.addServantFamilyFormKey[index],
                                                   child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       if (index != 0)
                                                         if (args['status'] != Constants.formStatusPending)
@@ -1260,7 +1274,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                     if (args['status'] == Constants.formStatusRejected) {
                                                                       controller.servantFamilyImages.removeAt(index);
                                                                       controller.servantFormDataModel.data?.servantFamilyDetail?.removeAt(index);
-                                                                      controller.servantFamilyImages.removeAt(index);
+                                                                      controller.addServantFamilyFormKey.removeAt(index);
                                                                     } else {
                                                                       controller.serventfamfullNameControllers.removeAt(index);
                                                                     }
@@ -1277,6 +1291,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               ),
                                                             ],
                                                           ),
+                                                      MyText(
+                                                        title: 'Servant Family  ${index + 1}',
+                                                        clr: ColorConstant.black900,
+                                                        fontSize: 16,
+                                                      ).paddingOnly(left: 10, bottom: 10),
                                                       CustomTextField(
                                                           enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                           fieldText: "Full Name".tr,
@@ -1377,6 +1396,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                   width: getHorizontalSize(350),
                                                                   color: ColorConstant.whiteA700,
                                                                   child: CustomImageView(
+                                                                    radius: BorderRadius.circular(6),
+                                                                    border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                     url: controller
                                                                             .servantFormDataModel.data?.servantFamilyDetail?[index].attachment ??
                                                                         "",

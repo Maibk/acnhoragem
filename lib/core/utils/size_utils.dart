@@ -62,7 +62,7 @@ EdgeInsetsGeometry getPadding({
   double? left,
   double? top,
   double? right,
-  double? bottom,
+  double? bottom,  int? vertical,
 }) {
   return getMarginOrPadding(
     all: all,

@@ -145,7 +145,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Form(
-                                            // key: _value.sticketProformaFormKey,
+                                            key: _value.sticketProformaFormKey,
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
@@ -734,7 +734,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       onTap: () async {
                                                         if (args['status'] == Constants.formStatusRejected) {
                                                           if (_value.addVehicleFormKey[index - 1].currentState?.validate() ?? true) {
-                                                            
                                                             controller.vehicleFormDataModel.data?.vehicleDetail?.add(VehicleDetail());
                                                             _value.addVehicleFormKey.add(GlobalKey());
                                                             controller.update();
@@ -972,6 +971,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 return Form(
                                                   key: controller.addUserInfoFormKey[index],
                                                   child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       if (index != 0)
                                                         if (args['status'] != Constants.formStatusPending)
@@ -999,6 +999,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               ),
                                                             ],
                                                           ),
+                                                      MyText(
+                                                        title: 'User ${index + 1}',
+                                                        clr: ColorConstant.black900,
+                                                        fontSize: 16,
+                                                      ).paddingOnly(left: 10, bottom: 10),
                                                       CustomTextField(
                                                           fieldText: "Full Name".tr,
                                                           controller: args['status'] == Constants.formStatusRejected
@@ -1006,7 +1011,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               : controller.userfullNameControllers[index],
                                                           isFinal: false,
                                                           keyboardType: TextInputType.emailAddress,
-                                                          limit: HelperFunction.EMAIL_VALIDATION,
+                                                        limit: HelperFunction.EMAIL_VALIDATION,
                                                           enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                           validator: (value) {
                                                             return HelperFunction.validateAlphabetsOnly(value!);
@@ -1075,6 +1080,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
+                                                                            radius: BorderRadius.circular(6),
+                                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                       url: controller.vehicleFormDataModel.data?.vehicleUserDetail?[index]
                                                                               .userLicenseFront ??
                                                                           "",
@@ -1140,6 +1147,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
+                                                                            radius: BorderRadius.circular(6),
+                                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                       url: controller
                                                                               .vehicleFormDataModel.data?.vehicleUserDetail?[index].userLicenseBack ??
                                                                           "",
@@ -1205,6 +1214,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
+                                                                            radius: BorderRadius.circular(6),
+                                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                       url: controller
                                                                               .vehicleFormDataModel.data?.vehicleUserDetail?[index].userCnicFront ??
                                                                           "",
@@ -1270,6 +1281,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     width: getHorizontalSize(350),
                                                                     color: ColorConstant.whiteA700,
                                                                     child: CustomImageView(
+                                                                            radius: BorderRadius.circular(6),
+                                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                       url: controller
                                                                               .vehicleFormDataModel.data?.vehicleUserDetail?[index].userCnicBack ??
                                                                           "",
@@ -1566,6 +1579,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                              radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.drivingLicenseFront ?? "",
                                                       ),
                                                     ),
@@ -1616,6 +1631,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                              radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.drivingLicenseBack ?? "",
                                                       ),
                                                     ),
@@ -1666,6 +1683,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                              radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.cnicImageFront ?? "",
                                                       ),
                                                     ),
@@ -1716,6 +1735,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                              radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.cnicImageBack ?? "",
                                                       ),
                                                     ),
@@ -1766,6 +1787,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                              radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.registrationImage ?? "",
                                                       ),
                                                     ),
@@ -1816,6 +1839,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                              radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.ownerImage ?? "",
                                                       ),
                                                     ),
@@ -1864,6 +1889,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                        radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.allotmentLetterImage ?? "",
                                                       ),
                                                     ),
@@ -1914,6 +1941,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                        radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.maintenanceBillImage ?? "",
                                                       ),
                                                     ),
@@ -1964,6 +1993,8 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       width: getHorizontalSize(350),
                                                       color: ColorConstant.whiteA700,
                                                       child: CustomImageView(
+                                                        radius: BorderRadius.circular(6),
+                                                        border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                         url: controller.vehicleFormDataModel.data?.oldStickerImage ?? "",
                                                       ),
                                                     ),

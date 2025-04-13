@@ -504,121 +504,88 @@ class _HomeScreenState extends State<HomeScreen> {
                                   clr: ColorConstant.antextlightgray,
                                   fontSize: 12,
                                 ),
-                                children: <Widget>[
-                                  if (controller.complaints != null)
-                                    Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            MyText(fontSize: 14.sp, title: "Title"),
-                                            MyText(fontSize: 14.sp, title: "Status"),
-                                          ],
-                                        ).paddingSymmetric(horizontal: 20.w),
-                                        Padding(
-                                          padding: getPadding(left: 10, right: 10),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start, // Adjusted alignment
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                children: controller.complaints != null
+                                    ? <Widget>[
+                                        if (controller.complaints?.data?.isNotEmpty == true)
+                                          Column(
                                             children: [
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: getHorizontalSize(320), // Set the width explicitly
-
-                                                    child: ListView.builder(
-                                                      physics: NeverScrollableScrollPhysics(),
-                                                      shrinkWrap: true,
-                                                      padding: EdgeInsets.zero,
-                                                      scrollDirection: Axis.vertical,
-                                                      itemCount: controller.complaints!.data!.length < 3
-                                                          ? controller.complaints?.data?.length
-                                                          : 3, // Increase the itemCount by 1 to accommodate the "View All" item
-                                                      itemBuilder: (BuildContext context, int index) {
-                                                        return Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          children: [
-                                                            Container(
-                                                              margin: EdgeInsets.only(left: 10),
-                                                              width: 220,
-                                                              child: MyText(
-                                                                title: controller.complaints?.data?[index].description ?? "",
-                                                                clr: ColorConstant.antextGrayDark,
-                                                                fontSize: 12.sp,
-                                                              ),
+                                              Container(
+                                                child: DataTable(
+                                                  horizontalMargin: 0,
+                                                  columnSpacing: .1.sw,
+                                                  dataRowMaxHeight: 50.0,
+                                                  showBottomBorder: false,
+                                                  dividerThickness: 0.0,
+                                                  columns: const [
+                                                    DataColumn(label: Text('Title')),
+                                                    DataColumn(label: Text('Status')),
+                                                  ],
+                                                  rows: controller.complaints!.data!.map((bill) {
+                                                    return DataRow(
+                                                      cells: [
+                                                        DataCell(
+                                                          SizedBox(
+                                                            width: .6.sw,
+                                                            child: MyText(
+                                                              title: "${bill.description}",
+                                                              fontSize: 12.sp,
                                                             ),
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                  padding: getPadding(left: 10, right: 10),
-                                                                  height: getVerticalSize(20),
-                                                                  decoration: BoxDecoration(
-                                                                    color: controller.complaints!.data![index].status! == "Resolved"
-                                                                        ? ColorConstant.appgreenColor
-                                                                        : controller.complaints!.data![index].status! == "Pending"
-                                                                            ? ColorConstant.pendingColor
-                                                                            : ColorConstant.assignedColor,
-                                                                    borderRadius: BorderRadius.circular(5),
-                                                                  ),
-                                                                  alignment: Alignment.center,
-                                                                  child: MyText(
-                                                                    title: controller.complaints!.data![index].status!,
-                                                                    fontSize: 9,
-                                                                    clr: ColorConstant.whiteA700,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ).paddingOnly(bottom: 15);
-                                                      },
-                                                    ),
-                                                  ),
-                                                  Center(
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        if (controller.profileModel?.appFormApproved == 0) {
-                                                          Utils.showToast(
-                                                            "Your application form is not approved yet, kindly wait for Approval",
-                                                            false,
-                                                          );
-                                                        } else {
-                                                          Get.toNamed(AppRoutes.myComplaintsPage);
-                                                        }
-                                                      },
-                                                      child: Center(
-                                                        child: MyText(
-                                                          title: "View More",
-                                                          fontSize: 16,
-                                                          clr: ColorConstant.antextGrayDark,
-                                                          customWeight: FontWeight.bold,
-                                                          under: true,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: getVerticalSize(10)),
-                                                ],
-                                              )
+                                                        DataCell(
+                                                          Container(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            height: getVerticalSize(20),
+                                                            decoration: BoxDecoration(
+                                                              color: bill.status! == "Resolved"
+                                                                  ? ColorConstant.appgreenColor
+                                                                  : bill.status! == "Pending"
+                                                                      ? ColorConstant.pendingColor
+                                                                      : ColorConstant.assignedColor,
+                                                              borderRadius: BorderRadius.circular(5),
+                                                            ),
+                                                            alignment: Alignment.center,
+                                                            child: MyText(
+                                                              title: bill.status!,
+                                                              fontSize: 9,
+                                                              clr: ColorConstant.whiteA700,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
                                             ],
                                           ),
+                                        10.verticalSpace,
+                                        InkWell(
+                                          onTap: () {
+                                            if (controller.profileModel?.appFormApproved == 0) {
+                                              Utils.showToast(
+                                                "Your application form is not approved yet, kindly wait for Approval",
+                                                false,
+                                              );
+                                            } else {
+                                              Get.toNamed(AppRoutes.billsPage);
+                                            }
+                                          },
+                                          child: Center(
+                                            child: MyText(
+                                              title: "View More",
+                                              fontSize: 16,
+                                              clr: ColorConstant.antextGrayDark,
+                                              customWeight: FontWeight.bold,
+                                              under: true,
+                                            ),
+                                          ),
                                         ),
-                                      ],
-                                    )
-                                  else if (controller.complaints?.data?.isEmpty ?? false)
-                                    Column(
-                                      children: [
-                                        MyText(
-                                          title: "No Complaints Found",
-                                          fontSize: 16,
-                                          clr: ColorConstant.antextGrayDark,
-                                          customWeight: FontWeight.bold,
-                                        ),
-                                      ],
-                                    )
-                                ],
+                                      ]
+                                    : [CircularProgressIndicator.adaptive()],
+                             
+                             
+                             
                               );
                             }),
                       ],

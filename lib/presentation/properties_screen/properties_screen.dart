@@ -148,7 +148,7 @@ class PropertiesScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Container(
-                                              width: 120,
+                                              width: 80,
                                               child: MyText(
                                                 title: iteration.plotNo ?? "N/A",
                                                 clr: ColorConstant.antextGrayDark,
@@ -156,7 +156,7 @@ class PropertiesScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Container(
-                                              width: 50,
+                                              width: 80,
                                               child: MyText(
                                                 title: iteration.block ?? "N/A",
                                                 clr: ColorConstant.antextGrayDark,

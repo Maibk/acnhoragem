@@ -62,8 +62,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/background.png'), // Replace 'assets/background_image.jpg' with your image path
-          fit: BoxFit.cover, // Adjust as needed
+          image: AssetImage('assets/images/background.png'),
+          fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(
@@ -279,7 +279,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(5),
                                           ),
-
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             mainAxisSize: MainAxisSize.max,
@@ -376,39 +375,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   })
                                             ],
                                           ),
-                                          // SizedBox(
-                                          //   height: getVerticalSize(5),
-                                          // ),
-                                          // Row(
-                                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          //   children: [
-                                          //     Expanded(
-                                          //       child: CustomTextField(
-                                          //         fieldText: "Road".tr,
-                                          //         controller: controller.roadController,
-                                          //         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                          //         isFinal: false,
-                                          //         keyboardType: TextInputType.emailAddress,
-                                          //         validator: (value) {
-                                          //           return HelperFunction.empthyFieldValidator(value!);
-                                          //         },
-                                          //       ),
-                                          //     ),
-                                          //     Expanded(
-                                          //       child: CustomTextField(
-                                          //         fieldText: "Colony/Residential Area Name".tr,
-                                          //         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                          //         controller: controller.colonyController,
-                                          //         isFinal: false,
-                                          //         keyboardType: TextInputType.emailAddress,
-                                          //         validator: (value) {
-                                          //           return HelperFunction.empthyFieldValidator(value!);
-                                          //         },
-                                          //       ),
-                                          //     ),
-                                          //   ],
-                                          // ),
-
                                           SizedBox(
                                             height: getVerticalSize(15),
                                           ),
@@ -424,6 +390,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     width: getHorizontalSize(350),
                                                     color: ColorConstant.whiteA700,
                                                     child: CustomImageView(
+                                                      radius: BorderRadius.circular(6),
+                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                       url: controller.entryFormDataModel.data?.image ?? "",
                                                     ),
                                                   ),
@@ -467,6 +435,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     width: getHorizontalSize(350),
                                                     color: ColorConstant.whiteA700,
                                                     child: CustomImageView(
+                                                            radius: BorderRadius.circular(6),
+                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                       url: controller.entryFormDataModel.data?.cnicImageFront ?? "",
                                                     ),
                                                   ),
@@ -510,6 +480,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     width: getHorizontalSize(350),
                                                     color: ColorConstant.whiteA700,
                                                     child: CustomImageView(
+                                                            radius: BorderRadius.circular(6),
+                                                      border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                       url: controller.entryFormDataModel.data?.cnicImageBack ?? "",
                                                     ),
                                                   ),
@@ -614,6 +586,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                               return Form(
                                                 key: controller.spouseEntryFormKey[index],
                                                 child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     if (index != 0)
                                                       if (args['status'] != Constants.formStatusPending)
@@ -644,6 +617,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                             ),
                                                           ],
                                                         ),
+                                                    MyText(
+                                                      title: 'Spouse ${index + 1}',
+                                                      clr: ColorConstant.black900,
+                                                      fontSize: 16,
+                                                    ).paddingOnly(left: 10, bottom: 10),
                                                     CustomTextField(
                                                         fieldText: "Full Name".tr,
                                                         controller: args['status'] == Constants.formStatusRejected
@@ -831,6 +809,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               width: getHorizontalSize(350),
                                                               color: ColorConstant.whiteA700,
                                                               child: CustomImageView(
+                                                                      radius: BorderRadius.circular(6),
+                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                 url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseImage ?? "",
                                                               ),
                                                             ),
@@ -886,6 +866,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               width: getHorizontalSize(350),
                                                               color: ColorConstant.whiteA700,
                                                               child: CustomImageView(
+                                                                      radius: BorderRadius.circular(6),
+                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                 url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicFront ?? "",
                                                               ),
                                                             ),
@@ -943,6 +925,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               width: getHorizontalSize(350),
                                                               color: ColorConstant.whiteA700,
                                                               child: CustomImageView(
+                                                                      radius: BorderRadius.circular(6),
+                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                 url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicBack ?? "",
                                                               ),
                                                             ),
@@ -986,44 +970,6 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           },
                                                         ),
                                                       ),
-                                                    // SizedBox(
-                                                    //   height: getVerticalSize(15),
-                                                    // ),
-                                                    // if (args['status'] != Constants.formStatusPending)
-                                                    //   Padding(
-                                                    //     padding: getPadding(left: 10, right: 10),
-                                                    //     child: MyAnimatedButton(
-                                                    //       radius: 5.0,
-                                                    //       height: getVerticalSize(50),
-                                                    //       width: getHorizontalSize(400),
-                                                    //       fontSize: 16,
-                                                    //       bgColor: ColorConstant.anbtnBlue,
-                                                    //       controller: controller.btnControllerUseLess,
-                                                    //       title: "Add Spouse".tr,
-                                                    //       onTap: () async {
-                                                    //         if (controller.spouseImages.isEmpty) {
-                                                    //           Utils.showToast("Please select spouse Images", true);
-                                                    //         } else if (controller.spouseCnicsfronts.isEmpty) {
-                                                    //           Utils.showToast("Please select spouse cnic front images", true);
-                                                    //         } else if (controller.spouseCnicBacks.isEmpty) {
-                                                    //           Utils.showToast("Please select spouse cnic back images", true);
-                                                    //         } else {
-                                                    //           if (args['status'] == "Rejected") {
-                                                    //             controller.spouseImages.add(File(""));
-                                                    //             controller.spouseCnicsfronts.add(File(""));
-                                                    //             controller.spouseCnicBacks.add(File(""));
-                                                    //             controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
-                                                    //             controller.update();
-                                                    //           } else {
-                                                    //             controller.spouseEntryFormAPi(context, index);
-                                                    //           }
-                                                    //         }
-                                                    //       },
-                                                    //     ),
-                                                    //   ),
-                                                    // SizedBox(
-                                                    //   height: getVerticalSize(20),
-                                                    // ),
                                                   ],
                                                 ),
                                               );
@@ -1098,6 +1044,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                               return Form(
                                                 key: controller.childEntryFormKey[index],
                                                 child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     if (index != 0)
                                                       if (args['status'] != Constants.formStatusPending)
@@ -1108,6 +1055,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               onTap: () {
                                                                 setState(() {
                                                                   if (args['status'] == Constants.formStatusRejected) {
+                                                                    controller.childImages.removeAt(index);
+                                                                    controller.childCnicsfronts.removeAt(index);
+                                                                    controller.childCnicBacks.removeAt(index);
+
                                                                     controller.entryFormDataModel.data?.childDetail?.removeAt(index);
                                                                   } else {
                                                                     controller.childfullNameControllers.removeAt(index);
@@ -1125,6 +1076,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                             ),
                                                           ],
                                                         ),
+                                                    MyText(
+                                                      title: 'Child ${index + 1}',
+                                                      clr: ColorConstant.black900,
+                                                      fontSize: 16,
+                                                    ).paddingOnly(left: 10, bottom: 10),
                                                     CustomTextField(
                                                         fieldText: "Full Name".tr,
                                                         controller: args['status'] == Constants.formStatusRejected
@@ -1315,6 +1271,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                 width: getHorizontalSize(350),
                                                                 color: ColorConstant.whiteA700,
                                                                 child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                   url: controller.entryFormDataModel.data?.childDetail?[index].childImage ?? "",
                                                                 ),
                                                               ),
@@ -1371,6 +1329,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               width: getHorizontalSize(350),
                                                               color: ColorConstant.whiteA700,
                                                               child: CustomImageView(
+                                                                      radius: BorderRadius.circular(6),
+                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                 url: controller.entryFormDataModel.data?.childDetail?[index].childCnicFront ?? "",
                                                               ),
                                                             ),
@@ -1427,6 +1387,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               width: getHorizontalSize(350),
                                                               color: ColorConstant.whiteA700,
                                                               child: CustomImageView(
+                                                                      radius: BorderRadius.circular(6),
+                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                                 url: controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
                                                               ),
                                                             ),

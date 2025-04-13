@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
+import 'package:anchorageislamabad/widgets/loader_widget.dart';
 // import 'package:csc_picker/csc_picker.dart';
 import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:dio/dio.dart' as _dio;
@@ -373,6 +374,7 @@ class OwnerFornsScreenController extends GetxController {
             }
             if (value) {
               btnController.start();
+              formsLoader(context);
               _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
                 var dio = _dio.Dio();
                 try {
@@ -392,11 +394,13 @@ class OwnerFornsScreenController extends GetxController {
                       false,
                     );
                     btnController.stop();
+                    Navigator.pop(context);
                     log(json.encode(response.data));
 
                     Get.offAllNamed(AppRoutes.homePage);
                   } else {
                     btnController.stop();
+                    Navigator.pop(context);
 
                     Utils.showToast(
                       response.data['message'],
@@ -406,6 +410,8 @@ class OwnerFornsScreenController extends GetxController {
                   }
                 } on _dio.DioException catch (error) {
                   btnController.stop();
+                  Navigator.pop(context);
+
                   // dio error (api reach the server but not performed successfully
                   // no response
                   if (error.response == null) {
@@ -417,6 +423,8 @@ class OwnerFornsScreenController extends GetxController {
                   }
 
                   if (error.response?.statusCode == 500) {
+                    Navigator.pop(context);
+
                     btnController.stop();
                     Utils.showToast(
                       "Internal Server Error",
@@ -427,6 +435,8 @@ class OwnerFornsScreenController extends GetxController {
               });
             } else {
               btnController.stop();
+              Navigator.pop(context);
+
               CustomSnackBar.showCustomErrorToast(
                 message: Strings.noInternetConnection,
               );
@@ -501,6 +511,7 @@ class OwnerFornsScreenController extends GetxController {
           }
           if (value) {
             btnController.start();
+            formsLoader(context);
             _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
               var dio = _dio.Dio();
               try {
@@ -520,11 +531,14 @@ class OwnerFornsScreenController extends GetxController {
                     false,
                   );
                   btnController.stop();
+                  Navigator.pop(context);
+
                   log(json.encode(response.data));
 
                   Get.offAllNamed(AppRoutes.homePage);
                 } else {
                   btnController.stop();
+                  Navigator.pop(context);
 
                   Utils.showToast(
                     response.data['message'],
@@ -536,6 +550,8 @@ class OwnerFornsScreenController extends GetxController {
                 btnController.stop();
                 // dio error (api reach the server but not performed successfully
                 // no response
+                Navigator.pop(context);
+
                 if (error.response == null) {
                   var exception = ApiException(
                     url: 'https://anchorageislamabad.com/api/owner-application',
@@ -546,6 +562,8 @@ class OwnerFornsScreenController extends GetxController {
 
                 if (error.response?.statusCode == 500) {
                   btnController.stop();
+                  Navigator.pop(context);
+
                   Utils.showToast(
                     "Internal Server Error",
                     true,
@@ -555,6 +573,8 @@ class OwnerFornsScreenController extends GetxController {
             });
           } else {
             btnController.stop();
+            Navigator.pop(context);
+
             CustomSnackBar.showCustomErrorToast(
               message: Strings.noInternetConnection,
             );
@@ -563,6 +583,8 @@ class OwnerFornsScreenController extends GetxController {
       }
     } else {
       btnController.stop();
+      Navigator.pop(context);
+
       Utils.showToast(
         "Please fill all the required fields",
         true,
@@ -573,6 +595,7 @@ class OwnerFornsScreenController extends GetxController {
 
   Future<void> editOwnerFormApi(context, int id) async {
     editbtnController.start();
+    formsLoader(context);
     Utils.check().then((value) async {
       Map<String, dynamic> data = {
         'name': fullNameController.text,
@@ -603,16 +626,25 @@ class OwnerFornsScreenController extends GetxController {
 
       ownerFormdata.addAll(data);
 
-      for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
-        ownerFormdata['vehicle_type[$i]'] =
-            ownerFormModel.data!.vehicle![i].vehicleTypeController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].vehicleTypeController.text;
-        ownerFormdata['registration[$i]'] =
-            ownerFormModel.data!.vehicle![i].registrationController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].registrationController.text;
-        ownerFormdata['color[$i]'] =
-            ownerFormModel.data!.vehicle![i].colorController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].colorController.text;
-        ownerFormdata['sticker_no[$i]'] =
-            ownerFormModel.data!.vehicle![i].stickerNoController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].stickerNoController.text;
-        ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? "No" : eTag[i].toString();
+      if (ownerFormModel.data!.vehicleStatus == "Yes") {
+        for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
+          ownerFormdata['vehicle_type[$i]'] =
+              ownerFormModel.data!.vehicle![i].vehicleTypeController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].vehicleTypeController.text;
+          ownerFormdata['registration[$i]'] = ownerFormModel.data!.vehicle![i].registrationController.text == ""
+              ? "No"
+              : ownerFormModel.data!.vehicle![i].registrationController.text;
+          ownerFormdata['color[$i]'] =
+              ownerFormModel.data!.vehicle![i].colorController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].colorController.text;
+          ownerFormdata['sticker_no[$i]'] =
+              ownerFormModel.data!.vehicle![i].stickerNoController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].stickerNoController.text;
+          ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? "No" : eTag[i].toString();
+        }
+      } else {
+        ownerFormdata['vehicle_type[]'] = "No";
+        ownerFormdata['registration[]'] = "No";
+        ownerFormdata['color[]'] = "No";
+        ownerFormdata['sticker_no[]'] = "No";
+        ownerFormdata['etag[]'] = "No";
       }
 
       if (alottmentletter == "Yes") {

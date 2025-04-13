@@ -8,6 +8,7 @@ import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/vechicleform_screen/models/Vehicle_form_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
+import 'package:anchorageislamabad/widgets/loader_widget.dart';
 import 'package:dio/dio.dart' as _dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -818,6 +819,7 @@ class VechicleController extends GetxController {
           if (value) {
             log(vehicalData.toString());
             btnController.start();
+            formsLoader(context);
             isLoading.value = true;
             _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
               var dio = _dio.Dio();
@@ -838,6 +840,7 @@ class VechicleController extends GetxController {
                     false,
                   );
                   btnController.stop();
+                  Navigator.pop(context);
                   isLoading.value = false;
 
                   log(json.encode(response.data));
@@ -848,10 +851,13 @@ class VechicleController extends GetxController {
                     "Internal Server Error",
                     false,
                   );
+                  Navigator.pop(context);
+
                   Get.offAllNamed(AppRoutes.homePage);
                 } else {
                   btnController.stop();
                   isLoading.value = false;
+                  Navigator.pop(context);
 
                   Utils.showToast(
                     response.data['message'],
@@ -862,6 +868,7 @@ class VechicleController extends GetxController {
               } on _dio.DioException catch (error) {
                 btnController.stop();
                 isLoading.value = false;
+                Navigator.pop(context);
 
                 Utils.showToast(
                   error.response?.toString() ?? error.error.toString(),
@@ -876,6 +883,8 @@ class VechicleController extends GetxController {
                 }
 
                 if (error.response?.statusCode == 500) {
+                  Navigator.pop(context);
+
                   btnController.stop();
                   isLoading.value = false;
 
@@ -905,6 +914,7 @@ class VechicleController extends GetxController {
 
   Future<void> editSubmitVehicle(context, int id) async {
     editbtnController.start();
+    formsLoader(context);
     update();
     Utils.check().then((value) async {
       await editAddUserInfo();
@@ -1082,6 +1092,8 @@ class VechicleController extends GetxController {
                 false,
               );
               editbtnController.stop();
+              Navigator.pop(context);
+
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
@@ -1093,6 +1105,7 @@ class VechicleController extends GetxController {
               Get.offAllNamed(AppRoutes.homePage);
             } else {
               editbtnController.stop();
+              Navigator.pop(context);
 
               Utils.showToast(
                 response.data['message'],
@@ -1102,6 +1115,8 @@ class VechicleController extends GetxController {
             }
           } on _dio.DioException catch (error) {
             editbtnController.stop();
+            Navigator.pop(context);
+
             Utils.showToast(
               error.response?.toString() ?? error.error.toString(),
               true,
@@ -1116,6 +1131,8 @@ class VechicleController extends GetxController {
 
             if (error.response?.statusCode == 500) {
               editbtnController.stop();
+              Navigator.pop(context);
+
               Utils.showToast(
                 "Internal Server Error",
                 true,
