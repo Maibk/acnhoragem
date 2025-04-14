@@ -591,12 +591,20 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     onTap: () async {
                                                       if (args['status'] == Constants.formStatusRejected) {
                                                         if (_value.addServantFormKey[index - 1].currentState?.validate() ?? true) {
-                                                          controller.servantImages.add(File(""));
-                                                          controller.servantCnicFronts.add(File(""));
-                                                          controller.servantCnicBacks.add(File(""));
-                                                          controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
-                                                          _value.addServantFormKey.add(GlobalKey<FormState>());
-                                                          controller.update();
+                                                          if (controller.servantImages[index - 1].path == "") {
+                                                            Utils.showToast("Please attach servant image", true);
+                                                          } else if (controller.servantCnicFronts[index - 1].path == "") {
+                                                            Utils.showToast("Please attach servant cnic front image", true);
+                                                          } else if (controller.servantCnicBacks[index - 1].path == "") {
+                                                            Utils.showToast("Please attach servant cnic back image", true);
+                                                          } else {
+                                                            controller.servantImages.add(File(""));
+                                                            controller.servantCnicFronts.add(File(""));
+                                                            controller.servantCnicBacks.add(File(""));
+                                                            controller.servantFormDataModel.data?.servantDetail?.add(ServantDetail());
+                                                            _value.addServantFormKey.add(GlobalKey<FormState>());
+                                                            controller.update();
+                                                          }
                                                         }
                                                       } else {
                                                         _value.addServantFormKey.add(GlobalKey<FormState>());
@@ -1239,10 +1247,14 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       onTap: () async {
                                                         if (args['status'] == Constants.formStatusRejected) {
                                                           if (_value.addServantFamilyFormKey[index - 1].currentState?.validate() ?? true) {
-                                                            controller.servantFamilyImages.add(File(""));
-                                                            controller.servantFormDataModel.data?.servantFamilyDetail?.add(ServantFamilyDetail());
-                                                            _value.addServantFamilyFormKey.add(GlobalKey<FormState>());
-                                                            controller.update();
+                                                            if (controller.servantFamilyImages[index - 1].path.isEmpty) {
+                                                              Utils.showToast("Please select servant Image", true);
+                                                            } else {
+                                                              controller.servantFamilyImages.add(File(""));
+                                                              controller.servantFormDataModel.data?.servantFamilyDetail?.add(ServantFamilyDetail());
+                                                              _value.addServantFamilyFormKey.add(GlobalKey<FormState>());
+                                                              controller.update();
+                                                            }
                                                           }
                                                         } else {
                                                           _value.addServantFamilyFormKey.add(GlobalKey<FormState>());
