@@ -267,6 +267,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       : (value) {
                                                           setState(() {
                                                             controller.selectedValue = value!;
+                                                            controller.streetSelectedValue = null;
                                                             controller.streets.clear();
                                                             controller.plots.clear();
                                                             controller.getStreetByBlock(value);
@@ -322,6 +323,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               setState(() {
                                                                 controller.streetSelectedValue = value;
                                                                 controller.plots.clear();
+                                                                controller.plotstSelectedValue = null;
                                                                 controller.getPlotNoByStreet(value!.id);
                                                               });
                                                             },

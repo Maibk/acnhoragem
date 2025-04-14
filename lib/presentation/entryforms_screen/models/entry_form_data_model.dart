@@ -25,6 +25,9 @@ class EntryFormDataModel {
 }
 
 class Data {
+  int? block_id;
+  int? street_id;
+  int? house_id;
   String? name;
   String? fatherName;
   String? cnic;
@@ -46,6 +49,9 @@ class Data {
       {this.name,
       this.fatherName,
       this.cnic,
+      this.block_id,
+      this.street_id,
+      this.house_id,
       this.phone,
       this.houseNo,
       this.road,
@@ -64,6 +70,9 @@ class Data {
     name = json['name'];
     fatherName = json['father_name'];
     cnic = json['cnic'];
+    block_id = json['block_id'];
+    street_id = json['street_id'];
+    house_id = json['house_id'];
     phone = json['phone'];
     houseNo = json['house_no'];
     road = json['road'];
@@ -225,7 +234,6 @@ class ChildDetail {
   final TextEditingController childCityController = TextEditingController();
   final TextEditingController childProvinceController = TextEditingController();
 
-
   String? childImage;
   String? childCnicFront;
   String? childCnicBack;
@@ -260,10 +268,8 @@ class ChildDetail {
     childCnicFront = json['child_cnic_front'];
     childCnicBack = json['child_cnic_back'];
 
+    childNameController.text = childName ?? '';
 
-
-     childNameController.text = childName ?? '';
-     
     childCnicController.text = childCnic ?? '';
     childPhoneController.text = childPhone ?? '';
     childHouseController.text = childHouse ?? '';

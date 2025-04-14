@@ -166,12 +166,8 @@ class EntryFormsController extends GetxController {
             cnicController.text = entryFormDataModel.data?.cnic ?? "";
             mobileController.text = entryFormDataModel.data?.phone ?? "";
             setSelectedBlock(entryFormDataModel.data?.block.toString() ?? "");
-            streetSelectedValue = Street(title: entryFormDataModel.data?.street ?? "");
-            plotstSelectedValue = Plots(title: entryFormDataModel.data?.houseNo ?? "");
-            // roadController.text = entryFormDataModel.data?.road ?? "";
-            // colonyController.text = entryFormDataModel.data?.residentialArea ?? "";
-
-            //Spouse Information
+            streetSelectedValue = Street(id: entryFormDataModel.data?.street_id ?? 0, title: entryFormDataModel.data?.street ?? "");
+            plotstSelectedValue = Plots(id: entryFormDataModel.data?.house_id ?? 0, title: entryFormDataModel.data?.houseNo ?? "");
 
             for (var element in entryFormDataModel.data!.spouseDetail!) {
               spousefullNameControllers.add(TextEditingController(text: element.spouseName));
@@ -749,10 +745,8 @@ class EntryFormsController extends GetxController {
         'cnic': cnicController.text,
         'phone': mobileController.text,
         'house_no': plotstSelectedValue?.id ?? 0,
-        // 'road': roadController.text,
         'street': streetSelectedValue?.id ?? 0,
         'block': selectedValue ?? 0,
-        // 'residential_area': colonyController.text,
         "date": DateTime.now().format("yyyy-MM-dd").toString(),
         "id": id
       };
