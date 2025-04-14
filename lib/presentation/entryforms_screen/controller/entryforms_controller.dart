@@ -663,7 +663,6 @@ class EntryFormsController extends GetxController {
         }
         log(EntryFormData.toString(), name: "EntryFormData");
         if (value) {
-          btnController.start();
           formsLoader(context);
 
           _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
@@ -687,13 +686,11 @@ class EntryFormsController extends GetxController {
                   response.data['message'],
                   false,
                 );
-                btnController.stop();
                 Navigator.pop(context);
                 log(json.encode(response.data));
 
                 Get.offAllNamed(AppRoutes.homePage);
               } else {
-                btnController.stop();
                 Navigator.pop(context);
 
                 log(response.data['message'].toString(), name: "eeror api");
@@ -709,7 +706,6 @@ class EntryFormsController extends GetxController {
               // dio error (api reach the server but not performed successfully
               // no response
 
-              btnController.stop();
               Utils.showToast(
                 error.response?.data.toString() ?? "Error",
                 true,
@@ -726,7 +722,6 @@ class EntryFormsController extends GetxController {
               if (error.response?.statusCode == 500) {
                 Navigator.pop(context);
 
-                btnController.stop();
                 Utils.showToast(
                   "Internal Server Error",
                   true,
@@ -746,7 +741,6 @@ class EntryFormsController extends GetxController {
   }
 
   Future<void> SubmitEdittedEntryFormApi(context, id) async {
-    submitEdittedFormButtonController.start();
     formsLoader(context);
     Utils.check().then((value) async {
       Map<String, dynamic> ownerInfoData = {
@@ -831,13 +825,11 @@ class EntryFormsController extends GetxController {
                 response.data['message'],
                 false,
               );
-              submitEdittedFormButtonController.stop();
               Navigator.pop(context);
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
-              btnController.stop();
               Navigator.pop(context);
 
               log(response.data['message'].toString(), name: "eeror api");
@@ -848,7 +840,6 @@ class EntryFormsController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            submitEdittedFormButtonController.stop();
             Navigator.pop(context);
 
             log(error.response?.data.toString().substring(1, 250) ?? "", name: "Entry card ERROOOOOOORRRRRR");
@@ -869,8 +860,6 @@ class EntryFormsController extends GetxController {
 
             if (error.response?.statusCode == 500) {
               Navigator.pop(context);
-
-              submitEdittedFormButtonController.stop();
               Utils.showToast(
                 "Internal Server Error",
                 true,

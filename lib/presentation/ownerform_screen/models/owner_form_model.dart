@@ -26,6 +26,7 @@ class OwnerFormModel {
 
 class Data {
   int? userId;
+  int? block_id;
   String? name;
   String? phone;
   String? cnic;
@@ -60,6 +61,7 @@ class Data {
 
   Data(
       {this.userId,
+      this.block_id,
       this.name,
       this.phone,
       this.cnic,
@@ -94,6 +96,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
+    block_id = json['block_id'];
     name = json['name'];
     phone = json['phone'];
     cnic = json['cnic'];

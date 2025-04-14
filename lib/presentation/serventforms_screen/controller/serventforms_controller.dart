@@ -457,50 +457,6 @@ class ServentFormsController extends GetxController {
       keyPrefix: 'servant_image',
       getUrlFromModel: (user) => user.servantImage ?? "",
     );
-    // if (servantImages.isNotEmpty) {
-    //   bool hasEmptyPath = servantImages.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-    //       servantData['servant_image[$i]'] =
-    //           await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantImage ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < servantImages.length; i++) {
-    //       servantData['servant_image[$i]'] = await _dio.MultipartFile.fromFile(
-    //         servantImages[i].path,
-    //         filename: servantImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-    //     servantData['servant_image[$i]'] = await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantImage ?? "");
-    //   }
-    // }
-
-    // for (var element in servantImages) {
-    //   String filePath1 = element.path;
-    //   if (filePath1.isNotEmpty) {
-    //     servantData['servant_image[$index]'] = await _dio.MultipartFile.fromFile(
-    //       filePath1,
-    //       filename: filePath1.split('/').last,
-    //       contentType: _http.MediaType.parse('image/jpeg'),
-    //     );
-    //   }
-    // }
-
-    // for (var element in servantCnicFronts) {
-    //   String filePath1 = element.path;
-    //   if (filePath1.isNotEmpty) {
-    //     servantData['servant_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
-    //       filePath1,
-    //       filename: filePath1.split('/').last,
-    //       contentType: _http.MediaType.parse('image/jpeg'),
-    //     );
-    //   }
-    // }
 
     await prepareMultipartList(
       imageList: servantCnicFronts,
@@ -510,41 +466,6 @@ class ServentFormsController extends GetxController {
       getUrlFromModel: (user) => user.servantCnicFront ?? "",
     );
 
-    // if (servantCnicFronts.isNotEmpty) {
-    //   bool hasEmptyPath = servantCnicFronts.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-    //       servantData['servant_cnic_front[$i]'] =
-    //           await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicFront ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < servantCnicFronts.length; i++) {
-    //       servantData['servant_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-    //         servantCnicFronts[i].path,
-    //         filename: servantCnicFronts[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-    //     servantData['servant_cnic_front[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicFront ?? "");
-    //   }
-    // }
-
-    // for (var element in servantCnicBacks) {
-    //   String filePath1 = element.path;
-    //   if (filePath1.isNotEmpty) {
-    //     servantData['servant_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
-    //       filePath1,
-    //       filename: filePath1.split('/').last,
-    //       contentType: _http.MediaType.parse('image/jpeg'),
-    //     );
-    //   }
-    // }
-
     await prepareMultipartList(
       imageList: servantCnicBacks,
       userDetails: userDetails,
@@ -552,54 +473,10 @@ class ServentFormsController extends GetxController {
       keyPrefix: 'servant_cnic_back',
       getUrlFromModel: (user) => user.servantCnicBack ?? "",
     );
-    // if (servantCnicBacks.isNotEmpty) {
-    //   bool hasEmptyPath = servantCnicBacks.any((file) => file.path.toString().isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-    //       servantData['servant_cnic_back[$i]'] =
-    //           await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicBack ?? "");
-    //     }
-    //   } else {
-    //     for (var i = 0; i < servantCnicBacks.length; i++) {
-    //       servantData['servant_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
-    //         servantCnicBacks[i].path,
-    //         filename: servantCnicBacks[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < servantFormDataModel.data!.servantDetail!.length; i++) {
-    //     servantData['servant_cnic_back[$i]'] =
-    //         await BaseClient.getMultipartFileFromUrl(servantFormDataModel.data!.servantDetail![i].servantCnicBack ?? "");
-    //   }
-    // }
 
     servantDataIndex = servantFormDataModel.data?.servantDetail?.length ?? 0;
     update();
   }
-
-  // clearServant() {
-  //   serventfullNameController.clear();
-  //   serventfathersController.clear();
-  //   serventcnicController.clear();
-  //   serventmobileController.clear();
-  //   serventhouseController.clear();
-  //   serventroadController.clear();
-  //   serventstreetController.clear();
-  //   serventblockController.clear();
-  //   serventcolonyVillageController.clear();
-  //   serventCityController.clear();
-  //   serventpostOfficeController.clear();
-  //   serventProvinceController.clear();
-  //   servantselectedValue = null;
-  //   servantplotstSelectedValue = null;
-  //   servantstreetSelectedValue = null;
-  //   servantCnicBack = null;
-  //   servantCnicFront = null;
-  //   servantImage = null;
-  // }
 
   addServantFamily(index) async {
     final formState = addServantFamilyFormKey[index].currentState;
@@ -691,6 +568,7 @@ class ServentFormsController extends GetxController {
           'street': streetSelectedValue?.id ?? 0,
           'block': selectedValue ?? 0,
           // 'residential_area': colonyController.text,
+          'servant_family_status': isFamilyResiding,
         };
         servantData.addAll(ownerInfoData);
         if (ownerImage != null) {
@@ -735,8 +613,6 @@ class ServentFormsController extends GetxController {
           Utils.showToast("Please select servant family images", true);
         } else {
           if (value) {
-            btnController.start();
-
             formsLoader(context);
             _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
               var dio = _dio.Dio(_dio.BaseOptions(
@@ -759,14 +635,12 @@ class ServentFormsController extends GetxController {
                     response.data['message'],
                     false,
                   );
-                  btnController.stop();
                   Navigator.pop(context);
 
                   log(json.encode(response.data));
 
                   Get.offAllNamed(AppRoutes.homePage);
                 } else {
-                  btnController.stop();
                   Navigator.pop(context);
 
                   Utils.showToast(
@@ -776,7 +650,6 @@ class ServentFormsController extends GetxController {
                   log(response.statusMessage.toString());
                 }
               } on _dio.DioException catch (error) {
-                btnController.stop();
                 Navigator.pop(context);
 
                 Utils.showToast(
@@ -792,7 +665,6 @@ class ServentFormsController extends GetxController {
                 }
 
                 if (error.response?.statusCode == 500) {
-                  btnController.stop();
                   Navigator.pop(context);
 
                   Utils.showToast(
@@ -813,7 +685,6 @@ class ServentFormsController extends GetxController {
   }
 
   Future<void> submitEditServantApi(context, id) async {
-    submitEdittedFormButtonController.start();
     formsLoader(context);
     update();
     formsLoader(context);
@@ -826,10 +697,9 @@ class ServentFormsController extends GetxController {
         'cnic': cnicController.text,
         'phone': mobileController.text,
         'house': plotstSelectedValue?.id ?? 0,
-        // 'road': roadController.text,
         'street': streetSelectedValue?.id ?? 0,
         'block': selectedValue ?? 0,
-        // 'residential_area': colonyController.text,
+        'servant_family_status': isFamilyResiding,
         'id': id.toString(),
         'status': 0
       };
@@ -899,7 +769,6 @@ class ServentFormsController extends GetxController {
                 response.data['message'],
                 false,
               );
-              submitEdittedFormButtonController.stop();
 
               Navigator.pop(context);
 
@@ -907,8 +776,6 @@ class ServentFormsController extends GetxController {
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
-              submitEdittedFormButtonController.stop();
-
               update();
               Navigator.pop(context);
 
@@ -919,7 +786,6 @@ class ServentFormsController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            submitEdittedFormButtonController.stop();
             Navigator.pop(context);
             update();
             if (error is Map) {
@@ -945,7 +811,6 @@ class ServentFormsController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
-              submitEdittedFormButtonController.stop();
               Navigator.pop(context);
 
               Utils.showToast(

@@ -506,7 +506,6 @@ class TenantFornsScreenController extends GetxController {
 
         log(data.fields.toString());
         if (value) {
-          btnController.start();
           _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
             var dio = _dio.Dio();
             try {
@@ -526,12 +525,10 @@ class TenantFornsScreenController extends GetxController {
                   response.data['message'],
                   false,
                 );
-                btnController.stop();
                 log(json.encode(response.data));
 
                 Get.offAllNamed(AppRoutes.homePage);
               } else {
-                btnController.stop();
 
                 Utils.showToast(
                   response.data['message'],
@@ -540,10 +537,8 @@ class TenantFornsScreenController extends GetxController {
                 log(response.statusMessage.toString());
               }
             } on _dio.DioException catch (error) {
-              btnController.stop();
 
               if (error.response == null) {
-                btnController.stop();
                 var exception = ApiException(
                   url: 'https://anchorageislamabad.com/api/owner-application',
                   message: error.message!,
@@ -552,7 +547,6 @@ class TenantFornsScreenController extends GetxController {
               }
 
               if (error.response?.statusCode == 500) {
-                btnController.stop();
                 Utils.showToast(
                   "Internal Server Error",
                   true,
@@ -572,7 +566,6 @@ class TenantFornsScreenController extends GetxController {
   }
 
   Future<void> editTenantFormApi(context, int id) async {
-    editbtnController.start();
     Utils.check().then((value) async {
       var data = _dio.FormData.fromMap({
         'tenant_name': fullNameController.text,
@@ -793,12 +786,10 @@ class TenantFornsScreenController extends GetxController {
                 response.data['message'],
                 false,
               );
-              editbtnController.stop();
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
-              editbtnController.stop();
 
               Utils.showToast(
                 response.data['message'],
@@ -807,7 +798,6 @@ class TenantFornsScreenController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            editbtnController.stop();
             Utils.showToast(
               error.message.toString(),
               true,
@@ -821,7 +811,6 @@ class TenantFornsScreenController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
-              editbtnController.stop();
               Utils.showToast(
                 "Internal Server Error",
                 true,
@@ -830,7 +819,6 @@ class TenantFornsScreenController extends GetxController {
           }
         });
       } else {
-        editbtnController.stop();
         CustomSnackBar.showCustomErrorToast(
           message: Strings.noInternetConnection,
         );

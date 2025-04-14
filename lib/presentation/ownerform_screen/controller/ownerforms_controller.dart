@@ -53,7 +53,8 @@ class OwnerFornsScreenController extends GetxController {
   String constructionStatus = "";
   String hasVehicle = "";
 
-  int? selectedValue;
+  Street? selectedValue;
+
   String? total_children;
   String? total_wives;
 
@@ -66,25 +67,25 @@ class OwnerFornsScreenController extends GetxController {
   Plots? plotstSelectedValue;
 
   String plotPlaceHolder = "Plots";
-  List<Map<String, dynamic>> block = [
-    {"id": 1, "title": "A"},
-    {"id": 2, "title": "AH"},
-    {"id": 3, "title": "B"},
-    {"id": 4, "title": "C"},
-    {"id": 5, "title": "D"},
-    {"id": 6, "title": "D EXT"},
-    {"id": 7, "title": "E"},
-    {"id": 8, "title": "F"},
-    {"id": 9, "title": "G"},
-    {"id": 10, "title": "H"},
-    {"id": 11, "title": "J"},
-    {"id": 12, "title": "K"},
-    {"id": 13, "title": "L"},
-    {"id": 14, "title": "M"},
-    {"id": 15, "title": "NS-1"},
-    {"id": 16, "title": "NS-2"},
-    {"id": 17, "title": "NS-5"},
-    {"id": 18, "title": "NS-3"},
+  final List<Street> block = [
+    Street(id: 1, title: "A"),
+    Street(id: 2, title: "AH"),
+    Street(id: 3, title: "B"),
+    Street(id: 4, title: "C"),
+    Street(id: 5, title: "D"),
+    Street(id: 6, title: "D EXT"),
+    Street(id: 7, title: "E"),
+    Street(id: 8, title: "F"),
+    Street(id: 9, title: "G"),
+    Street(id: 10, title: "H"),
+    Street(id: 11, title: "J"),
+    Street(id: 12, title: "K"),
+    Street(id: 13, title: "L"),
+    Street(id: 14, title: "M"),
+    Street(id: 15, title: "NS-1"),
+    Street(id: 16, title: "NS-2"),
+    Street(id: 17, title: "NS-5"),
+    Street(id: 18, title: "NS-3"),
   ];
 
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
@@ -189,17 +190,17 @@ class OwnerFornsScreenController extends GetxController {
     eTag.add("");
   }
 
-  void setSelectedBlock(String blockTitle) {
-    var matchingBlock = block.firstWhere(
-      (item) => item['title'] == blockTitle,
-      orElse: () => {},
-    );
-    if (matchingBlock.isNotEmpty) {
-      selectedValue = matchingBlock['id'];
-    } else {
-      selectedValue = null; // Handle cases where blockTitle is not found
-    }
-  }
+  // void setSelectedBlock(String blockTitle) {
+  //   var matchingBlock = block.firstWhere(
+  //     (item) => item['title'] == blockTitle,
+  //     orElse: () => {},
+  //   );
+  //   if (matchingBlock.isNotEmpty) {
+  //     selectedValue = matchingBlock['id'];
+  //   } else {
+  //     selectedValue = null; // Handle cases where blockTitle is not found
+  //   }
+  // }
 
   getEntryFormsDetails(id) {
     eTag.clear();
@@ -225,7 +226,7 @@ class OwnerFornsScreenController extends GetxController {
             } else {
               updateVehicle("No");
             }
-            setSelectedBlock(ownerFormModel.data?.blockCommercial.toString() ?? "");
+            selectedValue = Street(title: ownerFormModel.data?.blockCommercial ?? "", id: ownerFormModel.data?.block_id ?? 0);
             streetSelectedValue = Street(title: ownerFormModel.data?.streetNo ?? "");
             sizeHouseAddController.text = ownerFormModel.data?.sizeOfHousePlot ?? "";
             updateConstructionStatus(ownerFormModel.data?.construction_status ?? "");
@@ -316,7 +317,8 @@ class OwnerFornsScreenController extends GetxController {
               'occupation': occupationController.text,
               'present_address': presentAddController.text,
               'permanent_address': permanantAddController.text,
-              'block_commercial': selectedValue ?? 0,
+              'block_commercial': selectedValue?.title ?? "",
+              'block_id': selectedValue?.id ?? 0,
               'street_no': streetSelectedValue?.id ?? 0,
               'house_no': plotstSelectedValue?.id ?? 0,
               'size_of_house_plot': sizeHouseAddController.text,
@@ -373,7 +375,6 @@ class OwnerFornsScreenController extends GetxController {
               }
             }
             if (value) {
-              btnController.start();
               formsLoader(context);
               _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
                 var dio = _dio.Dio();
@@ -393,14 +394,12 @@ class OwnerFornsScreenController extends GetxController {
                       response.data['message'],
                       false,
                     );
-                    btnController.stop();
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     log(json.encode(response.data));
 
                     Get.offAllNamed(AppRoutes.homePage);
                   } else {
-                    btnController.stop();
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
 
                     Utils.showToast(
                       response.data['message'],
@@ -409,8 +408,7 @@ class OwnerFornsScreenController extends GetxController {
                     log(response.statusMessage.toString());
                   }
                 } on _dio.DioException catch (error) {
-                  btnController.stop();
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
 
                   // dio error (api reach the server but not performed successfully
                   // no response
@@ -423,9 +421,8 @@ class OwnerFornsScreenController extends GetxController {
                   }
 
                   if (error.response?.statusCode == 500) {
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
 
-                    btnController.stop();
                     Utils.showToast(
                       "Internal Server Error",
                       true,
@@ -434,7 +431,6 @@ class OwnerFornsScreenController extends GetxController {
                 }
               });
             } else {
-              btnController.stop();
               Navigator.pop(context);
 
               CustomSnackBar.showCustomErrorToast(
@@ -453,7 +449,8 @@ class OwnerFornsScreenController extends GetxController {
             'occupation': occupationController.text,
             'present_address': presentAddController.text,
             'permanent_address': permanantAddController.text,
-            'block_commercial': selectedValue ?? 0,
+            'block_commercial': selectedValue?.title ?? "",
+            'block_id': selectedValue?.id ?? 0,
             'street_no': streetSelectedValue?.id ?? 0,
             'house_no': plotstSelectedValue?.id ?? 0,
             'size_of_house_plot': sizeHouseAddController.text,
@@ -510,7 +507,6 @@ class OwnerFornsScreenController extends GetxController {
             }
           }
           if (value) {
-            btnController.start();
             formsLoader(context);
             _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
               var dio = _dio.Dio();
@@ -530,15 +526,13 @@ class OwnerFornsScreenController extends GetxController {
                     response.data['message'],
                     false,
                   );
-                  btnController.stop();
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
 
                   log(json.encode(response.data));
 
                   Get.offAllNamed(AppRoutes.homePage);
                 } else {
-                  btnController.stop();
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
 
                   Utils.showToast(
                     response.data['message'],
@@ -547,11 +541,8 @@ class OwnerFornsScreenController extends GetxController {
                   log(response.statusMessage.toString());
                 }
               } on _dio.DioException catch (error) {
-                btnController.stop();
-                // dio error (api reach the server but not performed successfully
-                // no response
-                Navigator.pop(context);
-
+                // Navigator.pop(context);
+                log(error.response!.data.toString().substring(600), name: "ERROOOOORORRRORO");
                 if (error.response == null) {
                   var exception = ApiException(
                     url: 'https://anchorageislamabad.com/api/owner-application',
@@ -561,8 +552,7 @@ class OwnerFornsScreenController extends GetxController {
                 }
 
                 if (error.response?.statusCode == 500) {
-                  btnController.stop();
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
 
                   Utils.showToast(
                     "Internal Server Error",
@@ -572,8 +562,7 @@ class OwnerFornsScreenController extends GetxController {
               }
             });
           } else {
-            btnController.stop();
-            Navigator.pop(context);
+            // Navigator.pop(context);
 
             CustomSnackBar.showCustomErrorToast(
               message: Strings.noInternetConnection,
@@ -582,8 +571,7 @@ class OwnerFornsScreenController extends GetxController {
         });
       }
     } else {
-      btnController.stop();
-      Navigator.pop(context);
+      // Navigator.pop(context);
 
       Utils.showToast(
         "Please fill all the required fields",
@@ -594,7 +582,6 @@ class OwnerFornsScreenController extends GetxController {
   }
 
   Future<void> editOwnerFormApi(context, int id) async {
-    editbtnController.start();
     formsLoader(context);
     Utils.check().then((value) async {
       Map<String, dynamic> data = {
@@ -605,7 +592,8 @@ class OwnerFornsScreenController extends GetxController {
         'occupation': occupationController.text,
         'present_address': presentAddController.text,
         'permanent_address': permanantAddController.text,
-        'block_commercial': selectedValue ?? 0,
+        'block_commercial': selectedValue?.title ?? "",
+        'block_id': selectedValue?.id ?? 0,
         'street_no': streetSelectedValue?.title ?? "",
         'house_no': plotstSelectedValue?.title ?? "",
         'size_of_house_plot': sizeHouseAddController.text,
@@ -629,22 +617,22 @@ class OwnerFornsScreenController extends GetxController {
       if (ownerFormModel.data!.vehicleStatus == "Yes") {
         for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
           ownerFormdata['vehicle_type[$i]'] =
-              ownerFormModel.data!.vehicle![i].vehicleTypeController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].vehicleTypeController.text;
+              ownerFormModel.data!.vehicle![i].vehicleTypeController.text == "" ? null : ownerFormModel.data!.vehicle![i].vehicleTypeController.text;
           ownerFormdata['registration[$i]'] = ownerFormModel.data!.vehicle![i].registrationController.text == ""
-              ? "No"
+              ? null
               : ownerFormModel.data!.vehicle![i].registrationController.text;
           ownerFormdata['color[$i]'] =
-              ownerFormModel.data!.vehicle![i].colorController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].colorController.text;
+              ownerFormModel.data!.vehicle![i].colorController.text == "" ? null : ownerFormModel.data!.vehicle![i].colorController.text;
           ownerFormdata['sticker_no[$i]'] =
-              ownerFormModel.data!.vehicle![i].stickerNoController.text == "" ? "No" : ownerFormModel.data!.vehicle![i].stickerNoController.text;
-          ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? "No" : eTag[i].toString();
+              ownerFormModel.data!.vehicle![i].stickerNoController.text == "" ? null : ownerFormModel.data!.vehicle![i].stickerNoController.text;
+          ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? null : eTag[i].toString();
         }
       } else {
-        ownerFormdata['vehicle_type[]'] = "No";
-        ownerFormdata['registration[]'] = "No";
-        ownerFormdata['color[]'] = "No";
-        ownerFormdata['sticker_no[]'] = "No";
-        ownerFormdata['etag[]'] = "No";
+        ownerFormdata['vehicle_type[]'] = null;
+        ownerFormdata['registration[]'] = null;
+        ownerFormdata['color[]'] = null;
+        ownerFormdata['sticker_no[]'] = null;
+        ownerFormdata['etag[]'] = null;
       }
 
       if (alottmentletter == "Yes") {
@@ -674,9 +662,7 @@ class OwnerFornsScreenController extends GetxController {
       } else {
         try {
           ownerFormdata['copy_approval_building_plan'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
-        } catch (e) {
-          editbtnController.stop();
-        }
+        } catch (e) {}
       }
 
       if (completionCertificate == "Yes") {
@@ -713,23 +699,17 @@ class OwnerFornsScreenController extends GetxController {
                 response.data['message'],
                 false,
               );
-              editbtnController.stop();
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
-              editbtnController.stop();
-
               Utils.showToast(
                 response.data['message'],
                 false,
               );
               log(response.statusMessage.toString());
             }
-            editbtnController.stop();
           } on _dio.DioException catch (error) {
-            editbtnController.stop();
-
             if (error.response?.statusCode == 404) {
               Utils.showToast(
                 error.response!.data['message'].toString(),
@@ -747,7 +727,6 @@ class OwnerFornsScreenController extends GetxController {
                 true,
               );
             }
-            editbtnController.stop();
 
             if (error.response == null) {
               var exception = ApiException(
@@ -758,7 +737,6 @@ class OwnerFornsScreenController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
-              editbtnController.stop();
               Utils.showToast(
                 "Internal Server Error",
                 true,
@@ -767,7 +745,6 @@ class OwnerFornsScreenController extends GetxController {
           }
         });
       } else {
-        editbtnController.stop();
         CustomSnackBar.showCustomErrorToast(
           message: Strings.noInternetConnection,
         );

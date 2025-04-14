@@ -481,133 +481,7 @@ class VechicleController extends GetxController {
       getUrlFromModel: (user) => user.userLicenseFront ?? "",
     );
 
-    // if (userDrivingLicenseFrontSideImages.isNotEmpty) {
-    //   for (var i = 0; i < userDrivingLicenseFrontSideImages.length; i++) {
-    //     final path = userDrivingLicenseFrontSideImages[i].path;
-
-    //     if (path.startsWith('http')) {
-    //       // It's a URL, download it
-    //       vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(path);
-    //     } else {
-    //       // It's a local file, send it as multipart
-    //       vehicalData['user_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-    //         path,
-    //         filename: path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   // Fallback: if list is empty, use the URLs from vehicleFormDataModel
-    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //     final url = vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "";
-    //     vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(url);
-    //   }
-    // }
-
-    // if (userDrivingLicenseFrontSideImages.isNotEmpty) {
-    //   bool hasEmptyPath = userDrivingLicenseFrontSideImages.any((file) => file.path.isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //       vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
-    //         vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
-    //       );
-    //     }
-    //   } else {
-    //     for (var i = 0; i < userDrivingLicenseFrontSideImages.length; i++) {
-    //       vehicalData['user_cnic_front[$i]'] = await _dio.MultipartFile.fromFile(
-    //         userDrivingLicenseFrontSideImages[i].path,
-    //         filename: userDrivingLicenseFrontSideImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //     vehicalData['user_cnic_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
-    //       vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
-    //     );
-    //   }
-    // }
-
-    // if (userDrivingLicenseBackSideImages.isNotEmpty) {
-    //   bool hasEmptyPath = userDrivingLicenseBackSideImages.any((file) => file.path.isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //       vehicalData['user_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
-    //         vehicleFormDataModel.data!.vehicleUserDetail![i].userCnicBack ?? "",
-    //       );
-    //     }
-    //   } else {
-    //     for (var i = 0; i < userDrivingLicenseBackSideImages.length; i++) {
-    //       vehicalData['user_cnic_back[$i]'] = await _dio.MultipartFile.fromFile(
-    //         userDrivingLicenseBackSideImages[i].path,
-    //         filename: userDrivingLicenseBackSideImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //     vehicalData['user_cnic_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
-    //       vehicleFormDataModel.data!.vehicleUserDetail![i].userCnicBack ?? "",
-    //     );
-    //   }
-    // }
-
-    // if (userCnicFrontSideImages.isNotEmpty) {
-    //   bool hasEmptyPath = userCnicFrontSideImages.any((file) => file.path.isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //       vehicalData['user_license_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
-    //         vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
-    //       );
-    //     }
-    //   } else {
-    //     for (var i = 0; i < userCnicFrontSideImages.length; i++) {
-    //       vehicalData['user_license_front[$i]'] = await _dio.MultipartFile.fromFile(
-    //         userCnicFrontSideImages[i].path,
-    //         filename: userCnicFrontSideImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //     vehicalData['user_license_front[$i]'] = await BaseClient.getMultipartFileFromUrl(
-    //       vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseFront ?? "",
-    //     );
-    //   }
-    // }
-
-    // if (userCnicBacktSideImages.isNotEmpty) {
-    //   bool hasEmptyPath = userCnicBacktSideImages.any((file) => file.path.isEmpty);
-
-    //   if (hasEmptyPath) {
-    //     for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //       vehicalData['user_license_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
-    //         vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseBack ?? "",
-    //       );
-    //     }
-    //   } else {
-    //     for (var i = 0; i < userCnicBacktSideImages.length; i++) {
-    //       vehicalData['user_license_back[$i]'] = await _dio.MultipartFile.fromFile(
-    //         userCnicBacktSideImages[i].path,
-    //         filename: userCnicBacktSideImages[i].path.split('/').last,
-    //         contentType: _http.MediaType.parse('image/jpeg'),
-    //       );
-    //     }
-    //   }
-    // } else {
-    //   for (var i = 0; i < vehicleFormDataModel.data!.vehicleUserDetail!.length; i++) {
-    //     vehicalData['user_license_back[$i]'] = await BaseClient.getMultipartFileFromUrl(
-    //       vehicleFormDataModel.data!.vehicleUserDetail![i].userLicenseBack ?? "",
-    //     );
-    //   }
-    // }
+   
   }
 
   Future<void> prepareMultipartList({
@@ -818,7 +692,6 @@ class VechicleController extends GetxController {
 
           if (value) {
             log(vehicalData.toString());
-            btnController.start();
             formsLoader(context);
             isLoading.value = true;
             _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
@@ -839,7 +712,6 @@ class VechicleController extends GetxController {
                     response.data['message'],
                     false,
                   );
-                  btnController.stop();
                   Navigator.pop(context);
                   isLoading.value = false;
 
@@ -855,7 +727,6 @@ class VechicleController extends GetxController {
 
                   Get.offAllNamed(AppRoutes.homePage);
                 } else {
-                  btnController.stop();
                   isLoading.value = false;
                   Navigator.pop(context);
 
@@ -866,7 +737,6 @@ class VechicleController extends GetxController {
                   log(response.statusMessage.toString());
                 }
               } on _dio.DioException catch (error) {
-                btnController.stop();
                 isLoading.value = false;
                 Navigator.pop(context);
 
@@ -885,7 +755,6 @@ class VechicleController extends GetxController {
                 if (error.response?.statusCode == 500) {
                   Navigator.pop(context);
 
-                  btnController.stop();
                   isLoading.value = false;
 
                   Utils.showToast(
@@ -913,7 +782,6 @@ class VechicleController extends GetxController {
   }
 
   Future<void> editSubmitVehicle(context, int id) async {
-    editbtnController.start();
     formsLoader(context);
     update();
     Utils.check().then((value) async {
@@ -1091,7 +959,6 @@ class VechicleController extends GetxController {
                 response.data['message'],
                 false,
               );
-              editbtnController.stop();
               Navigator.pop(context);
 
               log(json.encode(response.data));
@@ -1104,7 +971,6 @@ class VechicleController extends GetxController {
               );
               Get.offAllNamed(AppRoutes.homePage);
             } else {
-              editbtnController.stop();
               Navigator.pop(context);
 
               Utils.showToast(
@@ -1114,7 +980,6 @@ class VechicleController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            editbtnController.stop();
             Navigator.pop(context);
 
             Utils.showToast(
@@ -1130,7 +995,6 @@ class VechicleController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
-              editbtnController.stop();
               Navigator.pop(context);
 
               Utils.showToast(

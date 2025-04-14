@@ -249,7 +249,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       style: AppStyle.txtSourceSansProRegular16Gray600
                                                           .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                     ),
-                                                    DropdownButton(
+                                                    DropdownButton<Street>(
                                                       isExpanded: true,
                                                       hint: controller.selectedValue == null
                                                           ? Text(
@@ -257,22 +257,22 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
                                                                   fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                             )
-                                                          : Text(controller.selectedValue.toString()),
-                                                      value: controller.selectedValue,
+                                                          : Text(controller.selectedValue?.title.toString() ?? ""),
+                                                      // value: controller.selectedValue,
                                                       items: controller.block.map((item) {
-                                                        return DropdownMenuItem<int>(
-                                                          value: item['id'],
-                                                          child: Text(item['title']),
+                                                        return DropdownMenuItem<Street>(
+                                                          value: item,
+                                                          child: Text(item.title.toString()),
                                                         );
                                                       }).toList(),
                                                       onChanged: isEditable
-                                                          ? (int? value) {
+                                                          ? (Street? value) {
                                                               setState(() {
                                                                 controller.selectedValue = value!;
                                                                 controller.streets.clear();
                                                                 controller.plots.clear();
                                                                 controller.streetSelectedValue = null;
-                                                                controller.getStreetByBlock(value);
+                                                                controller.getStreetByBlock(value.id);
                                                               });
                                                             }
                                                           : null,
@@ -321,6 +321,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           onChanged: (value) {
                                                             setState(() {
                                                               controller.streetSelectedValue = value;
+                                                              controller.plotstSelectedValue = null;
                                                               controller.plots.clear();
                                                               controller.getPlotNoByStreet(value!.id);
                                                             });
@@ -1715,9 +1716,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     width: getHorizontalSize(400),
                                                     fontSize: 16,
                                                     bgColor: ColorConstant.anbtnBlue,
-                                                    controller: args['status'] == Constants.formStatusRejected
-                                                        ? controller.editbtnController
-                                                        : controller.btnController,
+                                                    controller: controller.btnController,
                                                     title: "Submit".tr,
                                                     onTap: () async {
                                                       if (args['status'] == Constants.formStatusRejected) {

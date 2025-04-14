@@ -435,7 +435,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     width: getHorizontalSize(350),
                                                     color: ColorConstant.whiteA700,
                                                     child: CustomImageView(
-                                                            radius: BorderRadius.circular(6),
+                                                      radius: BorderRadius.circular(6),
                                                       border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                       url: controller.entryFormDataModel.data?.cnicImageFront ?? "",
                                                     ),
@@ -480,7 +480,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     width: getHorizontalSize(350),
                                                     color: ColorConstant.whiteA700,
                                                     child: CustomImageView(
-                                                            radius: BorderRadius.circular(6),
+                                                      radius: BorderRadius.circular(6),
                                                       border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
                                                       url: controller.entryFormDataModel.data?.cnicImageBack ?? "",
                                                     ),
@@ -562,12 +562,20 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     onTap: () async {
                                                       if (args['status'] == Constants.formStatusRejected) {
                                                         if (_value.spouseEntryFormKey[index - 1].currentState?.validate() ?? true) {
-                                                          controller.spouseImages.add(File(""));
-                                                          controller.spouseCnicsfronts.add(File(""));
-                                                          controller.spouseCnicBacks.add(File(""));
-                                                          controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
-                                                          _value.spouseEntryFormKey.add(GlobalKey());
-                                                          controller.update();
+                                                          if (controller.spouseImages[index - 1].path == "") {
+                                                            Utils.showToast("Please attach spouse image", true);
+                                                          } else if (controller.spouseCnicsfronts[index - 1].path == "") {
+                                                            Utils.showToast("Please attach spouse cnic front image", true);
+                                                          } else if (controller.spouseCnicBacks[index - 1].path == "") {
+                                                            Utils.showToast("Please attach spouse cnic back image", true);
+                                                          } else {
+                                                            controller.spouseImages.add(File(""));
+                                                            controller.spouseCnicsfronts.add(File(""));
+                                                            controller.spouseCnicBacks.add(File(""));
+                                                            controller.entryFormDataModel.data?.spouseDetail?.add(SpouseDetail());
+                                                            _value.spouseEntryFormKey.add(GlobalKey());
+                                                            controller.update();
+                                                          }
                                                         }
                                                       } else {
                                                         _value.spouseEntryFormKey.add(GlobalKey());
@@ -798,26 +806,30 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       height: getVerticalSize(5),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: Container(
-                                                              width: getHorizontalSize(350),
-                                                              color: ColorConstant.whiteA700,
-                                                              child: CustomImageView(
-                                                                      radius: BorderRadius.circular(6),
-                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                                url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseImage ?? "",
+                                                      if (controller.spouseImages[index].path.isEmpty ||
+                                                          !controller.spouseImages[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Attachment").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseImage ?? "",
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -855,26 +867,30 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: Container(
-                                                              width: getHorizontalSize(350),
-                                                              color: ColorConstant.whiteA700,
-                                                              child: CustomImageView(
-                                                                      radius: BorderRadius.circular(6),
-                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                                url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicFront ?? "",
+                                                      if (controller.spouseCnicsfronts[index].path.isEmpty ||
+                                                          !controller.spouseCnicsfronts[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Attachment").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicFront ?? "",
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -914,26 +930,30 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: Container(
-                                                              width: getHorizontalSize(350),
-                                                              color: ColorConstant.whiteA700,
-                                                              child: CustomImageView(
-                                                                      radius: BorderRadius.circular(6),
-                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                                url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicBack ?? "",
+                                                      if (controller.spouseCnicBacks[index].path.isEmpty ||
+                                                          !controller.spouseCnicBacks[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Attachment").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                  url: controller.entryFormDataModel.data?.spouseDetail?[index].spouseCnicBack ?? "",
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -1019,12 +1039,20 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     onTap: () async {
                                                       if (args['status'] == Constants.formStatusRejected) {
                                                         if (_value.childEntryFormKey[index - 1].currentState?.validate() ?? true) {
-                                                          controller.childImages.add(File(""));
-                                                          controller.childCnicsfronts.add(File(""));
-                                                          controller.childCnicBacks.add(File(""));
-                                                          controller.entryFormDataModel.data?.childDetail?.add(ChildDetail());
-                                                          _value.childEntryFormKey.add(GlobalKey<FormState>());
-                                                          controller.update();
+                                                          if (controller.childImages[index - 1].path == "") {
+                                                            Utils.showToast("Please attach child image", true);
+                                                          } else if (controller.childCnicsfronts[index - 1].path == "") {
+                                                            Utils.showToast("Please attach child cnic front image", true);
+                                                          } else if (controller.childCnicBacks[index - 1].path == "") {
+                                                            Utils.showToast("Please attach child cnic back image", true);
+                                                          } else {
+                                                            controller.childImages.add(File(""));
+                                                            controller.childCnicsfronts.add(File(""));
+                                                            controller.childCnicBacks.add(File(""));
+                                                            controller.entryFormDataModel.data?.childDetail?.add(ChildDetail());
+                                                            _value.childEntryFormKey.add(GlobalKey<FormState>());
+                                                            controller.update();
+                                                          }
                                                         }
                                                       } else {
                                                         _value.childEntryFormKey.add(GlobalKey<FormState>());
@@ -1258,14 +1286,16 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       height: getVerticalSize(5),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          GestureDetector(
-                                                            onTap: () {},
-                                                            child: Padding(
+                                                      if (controller.childImages[index].path.isEmpty ||
+                                                          !controller.childImages[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Attachment").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            Padding(
                                                               padding: getPadding(left: 10, right: 10),
                                                               child: Container(
                                                                 width: getHorizontalSize(350),
@@ -1277,10 +1307,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -1318,26 +1347,30 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: Container(
-                                                              width: getHorizontalSize(350),
-                                                              color: ColorConstant.whiteA700,
-                                                              child: CustomImageView(
-                                                                      radius: BorderRadius.circular(6),
-                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                                url: controller.entryFormDataModel.data?.childDetail?[index].childCnicFront ?? "",
+                                                      if (controller.childCnicsfronts[index].path.isEmpty ||
+                                                          !controller.childCnicsfronts[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Attachment").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childCnicFront ?? "",
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
@@ -1376,26 +1409,30 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       height: getVerticalSize(15),
                                                     ),
                                                     if (args['status'] != "")
-                                                      Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                                        children: [
-                                                          MyText(title: "Attachment").paddingOnly(left: 10),
-                                                          5.verticalSpace,
-                                                          Padding(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            child: Container(
-                                                              width: getHorizontalSize(350),
-                                                              color: ColorConstant.whiteA700,
-                                                              child: CustomImageView(
-                                                                      radius: BorderRadius.circular(6),
-                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                                url: controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
+                                                      if (controller.childCnicBacks[index].path.isEmpty ||
+                                                          !controller.childCnicBacks[index].path.startsWith("http"))
+                                                        SizedBox.shrink()
+                                                      else
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            MyText(title: "Attachment").paddingOnly(left: 10),
+                                                            5.verticalSpace,
+                                                            Padding(
+                                                              padding: getPadding(left: 10, right: 10),
+                                                              child: Container(
+                                                                width: getHorizontalSize(350),
+                                                                color: ColorConstant.whiteA700,
+                                                                child: CustomImageView(
+                                                                  radius: BorderRadius.circular(6),
+                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          5.verticalSpace,
-                                                        ],
-                                                      ),
+                                                            5.verticalSpace,
+                                                          ],
+                                                        ),
                                                     if (args['status'] == Constants.formStatusRejected || args['status'] == "")
                                                       Padding(
                                                         padding: getPadding(left: 10, right: 10),
