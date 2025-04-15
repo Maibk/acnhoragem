@@ -618,10 +618,8 @@ class EntryFormsController extends GetxController {
           'cnic': cnicController.text,
           'phone': mobileController.text,
           'house_no': plotstSelectedValue?.id ?? 0,
-          // 'road': roadController.text,
           'street': streetSelectedValue?.id ?? 0,
           'block': selectedValue ?? 0,
-          // 'residential_area': colonyController.text,
           "date": DateTime.now().format("yyyy-MM-dd").toString()
         };
         EntryFormData.addAll(ownerInfoData);
@@ -682,12 +680,12 @@ class EntryFormsController extends GetxController {
                   response.data['message'],
                   false,
                 );
-                Navigator.pop(context);
+                // Navigator.pop(context);
                 log(json.encode(response.data));
 
                 Get.offAllNamed(AppRoutes.homePage);
               } else {
-                Navigator.pop(context);
+                // Navigator.pop(context);
 
                 log(response.data['message'].toString(), name: "eeror api");
                 Utils.showToast(
@@ -697,7 +695,7 @@ class EntryFormsController extends GetxController {
                 log(response.statusMessage.toString());
               }
             } on _dio.DioException catch (error) {
-              Navigator.pop(context);
+              // Navigator.pop(context);
 
               // dio error (api reach the server but not performed successfully
               // no response
@@ -716,7 +714,7 @@ class EntryFormsController extends GetxController {
               }
 
               if (error.response?.statusCode == 500) {
-                Navigator.pop(context);
+                // Navigator.pop(context);
 
                 Utils.showToast(
                   "Internal Server Error",
@@ -819,12 +817,12 @@ class EntryFormsController extends GetxController {
                 response.data['message'],
                 false,
               );
-              Navigator.pop(context);
+              // Navigator.pop(context);
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
-              Navigator.pop(context);
+              // Navigator.pop(context);
 
               log(response.data['message'].toString(), name: "eeror api");
               Utils.showToast(
@@ -834,16 +832,23 @@ class EntryFormsController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            Navigator.pop(context);
-
-            log(error.response?.data.toString().substring(1, 250) ?? "", name: "Entry card ERROOOOOOORRRRRR");
-            Utils.showToast(
-              error.response?.data.toString() ?? "Error",
-              true,
-            );
+            // Navigator.pop(context);
+            if (error.response?.statusCode == 404) {
+              // Navigator.pop(context);
+              Utils.showToast(
+                error.response?.data.toString() ?? '',
+                true,
+              );
+            } else {
+              Utils.showToast(
+                error.response?.data.toString() ?? "Error",
+                true,
+              );
+              log(error.response?.data.toString().substring(1, 250) ?? "", name: "Entry card ERROOOOOOORRRRRR");
+            }
 
             if (error.response == null) {
-              Navigator.pop(context);
+              // Navigator.pop(context);
 
               var exception = ApiException(
                 url: Constants.entryCardUpdateUrl,
@@ -853,7 +858,7 @@ class EntryFormsController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
-              Navigator.pop(context);
+              // Navigator.pop(context);
               Utils.showToast(
                 "Internal Server Error",
                 true,
