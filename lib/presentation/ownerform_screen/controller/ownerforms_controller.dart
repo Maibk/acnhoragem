@@ -317,8 +317,8 @@ class OwnerFornsScreenController extends GetxController {
               'occupation': occupationController.text,
               'present_address': presentAddController.text,
               'permanent_address': permanantAddController.text,
-              'block_commercial': selectedValue?.title ?? "",
-              'block_id': selectedValue?.id ?? 0,
+              'block_commercial': selectedValue?.id ?? 0,
+              // 'block_id': selectedValue?.id ?? 0,
               'street_no': streetSelectedValue?.id ?? 0,
               'house_no': plotstSelectedValue?.id ?? 0,
               'size_of_house_plot': sizeHouseAddController.text,
@@ -410,8 +410,6 @@ class OwnerFornsScreenController extends GetxController {
                 } on _dio.DioException catch (error) {
                   // Navigator.pop(context);
 
-                  // dio error (api reach the server but not performed successfully
-                  // no response
                   if (error.response == null) {
                     var exception = ApiException(
                       url: 'https://anchorageislamabad.com/api/owner-application',
@@ -431,7 +429,7 @@ class OwnerFornsScreenController extends GetxController {
                 }
               });
             } else {
-              Navigator.pop(context);
+              // Navigator.pop(context);
 
               CustomSnackBar.showCustomErrorToast(
                 message: Strings.noInternetConnection,
@@ -449,8 +447,8 @@ class OwnerFornsScreenController extends GetxController {
             'occupation': occupationController.text,
             'present_address': presentAddController.text,
             'permanent_address': permanantAddController.text,
-            'block_commercial': selectedValue?.title ?? "",
-            'block_id': selectedValue?.id ?? 0,
+            'block_commercial': selectedValue?.id ?? 0,
+            // 'block_id': selectedValue?.id ?? 0,
             'street_no': streetSelectedValue?.id ?? 0,
             'house_no': plotstSelectedValue?.id ?? 0,
             'size_of_house_plot': sizeHouseAddController.text,
@@ -469,6 +467,8 @@ class OwnerFornsScreenController extends GetxController {
           };
 
           ownerFormdata.addAll(data);
+
+          log(ownerFormdata.toString(), name: "Owner form data");
 
           if (alottmentletter == "Yes") {
             if (allotmentletter != null) {
@@ -542,7 +542,7 @@ class OwnerFornsScreenController extends GetxController {
                 }
               } on _dio.DioException catch (error) {
                 // Navigator.pop(context);
-                log(error.response!.data.toString().substring(600), name: "ERROOOOORORRRORO");
+                log(error.response!.data.toString().substring(500), name: "ERROOOOORORRRORO");
                 if (error.response == null) {
                   var exception = ApiException(
                     url: 'https://anchorageislamabad.com/api/owner-application',
@@ -592,8 +592,8 @@ class OwnerFornsScreenController extends GetxController {
         'occupation': occupationController.text,
         'present_address': presentAddController.text,
         'permanent_address': permanantAddController.text,
-        'block_commercial': selectedValue?.title ?? "",
-        'block_id': selectedValue?.id ?? 0,
+        'block_commercial': selectedValue?.id ?? 0,
+        // 'block_id': selectedValue?.id ?? 0,
         'street_no': streetSelectedValue?.title ?? "",
         'house_no': plotstSelectedValue?.title ?? "",
         'size_of_house_plot': sizeHouseAddController.text,

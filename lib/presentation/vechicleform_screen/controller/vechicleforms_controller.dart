@@ -480,8 +480,6 @@ class VechicleController extends GetxController {
       keyPrefix: 'user_cnic_front',
       getUrlFromModel: (user) => user.userLicenseFront ?? "",
     );
-
-   
   }
 
   Future<void> prepareMultipartList({
@@ -981,11 +979,18 @@ class VechicleController extends GetxController {
             }
           } on _dio.DioException catch (error) {
             Navigator.pop(context);
-
-            Utils.showToast(
-              error.response?.toString() ?? error.error.toString(),
-              true,
-            );
+            if (error.response?.statusCode == 404) {
+              Navigator.pop(context);
+              Utils.showToast(
+                error.response?.data.toString() ?? '',
+                true,
+              );
+            } else {
+              Utils.showToast(
+                error.response?.toString() ?? error.error.toString(),
+                true,
+              );
+            }
             if (error.response == null) {
               var exception = ApiException(
                 url: 'https://anchorageislamabad.com/api/servant-card',

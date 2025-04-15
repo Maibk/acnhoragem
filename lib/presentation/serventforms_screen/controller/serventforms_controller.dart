@@ -564,10 +564,8 @@ class ServentFormsController extends GetxController {
           'cnic': cnicController.text,
           'phone': mobileController.text,
           'house': plotstSelectedValue?.id ?? 0,
-          // 'road': roadController.text,
           'street': streetSelectedValue?.id ?? 0,
           'block': selectedValue ?? 0,
-          // 'residential_area': colonyController.text,
           'servant_family_status': isFamilyResiding,
         };
         servantData.addAll(ownerInfoData);

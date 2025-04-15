@@ -993,6 +993,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 onTap: () {
                                                                   setState(() {
                                                                     if (args['status'] == Constants.formStatusRejected) {
+                                                                      controller.userDrivingLicenseFrontSideImages.removeAt(index);
+                                                                      controller.userDrivingLicenseBackSideImages.removeAt(index);
+                                                                      controller.userCnicFrontSideImages.removeAt(index);
+                                                                      controller.userCnicBacktSideImages.removeAt(index);
                                                                       controller.vehicleFormDataModel.data?.vehicleUserDetail?.removeAt(index);
                                                                     } else {
                                                                       controller.userfullNameControllers.removeAt(index);
