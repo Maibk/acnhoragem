@@ -132,8 +132,10 @@ class _billsScreenState extends State<billsScreen> {
                                     shrinkWrap: true,
                                     padding: getPadding(top: 5),
                                     scrollDirection: Axis.vertical,
-                                    itemCount: controller.bills?.data?.length, // Increase the itemCount by 1 to accommodate the "View All" item
+                                    itemCount: controller.bills?.data?.length,
                                     itemBuilder: (BuildContext context, int index) {
+                                      String status = controller.bills?.data?[index].status ?? "";
+
                                       return Padding(
                                         padding: getPadding(top: 5, bottom: 5),
                                         child: Row(
@@ -178,7 +180,7 @@ class _billsScreenState extends State<billsScreen> {
                                                 SizedBox(
                                                   width: getHorizontalSize(4),
                                                 ),
-                                                if (controller.bills!.data![index].status!.toLowerCase() == "unpaid")
+                                                if (status.toLowerCase() == "unpaid")
                                                   GestureDetector(
                                                       onTap: () {
                                                         Get.toNamed(AppRoutes.payBillPage, arguments: [
@@ -195,7 +197,18 @@ class _billsScreenState extends State<billsScreen> {
                                                           "Pay Bill",
                                                           style: TextStyle(fontSize: 10, color: ColorConstant.apppWhite),
                                                         ).paddingAll(5),
-                                                      )),
+                                                      ))
+                                                else
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(5),
+                                                      color: getColor(status),
+                                                    ),
+                                                    child: Text(
+                                                      status,
+                                                      style: TextStyle(fontSize: 10, color: ColorConstant.apppWhite),
+                                                    ).paddingAll(5),
+                                                  )
                                               ],
                                             )
                                           ],
@@ -237,6 +250,17 @@ class _billsScreenState extends State<billsScreen> {
         ),
       ),
     );
+  }
+
+  Color getColor(String status) {
+    switch (status) {
+      case "Unpaid":
+        return Colors.red;
+      case "Paid":
+        return Colors.green;
+      default:
+        return Colors.grey;
+    }
   }
 
   /// Navigates to the previous screen.
