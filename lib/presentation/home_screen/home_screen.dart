@@ -514,7 +514,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   false,
                 );
               } else {
-                Get.toNamed(AppRoutes.billsPage);
+                Get.toNamed(AppRoutes.myComplaintsPage);
               }
             },
             child: Center(

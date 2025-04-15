@@ -72,10 +72,4 @@ class BillsController extends GetxController {
     });
     return null;
   }
-
-  @override
-  void onInit() {
-    super.onInit();
-    getbills();
-  }
 }

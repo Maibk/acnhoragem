@@ -29,7 +29,6 @@ class PayBillController extends GetxController {
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
   AppPreferences _appPreferences = AppPreferences();
 
-
   RxList<DealsModel> categories = <DealsModel>[].obs;
   GlobalKey<FormState> formKey = new GlobalKey();
 
@@ -101,8 +100,7 @@ class PayBillController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            // dio error (api reach the server but not performed successfully
-            // no response
+            btnController.stop();
             if (error.response == null) {
               var exception = ApiException(
                 url: 'https://anchorageislamabad.com/api/owner-application',

@@ -10,9 +10,19 @@ import '../../routes/app_routes.dart';
 import '../../widgets/custom_button.dart';
 import 'controller/bills_controller.dart';
 
-class billsScreen extends StatelessWidget {
+class billsScreen extends StatefulWidget {
+  @override
+  State<billsScreen> createState() => _billsScreenState();
+}
+
+class _billsScreenState extends State<billsScreen> {
   BillsController controller = Get.put(BillsController());
-  // const DiscoverScreen({Key? key}) : super(key: key);
+
+  @override
+  void initState() {
+    controller.getbills();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,41 +174,28 @@ class billsScreen extends StatelessWidget {
                                                         "View Bill",
                                                         style: TextStyle(fontSize: 10, color: ColorConstant.apppWhite),
                                                       ).paddingAll(5),
-                                                    )
-
-                                                    //  CommonImageView(
-                                                    //   imagePath: ImageConstant.billsViewIcon,
-                                                    //   height: 25,
-                                                    //   width: 25,
-                                                    // ),
-                                                    ),
+                                                    )),
                                                 SizedBox(
                                                   width: getHorizontalSize(4),
                                                 ),
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      Get.toNamed(AppRoutes.payBillPage, arguments: [
-                                                        controller.bills!.data![index].beforeDueDateAmount!.toString(),
-                                                        controller.bills!.data![index].id!
-                                                      ]);
-                                                    },
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(5),
-                                                        color: ColorConstant.errorColor,
-                                                      ),
-                                                      child: Text(
-                                                        "Pay Bill",
-                                                        style: TextStyle(fontSize: 10, color: ColorConstant.apppWhite),
-                                                      ).paddingAll(5),
-                                                    )
-
-                                                    // CommonImageView(
-                                                    //   imagePath: ImageConstant.billsDollarIcon,
-                                                    //   height: 25,
-                                                    //   width: 25,
-                                                    // ),
-                                                    ),
+                                                if (controller.bills!.data![index].status!.toLowerCase() == "unpaid")
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        Get.toNamed(AppRoutes.payBillPage, arguments: [
+                                                          controller.bills!.data![index].beforeDueDateAmount!.toString(),
+                                                          controller.bills!.data![index].id!
+                                                        ]);
+                                                      },
+                                                      child: Container(
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(5),
+                                                          color: ColorConstant.errorColor,
+                                                        ),
+                                                        child: Text(
+                                                          "Pay Bill",
+                                                          style: TextStyle(fontSize: 10, color: ColorConstant.apppWhite),
+                                                        ).paddingAll(5),
+                                                      )),
                                               ],
                                             )
                                           ],
