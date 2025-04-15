@@ -13,7 +13,7 @@ class MyText extends StatefulWidget {
   final FontWeight? customWeight;
   final double? fontSize, height, letterSpacing;
   final clr;
-  final toverflow;
+  final TextOverflow? toverflow;
   final bool? center;
   final bool? alignRight;
   final int? line;

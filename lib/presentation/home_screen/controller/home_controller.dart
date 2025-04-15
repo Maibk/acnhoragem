@@ -29,6 +29,9 @@ class HomeController extends GetxController {
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   RxBool isInternetAvailable = true.obs;
   Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
+  Rx<ApiCallStatus> billsStatus = ApiCallStatus.success.obs;
+  Rx<ApiCallStatus> complaintsStatus = ApiCallStatus.success.obs;
+
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
 
@@ -75,21 +78,20 @@ class HomeController extends GetxController {
       if (value) {
         isInternetAvailable.value = true;
 
-        apiCallStatus.value = ApiCallStatus.loading;
+        billsStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              // headers: {'Authorization': "Bearer 15|7zbPqSX0mng6isF9L3iU3v33V6eaoGvEMkE2K7Fg"},
-              headers: {'Authorization': "Bearer $token"},
-              Constants.billsUrl, onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.billsUrl, onSuccess: (response) {
             log(response.toString());
 
             bills = Bills.fromJson(response.data);
-
-
-            
-
-            update();
+            if (bills?.data?.isEmpty ?? false) {
+              billsStatus.value = ApiCallStatus.empty;
+              update();
+            } else {
+              billsStatus.value = ApiCallStatus.success;
+              update();
+            }
 
             return true;
           }, onError: (error) {
@@ -99,7 +101,7 @@ class HomeController extends GetxController {
 
             BaseClient.handleApiError(error);
 
-            apiCallStatus.value = ApiCallStatus.error;
+            billsStatus.value = ApiCallStatus.error;
 
             return false;
           });
@@ -117,13 +119,14 @@ class HomeController extends GetxController {
       if (value) {
         isInternetAvailable.value = true;
 
-        apiCallStatus.value = ApiCallStatus.loading;
+        complaintsStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
           await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.complaintUrl, onSuccess: (response) {
-            log(response.toString());
+            log(response.toString(), name: "Complaints data");
 
             complaints = Complaints.fromJson(response.data);
+            complaintsStatus.value = ApiCallStatus.success;
 
             update();
 
@@ -131,9 +134,14 @@ class HomeController extends GetxController {
           }, onError: (error) {
             ApiException apiException = error;
             print(apiException.message);
-            BaseClient.handleApiError(error, showtoast: false);
-            apiCallStatus.value = ApiCallStatus.error;
-            return false;
+            if (apiException.statusCode == 404) {
+              complaintsStatus.value = ApiCallStatus.empty;
+              update();
+            } else {
+              BaseClient.handleApiError(error, showtoast: false);
+              complaintsStatus.value = ApiCallStatus.error;
+              return false;
+            }
           });
         });
       } else {

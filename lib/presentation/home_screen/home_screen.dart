@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'package:anchorageislamabad/Shared_prefrences/app_prefrences.dart';
 import 'package:anchorageislamabad/core/utils/image_constant.dart';
+import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/main.dart';
+import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -384,105 +386,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             init: controller,
                             builder: (context) {
                               return CustomExpansionTile(
-                                leading: CommonImageView(
-                                  imagePath: ImageConstant.homeExpicon1,
-                                ),
-                                title: MyText(
-                                  title: 'My Bills',
-                                  clr: ColorConstant.antextlightgray,
-                                  fontSize: 14,
-                                ),
-                                subtitle: MyText(
-                                  title: 'Update and modify your bills details',
-                                  clr: ColorConstant.antextlightgray,
-                                  fontSize: 12,
-                                ),
-                                children: controller.bills != null
-                                    ? <Widget>[
-                                        if (controller.bills?.data?.isNotEmpty == true)
-                                          Column(
-                                            children: [
-                                              Container(
-                                                child: DataTable(
-                                                  horizontalMargin: 0,
-                                                  columnSpacing: .2.sw,
-                                                  dataRowMaxHeight: 50.0,
-                                                  showBottomBorder: false,
-                                                  dividerThickness: 0.0,
-                                                  columns: const [
-                                                    DataColumn(label: Text('Month')),
-                                                    DataColumn(label: Text('Amount')),
-                                                    DataColumn(label: Text('Status')),
-                                                  ],
-                                                  rows: controller.bills!.data!.map((bill) {
-                                                    return DataRow(
-                                                      cells: [
-                                                        DataCell(
-                                                          MyText(
-                                                            title: "${bill.billMonth}",
-                                                            fontSize: 12.sp,
-                                                          ),
-                                                        ),
-                                                        DataCell(
-                                                          MyText(
-                                                            title: "${bill.beforeDueDateAmount}",
-                                                            fontSize: 12.sp,
-                                                          ),
-                                                        ),
-                                                        DataCell(
-                                                          Container(
-                                                            width: 60.w,
-                                                            height: 20,
-                                                            alignment: Alignment.center,
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(5),
-                                                              color: bill.status! == "Paid"
-                                                                  ? ColorConstant.appgreenColor
-                                                                  : bill.status! == "Pending"
-                                                                      ? ColorConstant.pendingColor
-                                                                      : bill.status!.toLowerCase() == "review"
-                                                                          ? Colors.grey
-                                                                          : Colors.red,
-                                                            ),
-                                                            child: MyText(
-                                                              title: "${bill.status}",
-                                                              fontSize: 11.sp,
-                                                              clr: ColorConstant.whiteA700,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        10.verticalSpace,
-                                        InkWell(
-                                          onTap: () {
-                                            if (controller.profileModel?.appFormApproved == 0) {
-                                              Utils.showToast(
-                                                "Your application form is not approved yet, kindly wait for Approval",
-                                                false,
-                                              );
-                                            } else {
-                                              Get.toNamed(AppRoutes.billsPage);
-                                            }
-                                          },
-                                          child: Center(
-                                            child: MyText(
-                                              title: "View More",
-                                              fontSize: 16,
-                                              clr: ColorConstant.antextGrayDark,
-                                              customWeight: FontWeight.bold,
-                                              under: true,
-                                            ),
-                                          ),
-                                        ),
-                                      ]
-                                    : [CircularProgressIndicator.adaptive()],
-                              );
+                                  leading: CommonImageView(
+                                    imagePath: ImageConstant.homeExpicon1,
+                                  ),
+                                  title: MyText(
+                                    title: 'My Bills',
+                                    clr: ColorConstant.antextlightgray,
+                                    fontSize: 14,
+                                  ),
+                                  subtitle: MyText(
+                                    title: 'Update and modify your bills details',
+                                    clr: ColorConstant.antextlightgray,
+                                    fontSize: 12,
+                                  ),
+                                  children: buildBillsList(controller.billsStatus.value));
                             }),
                         SizedBox(
                           height: getVerticalSize(10),
@@ -491,102 +408,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             init: controller,
                             builder: (context) {
                               return CustomExpansionTile(
-                                leading: CommonImageView(
-                                  imagePath: ImageConstant.homeExpicon2,
-                                ),
-                                title: MyText(
-                                  title: 'My Complaints',
-                                  clr: ColorConstant.antextlightgray,
-                                  fontSize: 14,
-                                ),
-                                subtitle: MyText(
-                                  title: 'Update and modify your complaints',
-                                  clr: ColorConstant.antextlightgray,
-                                  fontSize: 12,
-                                ),
-                                children: controller.complaints != null
-                                    ? <Widget>[
-                                        if (controller.complaints?.data?.isNotEmpty == true)
-                                          Column(
-                                            children: [
-                                              Container(
-                                                child: DataTable(
-                                                  horizontalMargin: 0,
-                                                  columnSpacing: .1.sw,
-                                                  dataRowMaxHeight: 50.0,
-                                                  showBottomBorder: false,
-                                                  dividerThickness: 0.0,
-                                                  columns: const [
-                                                    DataColumn(label: Text('Title')),
-                                                    DataColumn(label: Text('Status')),
-                                                  ],
-                                                  rows: controller.complaints!.data!.map((bill) {
-                                                    return DataRow(
-                                                      cells: [
-                                                        DataCell(
-                                                          SizedBox(
-                                                            width: .6.sw,
-                                                            child: MyText(
-                                                              title: "${bill.description}",
-                                                              fontSize: 12.sp,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        DataCell(
-                                                          Container(
-                                                            padding: getPadding(left: 10, right: 10),
-                                                            height: getVerticalSize(20),
-                                                            decoration: BoxDecoration(
-                                                              color: bill.status! == "Resolved"
-                                                                  ? ColorConstant.appgreenColor
-                                                                  : bill.status! == "Pending"
-                                                                      ? ColorConstant.pendingColor
-                                                                      : ColorConstant.assignedColor,
-                                                              borderRadius: BorderRadius.circular(5),
-                                                            ),
-                                                            alignment: Alignment.center,
-                                                            child: MyText(
-                                                              title: bill.status!,
-                                                              fontSize: 9,
-                                                              clr: ColorConstant.whiteA700,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    );
-                                                  }).toList(),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        10.verticalSpace,
-                                        InkWell(
-                                          onTap: () {
-                                            if (controller.profileModel?.appFormApproved == 0) {
-                                              Utils.showToast(
-                                                "Your application form is not approved yet, kindly wait for Approval",
-                                                false,
-                                              );
-                                            } else {
-                                              Get.toNamed(AppRoutes.billsPage);
-                                            }
-                                          },
-                                          child: Center(
-                                            child: MyText(
-                                              title: "View More",
-                                              fontSize: 16,
-                                              clr: ColorConstant.antextGrayDark,
-                                              customWeight: FontWeight.bold,
-                                              under: true,
-                                            ),
-                                          ),
-                                        ),
-                                      ]
-                                    : [CircularProgressIndicator.adaptive()],
-                             
-                             
-                             
-                              );
+                                  leading: CommonImageView(
+                                    imagePath: ImageConstant.homeExpicon2,
+                                  ),
+                                  title: MyText(
+                                    title: 'My Complaints',
+                                    clr: ColorConstant.antextlightgray,
+                                    fontSize: 14,
+                                  ),
+                                  subtitle: MyText(
+                                    title: 'Update and modify your complaints',
+                                    clr: ColorConstant.antextlightgray,
+                                    fontSize: 12,
+                                  ),
+                                  children: buildComplaintChildren(controller.complaintsStatus.value));
                             }),
                       ],
                     ),
@@ -600,8 +435,220 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// Navigates to the previous screen.
-  onTapArrowLeft() {
-    Get.back();
+  List<Widget> buildComplaintChildren(ApiCallStatus status) {
+    final complaints = controller.complaints;
+
+    switch (status) {
+      case ApiCallStatus.empty:
+        return [
+          MyText(
+            title: 'No Complaints found.',
+            clr: ColorConstant.antextlightgray,
+            fontSize: 14,
+          ),
+          10.verticalSpace,
+        ];
+
+      case ApiCallStatus.success:
+        return [
+          Column(
+            children: [
+              Container(
+                child: DataTable(
+                  horizontalMargin: 0,
+                  columnSpacing: .2.sw,
+                  dataRowMaxHeight: 50.0,
+                  showBottomBorder: false,
+                  dividerThickness: 0.0,
+                  columns: const [
+                    DataColumn(label: Text('Title')),
+                    DataColumn(label: Text('Status')),
+                  ],
+                  rows: complaints!.data!.map((bill) {
+                    return DataRow(
+                      cells: [
+                        DataCell(
+                          SizedBox(
+                            width: .5.sw,
+                            child: MyText(
+                              line: 1,
+                              toverflow: TextOverflow.ellipsis,
+                              title: "${bill.description}",
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                            padding: getPadding(left: 10, right: 10),
+                            height: getVerticalSize(20),
+                            decoration: BoxDecoration(
+                              color: bill.status! == "Resolved"
+                                  ? ColorConstant.appgreenColor
+                                  : bill.status! == "Pending"
+                                      ? ColorConstant.pendingColor
+                                      : ColorConstant.assignedColor,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            alignment: Alignment.center,
+                            child: MyText(
+                              title: bill.status!,
+                              fontSize: 9,
+                              clr: ColorConstant.whiteA700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+          10.verticalSpace,
+          InkWell(
+            onTap: () {
+              if (controller.profileModel?.appFormApproved == 0) {
+                Utils.showToast(
+                  "Your application form is not approved yet, kindly wait for Approval",
+                  false,
+                );
+              } else {
+                Get.toNamed(AppRoutes.billsPage);
+              }
+            },
+            child: Center(
+              child: MyText(
+                title: "View More",
+                fontSize: 16,
+                clr: ColorConstant.antextGrayDark,
+                customWeight: FontWeight.bold,
+                under: true,
+              ),
+            ),
+          ),
+        ];
+      case ApiCallStatus.error:
+        return [
+          MyText(
+            title: "Something went wrong.",
+            clr: ColorConstant.antextlightgray,
+            fontSize: 14,
+          ),
+          10.verticalSpace,
+        ];
+
+      default:
+        return [CircularProgressIndicator.adaptive()];
+    }
+  }
+
+  List<Widget> buildBillsList(ApiCallStatus status) {
+    switch (status) {
+      case ApiCallStatus.empty:
+        return [
+          MyText(
+            title: 'No Bills found.',
+            clr: ColorConstant.antextlightgray,
+            fontSize: 14,
+          ),
+          10.verticalSpace,
+        ];
+
+      case ApiCallStatus.success:
+        return [
+          Column(
+            children: [
+              Container(
+                child: DataTable(
+                  horizontalMargin: 0,
+                  columnSpacing: .2.sw,
+                  dataRowMaxHeight: 50.0,
+                  showBottomBorder: false,
+                  dividerThickness: 0.0,
+                  columns: const [
+                    DataColumn(label: Text('Month')),
+                    DataColumn(label: Text('Amount')),
+                    DataColumn(label: Text('Status')),
+                  ],
+                  rows: controller.bills!.data!.map((bill) {
+                    return DataRow(
+                      cells: [
+                        DataCell(
+                          MyText(
+                            title: "${bill.billMonth}",
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                        DataCell(
+                          MyText(
+                            title: "${bill.beforeDueDateAmount}",
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                        DataCell(
+                          Container(
+                            width: 60.w,
+                            height: 20,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: bill.status! == "Paid"
+                                  ? ColorConstant.appgreenColor
+                                  : bill.status! == "Pending"
+                                      ? ColorConstant.pendingColor
+                                      : bill.status!.toLowerCase() == "review"
+                                          ? Colors.grey
+                                          : Colors.red,
+                            ),
+                            child: MyText(
+                              title: "${bill.status}",
+                              fontSize: 11.sp,
+                              clr: ColorConstant.whiteA700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+          10.verticalSpace,
+          InkWell(
+            onTap: () {
+              if (controller.profileModel?.appFormApproved == 0) {
+                Utils.showToast(
+                  "Your application form is not approved yet, kindly wait for Approval",
+                  false,
+                );
+              } else {
+                Get.toNamed(AppRoutes.billsPage);
+              }
+            },
+            child: Center(
+              child: MyText(
+                title: "View More",
+                fontSize: 16,
+                clr: ColorConstant.antextGrayDark,
+                customWeight: FontWeight.bold,
+                under: true,
+              ),
+            ),
+          ),
+        ];
+      case ApiCallStatus.error:
+        return [
+          MyText(
+            title: "Something went wrong.",
+            clr: ColorConstant.antextlightgray,
+            fontSize: 14,
+          ),
+          10.verticalSpace,
+        ];
+      default:
+        return [CircularProgressIndicator.adaptive()];
+    }
   }
 }

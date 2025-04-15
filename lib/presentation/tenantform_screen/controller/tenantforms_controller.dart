@@ -7,6 +7,7 @@ import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/tenantform_screen/models/tenant_form_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
+import 'package:anchorageislamabad/widgets/loader_widget.dart';
 // import 'package:csc_picker/csc_picker.dart';
 import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:dio/dio.dart' as _dio;
@@ -506,6 +507,7 @@ class TenantFornsScreenController extends GetxController {
 
         log(data.fields.toString());
         if (value) {
+          formsLoader(context);
           _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
             var dio = _dio.Dio();
             try {
@@ -521,6 +523,7 @@ class TenantFornsScreenController extends GetxController {
               );
               if (response.statusCode == 200) {
                 log(data.toString());
+                Navigator.pop(context);
                 Utils.showToast(
                   response.data['message'],
                   false,
@@ -529,6 +532,7 @@ class TenantFornsScreenController extends GetxController {
 
                 Get.offAllNamed(AppRoutes.homePage);
               } else {
+                Navigator.pop(context);
 
                 Utils.showToast(
                   response.data['message'],
@@ -537,6 +541,7 @@ class TenantFornsScreenController extends GetxController {
                 log(response.statusMessage.toString());
               }
             } on _dio.DioException catch (error) {
+              Navigator.pop(context);
 
               if (error.response == null) {
                 var exception = ApiException(
@@ -547,6 +552,8 @@ class TenantFornsScreenController extends GetxController {
               }
 
               if (error.response?.statusCode == 500) {
+                Navigator.pop(context);
+
                 Utils.showToast(
                   "Internal Server Error",
                   true,
@@ -555,6 +562,8 @@ class TenantFornsScreenController extends GetxController {
             }
           });
         } else {
+          Navigator.pop(context);
+
           CustomSnackBar.showCustomErrorToast(
             message: Strings.noInternetConnection,
           );
@@ -566,6 +575,7 @@ class TenantFornsScreenController extends GetxController {
   }
 
   Future<void> editTenantFormApi(context, int id) async {
+    formsLoader(context);
     Utils.check().then((value) async {
       var data = _dio.FormData.fromMap({
         'tenant_name': fullNameController.text,
@@ -782,6 +792,8 @@ class TenantFornsScreenController extends GetxController {
               data: data,
             );
             if (response.statusCode == 200) {
+              Navigator.pop(context);
+
               Utils.showToast(
                 response.data['message'],
                 false,
@@ -790,6 +802,7 @@ class TenantFornsScreenController extends GetxController {
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
+              Navigator.pop(context);
 
               Utils.showToast(
                 response.data['message'],
@@ -798,6 +811,8 @@ class TenantFornsScreenController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
+            Navigator.pop(context);
+
             Utils.showToast(
               error.message.toString(),
               true,
@@ -811,6 +826,7 @@ class TenantFornsScreenController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
+              Navigator.pop(context);
               Utils.showToast(
                 "Internal Server Error",
                 true,
@@ -819,6 +835,8 @@ class TenantFornsScreenController extends GetxController {
           }
         });
       } else {
+        Navigator.pop(context);
+
         CustomSnackBar.showCustomErrorToast(
           message: Strings.noInternetConnection,
         );
