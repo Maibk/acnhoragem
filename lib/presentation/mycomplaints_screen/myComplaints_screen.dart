@@ -3,6 +3,7 @@ import 'package:anchorageislamabad/presentation/mycomplaints_screen/controller/v
 import 'package:anchorageislamabad/presentation/mycomplaints_screen/view_complaint.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../core/utils/color_constant.dart';
@@ -88,33 +89,6 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: 70,
-                                  child: MyText(
-                                    title: "Title",
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                MyText(
-                                  title: "Description",
-                                  fontSize: 12,
-                                ),
-                                MyText(
-                                  title: "Status",
-                                  fontSize: 12,
-                                ),
-                                MyText(
-                                  title: "Action",
-                                  fontSize: 12,
-                                ),
-                              ],
-                            ),
-                            Divider(
-                              color: ColorConstant.antextlightgray,
-                            ),
                             GetBuilder(
                               init: controller,
                               builder: (controller) {
@@ -131,91 +105,84 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                   );
                                 }
                                 if (controller.complaints?.data != null) {
-                                  return ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    padding: getPadding(top: 5),
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: controller.complaints!.data!.length, // Increase the itemCount by 1 to accommodate the "View All" item
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: getPadding(top: 10, bottom: 10),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Container(
-                                                  width: MediaQuery.of(context).size.width / 3.8,
-                                                  child: MyText(
-                                                    title: controller.complaints?.data?[index].complaintType ?? "N/A",
-                                                    clr: ColorConstant.antextGrayDark,
-                                                    fontSize: 12,
-                                                    line: 1,
-                                                    toverflow: TextOverflow.ellipsis,
-                                                  ),
+                                  return Container(
+                                    // padding: EdgeInsetsDirectional.symmetric(horizontal: 20),
+                                    child: DataTable(
+                                      horizontalMargin: 0,
+                                      dataRowMaxHeight: 50.0,
+                                      showBottomBorder: false,
+                                      columnSpacing: 20,
+                                      dividerThickness: 0.0,
+                                      columns: [
+                                        DataColumn(label: Text('Title')),
+                                        DataColumn(label: Text('Description')),
+                                        DataColumn(label: Text('Status')),
+                                        DataColumn(label: Text('Action').paddingOnly(left: 20)),
+                                      ],
+                                      rows: controller.complaints!.data!.map((complain) {
+                                        return DataRow(
+                                          cells: [
+                                            DataCell(
+                                              Container(
+                                                // color: Colors.red,
+                                                width: 50,
+                                                child: MyText(
+                                                  title: "${complain.complaintType}",
+                                                  fontSize: 12.sp,
+                                                  line: 1,
+                                                  toverflow: TextOverflow.ellipsis,
                                                 ),
-                                                Container(
-                                                  constraints: BoxConstraints(maxWidth: 80, minWidth: 80),
-                                                  child: MyText(
-                                                    title: controller.complaints!.data![index].description!,
-                                                    clr: ColorConstant.antextGrayDark,
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      // width: 80,
-                                                      padding: getPadding(left: 10, right: 10),
-                                                      height: getVerticalSize(20),
-                                                      decoration: BoxDecoration(
-                                                        color: controller.complaints!.data![index].status! == "Resolved"
-                                                            ? ColorConstant.appgreenColor
-                                                            : controller.complaints!.data![index].status! == "Pending"
-                                                                ? ColorConstant.pendingColor
-                                                                : ColorConstant.assignedColor,
-                                                        borderRadius: BorderRadius.circular(5),
-                                                      ),
-                                                      alignment: Alignment.center,
-                                                      child: MyText(
-                                                        title: controller.complaints!.data![index].status!,
-                                                        fontSize: 9,
-                                                        clr: ColorConstant.whiteA700,
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        viewCompplaincontroller.getViewComplain(controller.complaints!.data![index].id ?? 0);
-                                                        viewCompplaincontroller.getMessagesOnComplain(controller.complaints!.data![index].id ?? 0);
-                                                        Get.to(() => VIewComplaintsScreen(
-                                                              description: controller.complaints!.data![index].description ?? "",
-                                                              status: controller.complaints!.data![index].status ?? "",
-                                                              complainType: controller.complaints!.data![index].complaintType ?? "",
-                                                              complaintID: controller.complaints!.data![index].id ?? 0,
-                                                            ));
-                                                      },
-                                                      child: Container(margin: EdgeInsets.only(left: 30), child: Icon(Icons.remove_red_eye)),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                          // if (index != 14) // Add divider after all items except the last one
-                                          const Divider(
-                                            height: 1,
-                                            color: Colors.grey, // Adjust color as needed
-                                            thickness: 1,
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                            DataCell(
+                                              SizedBox(
+                                                width: 90,
+                                                child: MyText(
+                                                  title: "${complain.description}",
+                                                  fontSize: 12.sp,
+                                                  line: 1,
+                                                  toverflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(
+                                              Container(
+                                                // width: 80,
+                                                padding: getPadding(left: 10, right: 10),
+                                                height: getVerticalSize(20),
+                                                decoration: BoxDecoration(
+                                                  color: complain.status! == "Resolved"
+                                                      ? ColorConstant.appgreenColor
+                                                      : complain.status! == "Pending"
+                                                          ? ColorConstant.pendingColor
+                                                          : ColorConstant.assignedColor,
+                                                  borderRadius: BorderRadius.circular(5),
+                                                ),
+                                                alignment: Alignment.center,
+                                                child: MyText(
+                                                  title: complain.status!,
+                                                  fontSize: 9,
+                                                  clr: ColorConstant.whiteA700,
+                                                ),
+                                              ),
+                                            ),
+                                            DataCell(GestureDetector(
+                                              onTap: () {
+                                                viewCompplaincontroller.getViewComplain(complain.id ?? 0);
+                                                viewCompplaincontroller.getMessagesOnComplain(complain.id ?? 0);
+                                                Get.to(() => VIewComplaintsScreen(
+                                                      description: complain.description ?? "",
+                                                      status: complain.status ?? "",
+                                                      complainType: complain.complaintType ?? "",
+                                                      complaintID: complain.id ?? 0,
+                                                    ));
+                                              },
+                                              child: Container(margin: EdgeInsets.only(left: 30), child: Icon(Icons.remove_red_eye)),
+                                            )),
+                                          ],
+                                        );
+                                      }).toList(),
+                                    ),
                                   );
                                 } else {
                                   CircularProgressIndicator.adaptive();

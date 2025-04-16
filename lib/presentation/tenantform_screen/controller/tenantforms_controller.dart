@@ -253,7 +253,6 @@ class TenantFornsScreenController extends GetxController {
     log(country.toString());
   }
 
-
   getEntryFormsDetails(id) {
     eTag.clear();
     Utils.check().then((value) async {
@@ -612,6 +611,7 @@ class TenantFornsScreenController extends GetxController {
               tenantFormModel.data!.vehicle![i].stickerNoController.text == "" ? null : tenantFormModel.data!.vehicle![i].stickerNoController.text;
           tenantFormdata['etag[$i]'] = eTag[i].toString() == "" ? null : eTag[i].toString();
         }
+        data.fields.addAll(tenantFormdata.entries.map((e) => MapEntry(e.key, e.value?.toString() ?? '')));
       } else {
         var nullData =
             _dio.FormData.fromMap({'vehicle_type[0]': null, 'registration[0]': null, 'color[0]': null, 'sticker_no[0]': null, 'etag[0]': null});
