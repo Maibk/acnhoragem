@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:anchorageislamabad/presentation/pay_bill_screen/controller/Pay_bill_controller.dart';
 import 'package:anchorageislamabad/widgets/animated_custom_button.dart';
-import 'package:anchorageislamabad/widgets/custom_button.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +9,6 @@ import 'package:get/get.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/size_utils.dart';
 import '../../routes/app_routes.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
 
 class PayBillScreen extends StatelessWidget {
   String? amount;
@@ -133,7 +131,7 @@ class PayBillScreen extends StatelessWidget {
                                     ],
                                   ),
                                   SizedBox(height: getVerticalSize(10)),
-                                  MyText(title: "Bill Payment amount: ${args[1]}", fontSize: 15.h),
+                                  MyText(title: "Bill Payment amount: ${args[0]}", fontSize: 15.h),
                                   SizedBox(height: getVerticalSize(15)),
                                   MyAnimatedButton(
                                     radius: 5.0,

@@ -112,8 +112,7 @@ class AppPreferences {
   void setShowAdd({required bool showAdd}) => _setPreference(prefName: prefShowAdd, prefValue: showAdd, prefType: prefTypeBool);
   Future<String> getShowAdd() async => await _getPreference(prefName: prefShowAdd); // Check value for NULL. If NULL provide default value as FALSE.
 
-  void setDeviceToken({required String deviceId}) =>
-      _setPreference(prefName: "deviceToken", prefValue: deviceId, prefType: prefTypeString);
+  void setDeviceToken({required String deviceId}) => _setPreference(prefName: "deviceToken", prefValue: deviceId, prefType: prefTypeString);
 
   Future<String> getDeviceToken() async =>
       await _getPreference(prefName: "deviceToken"); // Check value for NULL. If NULL provide default value as FALSE.
@@ -168,7 +167,6 @@ class AppPreferences {
 
   Future<String> getRole() async => await _getPreference(prefName: prefRole);
 
-
   void setUserPhoneNumber({required String phoneNumber}) =>
       _setPreference(prefName: prefUserPhoneNumber, prefValue: phoneNumber, prefType: prefTypeString);
 
@@ -177,7 +175,6 @@ class AppPreferences {
   void setUserCity({required String city}) => _setPreference(prefName: prefUserCity, prefValue: city, prefType: prefTypeString);
 
   Future<String> getUserCity() async => await _getPreference(prefName: prefUserCity);
-
 
   void setBrandId({required String brandId}) => _setPreference(prefName: prefBrandId, prefValue: brandId, prefType: prefTypeString);
 

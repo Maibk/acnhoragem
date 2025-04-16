@@ -582,6 +582,26 @@ class OwnerFornsScreenController extends GetxController {
   }
 
   Future<void> editOwnerFormApi(context, int id) async {
+    if (alottmentletter == "Yes") {
+      if (allotmentletter == null && ownerFormModel.data!.allotmentLetterUrl == "") {
+        Utils.showToast("Please select allotment letter image", true);
+      } else {
+        if (completionCertificate == "Yes") {
+          if (certificate == null && ownerFormModel.data!.completionCertificateUrl == "") {
+            Utils.showToast("Please select completion certificate image", true);
+          } else {
+            submitEdittedOwner(context, id);
+          }
+        } else {
+          submitEdittedOwner(context, id);
+        }
+      }
+    } else {
+      submitEdittedOwner(context, id);
+    }
+  }
+
+  submitEdittedOwner(context, id) {
     formsLoader(context);
     Utils.check().then((value) async {
       Map<String, dynamic> data = {
@@ -636,7 +656,7 @@ class OwnerFornsScreenController extends GetxController {
       }
 
       if (alottmentletter == "Yes") {
-        if (allotmentletter != null) {
+        if (!allotmentletter!.path.startsWith("http")) {
           String filePath1 = allotmentletter?.path ?? '';
           if (filePath1.isNotEmpty) {
             ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
@@ -644,9 +664,9 @@ class OwnerFornsScreenController extends GetxController {
               filename: filePath1.split('/').last,
               contentType: _http.MediaType.parse('image/jpeg'),
             );
-          } else {
-            ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.allotmentLetterUrl ?? "");
           }
+        } else {
+          ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.allotmentLetterUrl ?? "");
         }
       }
 
@@ -666,7 +686,7 @@ class OwnerFornsScreenController extends GetxController {
       }
 
       if (completionCertificate == "Yes") {
-        if (certificate != null) {
+        if (!certificate!.path.startsWith("http")) {
           String filePath1 = certificate?.path ?? '';
           if (filePath1.isNotEmpty) {
             ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(

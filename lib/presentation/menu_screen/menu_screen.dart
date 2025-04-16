@@ -302,9 +302,9 @@ class MenuScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
-                                      imagePath: "assets/images/menudownloadform.png",
-                                      scale: 2,
-                                    ).paddingAll(15),
+                                      imagePath: "assets/images/About-App.png",
+                                      scale: 20,
+                                    ).paddingAll(10),
                                   ),
                                   SizedBox(
                                     width: getHorizontalSize(20),
@@ -333,9 +333,9 @@ class MenuScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
-                                      imagePath: "assets/images/menudownloadform.png",
-                                      scale: 2,
-                                    ).paddingAll(15),
+                                      imagePath: "assets/images/Terms & Conditions.png",
+                                      scale: 20,
+                                    ).paddingAll(10),
                                   ),
                                   SizedBox(
                                     width: getHorizontalSize(20),
@@ -364,9 +364,9 @@ class MenuScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle, color: Colors.transparent, border: Border.all(color: ColorConstant.whiteA700)),
                                     child: CommonImageView(
-                                      imagePath: "assets/images/menudownloadform.png",
-                                      scale: 2,
-                                    ).paddingAll(15),
+                                      imagePath: "assets/images/Privacy-Policy.png",
+                                      scale: 20,
+                                    ).paddingAll(10),
                                   ),
                                   SizedBox(
                                     width: getHorizontalSize(20),

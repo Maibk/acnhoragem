@@ -152,6 +152,8 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                                     title: controller.complaints?.data?[index].complaintType ?? "N/A",
                                                     clr: ColorConstant.antextGrayDark,
                                                     fontSize: 12,
+                                                    line: 1,
+                                                    toverflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                                 Container(

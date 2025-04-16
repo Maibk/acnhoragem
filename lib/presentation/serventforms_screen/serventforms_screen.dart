@@ -1185,6 +1185,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   builder: (controller) {
                                                     return GestureDetector(
                                                       onTap: () {
+                                                        controller.servantFormDataModel.data?.servantFamilyDetail = null;
+                                                        controller.addServantFamilyFormKey.clear();
+                                                        controller.servantFamilyImages.clear();
                                                         controller.updateFamilyStatus("No");
                                                       },
                                                       child: Row(

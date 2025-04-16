@@ -1198,8 +1198,6 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                     controller.vehicleFormKey.add(GlobalKey());
                                                                   });
                                                                 }
-                                                                log(controller.tenantFormModel.data?.vehicle?.toString() ?? "NO VEHICLE");
-                                                                log(controller.tenantFormModel.data?.vehicle?.length.toString() ?? " VEHICLE LENGHT");
                                                               },
                                                               child: Row(
                                                                 children: [
@@ -1234,8 +1232,16 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           init: controller,
                                                           builder: (controller) {
                                                             return GestureDetector(
+                                                              behavior: HitTestBehavior.opaque,
                                                               onTap: () {
                                                                 controller.updateVehicle("No");
+                                                                if (args['status'] == Constants.formStatusRejected) {
+                                                                  setState(() {
+                                                                    controller.eTag.clear();
+                                                                    controller.tenantFormModel.data?.vehicle = null;
+                                                                    controller.vehicleFormKey.clear();
+                                                                  });
+                                                                }
                                                               },
                                                               child: Row(
                                                                 children: [

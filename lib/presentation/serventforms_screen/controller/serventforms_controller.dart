@@ -601,13 +601,13 @@ class ServentFormsController extends GetxController {
           }
         }
 
-        if (servantImages.isEmpty) {
+        if (isFamilyResiding == "Yes" && servantImages.isEmpty) {
           Utils.showToast("Please select servant Images", true);
-        } else if (servantCnicFronts.isEmpty) {
+        } else if (isFamilyResiding == "Yes" && servantCnicFronts.isEmpty) {
           Utils.showToast("Please select servant cnic front images", true);
-        } else if (servantCnicBacks.isEmpty) {
+        } else if (isFamilyResiding == "Yes" && servantCnicBacks.isEmpty) {
           Utils.showToast("Please select servant cnic back images", true);
-        } else if (servantFamilyImages.isEmpty) {
+        } else if (isFamilyResiding == "Yes" && servantFamilyImages.isEmpty) {
           Utils.showToast("Please select servant family images", true);
         } else {
           if (value) {

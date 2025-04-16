@@ -198,7 +198,7 @@ class TenantFornsScreenController extends GetxController {
 
   var tenantFormdata = {};
 
-  Map<String, dynamic> NovehicleFormdata = {'vehicle_type[]': 'No', 'registration[]': 'NO', 'color[]': 'NO', 'sticker_no[]': 'NO', 'etag[]': 'NO'};
+  Map<String, dynamic> NovehicleFormdata = {'vehicle_type[]': " ", 'registration[]': " ", 'color[]': " ", 'sticker_no[]': " ", 'etag[]': " "};
 
   List<GlobalKey<FormState>> vehicleFormKey = [GlobalKey<FormState>()];
   int vehicleDataIndex = 0;
@@ -253,17 +253,6 @@ class TenantFornsScreenController extends GetxController {
     log(country.toString());
   }
 
-  void setSelectedBlock(String blockTitle) {
-    var matchingBlock = block.firstWhere(
-      (item) => item['title'] == blockTitle,
-      orElse: () => {},
-    );
-    if (matchingBlock.isNotEmpty) {
-      selectedValue = matchingBlock['id'];
-    } else {
-      selectedValue = null; // Handle cases where blockTitle is not found
-    }
-  }
 
   getEntryFormsDetails(id) {
     eTag.clear();
@@ -603,7 +592,7 @@ class TenantFornsScreenController extends GetxController {
         'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
         'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
         'ammunition_quantity': privatearms == "Yes" ? privateAmmunitionController.text : "No",
-        'vehicle_status': vehicleDataIndex > 0 ? "Yes" : "NO",
+        'vehicle_status': hasVehicle ?? "No",
         'submit_date': DateTime.now().format("dd-MM-yyyy").toString(),
         'status': '0',
         'property_user': 'tenant',
@@ -612,29 +601,22 @@ class TenantFornsScreenController extends GetxController {
       if (hasVehicle == "Yes") {
         for (var i = 0; i < tenantFormModel.data!.vehicle!.length; i++) {
           tenantFormdata['vehicle_type[$i]'] = tenantFormModel.data!.vehicle![i].vehicleTypeController.text == ""
-              ? "No"
+              ? null
               : tenantFormModel.data!.vehicle![i].vehicleTypeController.text;
           tenantFormdata['registration[$i]'] = tenantFormModel.data!.vehicle![i].registrationController.text == ""
-              ? "No"
+              ? null
               : tenantFormModel.data!.vehicle![i].registrationController.text;
           tenantFormdata['color[$i]'] =
-              tenantFormModel.data!.vehicle![i].colorController.text == "" ? "No" : tenantFormModel.data!.vehicle![i].colorController.text;
+              tenantFormModel.data!.vehicle![i].colorController.text == "" ? null : tenantFormModel.data!.vehicle![i].colorController.text;
           tenantFormdata['sticker_no[$i]'] =
-              tenantFormModel.data!.vehicle![i].stickerNoController.text == "" ? "No" : tenantFormModel.data!.vehicle![i].stickerNoController.text;
-          tenantFormdata['etag[$i]'] = eTag[i].toString() == "" ? "No" : eTag[i].toString();
+              tenantFormModel.data!.vehicle![i].stickerNoController.text == "" ? null : tenantFormModel.data!.vehicle![i].stickerNoController.text;
+          tenantFormdata['etag[$i]'] = eTag[i].toString() == "" ? null : eTag[i].toString();
         }
+      } else {
+        var nullData =
+            _dio.FormData.fromMap({'vehicle_type[0]': null, 'registration[0]': null, 'color[0]': null, 'sticker_no[0]': null, 'etag[0]': null});
+        data.fields.addAll(nullData.fields);
       }
-      vehicleDataIndex > 0
-          ? {
-              tenantFormdata.forEach((key, value) {
-                data.fields.addAll([MapEntry(key, value)]);
-              })
-            }
-          : {
-              NovehicleFormdata.forEach((key, value) {
-                data.fields.addAll([MapEntry(key, value)]);
-              })
-            };
 
       if (ownerCnicFrontBack != null && ownerCnicFrontBack!.isNotEmpty) {
         for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
@@ -813,10 +795,18 @@ class TenantFornsScreenController extends GetxController {
           } on _dio.DioException catch (error) {
             Navigator.pop(context);
 
-            Utils.showToast(
-              error.message.toString(),
-              true,
-            );
+            if (error.response?.data is Map) {
+              Utils.showToast(
+                error.response?.data.toString() ?? "",
+                true,
+              );
+            } else {
+              Utils.showToast(
+                error.message.toString(),
+                true,
+              );
+            }
+
             if (error.response == null) {
               var exception = ApiException(
                 url: 'https://anchorageislamabad.com/api/owner-application',

@@ -189,8 +189,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         GestureDetector(
                                           onTap: () {
-                                            Get.toNamed(AppRoutes.propertiesPage,
-                                                arguments: controller.profileModel?.appFormApproved == 0 ? false : true);
+                                            Get.toNamed(AppRoutes.propertiesPage, arguments: [
+                                              controller.profileModel?.appFormApproved == 0 ? false : true,
+                                              controller.profileModel?.userCategory ?? "Owner"
+                                            ]);
                                           },
                                           child: CommonImageView(
                                             imagePath: ImageConstant.mypropertiesIcon,
@@ -473,7 +475,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: MyText(
                               line: 1,
                               toverflow: TextOverflow.ellipsis,
-                              title: "${bill.description}",
+                              title: "${bill.complaintType}",
                               fontSize: 12.sp,
                             ),
                           ),

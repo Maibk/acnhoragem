@@ -26,7 +26,7 @@ class PropertiesController extends GetxController {
 
   final TextEditingController userTypeContoller = TextEditingController();
   RxBool isInternetAvailable = true.obs;
-  Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
+  Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.loading.obs;
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();
 
@@ -41,19 +41,23 @@ class PropertiesController extends GetxController {
         apiCallStatus.value = ApiCallStatus.loading;
 
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          await BaseClient.get(
-              // headers: {'Authorization': "Bearer 15|7zbPqSX0mng6isF9L3iU3v33V6eaoGvEMkE2K7Fg"},
-              headers: {'Authorization': "Bearer $token"},
-              Constants.getProperties, onSuccess: (response) {
+          await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getProperties, onSuccess: (response) {
             log(response.toString());
 
             properties = PropertiesModel.fromJson(response.data);
+            apiCallStatus.value = ApiCallStatus.success;
 
             update();
 
             return true;
           }, onError: (error) {
             ApiException apiException = error;
+
+            if (apiException.statusCode == 404) {
+              apiCallStatus.value = ApiCallStatus.empty;
+            } else {
+              apiCallStatus.value = ApiCallStatus.error;
+            }
 
             print(apiException.message);
 
@@ -68,11 +72,5 @@ class PropertiesController extends GetxController {
         isInternetAvailable.value = false;
       }
     });
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    getPropertiesApi();
   }
 }
