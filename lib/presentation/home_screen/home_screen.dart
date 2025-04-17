@@ -466,7 +466,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     DataColumn(label: Text('Title')),
                     DataColumn(label: Text('Status')),
                   ],
-                  rows: complaints!.data!.map((bill) {
+                  rows: complaints!.data!.take(5).map((bill) {
                     return DataRow(
                       cells: [
                         DataCell(
@@ -573,7 +573,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     DataColumn(label: Text('Amount')),
                     DataColumn(label: Text('Status')),
                   ],
-                  rows: controller.bills!.data!.map((bill) {
+                  rows: controller.bills!.data!.take(5).map((bill) {
                     return DataRow(
                       cells: [
                         DataCell(

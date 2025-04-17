@@ -1,10 +1,9 @@
 import 'dart:developer';
 
-import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
-import 'package:anchorageislamabad/presentation/tenantform_screen/models/tenant_form_model.dart';
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
@@ -14,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
@@ -34,6 +34,7 @@ class TenantFornsScreen extends StatefulWidget {
 
 class _TenantFornsScreenState extends State<TenantFornsScreen> {
   TenantFornsScreenController controller = Get.put(TenantFornsScreenController());
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
 
   final args = Get.arguments;
   int vehicleFormIndex = 0;
@@ -1839,8 +1840,19 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           color: ColorConstant.anbtnBlue,
                                                         ),
                                                         onPressed: () async {
-                                                          controller.tenantPhoto = null;
-                                                          controller.tenantPhoto = await controller.imageModal(context);
+                                                          imageGalleryClass.imageGalleryBottomSheet(
+                                                            context: context,
+                                                            onCameraTap: () async {
+                                                              controller.tenantPhoto = await imageGalleryClass.getImage(ImageSource.camera);
+                                                              setState(() {});
+                                                              Get.back();
+                                                            },
+                                                            onGalleryTap: () async {
+                                                              controller.tenantPhoto = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                              setState(() {});
+                                                              Get.back();
+                                                            },
+                                                          );
                                                         },
                                                       ),
                                                     ),
@@ -1889,7 +1901,20 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         ),
                                                         onPressed: () async {
                                                           controller.rentAgreement = null;
-                                                          controller.rentAgreement = await controller.imageModal(context);
+
+                                                          imageGalleryClass.imageGalleryBottomSheet(
+                                                            context: context,
+                                                            onCameraTap: () async {
+                                                              controller.rentAgreement = await imageGalleryClass.getImage(ImageSource.camera);
+                                                              setState(() {});
+                                                              Get.back();
+                                                            },
+                                                            onGalleryTap: () async {
+                                                              controller.rentAgreement = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                              setState(() {});
+                                                              Get.back();
+                                                            },
+                                                          );
                                                         },
                                                       ),
                                                     ),
@@ -1938,7 +1963,20 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         ),
                                                         onPressed: () async {
                                                           controller.policeForm = null;
-                                                          controller.policeForm = await controller.imageModal(context);
+
+                                                          imageGalleryClass.imageGalleryBottomSheet(
+                                                            context: context,
+                                                            onCameraTap: () async {
+                                                              controller.policeForm = await imageGalleryClass.getImage(ImageSource.camera);
+                                                              setState(() {});
+                                                              Get.back();
+                                                            },
+                                                            onGalleryTap: () async {
+                                                              controller.policeForm = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                              setState(() {});
+                                                              Get.back();
+                                                            },
+                                                          );
                                                         },
                                                       ),
                                                     ),
@@ -1987,7 +2025,20 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         ),
                                                         onPressed: () async {
                                                           controller.certificate = null;
-                                                          controller.certificate = await controller.imageModal(context);
+
+                                                          imageGalleryClass.imageGalleryBottomSheet(
+                                                            context: context,
+                                                            onCameraTap: () async {
+                                                              controller.certificate = await imageGalleryClass.getImage(ImageSource.camera);
+                                                              setState(() {});
+                                                              Get.back();
+                                                            },
+                                                            onGalleryTap: () async {
+                                                              controller.certificate = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                              setState(() {});
+                                                              Get.back();
+                                                            },
+                                                          );
                                                         },
                                                       ),
                                                     ),

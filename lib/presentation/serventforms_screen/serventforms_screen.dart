@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/serventforms_screen/models/servant_form_data_model.dart.dart';
 import 'package:anchorageislamabad/theme/app_style.dart';
@@ -34,6 +35,8 @@ class ServentFormsScreen extends StatefulWidget {
 
 class _ServentFormsScreenState extends State<ServentFormsScreen> {
   ServentFormsController controller = Get.put(ServentFormsController());
+
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
 
   HomeController homecontroller = Get.put(HomeController());
 
@@ -449,7 +452,19 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerImage = await controller.imageModal(context);
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.ownerImage = await imageGalleryClass.getImage(ImageSource.camera);
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.ownerImage = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -493,7 +508,19 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerCnicFront = await controller.imageModal(context);
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.ownerCnicFront = await imageGalleryClass.getImage(ImageSource.camera);
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.ownerCnicFront = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -537,7 +564,19 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerCnicBack = await controller.imageModal(context);
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.ownerCnicBack = await imageGalleryClass.getImage(ImageSource.camera);
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.ownerCnicBack = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -932,13 +971,25 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.imageModal(context);
-
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.servantImages[index] = File(result.path);
-                                                              });
-                                                            }
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.servantImages[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.servantImages[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),
@@ -992,13 +1043,25 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.imageModal(context);
-
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.servantCnicFronts[index] = File(result.path);
-                                                              });
-                                                            }
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.servantCnicFronts[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.servantCnicFronts[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),
@@ -1052,13 +1115,25 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.imageModal(context);
-
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.servantCnicBacks[index] = File(result.path);
-                                                              });
-                                                            }
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.servantCnicBacks[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.servantCnicBacks[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),
@@ -1446,13 +1521,25 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.imageModal(context);
-
-                                                              if (result != null) {
-                                                                setState(() {
-                                                                  controller.servantFamilyImages[index] = File(result.path);
-                                                                });
-                                                              }
+                                                              imageGalleryClass.imageGalleryBottomSheet(
+                                                                context: context,
+                                                                onCameraTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                  if (result != null) {
+                                                                    controller.servantFamilyImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                                onGalleryTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                  if (result != null) {
+                                                                    controller.servantFamilyImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                              );
                                                             },
                                                           ),
                                                         ),

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/constants.dart';
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/entryforms_screen/models/entry_form_data_model.dart';
@@ -33,6 +34,8 @@ class EntryFormsScreen extends StatefulWidget {
 
 class _EntryFormsScreenState extends State<EntryFormsScreen> {
   EntryFormsController controller = Get.put(EntryFormsController());
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
+
   bool isEditable = false;
 
   final args = Get.arguments;
@@ -419,7 +422,21 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 ),
                                                 onPressed: () async {
                                                   controller.ownerImage = null;
-                                                  controller.ownerImage = await controller.imageModal(context);
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.ownerImage = await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.ownerImage = await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -465,7 +482,22 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 ),
                                                 onPressed: () async {
                                                   controller.ownerCnicFront = null;
-                                                  controller.ownerCnicFront = await controller.imageModal(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.ownerCnicFront = await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.ownerCnicFront = await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -511,7 +543,22 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 ),
                                                 onPressed: () async {
                                                   controller.ownerCnicBack = null;
-                                                  controller.ownerCnicBack = await controller.imageModal(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.ownerCnicBack = await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.ownerCnicBack = await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -858,13 +905,25 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   size: 19.r,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.imageModal(context);
-
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.spouseImages[index] = File(result.path);
-                                                              });
-                                                            }
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.spouseImages[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.spouseImages[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),
@@ -920,14 +979,25 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   size: 19.r,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.imageModal(context);
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.spouseCnicsfronts[index] = File(result.path);
-                                                              });
-                                                            }
-
-                                                            log(controller.spouseCnicsfronts.toString());
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.spouseCnicsfronts[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.spouseCnicsfronts[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),
@@ -983,15 +1053,25 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   size: 19.r,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await await controller.imageModal(context);
-
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.spouseCnicBacks[index] = File(result.path);
-                                                              });
-                                                            }
-
-                                                            log(controller.spouseCnicBacks.toString());
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.spouseCnicBacks[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.spouseCnicBacks[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),
@@ -1338,13 +1418,25 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.imageModal(context);
-
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.childImages[index] = File(result.path);
-                                                              });
-                                                            }
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.childImages[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.childImages[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),
@@ -1400,13 +1492,25 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.imageModal(context);
-
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.childCnicsfronts[index] = File(result.path);
-                                                              });
-                                                            }
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.childCnicsfronts[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.childCnicsfronts[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),
@@ -1462,13 +1566,25 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                       size: 19.r,
                                                                     ),
                                                           onPressed: () async {
-                                                            final result = await controller.imageModal(context);
-
-                                                            if (result != null) {
-                                                              setState(() {
-                                                                controller.childCnicBacks[index] = File(result.path);
-                                                              });
-                                                            }
+                                                            imageGalleryClass.imageGalleryBottomSheet(
+                                                              context: context,
+                                                              onCameraTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                if (result != null) {
+                                                                  controller.childCnicBacks[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                              onGalleryTap: () async {
+                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                if (result != null) {
+                                                                  controller.childCnicBacks[index] = File(result.path);
+                                                                }
+                                                                setState(() {});
+                                                                Get.back();
+                                                              },
+                                                            );
                                                           },
                                                         ),
                                                       ),

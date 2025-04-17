@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:anchorageislamabad/core/utils/constants.dart';
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
@@ -32,6 +34,7 @@ class OwnerFornsScreen extends StatefulWidget {
 
 class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
   OwnerFornsScreenController controller = Get.put(OwnerFornsScreenController());
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
 
   final args = Get.arguments;
   bool isEditable = false;
@@ -1157,6 +1160,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               controller.updateVehicle("Yes");
                                                               if (args['status'] == Constants.formStatusRejected) {
                                                                 setState(() {
+                                                                  controller.ownerFormModel.data?.vehicleStatus = "Yes";
                                                                   controller.eTag.add("");
                                                                   controller.ownerFormModel.data?.vehicle = [Vehicle()];
                                                                   controller.vehicleFormKey.add(GlobalKey());
@@ -1198,6 +1202,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                           return GestureDetector(
                                                             onTap: () {
                                                               controller.updateVehicle("No");
+                                                              controller.eTag.clear();
+                                                              controller.ownerFormModel.data?.vehicle = null;
+                                                              controller.vehicleFormKey.clear();
                                                             },
                                                             child: Row(
                                                               children: [
@@ -1602,7 +1609,19 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         color: ColorConstant.anbtnBlue,
                                                       ),
                                                       onPressed: () async {
-                                                        controller.allotmentletter = await controller.imageModal(context);
+                                                        imageGalleryClass.imageGalleryBottomSheet(
+                                                          context: context,
+                                                          onCameraTap: () async {
+                                                            controller.allotmentletter = await imageGalleryClass.getImage(ImageSource.camera);
+                                                            setState(() {});
+                                                            Get.back();
+                                                          },
+                                                          onGalleryTap: () async {
+                                                            controller.allotmentletter = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                            setState(() {});
+                                                            Get.back();
+                                                          },
+                                                        );
                                                       },
                                                     ),
                                                   ),
@@ -1650,7 +1669,21 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       color: ColorConstant.anbtnBlue,
                                                     ),
                                                     onPressed: () async {
-                                                      controller.buildingplan = await controller.imageModal(context);
+                                                      imageGalleryClass.imageGalleryBottomSheet(
+                                                        context: context,
+                                                        onCameraTap: () async {
+                                                          controller.buildingplan = await imageGalleryClass.getImage(ImageSource.camera);
+                                                          setState(() {});
+
+                                                          Get.back();
+                                                        },
+                                                        onGalleryTap: () async {
+                                                          controller.buildingplan = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                          setState(() {});
+
+                                                          Get.back();
+                                                        },
+                                                      );
                                                     },
                                                   ),
                                                 ),
@@ -1700,7 +1733,21 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         color: ColorConstant.anbtnBlue,
                                                       ),
                                                       onPressed: () async {
-                                                        controller.certificate = await controller.imageModal(context);
+                                                        imageGalleryClass.imageGalleryBottomSheet(
+                                                          context: context,
+                                                          onCameraTap: () async {
+                                                            controller.certificate = await imageGalleryClass.getImage(ImageSource.camera);
+                                                            setState(() {});
+
+                                                            Get.back();
+                                                          },
+                                                          onGalleryTap: () async {
+                                                            controller.certificate = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                            setState(() {});
+
+                                                            Get.back();
+                                                          },
+                                                        );
                                                       },
                                                     ),
                                                   ),

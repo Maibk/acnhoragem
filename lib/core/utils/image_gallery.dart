@@ -14,6 +14,7 @@ class ImageGalleryClass {
   //Select Image Start
   void imageGalleryBottomSheet(
       {required BuildContext context, bool? showVideo = false, VoidCallback? onCameraTap, VoidCallback? onVideoTap, VoidCallback? onGalleryTap}) {
+    Utils.hideKeyBoard(context);
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
         context: context,
@@ -87,7 +88,7 @@ class ImageGalleryClass {
         });
   }
 
-  Future<XFile?> getImage(ImageSource source) async {
+  Future<File?> getImage(ImageSource source) async {
     try {
       final XFile? pickedFile = await picker.pickImage(
         source: source,
@@ -95,7 +96,7 @@ class ImageGalleryClass {
       );
 
       if (pickedFile != null) {
-        return pickedFile;
+        return File(pickedFile.path);
       } else {
         Utils.showToast("Image selection cancelled", false); // or any custom feedback
       }

@@ -22,10 +22,9 @@ class LoginController extends GetxController {
   final RoundedLoadingButtonController btnController = RoundedLoadingButtonController();
   TextEditingController emailController = TextEditingController(
       text: kDebugMode
-          ?
-          // "pat.cummins2003@gmail.com"
+          ? "pat.cummins2003@gmail.com"
 
-          "dev16@yopmail.com"
+          // "dev16@yopmail.com"
           : null);
   AppPreferences appPreferences = AppPreferences();
 
@@ -99,6 +98,4 @@ class LoginController extends GetxController {
       print("Form validation failed");
     }
   }
-
- 
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/app_fonts.dart';
 import 'package:anchorageislamabad/core/utils/constants.dart';
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/core/utils/utils.dart';
 import 'package:anchorageislamabad/data/services/api_call_status.dart';
 import 'package:anchorageislamabad/presentation/vechicleform_screen/models/Vehicle_form_model.dart';
@@ -33,6 +34,7 @@ class VechicleScreen extends StatefulWidget {
 
 class _VechicleScreenState extends State<VechicleScreen> {
   VechicleController controller = Get.put(VechicleController());
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
 
   final args = Get.arguments;
   bool isEditable = false;
@@ -1130,13 +1132,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.imageModal(context);
-
-                                                              if (result != null) {
-                                                                setState(() {
-                                                                  controller.userDrivingLicenseFrontSideImages[index] = File(result.path);
-                                                                });
-                                                              }
+                                                              imageGalleryClass.imageGalleryBottomSheet(
+                                                                context: context,
+                                                                onCameraTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                  if (result != null) {
+                                                                    controller.userDrivingLicenseFrontSideImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                                onGalleryTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                  if (result != null) {
+                                                                    controller.userDrivingLicenseFrontSideImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                              );
                                                             },
                                                           ),
                                                         ),
@@ -1197,13 +1211,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.imageModal(context);
-                                                              if (result != null) {
-                                                                setState(() {
-                                                                  controller.userDrivingLicenseBackSideImages[index] = File(result.path);
-                                                                  ;
-                                                                });
-                                                              }
+                                                              imageGalleryClass.imageGalleryBottomSheet(
+                                                                context: context,
+                                                                onCameraTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                  if (result != null) {
+                                                                    controller.userDrivingLicenseBackSideImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                                onGalleryTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                  if (result != null) {
+                                                                    controller.userDrivingLicenseBackSideImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                              );
                                                             },
                                                           ),
                                                         ),
@@ -1264,13 +1290,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.imageModal(context);
-
-                                                              if (result != null) {
-                                                                setState(() {
-                                                                  controller.userCnicFrontSideImages[index] = File(result.path);
-                                                                });
-                                                              }
+                                                              imageGalleryClass.imageGalleryBottomSheet(
+                                                                context: context,
+                                                                onCameraTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                  if (result != null) {
+                                                                    controller.userCnicFrontSideImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                                onGalleryTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                  if (result != null) {
+                                                                    controller.userCnicFrontSideImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                              );
                                                             },
                                                           ),
                                                         ),
@@ -1331,13 +1369,26 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.imageModal(context);
-
-                                                              if (result != null) {
-                                                                setState(() {
-                                                                  controller.userCnicBacktSideImages[index] = File(result.path);
-                                                                });
-                                                              }
+                                                              Utils.hideKeyBoard(context);
+                                                              imageGalleryClass.imageGalleryBottomSheet(
+                                                                context: context,
+                                                                onCameraTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                  if (result != null) {
+                                                                    controller.userCnicBacktSideImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                                onGalleryTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                  if (result != null) {
+                                                                    controller.userCnicBacktSideImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                              );
                                                             },
                                                           ),
                                                         ),
@@ -1624,7 +1675,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingLicenseFrontSideImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingLicenseFrontSideImage =
+                                                          await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingLicenseFrontSideImage =
+                                                          await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -1676,7 +1745,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingLicenseBackSideImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingLicenseBackSideImage =
+                                                          await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingLicenseBackSideImage =
+                                                          await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -1728,7 +1815,24 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingCnicFrontSideImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingCnicFrontSideImage = await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingCnicFrontSideImage =
+                                                          await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -1780,7 +1884,23 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingCnicBackSideImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingCnicBackSideImage = await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingCnicBackSideImage = await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -1832,7 +1952,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingVehicalRegistrationImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingVehicalRegistrationImage =
+                                                          await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingVehicalRegistrationImage =
+                                                          await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -1882,7 +2020,23 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingOwnerImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingOwnerImage = await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingOwnerImage = await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -1934,7 +2088,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingAllotmentLetterImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingAllotmentLetterImage =
+                                                          await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingAllotmentLetterImage =
+                                                          await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -1986,7 +2158,25 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingMaintenanceBillImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingMaintenanceBillImage =
+                                                          await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingMaintenanceBillImage =
+                                                          await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),
@@ -2036,7 +2226,23 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingOldStickerImage = await controller.imageModal(context);
+                                                  Utils.hideKeyBoard(context);
+
+                                                  imageGalleryClass.imageGalleryBottomSheet(
+                                                    context: context,
+                                                    onCameraTap: () async {
+                                                      controller.underTakingOldStickerImage = await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                    onGalleryTap: () async {
+                                                      controller.underTakingOldStickerImage = await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                      setState(() {});
+                                                      Get.back();
+                                                    },
+                                                  );
                                                 },
                                               ),
                                             ),

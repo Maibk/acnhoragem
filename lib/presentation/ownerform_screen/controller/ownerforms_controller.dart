@@ -99,8 +99,8 @@ class OwnerFornsScreenController extends GetxController {
   Rx<ApiCallStatus> formsLoadingStatus = ApiCallStatus.success.obs;
 
   final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
-  imageModal(context) async {
-    XFile? file;
+  Future<File?> imageModal(context) async {
+    File? file;
     imageGalleryClass.imageGalleryBottomSheet(
       context: context,
       onCameraTap: () async {
@@ -117,6 +117,7 @@ class OwnerFornsScreenController extends GetxController {
     if (file != null) {
       return File(file!.path);
     }
+    return null;
   }
 
   //owners controllers
@@ -676,19 +677,27 @@ class OwnerFornsScreenController extends GetxController {
         ownerFormdata['sticker_no[]'] = null;
         ownerFormdata['etag[]'] = null;
       }
+      log(ownerFormdata.toString());
 
       if (alottmentletter == "Yes") {
-        if (!allotmentletter!.path.startsWith("http")) {
-          String filePath1 = allotmentletter?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+        final allotment = allotmentletter;
+        if (allotment != null) {
+          final allotmentPath = allotment.path;
+
+          if (!allotmentPath.startsWith("http")) {
+            if (allotmentPath.isNotEmpty) {
+              ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
+                allotmentPath,
+                filename: allotmentPath.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          } else {
+            final allotmentUrl = ownerFormModel.data?.allotmentLetterUrl;
+            if (allotmentUrl != null && allotmentUrl.isNotEmpty) {
+              ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(allotmentUrl);
+            }
           }
-        } else {
-          ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.allotmentLetterUrl ?? "");
         }
       }
 
@@ -708,20 +717,27 @@ class OwnerFornsScreenController extends GetxController {
       }
 
       if (completionCertificate == "Yes") {
-        if (!certificate!.path.startsWith("http")) {
-          String filePath1 = certificate?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+        final cert = certificate;
+        if (cert != null) {
+          final certPath = cert.path;
+
+          if (!certPath.startsWith("http")) {
+            if (certPath.isNotEmpty) {
+              ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
+                certPath,
+                filename: certPath.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          } else {
+            final certUrl = ownerFormModel.data?.completionCertificateUrl;
+            if (certUrl != null && certUrl.isNotEmpty) {
+              ownerFormdata['copy_completion_certificate'] = await BaseClient.getMultipartFileFromUrl(certUrl);
+            }
           }
-        } else {
-          ownerFormdata['copy_completion_certificate'] =
-              await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.completionCertificateUrl ?? "");
         }
       }
+
       if (value) {
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
           var dio = _dio.Dio();

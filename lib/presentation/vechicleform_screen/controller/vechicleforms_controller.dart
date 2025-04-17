@@ -120,12 +120,12 @@ class VechicleController extends GetxController {
     imageGalleryClass.imageGalleryBottomSheet(
       context: context,
       onCameraTap: () async {
-        file = await imageGalleryClass.getImage(ImageSource.camera);
+        // file = await imageGalleryClass.getImage(ImageSource.camera);
         update();
         Get.back();
       },
       onGalleryTap: () async {
-        file = await imageGalleryClass.getImage(ImageSource.gallery);
+        // file = await imageGalleryClass.getImage(ImageSource.gallery);
         update();
         Get.back();
       },
