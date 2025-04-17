@@ -28,9 +28,9 @@ import '../../myprofile_screen/models/profile_model.dart';
 class HomeController extends GetxController {
   // Rx<DiscoverModel> discoverModelObj = DiscoverModel().obs;
   RxBool isInternetAvailable = true.obs;
-  Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.success.obs;
-  Rx<ApiCallStatus> billsStatus = ApiCallStatus.success.obs;
-  Rx<ApiCallStatus> complaintsStatus = ApiCallStatus.success.obs;
+  Rx<ApiCallStatus> apiCallStatus = ApiCallStatus.loading.obs;
+  Rx<ApiCallStatus> billsStatus = ApiCallStatus.loading.obs;
+  Rx<ApiCallStatus> complaintsStatus = ApiCallStatus.loading.obs;
 
   AppPreferences _appPreferences = AppPreferences();
   AppPreferences appPreferences = AppPreferences();

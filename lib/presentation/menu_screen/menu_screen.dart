@@ -191,7 +191,10 @@ class MenuScreen extends StatelessWidget {
                             GestureDetector(
                               behavior: HitTestBehavior.opaque,
                               onTap: () {
-                                Get.toNamed(AppRoutes.propertiesPage, arguments: controller.profileModel?.appFormApproved == 0 ? false : true);
+                                Get.toNamed(AppRoutes.propertiesPage, arguments: [
+                                  controller.profileModel?.appFormApproved == 0 ? false : true,
+                                  controller.profileModel?.userCategory ?? "Owner"
+                                ]);
                               },
                               child: Row(
                                 children: [

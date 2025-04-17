@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:anchorageislamabad/widgets/custom_snackbar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' as gttt;
 // import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:get/route_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -107,6 +109,7 @@ class BaseClient {
         if (error.response?.statusCode == 401) {
           await _appPreferences.getAppPreferences().clearPreference();
           Utils.showToast(Strings.sessionExpiredMessage, true);
+          Get.offAllNamed(AppRoutes.loginPage);
 
           return;
         }

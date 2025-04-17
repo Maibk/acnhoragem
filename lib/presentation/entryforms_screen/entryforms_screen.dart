@@ -418,7 +418,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   size: 19.r,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerImage = await controller.imagePicker();
+                                                  controller.ownerImage = null;
+                                                  controller.ownerImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -463,7 +464,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   size: 19.r,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerCnicFront = await controller.imagePicker();
+                                                  controller.ownerCnicFront = null;
+                                                  controller.ownerCnicFront = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -508,7 +510,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   size: 19.r,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerCnicBack = await controller.imagePicker();
+                                                  controller.ownerCnicBack = null;
+                                                  controller.ownerCnicBack = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -855,7 +858,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   size: 19.r,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await controller.imageModal(context);
 
                                                             if (result != null) {
                                                               setState(() {
@@ -917,7 +920,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   size: 19.r,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await controller.imageModal(context);
                                                             if (result != null) {
                                                               setState(() {
                                                                 controller.spouseCnicsfronts[index] = File(result.path);
@@ -980,7 +983,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   size: 19.r,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await await controller.imageModal(context);
 
                                                             if (result != null) {
                                                               setState(() {
@@ -1335,7 +1338,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await controller.imageModal(context);
 
                                                             if (result != null) {
                                                               setState(() {
@@ -1397,7 +1400,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await controller.imageModal(context);
 
                                                             if (result != null) {
                                                               setState(() {
@@ -1459,7 +1462,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                       size: 19.r,
                                                                     ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await controller.imageModal(context);
 
                                                             if (result != null) {
                                                               setState(() {

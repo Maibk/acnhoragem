@@ -77,17 +77,16 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: getVerticalSize(10),
+                        height: getVerticalSize(5),
                       ),
                       Container(
                         decoration: BoxDecoration(
                           color: ColorConstant.apppWhite,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        width: double.infinity,
-                        padding: getPadding(left: 30, right: 30, top: 20, bottom: 20),
+                        padding: getPadding(left: 10.w, right: 10.w, top: 10, bottom: 20),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             GetBuilder(
                               init: controller,
@@ -111,13 +110,13 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                       horizontalMargin: 0,
                                       dataRowMaxHeight: 50.0,
                                       showBottomBorder: false,
-                                      columnSpacing: 20,
+                                      columnSpacing: 20.w,
                                       dividerThickness: 0.0,
                                       columns: [
                                         DataColumn(label: Text('Title')),
                                         DataColumn(label: Text('Description')),
                                         DataColumn(label: Text('Status')),
-                                        DataColumn(label: Text('Action').paddingOnly(left: 20)),
+                                        DataColumn(label: Text('Action').paddingOnly(left: 20.w)),
                                       ],
                                       rows: controller.complaints!.data!.map((complain) {
                                         return DataRow(
@@ -125,7 +124,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                             DataCell(
                                               Container(
                                                 // color: Colors.red,
-                                                width: 50,
+                                                width: 50.w,
                                                 child: MyText(
                                                   title: "${complain.complaintType}",
                                                   fontSize: 12.sp,
@@ -136,7 +135,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                             ),
                                             DataCell(
                                               SizedBox(
-                                                width: 90,
+                                                width: 90.w,
                                                 child: MyText(
                                                   title: "${complain.description}",
                                                   fontSize: 12.sp,
@@ -148,7 +147,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                             DataCell(
                                               Container(
                                                 // width: 80,
-                                                padding: getPadding(left: 10, right: 10),
+                                                padding: getPadding(left: 10.w, right: 10.w),
                                                 height: getVerticalSize(20),
                                                 decoration: BoxDecoration(
                                                   color: complain.status! == "Resolved"
@@ -161,7 +160,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                                 alignment: Alignment.center,
                                                 child: MyText(
                                                   title: complain.status!,
-                                                  fontSize: 9,
+                                                  fontSize: 9.sp,
                                                   clr: ColorConstant.whiteA700,
                                                 ),
                                               ),
@@ -177,7 +176,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                                                       complaintID: complain.id ?? 0,
                                                     ));
                                               },
-                                              child: Container(margin: EdgeInsets.only(left: 30), child: Icon(Icons.remove_red_eye)),
+                                              child: Container(margin: EdgeInsets.only(left: 30.w), child: Icon(Icons.remove_red_eye)),
                                             )),
                                           ],
                                         );
@@ -198,7 +197,7 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                               radius: 5.0,
                               height: getVerticalSize(40),
                               width: getHorizontalSize(400),
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               bgColor: ColorConstant.anbtnBlue,
                               controller: controller.btnController,
                               title: "Create New Complaint".tr,
@@ -208,9 +207,6 @@ class _MyComplaintsScreenState extends State<MyComplaintsScreen> {
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: getVerticalSize(16),
                       ),
                     ],
                   ),

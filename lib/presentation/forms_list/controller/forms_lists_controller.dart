@@ -51,6 +51,11 @@ class FormsListsController extends GetxController {
           }, onError: (error) {
             ApiException apiException = error;
             print(apiException.message);
+            if (apiException.statusCode == 404) {
+              apiCallStatus.value = ApiCallStatus.empty;
+              update();
+              return false;
+            }
             BaseClient.handleApiError(error);
             apiCallStatus.value = ApiCallStatus.error;
             update();

@@ -55,8 +55,11 @@ class PropertiesController extends GetxController {
 
             if (apiException.statusCode == 404) {
               apiCallStatus.value = ApiCallStatus.empty;
+              update();
+              return false;
             } else {
               apiCallStatus.value = ApiCallStatus.error;
+              update();
             }
 
             print(apiException.message);

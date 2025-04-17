@@ -160,81 +160,90 @@ class ComplaintsController extends GetxController {
   }
 
   Future<void> submitComplaint(context, int id) async {
-    Utils.check().then((value) async {
-      Map<String, dynamic> data = {};
+    if (selectedProperty == null) {
+      Utils.showToast("Please select property", true);
+    } else if (selectedComplaint == null) {
+      Utils.showToast("Please select complaint category", true);
+    } else if (selectedDepartment == null) {
+      Utils.showToast("Please select complaint type", true);
+    } else if (descriptionController.text.isEmpty || descriptionController.text == "") {
+      Utils.showToast("Please enter description", true);
+    } else {
+      Utils.check().then((value) async {
+        Map<String, dynamic> data = {};
 
-      data = {
-        'member_id': UserModel().id,
-        'complaint_type_id': selectedDepartment!.id.toString(),
-        'property_id': id,
-        'description': descriptionController.text
-      };
+        data = {
+          'member_id': UserModel().id,
+          'complaint_type_id': selectedDepartment!.id.toString(),
+          'property_id': id,
+          'description': descriptionController.text
+        };
 
-      if (complaintsImages != null) {
-        for (var i = 0; i < complaintsImages!.length; i++) {
-          String filePath1 = complaintsImages![i].path;
-          if (filePath1.isNotEmpty) {
-            data['attachment[$i]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+        if (complaintsImages != null) {
+          for (var i = 0; i < complaintsImages!.length; i++) {
+            String filePath1 = complaintsImages![i].path;
+            if (filePath1.isNotEmpty) {
+              data['attachment[$i]'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
           }
         }
-      }
 
-      if (value) {
-        btnController.start();
-        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          var dio = _dio.Dio();
-          try {
-            var response = await dio.request(
-              'https://anchorageislamabad.com/api/complaint',
-              options: _dio.Options(
-                method: 'POST',
-                headers: {
-                  'Authorization': "Bearer $token",
-                },
-              ),
-              data: _dio.FormData.fromMap(data),
-            );
-            if (response.statusCode == 200) {
-              Utils.showToast(
-                response.data['message'],
-                false,
+        if (value) {
+          btnController.start();
+          _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+            var dio = _dio.Dio();
+            try {
+              var response = await dio.request(
+                'https://anchorageislamabad.com/api/complaint',
+                options: _dio.Options(
+                  method: 'POST',
+                  headers: {
+                    'Authorization': "Bearer $token",
+                  },
+                ),
+                data: _dio.FormData.fromMap(data),
               );
-              btnController.stop();
-              log(json.encode(response.data));
+              if (response.statusCode == 200) {
+                Utils.showToast(
+                  response.data['message'],
+                  false,
+                );
+                btnController.stop();
+                log(json.encode(response.data));
 
-              Get.offNamed(AppRoutes.myComplaintsPage);
-            
-            } else {
-              btnController.stop();
+                Get.offNamed(AppRoutes.myComplaintsPage);
+              } else {
+                btnController.stop();
 
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              log(response.statusMessage.toString());
+                Utils.showToast(
+                  response.data['message'],
+                  false,
+                );
+                log(response.statusMessage.toString());
+              }
+            } on _dio.DioException catch (error) {
+              // dio error (api reach the server but not performed successfully
+              // no response
+              if (error.response == null) {
+                var exception = ApiException(
+                  url: 'https://anchorageislamabad.com/api/owner-application',
+                  message: error.message!,
+                );
+                return BaseClient.handleApiError(exception);
+              }
             }
-          } on _dio.DioException catch (error) {
-            // dio error (api reach the server but not performed successfully
-            // no response
-            if (error.response == null) {
-              var exception = ApiException(
-                url: 'https://anchorageislamabad.com/api/owner-application',
-                message: error.message!,
-              );
-              return BaseClient.handleApiError(exception);
-            }
-          }
-        });
-      } else {
-        CustomSnackBar.showCustomErrorToast(
-          message: Strings.noInternetConnection,
-        );
-      }
-    });
+          });
+        } else {
+          CustomSnackBar.showCustomErrorToast(
+            message: Strings.noInternetConnection,
+          );
+        }
+      });
+    }
   }
 
   Future<void> submitMessge(context, id) async {

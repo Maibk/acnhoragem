@@ -1130,7 +1130,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                              final result = await controller.imageModal(context);
 
                                                               if (result != null) {
                                                                 setState(() {
@@ -1197,7 +1197,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                              final result = await controller.imageModal(context);
                                                               if (result != null) {
                                                                 setState(() {
                                                                   controller.userDrivingLicenseBackSideImages[index] = File(result.path);
@@ -1264,7 +1264,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                              final result = await controller.imageModal(context);
 
                                                               if (result != null) {
                                                                 setState(() {
@@ -1331,7 +1331,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                              final result = await controller.imageModal(context);
 
                                                               if (result != null) {
                                                                 setState(() {
@@ -1624,7 +1624,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingLicenseFrontSideImage = await controller.imagePicker();
+                                                  controller.underTakingLicenseFrontSideImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -1676,7 +1676,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingLicenseBackSideImage = await controller.imagePicker();
+                                                  controller.underTakingLicenseBackSideImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -1728,7 +1728,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingCnicFrontSideImage = await controller.imagePicker();
+                                                  controller.underTakingCnicFrontSideImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -1780,7 +1780,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingCnicBackSideImage = await controller.imagePicker();
+                                                  controller.underTakingCnicBackSideImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -1832,7 +1832,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingVehicalRegistrationImage = await controller.imagePicker();
+                                                  controller.underTakingVehicalRegistrationImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -1882,7 +1882,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingOwnerImage = await controller.imagePicker();
+                                                  controller.underTakingOwnerImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -1934,7 +1934,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingAllotmentLetterImage = await controller.imagePicker();
+                                                  controller.underTakingAllotmentLetterImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -1986,7 +1986,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingMaintenanceBillImage = await controller.imagePicker();
+                                                  controller.underTakingMaintenanceBillImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -2036,7 +2036,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.underTakingOldStickerImage = await controller.imagePicker();
+                                                  controller.underTakingOldStickerImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),

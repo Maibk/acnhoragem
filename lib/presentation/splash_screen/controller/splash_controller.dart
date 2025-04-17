@@ -36,13 +36,12 @@ class SplashController extends GetxController {
         _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
           await BaseClient.get(headers: {'Authorization': "Bearer $token"}, Constants.getProfileUrl, onSuccess: (response) async {
             profileModel = ProfileModel.fromJson(response.data);
-            log(response.toString());
-
+            log(response.toString(), name: "Profile Model");
+            await getRoute();
             update();
-
             return true;
           }, onError: (error) {
-            ApiException apiException = error;
+            ApiException apiException = error;  
 
             print(apiException.message);
 
@@ -61,8 +60,6 @@ class SplashController extends GetxController {
   }
 
   Future<void> getRoute() async {
-    await getProfile();
-
     await appPreferences.isPreferenceReady;
     appPreferences
         .getIsLoggedIn()
@@ -121,7 +118,7 @@ class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getRoute();
+    getProfile();
     getFCMtoken();
   }
 }

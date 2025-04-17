@@ -263,9 +263,6 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
         ),
       ),
     );
-  
-  
-  
   }
 
   /// Navigates to the previous screen.

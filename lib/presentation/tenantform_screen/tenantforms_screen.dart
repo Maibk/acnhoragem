@@ -1839,7 +1839,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           color: ColorConstant.anbtnBlue,
                                                         ),
                                                         onPressed: () async {
-                                                          controller.tenantPhoto = await controller.imagePicker();
+                                                          controller.tenantPhoto = null;
+                                                          controller.tenantPhoto = await controller.imageModal(context);
                                                         },
                                                       ),
                                                     ),
@@ -1887,7 +1888,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           color: ColorConstant.anbtnBlue,
                                                         ),
                                                         onPressed: () async {
-                                                          controller.rentAgreement = await controller.imagePicker();
+                                                          controller.rentAgreement = null;
+                                                          controller.rentAgreement = await controller.imageModal(context);
                                                         },
                                                       ),
                                                     ),
@@ -1935,7 +1937,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           color: ColorConstant.anbtnBlue,
                                                         ),
                                                         onPressed: () async {
-                                                          controller.policeForm = await controller.imagePicker();
+                                                          controller.policeForm = null;
+                                                          controller.policeForm = await controller.imageModal(context);
                                                         },
                                                       ),
                                                     ),
@@ -1983,7 +1986,8 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           color: ColorConstant.anbtnBlue,
                                                         ),
                                                         onPressed: () async {
-                                                          controller.certificate = await controller.imagePicker();
+                                                          controller.certificate = null;
+                                                          controller.certificate = await controller.imageModal(context);
                                                         },
                                                       ),
                                                     ),

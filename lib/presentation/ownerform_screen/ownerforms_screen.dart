@@ -1602,7 +1602,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         color: ColorConstant.anbtnBlue,
                                                       ),
                                                       onPressed: () async {
-                                                        controller.allotmentletter = await controller.imagePicker();
+                                                        controller.allotmentletter = await controller.imageModal(context);
                                                       },
                                                     ),
                                                   ),
@@ -1650,7 +1650,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                       color: ColorConstant.anbtnBlue,
                                                     ),
                                                     onPressed: () async {
-                                                      controller.buildingplan = await controller.imagePicker();
+                                                      controller.buildingplan = await controller.imageModal(context);
                                                     },
                                                   ),
                                                 ),
@@ -1700,7 +1700,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         color: ColorConstant.anbtnBlue,
                                                       ),
                                                       onPressed: () async {
-                                                        controller.certificate = await controller.imagePicker();
+                                                        controller.certificate = await controller.imageModal(context);
                                                       },
                                                     ),
                                                   ),

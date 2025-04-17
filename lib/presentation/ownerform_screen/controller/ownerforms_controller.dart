@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_form_model.dart';
 import 'package:anchorageislamabad/widgets/loader_widget.dart';
@@ -96,6 +97,27 @@ class OwnerFornsScreenController extends GetxController {
   List<String> eTag = [];
 
   Rx<ApiCallStatus> formsLoadingStatus = ApiCallStatus.success.obs;
+
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
+  imageModal(context) async {
+    XFile? file;
+    imageGalleryClass.imageGalleryBottomSheet(
+      context: context,
+      onCameraTap: () async {
+        file = await imageGalleryClass.getImage(ImageSource.camera);
+        update();
+        Get.back();
+      },
+      onGalleryTap: () async {
+        file = await imageGalleryClass.getImage(ImageSource.gallery);
+        update();
+        Get.back();
+      },
+    );
+    if (file != null) {
+      return File(file!.path);
+    }
+  }
 
   //owners controllers
   TextEditingController fullNameController = TextEditingController();

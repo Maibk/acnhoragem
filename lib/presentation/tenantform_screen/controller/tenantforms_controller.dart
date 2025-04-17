@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/tenantform_screen/models/tenant_form_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
@@ -33,6 +34,8 @@ import '../../../widgets/custom_snackbar.dart';
 /// current discoverModelObj
 ///
 class TenantFornsScreenController extends GetxController {
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
+
   File? ownerCnic;
   File? tenantCnic;
   // File? estateAgentCnic;
@@ -47,7 +50,9 @@ class TenantFornsScreenController extends GetxController {
   List<File>? estateCnicFrontBack;
 
   Future<List<File>?> getImages(context) async {
-    final pickedFile = await picker.pickMultiImage(imageQuality: 100, maxHeight: 1000, maxWidth: 1000);
+    final pickedFile = await picker.pickMultiImage(
+      imageQuality: 70,
+    );
 
     List<File> selectedImages = [];
 
@@ -63,6 +68,27 @@ class TenantFornsScreenController extends GetxController {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
     }
     return null;
+  }
+
+  Future<File>? imageModal(context) async {
+    XFile? file;
+    imageGalleryClass.imageGalleryBottomSheet(
+      context: context,
+      onCameraTap: () async {
+        file = await imageGalleryClass.getImage(ImageSource.camera);
+        update();
+        Get.back();
+      },
+      onGalleryTap: () async {
+        file = await imageGalleryClass.getImage(ImageSource.gallery);
+        update();
+        Get.back();
+      },
+    );
+    if (file != null) {
+      return File(file!.path);
+    }
+    return File("");
   }
 
   String alottmentletter = "";

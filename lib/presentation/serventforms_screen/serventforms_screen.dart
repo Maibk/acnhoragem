@@ -449,7 +449,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerImage = await controller.imagePicker();
+                                                  controller.ownerImage = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -493,7 +493,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerCnicFront = await controller.imagePicker();
+                                                  controller.ownerCnicFront = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -537,7 +537,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   color: ColorConstant.anbtnBlue,
                                                 ),
                                                 onPressed: () async {
-                                                  controller.ownerCnicBack = await controller.imagePicker();
+                                                  controller.ownerCnicBack = await controller.imageModal(context);
                                                 },
                                               ),
                                             ),
@@ -932,7 +932,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await controller.imageModal(context);
 
                                                             if (result != null) {
                                                               setState(() {
@@ -992,7 +992,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await controller.imageModal(context);
 
                                                             if (result != null) {
                                                               setState(() {
@@ -1052,7 +1052,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                   color: ColorConstant.anbtnBlue,
                                                                 ),
                                                           onPressed: () async {
-                                                            final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                            final result = await controller.imageModal(context);
 
                                                             if (result != null) {
                                                               setState(() {
@@ -1446,7 +1446,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                     color: ColorConstant.anbtnBlue,
                                                                   ),
                                                             onPressed: () async {
-                                                              final result = await controller.picker.pickImage(source: ImageSource.gallery);
+                                                              final result = await controller.imageModal(context);
 
                                                               if (result != null) {
                                                                 setState(() {

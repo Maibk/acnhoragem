@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/constants.dart';
 import 'package:anchorageislamabad/core/utils/date_time_utils.dart';
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/localization/strings_enum.dart';
 import 'package:anchorageislamabad/presentation/home_screen/controller/home_controller.dart';
 import 'package:anchorageislamabad/presentation/serventforms_screen/models/servant_form_data_model.dart.dart';
@@ -157,6 +158,29 @@ class ServentFormsController extends GetxController {
 
   List<Street> servantstreets = [];
   List<Plots> servantplots = [];
+
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
+  Future<File>? imageModal(context) async {
+    XFile? file;
+    imageGalleryClass.imageGalleryBottomSheet(
+      context: context,
+      onCameraTap: () async {
+        file = await imageGalleryClass.getImage(ImageSource.camera);
+        update();
+        Get.back();
+      },
+      onGalleryTap: () async {
+        file = await imageGalleryClass.getImage(ImageSource.gallery);
+        update();
+        Get.back();
+      },
+    );
+    if (file != null) {
+      return File(file!.path);
+    }
+    return File("");
+  }
+
   getStreetByBlock(id) async {
     Utils.check().then((value) async {
       if (value) {
