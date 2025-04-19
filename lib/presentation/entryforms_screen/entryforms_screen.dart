@@ -1179,7 +1179,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                 });
                                                               },
                                                               child: Container(
-                                                                  margin: EdgeInsets.only(right: 15),
+                                                                  margin: EdgeInsets.only(right: 15, top: 10),
                                                                   padding: EdgeInsets.all(8),
                                                                   decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                                                                   child: Icon(

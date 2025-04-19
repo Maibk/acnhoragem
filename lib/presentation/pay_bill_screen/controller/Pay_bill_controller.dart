@@ -49,73 +49,77 @@ class PayBillController extends GetxController {
   File? billPhoto;
 
   Future<void> payBill(context, id) async {
-    Utils.check().then((value) async {
-      Map<String, dynamic> data = {};
+    if (billPhoto == null) {
+      Utils.showToast("Please select payment receipt.", true);
+    } else {
+      Utils.check().then((value) async {
+        Map<String, dynamic> data = {};
 
-      data = {
-        'id': id,
-      };
-      if (billPhoto != null) {
-        String filePath1 = billPhoto?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          data['paymentreceipt'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
+        data = {
+          'id': id,
+        };
+        if (billPhoto != null) {
+          String filePath1 = billPhoto?.path ?? '';
+          if (filePath1.isNotEmpty) {
+            data['paymentreceipt'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
+        }
+
+        if (value) {
+          btnController.start();
+          _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+            var dio = _dio.Dio();
+            try {
+              var response = await dio.request(
+                'https://anchorageislamabad.com/api/bills/pay',
+                options: _dio.Options(
+                  method: 'POST',
+                  headers: {
+                    'Authorization': "Bearer $token",
+                  },
+                ),
+                data: _dio.FormData.fromMap(data),
+              );
+              if (response.statusCode == 200) {
+                Utils.showToast(
+                  response.data['message'],
+                  false,
+                );
+                btnController.stop();
+                log(json.encode(response.data));
+
+                Get.offNamed(AppRoutes.billsPage);
+              } else {
+                btnController.stop();
+
+                Utils.showToast(
+                  response.data['message'],
+                  false,
+                );
+                log(response.statusMessage.toString());
+              }
+            } on _dio.DioException catch (error) {
+              btnController.stop();
+              if (error.response == null) {
+                var exception = ApiException(
+                  url: 'https://anchorageislamabad.com/api/owner-application',
+                  message: error.message!,
+                );
+                return BaseClient.handleApiError(exception);
+              }
+            }
+          });
+        } else {
+          CustomSnackBar.showCustomErrorToast(
+            message: Strings.noInternetConnection,
           );
         }
-      }
-
-      if (value) {
-        btnController.start();
-        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          var dio = _dio.Dio();
-          try {
-            var response = await dio.request(
-              'https://anchorageislamabad.com/api/bills/pay',
-              options: _dio.Options(
-                method: 'POST',
-                headers: {
-                  'Authorization': "Bearer $token",
-                },
-              ),
-              data: _dio.FormData.fromMap(data),
-            );
-            if (response.statusCode == 200) {
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              btnController.stop();
-              log(json.encode(response.data));
-
-              Get.offNamed(AppRoutes.billsPage);
-            } else {
-              btnController.stop();
-
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              log(response.statusMessage.toString());
-            }
-          } on _dio.DioException catch (error) {
-            btnController.stop();
-            if (error.response == null) {
-              var exception = ApiException(
-                url: 'https://anchorageislamabad.com/api/owner-application',
-                message: error.message!,
-              );
-              return BaseClient.handleApiError(exception);
-            }
-          }
-        });
-      } else {
-        CustomSnackBar.showCustomErrorToast(
-          message: Strings.noInternetConnection,
-        );
-      }
-    });
+      });
+    }
   }
 
   @override

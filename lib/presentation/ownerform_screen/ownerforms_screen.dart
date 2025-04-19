@@ -1205,6 +1205,9 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               controller.eTag.clear();
                                                               controller.ownerFormModel.data?.vehicle = null;
                                                               controller.vehicleFormKey.clear();
+                                                              if (args['status'] == Constants.formStatusRejected) {
+                                                                controller.ownerFormModel.data?.vehicleStatus = "No";
+                                                              }
                                                             },
                                                             child: Row(
                                                               children: [

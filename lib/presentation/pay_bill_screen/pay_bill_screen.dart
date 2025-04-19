@@ -1,20 +1,29 @@
 import 'dart:developer';
 
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/presentation/pay_bill_screen/controller/Pay_bill_controller.dart';
 import 'package:anchorageislamabad/widgets/animated_custom_button.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/size_utils.dart';
 import '../../routes/app_routes.dart';
 
-class PayBillScreen extends StatelessWidget {
+class PayBillScreen extends StatefulWidget {
+  @override
+  State<PayBillScreen> createState() => _PayBillScreenState();
+}
+
+class _PayBillScreenState extends State<PayBillScreen> {
   String? amount;
 
   final List args = Get.arguments;
+
   PayBillController controller = Get.put(PayBillController());
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +87,7 @@ class PayBillScreen extends StatelessWidget {
                         padding: getPadding(left: 30, right: 30, top: 20, bottom: 20),
                         child: GetBuilder(
                             init: controller,
-                            builder: (context) {
+                            builder: (_) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -117,7 +126,22 @@ class PayBillScreen extends StatelessWidget {
 
                                               child: GestureDetector(
                                                   onTap: () async {
-                                                    controller.billPhoto = await controller.imagePicker();
+                                                    controller.billPhoto = null;
+                                                    imageGalleryClass.imageGalleryBottomSheet(
+                                                      context: context,
+                                                      onCameraTap: () async {
+                                                        controller.billPhoto = await imageGalleryClass.getImage(ImageSource.camera);
+
+                                                        setState(() {});
+                                                        Get.back();
+                                                      },
+                                                      onGalleryTap: () async {
+                                                        controller.billPhoto = await imageGalleryClass.getImage(ImageSource.gallery);
+
+                                                        setState(() {});
+                                                        Get.back();
+                                                      },
+                                                    );
                                                   },
                                                   child: Container(
                                                     decoration: BoxDecoration(color: ColorConstant.anbtnBlue, shape: BoxShape.circle),

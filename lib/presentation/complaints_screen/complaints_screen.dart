@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/presentation/complaints_screen/models/complaints_model.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:anchorageislamabad/widgets/custom_textfield_new.dart';
@@ -21,6 +22,9 @@ class CreateNewComplaintScreen extends StatefulWidget {
 
 class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
   ComplaintsController controller = Get.put(ComplaintsController());
+  final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
+  
+
 
   @override
   initState() {
