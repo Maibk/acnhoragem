@@ -657,13 +657,13 @@ class ServentFormsController extends GetxController {
                     response.data['message'],
                     false,
                   );
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
 
                   log(json.encode(response.data));
 
                   Get.offAllNamed(AppRoutes.homePage);
                 } else {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
 
                   Utils.showToast(
                     response.data['message'],
@@ -672,7 +672,7 @@ class ServentFormsController extends GetxController {
                   log(response.statusMessage.toString());
                 }
               } on _dio.DioException catch (error) {
-                Navigator.pop(context);
+                // Navigator.pop(context);
 
                 Utils.showToast(
                   error.response?.data["message"].toString() ?? error.error.toString(),
@@ -687,7 +687,7 @@ class ServentFormsController extends GetxController {
                 }
 
                 if (error.response?.statusCode == 500) {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
 
                   Utils.showToast(
                     "Internal Server Error",
@@ -765,7 +765,9 @@ class ServentFormsController extends GetxController {
 
       log(servantData.toString());
       await addEditServant();
-      await addEditServantFamily();
+      if (isFamilyResiding == "Yes") {
+        await addEditServantFamily();
+      }
       log(servantData.toString(), name: "After adding damily");
 
       if (value) {
@@ -792,14 +794,14 @@ class ServentFormsController extends GetxController {
                 false,
               );
 
-              Navigator.pop(context);
+              // Navigator.pop(context);
 
               log(json.encode(response.data));
 
               Get.offAllNamed(AppRoutes.homePage);
             } else {
               update();
-              Navigator.pop(context);
+              // Navigator.pop(context);
 
               Utils.showToast(
                 response.data['message'],
@@ -808,7 +810,7 @@ class ServentFormsController extends GetxController {
               log(response.statusMessage.toString());
             }
           } on _dio.DioException catch (error) {
-            Navigator.pop(context);
+            // Navigator.pop(context);
             update();
             if (error is Map) {
               Utils.showToast(
@@ -833,7 +835,7 @@ class ServentFormsController extends GetxController {
             }
 
             if (error.response?.statusCode == 500) {
-              Navigator.pop(context);
+              // Navigator.pop(context);
 
               Utils.showToast(
                 "Internal Server Error",
