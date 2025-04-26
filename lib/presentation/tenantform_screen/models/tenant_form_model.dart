@@ -147,7 +147,9 @@ class Data {
     submitDate = json['submit_date'];
     ownerCnicUrl = json['owner_cnic_url'] != null ? new OwnerCnicUrl.fromJson(json['owner_cnic_url']) : null;
     tenantCnicUrl = json['tenant_cnic_url'] != null ? new OwnerCnicUrl.fromJson(json['tenant_cnic_url']) : null;
-    agentCnicUrl = json['agent_cnic_url'] != null ? new OwnerCnicUrl.fromJson(json['agent_cnic_url']) : null;
+    agentCnicUrl = (json['agent_cnic_url'] != null && json['agent_cnic_url'] != "")
+        ? new OwnerCnicUrl.fromJson(json['agent_cnic_url'])
+        : OwnerCnicUrl(cnicBack: "", cnicFront: "");
     tenantImageUrl = json['tenant_image_url'];
     agreementImageUrl = json['agreement_image_url'];
     policeRegistrationUrl = json['police_registration_url'];

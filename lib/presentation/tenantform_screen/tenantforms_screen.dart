@@ -1738,42 +1738,44 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     height: getVerticalSize(15),
                                                   ),
                                                   if (args['status'] != "")
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        MyText(title: "Agent CNIC").paddingOnly(left: 10),
-                                                        SizedBox(
-                                                          height: getVerticalSize(5),
-                                                        ),
-                                                        Padding(
-                                                          padding: getPadding(left: 10, right: 10),
-                                                          child: Container(
-                                                            width: getHorizontalSize(350),
-                                                            color: ColorConstant.whiteA700,
-                                                            child: CustomImageView(
-                                                              radius: BorderRadius.circular(6),
-                                                              border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                              url: controller.tenantFormModel.data?.agentCnicUrl?.cnicFront ?? "",
+                                                    if (controller.tenantFormModel.data?.agentCnicUrl?.cnicBack != "" ||
+                                                        controller.tenantFormModel.data?.agentCnicUrl?.cnicFront != "")
+                                                      Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          MyText(title: "Agent CNIC").paddingOnly(left: 10),
+                                                          SizedBox(
+                                                            height: getVerticalSize(5),
+                                                          ),
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                radius: BorderRadius.circular(6),
+                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                url: controller.tenantFormModel.data?.agentCnicUrl?.cnicFront ?? "",
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        Padding(
-                                                          padding: getPadding(left: 10, right: 10),
-                                                          child: Container(
-                                                            width: getHorizontalSize(350),
-                                                            color: ColorConstant.whiteA700,
-                                                            child: CustomImageView(
-                                                              radius: BorderRadius.circular(6),
-                                                              border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                              url: controller.tenantFormModel.data?.agentCnicUrl?.cnicBack ?? "",
+                                                          Padding(
+                                                            padding: getPadding(left: 10, right: 10),
+                                                            child: Container(
+                                                              width: getHorizontalSize(350),
+                                                              color: ColorConstant.whiteA700,
+                                                              child: CustomImageView(
+                                                                radius: BorderRadius.circular(6),
+                                                                border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                url: controller.tenantFormModel.data?.agentCnicUrl?.cnicBack ?? "",
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: getVerticalSize(5),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                          SizedBox(
+                                                            height: getVerticalSize(5),
+                                                          ),
+                                                        ],
+                                                      ),
                                                   if (isEditable)
                                                     Padding(
                                                       padding: getPadding(left: 10, right: 10),
