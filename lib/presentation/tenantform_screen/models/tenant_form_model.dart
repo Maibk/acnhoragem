@@ -65,48 +65,51 @@ class Data {
   String? completionCertificateUrl;
   String? propertyUser;
   int? status;
+  String? rejection_reason;
 
-  Data(
-      {this.userId,
-      this.blockId,
-      this.streetId,
-      this.houseId,
-      this.tenantName,
-      this.fatherName,
-      this.tenantCnic,
-      this.tenantPhone,
-      this.tenantNationality,
-      this.tenantOccupation,
-      this.tenantPermanentAddress,
-      this.tenantBlockCommercial,
-      this.tenantStreetNo,
-      this.tenantHouseNo,
-      this.tenantSizeOfHousePlot,
-      this.name,
-      this.phone,
-      this.cnic,
-      this.sizeOfHousePlot,
-      this.presentAddress,
-      this.permanentAddress,
-      this.allotmentLetter,
-      this.completionCertificate,
-      this.privateArm,
-      this.licenseNo,
-      this.armQuantity,
-      this.boreType,
-      this.ammunitionQuantity,
-      this.vehicleStatus,
-      this.vehicle,
-      this.submitDate,
-      this.ownerCnicUrl,
-      this.tenantCnicUrl,
-      this.agentCnicUrl,
-      this.tenantImageUrl,
-      this.agreementImageUrl,
-      this.policeRegistrationUrl,
-      this.completionCertificateUrl,
-      this.propertyUser,
-      this.status});
+  Data({
+    this.userId,
+    this.blockId,
+    this.streetId,
+    this.houseId,
+    this.tenantName,
+    this.fatherName,
+    this.tenantCnic,
+    this.tenantPhone,
+    this.tenantNationality,
+    this.tenantOccupation,
+    this.tenantPermanentAddress,
+    this.tenantBlockCommercial,
+    this.tenantStreetNo,
+    this.tenantHouseNo,
+    this.tenantSizeOfHousePlot,
+    this.name,
+    this.phone,
+    this.cnic,
+    this.sizeOfHousePlot,
+    this.presentAddress,
+    this.permanentAddress,
+    this.allotmentLetter,
+    this.completionCertificate,
+    this.privateArm,
+    this.licenseNo,
+    this.armQuantity,
+    this.boreType,
+    this.ammunitionQuantity,
+    this.vehicleStatus,
+    this.vehicle,
+    this.submitDate,
+    this.ownerCnicUrl,
+    this.tenantCnicUrl,
+    this.agentCnicUrl,
+    this.tenantImageUrl,
+    this.agreementImageUrl,
+    this.policeRegistrationUrl,
+    this.completionCertificateUrl,
+    this.propertyUser,
+    this.status,
+    this.rejection_reason,
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
@@ -155,6 +158,7 @@ class Data {
     policeRegistrationUrl = json['police_registration_url'];
     completionCertificateUrl = json['completion_certificate_url'];
     propertyUser = json['property_user'];
+    rejection_reason = json['rejection_reason'];
     status = json['status'];
   }
 
