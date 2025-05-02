@@ -1770,7 +1770,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     title: "Submit".tr,
                                                     onTap: () async {
                                                       if (args['status'] == Constants.formStatusRejected) {
-                                                        controller.editOwnerFormApi(context, args['id']);
+                                                        controller.editOwnerFormApi(context, args['id'], vehicleFormIndex - 1);
                                                       } else {
                                                         if (controller.buildingplan == null) {
                                                           Utils.showToast(
@@ -1788,7 +1788,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                 ElevatedButton(
                                                     onPressed: () {
                                                       if (args['status'] == Constants.formStatusRejected) {
-                                                        controller.editOwnerFormApi(context, args['id']);
+                                                        controller.editOwnerFormApi(context, args['id'], vehicleFormIndex - 1);
                                                       } else {
                                                         if (controller.buildingplan == null) {
                                                           Utils.showToast(

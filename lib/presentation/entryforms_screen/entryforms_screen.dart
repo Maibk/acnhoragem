@@ -60,6 +60,9 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
     super.initState();
   }
 
+  int childIndex = 0;
+  int spouseIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -595,6 +598,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     (args['status'] == Constants.formStatusRejected ? 1 : 0)
                                                 : controller.spousefullNameControllers.length + 1,
                                             itemBuilder: (context, index) {
+                                              spouseIndex = index;
                                               bool isLastIndex = index ==
                                                   (args['status'] != ""
                                                       ? (controller.entryFormDataModel.data?.spouseDetail?.length ?? 0)
@@ -1105,6 +1109,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                     (args['status'] == Constants.formStatusRejected ? 1 : 0)
                                                 : controller.childfullNameControllers.length + 1,
                                             itemBuilder: (context, index) {
+                                              childIndex = index;
                                               bool isLastIndex = index ==
                                                   (args['status'] != ""
                                                       ? (controller.entryFormDataModel.data?.childDetail?.length ?? 0)
@@ -1614,13 +1619,19 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                       title: "Submit".tr,
                                       onTap: () async {
                                         (args['status'] == Constants.formStatusRejected)
-                                            ? controller.SubmitEdittedEntryFormApi(context, args['id'])
+                                            ? controller.SubmitEdittedEntryFormApi(
+                                                context,
+                                                args['id'],
+                                                childIndex - 1,
+                                                spouseIndex - 1,
+                                              )
                                             : controller.SubmitEntryFormApi(context);
                                       },
                                     ),
                                   ),
                                 if (kDebugMode)
-                                  ElevatedButton(onPressed: () => controller.SubmitEdittedEntryFormApi(context, args['id']), child: Text("data"))
+                                  ElevatedButton(
+                                      onPressed: () => controller.SubmitEdittedEntryFormApi(context, args['id'], 0, 0), child: Text("data"))
                               ],
                             ),
                           ),

@@ -604,7 +604,7 @@ class OwnerFornsScreenController extends GetxController {
     }
   }
 
-  Future<void> editOwnerFormApi(context, int id) async {
+  Future<void> editOwnerFormApi(context, int id, index) async {
     if (alottmentletter == "Yes") {
       if (allotmentletter == null && ownerFormModel.data!.allotmentLetterUrl == "") {
         Utils.showToast("Please select allotment letter image", true);
@@ -613,201 +613,405 @@ class OwnerFornsScreenController extends GetxController {
           if (certificate == null && ownerFormModel.data!.completionCertificateUrl == "") {
             Utils.showToast("Please select completion certificate image", true);
           } else {
-            submitEdittedOwner(context, id);
+            submitEdittedOwner(context, id, index);
           }
         } else {
-          submitEdittedOwner(context, id);
+          submitEdittedOwner(context, id, index);
         }
       }
     } else {
-      submitEdittedOwner(context, id);
+      submitEdittedOwner(context, id, index);
     }
   }
 
-  submitEdittedOwner(context, id) {
-    formsLoader(context);
-    Utils.check().then((value) async {
-      Map<String, dynamic> data = {
-        'name': fullNameController.text,
-        'cnic': cnicController.text,
-        'phone': telephoneController.text,
-        'nationality': natinalityController.text,
-        'occupation': occupationController.text,
-        'present_address': presentAddController.text,
-        'permanent_address': permanantAddController.text,
-        'block_commercial': selectedValue?.id ?? 0,
-        // 'block_id': selectedValue?.id ?? 0,
-        'street_no': streetSelectedValue?.title ?? "",
-        'house_no': plotstSelectedValue?.title ?? "",
-        'size_of_house_plot': sizeHouseAddController.text,
-        'allotment_letter': alottmentletter,
-        'completion_certificate': completionCertificate,
-        'construction_status': constructionStatus,
-        'private_arm': privatearms == "Yes" ? "Yes" : "No",
-        'vehicle_status': hasVehicle,
-        'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
-        'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
-        'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
-        'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
-        'status': '0',
-        'property_user': 'owner',
-        'total_wives': total_wives,
-        'total_children': total_children,
-      };
+  submitEdittedOwner(context, id, index) {
+    if (hasVehicle == "Yes") {
+      if (vehicleFormKey[index].currentState!.validate()) {
+        if (eTag.any((e) => e == "")) {
+          Utils.showToast(
+            "Please select E-Tag",
+            true,
+          );
+        } else {
+          formsLoader(context);
+          Utils.check().then((value) async {
+            Map<String, dynamic> data = {
+              'name': fullNameController.text,
+              'cnic': cnicController.text,
+              'phone': telephoneController.text,
+              'nationality': natinalityController.text,
+              'occupation': occupationController.text,
+              'present_address': presentAddController.text,
+              'permanent_address': permanantAddController.text,
+              'block_commercial': selectedValue?.id ?? 0,
+              // 'block_id': selectedValue?.id ?? 0,
+              'street_no': streetSelectedValue?.title ?? "",
+              'house_no': plotstSelectedValue?.title ?? "",
+              'size_of_house_plot': sizeHouseAddController.text,
+              'allotment_letter': alottmentletter,
+              'completion_certificate': completionCertificate,
+              'construction_status': constructionStatus,
+              'private_arm': privatearms == "Yes" ? "Yes" : "No",
+              'vehicle_status': hasVehicle,
+              'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+              'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+              'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+              'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
+              'status': '0',
+              'property_user': 'owner',
+              'total_wives': total_wives,
+              'total_children': total_children,
+            };
 
-      ownerFormdata.addAll(data);
+            ownerFormdata.addAll(data);
 
-      if (ownerFormModel.data!.vehicleStatus == "Yes") {
-        for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
-          ownerFormdata['vehicle_type[$i]'] =
-              ownerFormModel.data!.vehicle![i].vehicleTypeController.text == "" ? null : ownerFormModel.data!.vehicle![i].vehicleTypeController.text;
-          ownerFormdata['registration[$i]'] = ownerFormModel.data!.vehicle![i].registrationController.text == ""
-              ? null
-              : ownerFormModel.data!.vehicle![i].registrationController.text;
-          ownerFormdata['color[$i]'] =
-              ownerFormModel.data!.vehicle![i].colorController.text == "" ? null : ownerFormModel.data!.vehicle![i].colorController.text;
-          ownerFormdata['sticker_no[$i]'] =
-              ownerFormModel.data!.vehicle![i].stickerNoController.text == "" ? null : ownerFormModel.data!.vehicle![i].stickerNoController.text;
-          ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? null : eTag[i].toString();
-        }
-      } else {
-        ownerFormdata['vehicle_type[]'] = null;
-        ownerFormdata['registration[]'] = null;
-        ownerFormdata['color[]'] = null;
-        ownerFormdata['sticker_no[]'] = null;
-        ownerFormdata['etag[]'] = null;
-      }
-      log(ownerFormdata.toString());
+            if (ownerFormModel.data!.vehicleStatus == "Yes") {
+              for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
+                ownerFormdata['vehicle_type[$i]'] = ownerFormModel.data!.vehicle![i].vehicleTypeController.text == ""
+                    ? null
+                    : ownerFormModel.data!.vehicle![i].vehicleTypeController.text;
+                ownerFormdata['registration[$i]'] = ownerFormModel.data!.vehicle![i].registrationController.text == ""
+                    ? null
+                    : ownerFormModel.data!.vehicle![i].registrationController.text;
+                ownerFormdata['color[$i]'] =
+                    ownerFormModel.data!.vehicle![i].colorController.text == "" ? null : ownerFormModel.data!.vehicle![i].colorController.text;
+                ownerFormdata['sticker_no[$i]'] = ownerFormModel.data!.vehicle![i].stickerNoController.text == ""
+                    ? null
+                    : ownerFormModel.data!.vehicle![i].stickerNoController.text;
+                ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? null : eTag[i].toString();
+              }
+            } else {
+              ownerFormdata['vehicle_type[]'] = null;
+              ownerFormdata['registration[]'] = null;
+              ownerFormdata['color[]'] = null;
+              ownerFormdata['sticker_no[]'] = null;
+              ownerFormdata['etag[]'] = null;
+            }
+            log(ownerFormdata.toString());
 
-      if (alottmentletter == "Yes") {
-        final allotment = allotmentletter;
-        if (allotment != null) {
-          final allotmentPath = allotment.path;
+            if (alottmentletter == "Yes") {
+              final allotment = allotmentletter;
+              if (allotment != null) {
+                final allotmentPath = allotment.path;
 
-          if (!allotmentPath.startsWith("http")) {
-            if (allotmentPath.isNotEmpty) {
-              ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
-                allotmentPath,
-                filename: allotmentPath.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
+                if (!allotmentPath.startsWith("http")) {
+                  if (allotmentPath.isNotEmpty) {
+                    ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
+                      allotmentPath,
+                      filename: allotmentPath.split('/').last,
+                      contentType: _http.MediaType.parse('image/jpeg'),
+                    );
+                  }
+                } else {
+                  final allotmentUrl = ownerFormModel.data?.allotmentLetterUrl;
+                  if (allotmentUrl != null && allotmentUrl.isNotEmpty) {
+                    ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(allotmentUrl);
+                  }
+                }
+              }
+            } else {
+              ownerFormdata['copy_allotment_letter'] = null;
+            }
+
+            if (buildingplan != null) {
+              String filePath1 = buildingplan?.path ?? '';
+              if (filePath1.isNotEmpty) {
+                ownerFormdata['copy_approval_building_plan'] = await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                );
+              }
+            } else {
+              try {
+                ownerFormdata['copy_approval_building_plan'] =
+                    await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
+              } catch (e) {}
+            }
+
+            if (completionCertificate == "Yes") {
+              final cert = certificate;
+              if (cert != null) {
+                final certPath = cert.path;
+
+                if (!certPath.startsWith("http")) {
+                  if (certPath.isNotEmpty) {
+                    ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
+                      certPath,
+                      filename: certPath.split('/').last,
+                      contentType: _http.MediaType.parse('image/jpeg'),
+                    );
+                  }
+                } else {
+                  final certUrl = ownerFormModel.data?.completionCertificateUrl;
+                  if (certUrl != null && certUrl.isNotEmpty) {
+                    ownerFormdata['copy_completion_certificate'] = await BaseClient.getMultipartFileFromUrl(certUrl);
+                  }
+                }
+              }
+            }
+
+            if (value) {
+              _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+                var dio = _dio.Dio();
+                try {
+                  var response = await dio.request(
+                    'https://anchorageislamabad.com/api/owner-application/update/$id',
+                    options: _dio.Options(
+                      method: 'POST',
+                      headers: {
+                        'Authorization': "Bearer $token",
+                      },
+                    ),
+                    data: _dio.FormData.fromMap(ownerFormdata),
+                  );
+                  if (response.statusCode == 200) {
+                    Utils.showToast(
+                      response.data['message'],
+                      false,
+                    );
+                    log(json.encode(response.data));
+
+                    Get.offAllNamed(AppRoutes.homePage);
+                  } else {
+                    Utils.showToast(
+                      response.data['message'],
+                      false,
+                    );
+                    log(response.statusMessage.toString());
+                  }
+                } on _dio.DioException catch (error) {
+                  if (error.response?.statusCode == 404) {
+                    Utils.showToast(
+                      error.response!.data['message'].toString(),
+                      true,
+                    );
+                  }
+                  if (error is Response) {
+                    Utils.showToast(
+                      error.response!.data['message'].toString(),
+                      true,
+                    );
+                  } else {
+                    Utils.showToast(
+                      error.message.toString(),
+                      true,
+                    );
+                  }
+
+                  if (error.response == null) {
+                    var exception = ApiException(
+                      url: 'https://anchorageislamabad.com/api/owner-application',
+                      message: error.message!,
+                    );
+                    return BaseClient.handleApiError(exception);
+                  }
+
+                  if (error.response?.statusCode == 500) {
+                    Utils.showToast(
+                      "Internal Server Error",
+                      true,
+                    );
+                  }
+                }
+              });
+            } else {
+              CustomSnackBar.showCustomErrorToast(
+                message: Strings.noInternetConnection,
               );
             }
-          } else {
-            final allotmentUrl = ownerFormModel.data?.allotmentLetterUrl;
-            if (allotmentUrl != null && allotmentUrl.isNotEmpty) {
-              ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(allotmentUrl);
+          });
+        }
+      }
+    } else {
+      formsLoader(context);
+      Utils.check().then((value) async {
+        Map<String, dynamic> data = {
+          'name': fullNameController.text,
+          'cnic': cnicController.text,
+          'phone': telephoneController.text,
+          'nationality': natinalityController.text,
+          'occupation': occupationController.text,
+          'present_address': presentAddController.text,
+          'permanent_address': permanantAddController.text,
+          'block_commercial': selectedValue?.id ?? 0,
+          // 'block_id': selectedValue?.id ?? 0,
+          'street_no': streetSelectedValue?.title ?? "",
+          'house_no': plotstSelectedValue?.title ?? "",
+          'size_of_house_plot': sizeHouseAddController.text,
+          'allotment_letter': alottmentletter,
+          'completion_certificate': completionCertificate,
+          'construction_status': constructionStatus,
+          'private_arm': privatearms == "Yes" ? "Yes" : "No",
+          'vehicle_status': hasVehicle,
+          'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+          'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+          'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+          'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
+          'status': '0',
+          'property_user': 'owner',
+          'total_wives': total_wives,
+          'total_children': total_children,
+        };
+
+        ownerFormdata.addAll(data);
+
+        if (ownerFormModel.data!.vehicleStatus == "Yes") {
+          for (int i = 0; i < ownerFormModel.data!.vehicle!.length; i++) {
+            ownerFormdata['vehicle_type[$i]'] = ownerFormModel.data!.vehicle![i].vehicleTypeController.text == ""
+                ? null
+                : ownerFormModel.data!.vehicle![i].vehicleTypeController.text;
+            ownerFormdata['registration[$i]'] = ownerFormModel.data!.vehicle![i].registrationController.text == ""
+                ? null
+                : ownerFormModel.data!.vehicle![i].registrationController.text;
+            ownerFormdata['color[$i]'] =
+                ownerFormModel.data!.vehicle![i].colorController.text == "" ? null : ownerFormModel.data!.vehicle![i].colorController.text;
+            ownerFormdata['sticker_no[$i]'] =
+                ownerFormModel.data!.vehicle![i].stickerNoController.text == "" ? null : ownerFormModel.data!.vehicle![i].stickerNoController.text;
+            ownerFormdata['etag[$i]'] = eTag[i].toString() == "" ? null : eTag[i].toString();
+          }
+        } else {
+          ownerFormdata['vehicle_type[]'] = null;
+          ownerFormdata['registration[]'] = null;
+          ownerFormdata['color[]'] = null;
+          ownerFormdata['sticker_no[]'] = null;
+          ownerFormdata['etag[]'] = null;
+        }
+        log(ownerFormdata.toString());
+
+        if (alottmentletter == "Yes") {
+          final allotment = allotmentletter;
+          if (allotment != null) {
+            final allotmentPath = allotment.path;
+
+            if (!allotmentPath.startsWith("http")) {
+              if (allotmentPath.isNotEmpty) {
+                ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
+                  allotmentPath,
+                  filename: allotmentPath.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                );
+              }
+            } else {
+              final allotmentUrl = ownerFormModel.data?.allotmentLetterUrl;
+              if (allotmentUrl != null && allotmentUrl.isNotEmpty) {
+                ownerFormdata['copy_allotment_letter'] = await BaseClient.getMultipartFileFromUrl(allotmentUrl);
+              }
+            }
+          }
+        } else {
+          ownerFormdata['copy_allotment_letter'] = null;
+        }
+
+        if (buildingplan != null) {
+          String filePath1 = buildingplan?.path ?? '';
+          if (filePath1.isNotEmpty) {
+            ownerFormdata['copy_approval_building_plan'] = await _dio.MultipartFile.fromFile(
+              filePath1,
+              filename: filePath1.split('/').last,
+              contentType: _http.MediaType.parse('image/jpeg'),
+            );
+          }
+        } else {
+          try {
+            ownerFormdata['copy_approval_building_plan'] =
+                await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
+          } catch (e) {}
+        }
+
+        if (completionCertificate == "Yes") {
+          final cert = certificate;
+          if (cert != null) {
+            final certPath = cert.path;
+
+            if (!certPath.startsWith("http")) {
+              if (certPath.isNotEmpty) {
+                ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
+                  certPath,
+                  filename: certPath.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                );
+              }
+            } else {
+              final certUrl = ownerFormModel.data?.completionCertificateUrl;
+              if (certUrl != null && certUrl.isNotEmpty) {
+                ownerFormdata['copy_completion_certificate'] = await BaseClient.getMultipartFileFromUrl(certUrl);
+              }
             }
           }
         }
-      }
 
-      if (buildingplan != null) {
-        String filePath1 = buildingplan?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          ownerFormdata['copy_approval_building_plan'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
+        if (value) {
+          _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+            var dio = _dio.Dio();
+            try {
+              var response = await dio.request(
+                'https://anchorageislamabad.com/api/owner-application/update/$id',
+                options: _dio.Options(
+                  method: 'POST',
+                  headers: {
+                    'Authorization': "Bearer $token",
+                  },
+                ),
+                data: _dio.FormData.fromMap(ownerFormdata),
+              );
+              if (response.statusCode == 200) {
+                Utils.showToast(
+                  response.data['message'],
+                  false,
+                );
+                log(json.encode(response.data));
+
+                Get.offAllNamed(AppRoutes.homePage);
+              } else {
+                Utils.showToast(
+                  response.data['message'],
+                  false,
+                );
+                log(response.statusMessage.toString());
+              }
+            } on _dio.DioException catch (error) {
+              if (error.response?.statusCode == 404) {
+                Utils.showToast(
+                  error.response!.data['message'].toString(),
+                  true,
+                );
+              }
+              if (error is Response) {
+                Utils.showToast(
+                  error.response!.data['message'].toString(),
+                  true,
+                );
+              } else {
+                Utils.showToast(
+                  error.message.toString(),
+                  true,
+                );
+              }
+
+              if (error.response == null) {
+                var exception = ApiException(
+                  url: 'https://anchorageislamabad.com/api/owner-application',
+                  message: error.message!,
+                );
+                return BaseClient.handleApiError(exception);
+              }
+
+              if (error.response?.statusCode == 500) {
+                Utils.showToast(
+                  "Internal Server Error",
+                  true,
+                );
+              }
+            }
+          });
+        } else {
+          CustomSnackBar.showCustomErrorToast(
+            message: Strings.noInternetConnection,
           );
         }
-      } else {
-        try {
-          ownerFormdata['copy_approval_building_plan'] = await BaseClient.getMultipartFileFromUrl(ownerFormModel.data?.approvalBuildingPlanUrl ?? "");
-        } catch (e) {}
-      }
-
-      if (completionCertificate == "Yes") {
-        final cert = certificate;
-        if (cert != null) {
-          final certPath = cert.path;
-
-          if (!certPath.startsWith("http")) {
-            if (certPath.isNotEmpty) {
-              ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
-                certPath,
-                filename: certPath.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              );
-            }
-          } else {
-            final certUrl = ownerFormModel.data?.completionCertificateUrl;
-            if (certUrl != null && certUrl.isNotEmpty) {
-              ownerFormdata['copy_completion_certificate'] = await BaseClient.getMultipartFileFromUrl(certUrl);
-            }
-          }
-        }
-      }
-
-      if (value) {
-        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          var dio = _dio.Dio();
-          try {
-            var response = await dio.request(
-              'https://anchorageislamabad.com/api/owner-application/update/$id',
-              options: _dio.Options(
-                method: 'POST',
-                headers: {
-                  'Authorization': "Bearer $token",
-                },
-              ),
-              data: _dio.FormData.fromMap(ownerFormdata),
-            );
-            if (response.statusCode == 200) {
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              log(json.encode(response.data));
-
-              Get.offAllNamed(AppRoutes.homePage);
-            } else {
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              log(response.statusMessage.toString());
-            }
-          } on _dio.DioException catch (error) {
-            if (error.response?.statusCode == 404) {
-              Utils.showToast(
-                error.response!.data['message'].toString(),
-                true,
-              );
-            }
-            if (error is Response) {
-              Utils.showToast(
-                error.response!.data['message'].toString(),
-                true,
-              );
-            } else {
-              Utils.showToast(
-                error.message.toString(),
-                true,
-              );
-            }
-
-            if (error.response == null) {
-              var exception = ApiException(
-                url: 'https://anchorageislamabad.com/api/owner-application',
-                message: error.message!,
-              );
-              return BaseClient.handleApiError(exception);
-            }
-
-            if (error.response?.statusCode == 500) {
-              Utils.showToast(
-                "Internal Server Error",
-                true,
-              );
-            }
-          }
-        });
-      } else {
-        CustomSnackBar.showCustomErrorToast(
-          message: Strings.noInternetConnection,
-        );
-      }
-    });
+      });
+    }
   }
 
   getStreetByBlock(id) async {
@@ -886,6 +1090,7 @@ class OwnerFornsScreenController extends GetxController {
 
   updateAllotmentLetter(value) {
     alottmentletter = value;
+
     update();
   }
 

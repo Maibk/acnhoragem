@@ -756,144 +756,149 @@ class EntryFormsController extends GetxController {
     }
   }
 
-  Future<void> SubmitEdittedEntryFormApi(context, id) async {
-    formsLoader(context);
-    Utils.check().then((value) async {
-      Map<String, dynamic> ownerInfoData = {
-        'name': fullNameController.text,
-        "father_name": fathersController.text,
-        'cnic': cnicController.text,
-        'phone': mobileController.text,
-        'house_no': plotstSelectedValue?.id ?? 0,
-        'street': streetSelectedValue?.id ?? 0,
-        'block': selectedValue ?? 0,
-        "date": DateTime.now().format("yyyy-MM-dd").toString(),
-        "id": id
-      };
-      EntryFormData.addAll(ownerInfoData);
+  Future<void> SubmitEdittedEntryFormApi(context, id, childFormIndex, spouseFormIndex) async {
+    if (childEntryFormKey[childFormIndex].currentState!.validate() && spouseEntryFormKey[spouseFormIndex].currentState!.validate()) {
+      Utils.showToast("INNNNNNValid ", true);
+    } else {
+      Utils.showToast("Valid ", true);
+    }
+    //   formsLoader(context);
+    //   Utils.check().then((value) async {
+    //     Map<String, dynamic> ownerInfoData = {
+    //       'name': fullNameController.text,
+    //       "father_name": fathersController.text,
+    //       'cnic': cnicController.text,
+    //       'phone': mobileController.text,
+    //       'house_no': plotstSelectedValue?.id ?? 0,
+    //       'street': streetSelectedValue?.id ?? 0,
+    //       'block': selectedValue ?? 0,
+    //       "date": DateTime.now().format("yyyy-MM-dd").toString(),
+    //       "id": id
+    //     };
+    //     EntryFormData.addAll(ownerInfoData);
 
-      if (ownerImage == null) {
-        EntryFormData['image'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.image ?? "");
-      } else {
-        String filePath1 = ownerImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          EntryFormData['image'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
+    //     if (ownerImage == null) {
+    //       EntryFormData['image'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.image ?? "");
+    //     } else {
+    //       String filePath1 = ownerImage?.path ?? '';
+    //       if (filePath1.isNotEmpty) {
+    //         EntryFormData['image'] = await _dio.MultipartFile.fromFile(
+    //           filePath1,
+    //           filename: filePath1.split('/').last,
+    //           contentType: _http.MediaType.parse('image/jpeg'),
+    //         );
+    //       }
+    //     }
 
-      if (ownerCnicFront == null) {
-        EntryFormData['cnic_image_front'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.cnicImageFront ?? "");
-      } else {
-        String filePath1 = ownerCnicFront?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          EntryFormData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-      if (ownerCnicBack == null) {
-        EntryFormData['cnic_image_back'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.cnicImageBack ?? "");
-      } else {
-        String filePath1 = ownerCnicBack?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          EntryFormData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
+    //     if (ownerCnicFront == null) {
+    //       EntryFormData['cnic_image_front'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.cnicImageFront ?? "");
+    //     } else {
+    //       String filePath1 = ownerCnicFront?.path ?? '';
+    //       if (filePath1.isNotEmpty) {
+    //         EntryFormData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
+    //           filePath1,
+    //           filename: filePath1.split('/').last,
+    //           contentType: _http.MediaType.parse('image/jpeg'),
+    //         );
+    //       }
+    //     }
+    //     if (ownerCnicBack == null) {
+    //       EntryFormData['cnic_image_back'] = await BaseClient.getMultipartFileFromUrl(entryFormDataModel.data?.cnicImageBack ?? "");
+    //     } else {
+    //       String filePath1 = ownerCnicBack?.path ?? '';
+    //       if (filePath1.isNotEmpty) {
+    //         EntryFormData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
+    //           filePath1,
+    //           filename: filePath1.split('/').last,
+    //           contentType: _http.MediaType.parse('image/jpeg'),
+    //         );
+    //       }
+    //     }
 
-      log(EntryFormData.toString(), name: "EntryFormData");
+    //     log(EntryFormData.toString(), name: "EntryFormData");
 
-      await childEditEntryFormAPi(context);
-      await spouseEditEntryFormAPi(context);
+    //     await childEditEntryFormAPi(context);
+    //     await spouseEditEntryFormAPi(context);
 
-      if (value) {
-        log(Constants.entryCardUpdateUrl, name: "URL -----------------------------------");
-        log(EntryFormData.toString(), name: "DATA -----------------------------------");
-        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          var dio = _dio.Dio();
-          try {
-            var response = await dio.request(
-              Constants.entryCardUpdateUrl,
-              options: _dio.Options(
-                method: 'POST',
-                contentType: "multipart",
-                headers: {
-                  'Authorization': "Bearer $token",
-                },
-              ),
-              data: _dio.FormData.fromMap(
-                EntryFormData,
-              ),
-            );
-            if (response.statusCode == 200) {
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              Navigator.pop(context);
-              log(json.encode(response.data));
+    //     if (value) {
+    //       log(Constants.entryCardUpdateUrl, name: "URL -----------------------------------");
+    //       log(EntryFormData.toString(), name: "DATA -----------------------------------");
+    //       _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+    //         var dio = _dio.Dio();
+    //         try {
+    //           var response = await dio.request(
+    //             Constants.entryCardUpdateUrl,
+    //             options: _dio.Options(
+    //               method: 'POST',
+    //               contentType: "multipart",
+    //               headers: {
+    //                 'Authorization': "Bearer $token",
+    //               },
+    //             ),
+    //             data: _dio.FormData.fromMap(
+    //               EntryFormData,
+    //             ),
+    //           );
+    //           if (response.statusCode == 200) {
+    //             Utils.showToast(
+    //               response.data['message'],
+    //               false,
+    //             );
+    //             Navigator.pop(context);
+    //             log(json.encode(response.data));
 
-              Get.offAllNamed(AppRoutes.homePage);
-            } else {
-              Navigator.pop(context);
+    //             Get.offAllNamed(AppRoutes.homePage);
+    //           } else {
+    //             Navigator.pop(context);
 
-              log(response.data['message'].toString(), name: "eeror api");
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              log(response.statusMessage.toString());
-            }
-          } on _dio.DioException catch (error) {
-            Navigator.pop(context);
-            if (error.response?.statusCode == 404) {
-              Navigator.pop(context);
-              Utils.showToast(
-                error.response?.data.toString() ?? '',
-                true,
-              );
-            } else {
-              Utils.showToast(
-                error.response?.data.toString() ?? "Error",
-                true,
-              );
-              log(error.response?.data.toString().substring(1, 250) ?? "", name: "Entry card ERROOOOOOORRRRRR");
-            }
+    //             log(response.data['message'].toString(), name: "eeror api");
+    //             Utils.showToast(
+    //               response.data['message'],
+    //               false,
+    //             );
+    //             log(response.statusMessage.toString());
+    //           }
+    //         } on _dio.DioException catch (error) {
+    //           Navigator.pop(context);
+    //           if (error.response?.statusCode == 404) {
+    //             Navigator.pop(context);
+    //             Utils.showToast(
+    //               error.response?.data.toString() ?? '',
+    //               true,
+    //             );
+    //           } else {
+    //             Utils.showToast(
+    //               error.response?.data.toString() ?? "Error",
+    //               true,
+    //             );
+    //             log(error.response?.data.toString().substring(1, 250) ?? "", name: "Entry card ERROOOOOOORRRRRR");
+    //           }
 
-            if (error.response == null) {
-              Navigator.pop(context);
+    //           if (error.response == null) {
+    //             Navigator.pop(context);
 
-              var exception = ApiException(
-                url: Constants.entryCardUpdateUrl,
-                message: error.message!,
-              );
-              return BaseClient.handleApiError(exception);
-            }
+    //             var exception = ApiException(
+    //               url: Constants.entryCardUpdateUrl,
+    //               message: error.message!,
+    //             );
+    //             return BaseClient.handleApiError(exception);
+    //           }
 
-            if (error.response?.statusCode == 500) {
-              Navigator.pop(context);
-              Utils.showToast(
-                "Internal Server Error",
-                true,
-              );
-            }
-          }
-        });
-      } else {
-        CustomSnackBar.showCustomErrorToast(
-          message: Strings.noInternetConnection,
-        );
-      }
-    });
+    //           if (error.response?.statusCode == 500) {
+    //             Navigator.pop(context);
+    //             Utils.showToast(
+    //               "Internal Server Error",
+    //               true,
+    //             );
+    //           }
+    //         }
+    //       });
+    //     } else {
+    //       CustomSnackBar.showCustomErrorToast(
+    //         message: Strings.noInternetConnection,
+    //       );
+    //     }
+    //   });
   }
 
   addSpouse() {
