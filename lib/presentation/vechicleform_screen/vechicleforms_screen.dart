@@ -39,6 +39,9 @@ class _VechicleScreenState extends State<VechicleScreen> {
   final args = Get.arguments;
   bool isEditable = false;
 
+  int vehicleKeyIndex = 0;
+  int userKeyIndex = 0;
+
   @override
   initState() {
     if (args['status'] == Constants.formStatusRejected || args['status'] == "") {
@@ -718,6 +721,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       (args['status'] == Constants.formStatusRejected ? 1 : 0)
                                                   : controller.vehicleNoControllers.length + 1,
                                               itemBuilder: (context, index) {
+                                                vehicleKeyIndex = index;
                                                 bool isLastIndex = index ==
                                                     (args['status'] != ""
                                                         ? (controller.vehicleFormDataModel.data?.vehicleDetail?.length ?? 0)
@@ -926,6 +930,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                       (args['status'] == Constants.formStatusRejected ? 1 : 0)
                                                   : controller.userfullNameControllers.length + 1,
                                               itemBuilder: (context, index) {
+                                                userKeyIndex = index;
                                                 bool isLastIndex = index ==
                                                     (args['status'] != ""
                                                         ? (controller.vehicleFormDataModel.data?.vehicleUserDetail?.length ?? 0)
@@ -2271,14 +2276,14 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       title: "Submit".tr,
                                       onTap: () async {
                                         (args['status'] == Constants.formStatusRejected)
-                                            ? controller.editSubmitVehicle(context, args['id'])
+                                            ? controller.editSubmitVehicle(context, args['id'], vehicleKeyIndex - 1, userKeyIndex - 1)
                                             : controller.SubmitVehicle(context);
                                       },
                                     ),
                                   if (kDebugMode)
                                     ElevatedButton(
                                         onPressed: () {
-                                          controller.editSubmitVehicle(context, args['id']);
+                                          controller.editSubmitVehicle(context, args['id'], vehicleKeyIndex - 1, userKeyIndex - 1);
                                         },
                                         child: Text("Test Button"))
                                 ],

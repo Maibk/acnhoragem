@@ -802,242 +802,253 @@ class VechicleController extends GetxController {
     }
   }
 
-  Future<void> editSubmitVehicle(context, int id) async {
-    formsLoader(context);
-    update();
-    Utils.check().then((value) async {
-      await editAddUserInfo();
-      Map<String, dynamic> ownerInfoData = {
-        'id': id,
-        'name': fullNameController.text,
-        "father_name": fathersController.text,
-        "service_category": selectedServiceCategory == 1 ? "civilian" : "service personnel",
-        "date": dateController.text,
-        'rank': rankController.text.isEmpty ? " " : rankController.text,
-        'service_no': servisController.text.isEmpty ? " " : servisController.text,
-        'cnic': cnicController.text,
-        'office_department': officeController.text,
-        'phone': cellNoController.text,
-        'house_no': plotstSelectedValue?.id ?? 0,
-        'road_street': streetSelectedValue?.id ?? 0,
-        'block': selectedValue ?? 0,
-        'cell_no': cellNoController.text,
-        'ptcl_no': ptclController.text,
-        'noc': selectedResidential == 2 ? nocSubmitted : "Not a tenant",
-        "residential_status": selectedResidential == 1
-            ? "Civilian"
-            : selectedResidential == 2
-                ? "Tenant"
-                : "Visitor / Non-Residential",
-        // 'residential_area': colonyController.text,
-      };
-      vehicalData.addAll(ownerInfoData);
-
-      for (var i = 0; i < vehicleFormDataModel.data!.vehicleDetail!.length; i++) {
-        vehicalData['vehicle_no[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleNoController.text;
-        vehicalData["vehicle_make[$i]"] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleMakeController.text;
-        vehicalData['vehicle_model[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleModelController.text;
-        vehicalData['vehicle_color[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleColorController.text;
-        vehicalData['vehicle_engine[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleEngineController.text;
-        vehicalData['vehicle_chassis[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleChassisController.text;
-      }
-
-      if (underTakingLicenseFrontSideImage == null) {
-        vehicalData['driving_license_front'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.drivingLicenseFront ?? "");
+  Future<void> editSubmitVehicle(context, int id, vehicleKeyIndex, userKeyIndex) async {
+    if (addVehicleFormKey[vehicleKeyIndex].currentState!.validate() && addUserInfoFormKey[userKeyIndex].currentState!.validate()) {
+      if (userDrivingLicenseFrontSideImages.any((e) => e.path == "") ||
+          userDrivingLicenseBackSideImages.any((e) => e.path == "") ||
+          userCnicFrontSideImages.any((e) => e.path == "") ||
+          userCnicBacktSideImages.any((e) => e.path == "")) {
+        Utils.showToast("Please select all images of user ", true);
       } else {
-        String filePath1 = underTakingLicenseFrontSideImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['driving_license_front'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
+        formsLoader(context);
+        update();
+        Utils.check().then((value) async {
+          await editAddUserInfo();
+          Map<String, dynamic> ownerInfoData = {
+            'id': id,
+            'name': fullNameController.text,
+            "father_name": fathersController.text,
+            "service_category": selectedServiceCategory == 1 ? "civilian" : "service personnel",
+            "date": dateController.text,
+            'rank': rankController.text.isEmpty ? " " : rankController.text,
+            'service_no': servisController.text.isEmpty ? " " : servisController.text,
+            'cnic': cnicController.text,
+            'office_department': officeController.text,
+            'phone': cellNoController.text,
+            'house_no': plotstSelectedValue?.id ?? 0,
+            'road_street': streetSelectedValue?.id ?? 0,
+            'block': selectedValue ?? 0,
+            'cell_no': cellNoController.text,
+            'ptcl_no': ptclController.text,
+            'noc': selectedResidential == 2 ? nocSubmitted : "Not a tenant",
+            "residential_status": selectedResidential == 1
+                ? "Civilian"
+                : selectedResidential == 2
+                    ? "Tenant"
+                    : "Visitor / Non-Residential",
+            // 'residential_area': colonyController.text,
+          };
+          vehicalData.addAll(ownerInfoData);
 
-      if (underTakingLicenseBackSideImage == null) {
-        vehicalData['driving_license_back'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.drivingLicenseBack ?? "");
-      } else {
-        String filePath1 = underTakingLicenseBackSideImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['driving_license_back'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
+          for (var i = 0; i < vehicleFormDataModel.data!.vehicleDetail!.length; i++) {
+            vehicalData['vehicle_no[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleNoController.text;
+            vehicalData["vehicle_make[$i]"] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleMakeController.text;
+            vehicalData['vehicle_model[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleModelController.text;
+            vehicalData['vehicle_color[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleColorController.text;
+            vehicalData['vehicle_engine[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleEngineController.text;
+            vehicalData['vehicle_chassis[$i]'] = vehicleFormDataModel.data!.vehicleDetail![i].vehicleChassisController.text;
+          }
 
-      if (underTakingCnicFrontSideImage == null) {
-        vehicalData['cnic_image_front'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.cnicImageFront ?? "");
-      } else {
-        String filePath1 = underTakingCnicFrontSideImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-
-      if (underTakingCnicBackSideImage == null) {
-        vehicalData['cnic_image_back'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.cnicImageBack ?? "");
-      } else {
-        String filePath1 = underTakingCnicBackSideImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-
-      if (underTakingVehicalRegistrationImage == null) {
-        vehicalData['registration_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.registrationImage ?? "");
-      } else {
-        String filePath1 = underTakingVehicalRegistrationImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['registration_image'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-
-      if (underTakingOwnerImage == null) {
-        vehicalData['owner_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.ownerImage ?? "");
-      } else {
-        String filePath1 = underTakingOwnerImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['owner_image'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-
-      if (underTakingAllotmentLetterImage == null) {
-        vehicalData['allotment_letter_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.allotmentLetterImage ?? "");
-      } else {
-        String filePath1 = underTakingAllotmentLetterImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['allotment_letter_image'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-
-      if (underTakingMaintenanceBillImage == null) {
-        vehicalData['maintenance_bill_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.maintenanceBillImage ?? "");
-      } else {
-        String filePath1 = underTakingMaintenanceBillImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['maintenance_bill_image'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-
-      if (underTakingOldStickerImage == null) {
-        vehicalData['old_sticker_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.oldStickerImage ?? "");
-      } else {
-        String filePath1 = underTakingOldStickerImage?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          vehicalData['old_sticker_image'] = await _dio.MultipartFile.fromFile(
-            filePath1,
-            filename: filePath1.split('/').last,
-            contentType: _http.MediaType.parse('image/jpeg'),
-          );
-        }
-      }
-
-      if (value) {
-        log(vehicalData.toString());
-
-        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          var dio = _dio.Dio();
-          try {
-            var response = await dio.request(
-              'https://anchorageislamabad.com/api/vehicle/update',
-              options: _dio.Options(
-                method: 'POST',
-                headers: {
-                  'Authorization': "Bearer $token",
-                },
-              ),
-              data: _dio.FormData.fromMap(vehicalData),
-            );
-            if (response.statusCode == 200) {
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              Navigator.pop(context);
-
-              log(json.encode(response.data));
-
-              Get.offAllNamed(AppRoutes.homePage);
-            } else if (response.statusCode == 500) {
-              Utils.showToast(
-                "Internal Server Error",
-                false,
-              );
-              Get.offAllNamed(AppRoutes.homePage);
-            } else {
-              Navigator.pop(context);
-
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              log(response.statusMessage.toString());
-            }
-          } on _dio.DioException catch (error) {
-            Navigator.pop(context);
-            if (error.response?.statusCode == 404) {
-              Navigator.pop(context);
-              Utils.showToast(
-                error.response?.data.toString() ?? '',
-                true,
-              );
-            } else {
-              Utils.showToast(
-                error.response?.toString() ?? error.error.toString(),
-                true,
-              );
-            }
-            if (error.response == null) {
-              var exception = ApiException(
-                url: 'https://anchorageislamabad.com/api/servant-card',
-                message: error.message!,
-              );
-              return BaseClient.handleApiError(exception);
-            }
-
-            if (error.response?.statusCode == 500) {
-              Navigator.pop(context);
-
-              Utils.showToast(
-                "Internal Server Error",
-                true,
+          if (underTakingLicenseFrontSideImage == null) {
+            vehicalData['driving_license_front'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.drivingLicenseFront ?? "");
+          } else {
+            String filePath1 = underTakingLicenseFrontSideImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['driving_license_front'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
               );
             }
           }
+
+          if (underTakingLicenseBackSideImage == null) {
+            vehicalData['driving_license_back'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.drivingLicenseBack ?? "");
+          } else {
+            String filePath1 = underTakingLicenseBackSideImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['driving_license_back'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          if (underTakingCnicFrontSideImage == null) {
+            vehicalData['cnic_image_front'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.cnicImageFront ?? "");
+          } else {
+            String filePath1 = underTakingCnicFrontSideImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          if (underTakingCnicBackSideImage == null) {
+            vehicalData['cnic_image_back'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.cnicImageBack ?? "");
+          } else {
+            String filePath1 = underTakingCnicBackSideImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          if (underTakingVehicalRegistrationImage == null) {
+            vehicalData['registration_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.registrationImage ?? "");
+          } else {
+            String filePath1 = underTakingVehicalRegistrationImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['registration_image'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          if (underTakingOwnerImage == null) {
+            vehicalData['owner_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.ownerImage ?? "");
+          } else {
+            String filePath1 = underTakingOwnerImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['owner_image'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          if (underTakingAllotmentLetterImage == null) {
+            vehicalData['allotment_letter_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.allotmentLetterImage ?? "");
+          } else {
+            String filePath1 = underTakingAllotmentLetterImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['allotment_letter_image'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          if (underTakingMaintenanceBillImage == null) {
+            vehicalData['maintenance_bill_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.maintenanceBillImage ?? "");
+          } else {
+            String filePath1 = underTakingMaintenanceBillImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['maintenance_bill_image'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          if (underTakingOldStickerImage == null) {
+            vehicalData['old_sticker_image'] = await BaseClient.getMultipartFileFromUrl(vehicleFormDataModel.data?.oldStickerImage ?? "");
+          } else {
+            String filePath1 = underTakingOldStickerImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              vehicalData['old_sticker_image'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          if (value) {
+            log(vehicalData.toString());
+
+            _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+              var dio = _dio.Dio();
+              try {
+                var response = await dio.request(
+                  'https://anchorageislamabad.com/api/vehicle/update',
+                  options: _dio.Options(
+                    method: 'POST',
+                    headers: {
+                      'Authorization': "Bearer $token",
+                    },
+                  ),
+                  data: _dio.FormData.fromMap(vehicalData),
+                );
+                if (response.statusCode == 200) {
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  Navigator.pop(context);
+
+                  log(json.encode(response.data));
+
+                  Get.offAllNamed(AppRoutes.homePage);
+                } else if (response.statusCode == 500) {
+                  Utils.showToast(
+                    "Internal Server Error",
+                    false,
+                  );
+                  Get.offAllNamed(AppRoutes.homePage);
+                } else {
+                  Navigator.pop(context);
+
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  log(response.statusMessage.toString());
+                }
+              } on _dio.DioException catch (error) {
+                Navigator.pop(context);
+                if (error.response?.statusCode == 404) {
+                  Navigator.pop(context);
+                  Utils.showToast(
+                    error.response?.data.toString() ?? '',
+                    true,
+                  );
+                } else {
+                  Utils.showToast(
+                    error.response?.toString() ?? error.error.toString(),
+                    true,
+                  );
+                }
+                if (error.response == null) {
+                  var exception = ApiException(
+                    url: 'https://anchorageislamabad.com/api/servant-card',
+                    message: error.message!,
+                  );
+                  return BaseClient.handleApiError(exception);
+                }
+
+                if (error.response?.statusCode == 500) {
+                  Navigator.pop(context);
+
+                  Utils.showToast(
+                    "Internal Server Error",
+                    true,
+                  );
+                }
+              }
+            });
+          } else {
+            CustomSnackBar.showCustomErrorToast(
+              message: Strings.noInternetConnection,
+            );
+          }
         });
-      } else {
-        CustomSnackBar.showCustomErrorToast(
-          message: Strings.noInternetConnection,
-        );
       }
-    });
+    } else {
+      Utils.showToast("Some validations failed.", true);
+    }
   }
 
   String nocSubmitted = "";

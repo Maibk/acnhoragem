@@ -43,6 +43,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
   final args = Get.arguments;
   bool isEditable = false;
 
+  int servantIndex = 0;
+  int servantFamilyIndex = 0;
+
   @override
   initState() {
     if (args['status'] == Constants.formStatusRejected || args['status'] == "") {
@@ -613,6 +616,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                     (args['status'] == Constants.formStatusRejected ? 1 : 0)
                                                 : controller.serventfullNameControllers.length + 1,
                                             itemBuilder: (context, index) {
+                                              servantIndex = index;
                                               bool isLastIndex = index ==
                                                   (args['status'] != ""
                                                       ? (controller.servantFormDataModel.data?.servantDetail?.length ?? 0)
@@ -1308,6 +1312,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       (args['status'] == Constants.formStatusRejected ? 1 : 0)
                                                   : controller.serventfamfullNameControllers.length + 1,
                                               itemBuilder: (context, index) {
+                                                servantFamilyIndex = index;
                                                 bool isLastIndex = index ==
                                                     (args['status'] != ""
                                                         ? (controller.servantFormDataModel.data?.servantFamilyDetail?.length ?? 0)
@@ -1623,13 +1628,25 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                       title: "Submit".tr,
                                       onTap: () async {
                                         (args['status'] == Constants.formStatusRejected)
-                                            ? _value.submitEditServantApi(context, args['id'])
+                                            ? _value.submitEditServantApi(
+                                                context,
+                                                args['id'],
+                                                servantIndex - 1,
+                                                servantFamilyIndex - 1,
+                                              )
                                             : _value.submitServantApi(context);
                                       },
                                     ),
                                   ),
                                 if (kDebugMode)
-                                  ElevatedButton(onPressed: () => _value.submitEditServantApi(context, args['id']), child: Text("Test button")),
+                                  ElevatedButton(
+                                      onPressed: () => _value.submitEditServantApi(
+                                            context,
+                                            args['id'],
+                                            servantIndex - 1,
+                                            servantFamilyIndex - 1,
+                                          ),
+                                      child: Text("Test button")),
                                 SizedBox(
                                   height: getVerticalSize(20),
                                 ),

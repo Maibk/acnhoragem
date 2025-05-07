@@ -2072,7 +2072,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                         title: "Submit".tr,
                                                         onTap: () async {
                                                           if (args['status'] == Constants.formStatusRejected) {
-                                                            controller.editTenantFormApi(context, args['id']);
+                                                            controller.editTenantFormApi(context, args['id'], vehicleFormIndex - 1);
                                                           } else {
                                                             if (controller.ownerCnicFrontBack == null) {
                                                               Utils.showToast(

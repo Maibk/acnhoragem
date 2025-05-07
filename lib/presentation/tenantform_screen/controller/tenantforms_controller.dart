@@ -588,276 +588,291 @@ class TenantFornsScreenController extends GetxController {
     }
   }
 
-  Future<void> editTenantFormApi(context, int id) async {
-    formsLoader(context);
-    Utils.check().then((value) async {
-      var data = _dio.FormData.fromMap({
-        'tenant_name': fullNameController.text,
-        'name': ownerNameController.text,
-        'phone': ownerPhoneController.text,
-        'cnic': ownerCNICController.text,
-        'father_name': fathersController.text,
-        'tenant_cnic': cnicController.text,
-        'tenant_phone': telephoneController.text,
-        'tenant_nationality': natinalityController.text,
-        'tenant_occupation': occupationController.text,
-        'tenant_permanent_address': presentAddController.text,
-        'tenant_block_commercial': selectedValue,
-        'tenant_street_no': streetSelectedValue?.id ?? "",
-        'tenant_house_no': plotstSelectedValue?.id ?? "",
-        'tenant_size_of_house_plot': sizeHouseAddController.text,
-        'present_address': presentAddController.text,
-        'permanent_address': presentAddController.text,
-        'size_of_house_plot': ownerHouseSize,
-        'allotment_letter': alottmentletter,
-        'completion_certificate': completionCertificate,
-        'construction_status': custructionStatusAddController.text,
-        'private_arm': privatearms == "Yes" ? "Yes" : "No",
-        'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
-        'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
-        'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
-        'ammunition_quantity': privatearms == "Yes" ? privateAmmunitionController.text : "No",
-        'vehicle_status': hasVehicle ?? "No",
-        'submit_date': DateTime.now().format("dd-MM-yyyy").toString(),
-        'status': '0',
-        'property_user': 'tenant',
-      });
-
-      if (hasVehicle == "Yes") {
-        for (var i = 0; i < tenantFormModel.data!.vehicle!.length; i++) {
-          tenantFormdata['vehicle_type[$i]'] = tenantFormModel.data!.vehicle![i].vehicleTypeController.text == ""
-              ? null
-              : tenantFormModel.data!.vehicle![i].vehicleTypeController.text;
-          tenantFormdata['registration[$i]'] = tenantFormModel.data!.vehicle![i].registrationController.text == ""
-              ? null
-              : tenantFormModel.data!.vehicle![i].registrationController.text;
-          tenantFormdata['color[$i]'] =
-              tenantFormModel.data!.vehicle![i].colorController.text == "" ? null : tenantFormModel.data!.vehicle![i].colorController.text;
-          tenantFormdata['sticker_no[$i]'] =
-              tenantFormModel.data!.vehicle![i].stickerNoController.text == "" ? null : tenantFormModel.data!.vehicle![i].stickerNoController.text;
-          tenantFormdata['etag[$i]'] = eTag[i].toString() == "" ? null : eTag[i].toString();
-        }
-        data.fields.addAll(tenantFormdata.entries.map((e) => MapEntry(e.key, e.value?.toString() ?? '')));
+  Future<void> editTenantFormApi(context, int id, index) async {
+    if (vehicleFormKey[index].currentState!.validate()) {
+      if (eTag.any((e) => e == "")) {
+        Utils.showToast(
+          "Please select E-Tag",
+          true,
+        );
+        return;
       } else {
-        var nullData =
-            _dio.FormData.fromMap({'vehicle_type[0]': null, 'registration[0]': null, 'color[0]': null, 'sticker_no[0]': null, 'etag[0]': null});
-        data.fields.addAll(nullData.fields);
-      }
+        formsLoader(context);
+        Utils.check().then((value) async {
+          var data = _dio.FormData.fromMap({
+            'tenant_name': fullNameController.text,
+            'name': ownerNameController.text,
+            'phone': ownerPhoneController.text,
+            'cnic': ownerCNICController.text,
+            'father_name': fathersController.text,
+            'tenant_cnic': cnicController.text,
+            'tenant_phone': telephoneController.text,
+            'tenant_nationality': natinalityController.text,
+            'tenant_occupation': occupationController.text,
+            'tenant_permanent_address': presentAddController.text,
+            'tenant_block_commercial': selectedValue,
+            'tenant_street_no': streetSelectedValue?.id ?? "",
+            'tenant_house_no': plotstSelectedValue?.id ?? "",
+            'tenant_size_of_house_plot': sizeHouseAddController.text,
+            'present_address': presentAddController.text,
+            'permanent_address': presentAddController.text,
+            'size_of_house_plot': ownerHouseSize,
+            'allotment_letter': alottmentletter,
+            'completion_certificate': completionCertificate,
+            'construction_status': custructionStatusAddController.text,
+            'private_arm': privatearms == "Yes" ? "Yes" : "No",
+            'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+            'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+            'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+            'ammunition_quantity': privatearms == "Yes" ? privateAmmunitionController.text : "No",
+            'vehicle_status': hasVehicle ?? "No",
+            'submit_date': DateTime.now().format("dd-MM-yyyy").toString(),
+            'status': '0',
+            'property_user': 'tenant',
+          });
 
-      if (ownerCnicFrontBack != null && ownerCnicFrontBack!.isNotEmpty) {
-        for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
-          String filePath1 = ownerCnicFrontBack![i].path;
-          if (filePath1.isNotEmpty) {
-            data.files.addAll([
-              MapEntry(
-                "owner_cnic_image[$i]",
-                await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                ),
-              ),
-            ]);
-          }
-        }
-      } else {
-        data.files.addAll([
-          MapEntry(
-            "owner_cnic_image[0]",
-            await BaseClient.getMultipartFileFromUrl(
-              tenantFormModel.data!.ownerCnicUrl!.cnicFront ?? "",
-            ),
-          ),
-        ]);
-      }
-
-      if (tenantCnicFrontBack != null && tenantCnicFrontBack!.isNotEmpty) {
-        for (var i = 0; i < tenantCnicFrontBack!.length; i++) {
-          String filePath1 = tenantCnicFrontBack![i].path;
-          if (filePath1.isNotEmpty) {
-            data.files.addAll([
-              MapEntry(
-                "tenant_cnic_image[$i]",
-                await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                ),
-              ),
-            ]);
-          }
-        }
-      } else {
-        data.files.addAll([
-          MapEntry(
-            "tenant_cnic_image[0]",
-            await BaseClient.getMultipartFileFromUrl(
-              tenantFormModel.data!.tenantCnicUrl!.cnicFront ?? "",
-            ),
-          ),
-        ]);
-      }
-
-      if (estateCnicFrontBack != null && estateCnicFrontBack!.isNotEmpty) {
-        for (var i = 0; i < estateCnicFrontBack!.length; i++) {
-          String filePath1 = estateCnicFrontBack![i].path;
-          if (filePath1.isNotEmpty) {
-            data.files.addAll([
-              MapEntry(
-                "agent_cnic_image[$i]",
-                await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                ),
-              ),
-            ]);
-          }
-        }
-      } else {
-        data.files.addAll([
-          MapEntry(
-            "agent_cnic_image[0]",
-            await BaseClient.getMultipartFileFromUrl(
-              tenantFormModel.data!.tenantCnicUrl!.cnicFront ?? "",
-            ),
-          ),
-        ]);
-      }
-
-      if (tenantPhoto != null) {
-        String filePath1 = tenantPhoto?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          data.files.add(MapEntry(
-              'tenant_image',
-              await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              )));
-        }
-      } else {
-        data.files.add(MapEntry('tenant_image', await await BaseClient.getMultipartFileFromUrl(tenantFormModel.data!.tenantImageUrl ?? "")));
-      }
-
-      if (rentAgreement != null) {
-        String filePath1 = rentAgreement?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          data.files.add(MapEntry(
-              'agreement_image',
-              await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              )));
-        }
-      } else {
-        data.files.add(MapEntry('agreement_image', await await BaseClient.getMultipartFileFromUrl(tenantFormModel.data!.agreementImageUrl ?? "")));
-      }
-      if (policeForm != null) {
-        String filePath1 = policeForm?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          data.files.add(MapEntry(
-              'police_registration_image',
-              await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              )));
-        }
-      } else {
-        data.files.add(
-            MapEntry('police_registration_image', await await BaseClient.getMultipartFileFromUrl(tenantFormModel.data!.policeRegistrationUrl ?? "")));
-      }
-      if (certificate != null) {
-        String filePath1 = certificate?.path ?? '';
-        if (filePath1.isNotEmpty) {
-          data.files.add(MapEntry(
-              'copy_completion_certificate',
-              await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              )));
-        }
-      } else {
-        data.files.add(MapEntry(
-            'copy_completion_certificate', await await BaseClient.getMultipartFileFromUrl(tenantFormModel.data!.completionCertificateUrl ?? "")));
-      }
-
-      if (value) {
-        _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-          var dio = _dio.Dio();
-          try {
-            var response = await dio.request(
-              'https://anchorageislamabad.com/api/tenant-application/update/$id',
-              options: _dio.Options(
-                method: 'POST',
-                headers: {
-                  'Authorization': "Bearer $token",
-                },
-              ),
-              data: data,
-            );
-            if (response.statusCode == 200) {
-              Navigator.pop(context);
-
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              log(json.encode(response.data));
-
-              Get.offAllNamed(AppRoutes.homePage);
-            } else {
-              Navigator.pop(context);
-
-              Utils.showToast(
-                response.data['message'],
-                false,
-              );
-              log(response.statusMessage.toString());
+          if (hasVehicle == "Yes") {
+            for (var i = 0; i < tenantFormModel.data!.vehicle!.length; i++) {
+              tenantFormdata['vehicle_type[$i]'] = tenantFormModel.data!.vehicle![i].vehicleTypeController.text == ""
+                  ? null
+                  : tenantFormModel.data!.vehicle![i].vehicleTypeController.text;
+              tenantFormdata['registration[$i]'] = tenantFormModel.data!.vehicle![i].registrationController.text == ""
+                  ? null
+                  : tenantFormModel.data!.vehicle![i].registrationController.text;
+              tenantFormdata['color[$i]'] =
+                  tenantFormModel.data!.vehicle![i].colorController.text == "" ? null : tenantFormModel.data!.vehicle![i].colorController.text;
+              tenantFormdata['sticker_no[$i]'] = tenantFormModel.data!.vehicle![i].stickerNoController.text == ""
+                  ? null
+                  : tenantFormModel.data!.vehicle![i].stickerNoController.text;
+              tenantFormdata['etag[$i]'] = eTag[i].toString() == "" ? null : eTag[i].toString();
             }
-          } on _dio.DioException catch (error) {
+            data.fields.addAll(tenantFormdata.entries.map((e) => MapEntry(e.key, e.value?.toString() ?? '')));
+          } else {
+            var nullData =
+                _dio.FormData.fromMap({'vehicle_type[0]': null, 'registration[0]': null, 'color[0]': null, 'sticker_no[0]': null, 'etag[0]': null});
+            data.fields.addAll(nullData.fields);
+          }
+
+          if (ownerCnicFrontBack != null && ownerCnicFrontBack!.isNotEmpty) {
+            for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
+              String filePath1 = ownerCnicFrontBack![i].path;
+              if (filePath1.isNotEmpty) {
+                data.files.addAll([
+                  MapEntry(
+                    "owner_cnic_image[$i]",
+                    await _dio.MultipartFile.fromFile(
+                      filePath1,
+                      filename: filePath1.split('/').last,
+                      contentType: _http.MediaType.parse('image/jpeg'),
+                    ),
+                  ),
+                ]);
+              }
+            }
+          } else {
+            data.files.addAll([
+              MapEntry(
+                "owner_cnic_image[0]",
+                await BaseClient.getMultipartFileFromUrl(
+                  tenantFormModel.data!.ownerCnicUrl!.cnicFront ?? "",
+                ),
+              ),
+            ]);
+          }
+
+          if (tenantCnicFrontBack != null && tenantCnicFrontBack!.isNotEmpty) {
+            for (var i = 0; i < tenantCnicFrontBack!.length; i++) {
+              String filePath1 = tenantCnicFrontBack![i].path;
+              if (filePath1.isNotEmpty) {
+                data.files.addAll([
+                  MapEntry(
+                    "tenant_cnic_image[$i]",
+                    await _dio.MultipartFile.fromFile(
+                      filePath1,
+                      filename: filePath1.split('/').last,
+                      contentType: _http.MediaType.parse('image/jpeg'),
+                    ),
+                  ),
+                ]);
+              }
+            }
+          } else {
+            data.files.addAll([
+              MapEntry(
+                "tenant_cnic_image[0]",
+                await BaseClient.getMultipartFileFromUrl(
+                  tenantFormModel.data!.tenantCnicUrl!.cnicFront ?? "",
+                ),
+              ),
+            ]);
+          }
+
+          if (estateCnicFrontBack != null && estateCnicFrontBack!.isNotEmpty) {
+            for (var i = 0; i < estateCnicFrontBack!.length; i++) {
+              String filePath1 = estateCnicFrontBack![i].path;
+              if (filePath1.isNotEmpty) {
+                data.files.addAll([
+                  MapEntry(
+                    "agent_cnic_image[$i]",
+                    await _dio.MultipartFile.fromFile(
+                      filePath1,
+                      filename: filePath1.split('/').last,
+                      contentType: _http.MediaType.parse('image/jpeg'),
+                    ),
+                  ),
+                ]);
+              }
+            }
+          } else {
+            data.files.addAll([
+              MapEntry(
+                "agent_cnic_image[0]",
+                await BaseClient.getMultipartFileFromUrl(
+                  tenantFormModel.data!.tenantCnicUrl!.cnicFront ?? "",
+                ),
+              ),
+            ]);
+          }
+
+          if (tenantPhoto != null) {
+            String filePath1 = tenantPhoto?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              data.files.add(MapEntry(
+                  'tenant_image',
+                  await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )));
+            }
+          } else {
+            data.files.add(MapEntry('tenant_image', await await BaseClient.getMultipartFileFromUrl(tenantFormModel.data!.tenantImageUrl ?? "")));
+          }
+
+          if (rentAgreement != null) {
+            String filePath1 = rentAgreement?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              data.files.add(MapEntry(
+                  'agreement_image',
+                  await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )));
+            }
+          } else {
+            data.files
+                .add(MapEntry('agreement_image', await await BaseClient.getMultipartFileFromUrl(tenantFormModel.data!.agreementImageUrl ?? "")));
+          }
+          if (policeForm != null) {
+            String filePath1 = policeForm?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              data.files.add(MapEntry(
+                  'police_registration_image',
+                  await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )));
+            }
+          } else {
+            data.files.add(MapEntry(
+                'police_registration_image', await await BaseClient.getMultipartFileFromUrl(tenantFormModel.data!.policeRegistrationUrl ?? "")));
+          }
+          if (certificate != null) {
+            String filePath1 = certificate?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              data.files.add(MapEntry(
+                  'copy_completion_certificate',
+                  await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )));
+            }
+          } else {
+            data.files.add(MapEntry(
+                'copy_completion_certificate', await await BaseClient.getMultipartFileFromUrl(tenantFormModel.data!.completionCertificateUrl ?? "")));
+          }
+
+          if (value) {
+            _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+              var dio = _dio.Dio();
+              try {
+                var response = await dio.request(
+                  'https://anchorageislamabad.com/api/tenant-application/update/$id',
+                  options: _dio.Options(
+                    method: 'POST',
+                    headers: {
+                      'Authorization': "Bearer $token",
+                    },
+                  ),
+                  data: data,
+                );
+                if (response.statusCode == 200) {
+                  Navigator.pop(context);
+
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  log(json.encode(response.data));
+
+                  Get.offAllNamed(AppRoutes.homePage);
+                } else {
+                  Navigator.pop(context);
+
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  log(response.statusMessage.toString());
+                }
+              } on _dio.DioException catch (error) {
+                Navigator.pop(context);
+
+                if (error.response?.data is Map) {
+                  Utils.showToast(
+                    error.response?.data.toString() ?? "",
+                    true,
+                  );
+                } else {
+                  Utils.showToast(
+                    error.message.toString(),
+                    true,
+                  );
+                }
+
+                if (error.response == null) {
+                  var exception = ApiException(
+                    url: 'https://anchorageislamabad.com/api/owner-application',
+                    message: error.message!,
+                  );
+                  return BaseClient.handleApiError(exception);
+                }
+
+                if (error.response?.statusCode == 500) {
+                  Navigator.pop(context);
+                  Utils.showToast(
+                    "Internal Server Error",
+                    true,
+                  );
+                }
+              }
+            });
+          } else {
             Navigator.pop(context);
 
-            if (error.response?.data is Map) {
-              Utils.showToast(
-                error.response?.data.toString() ?? "",
-                true,
-              );
-            } else {
-              Utils.showToast(
-                error.message.toString(),
-                true,
-              );
-            }
-
-            if (error.response == null) {
-              var exception = ApiException(
-                url: 'https://anchorageislamabad.com/api/owner-application',
-                message: error.message!,
-              );
-              return BaseClient.handleApiError(exception);
-            }
-
-            if (error.response?.statusCode == 500) {
-              Navigator.pop(context);
-              Utils.showToast(
-                "Internal Server Error",
-                true,
-              );
-            }
+            CustomSnackBar.showCustomErrorToast(
+              message: Strings.noInternetConnection,
+            );
           }
         });
-      } else {
-        Navigator.pop(context);
-
-        CustomSnackBar.showCustomErrorToast(
-          message: Strings.noInternetConnection,
-        );
       }
-    });
+    } else {
+      Utils.showToast("Some validations failed.", true);
+    }
+    ;
   }
 
   getStreetByBlock(id) async {
