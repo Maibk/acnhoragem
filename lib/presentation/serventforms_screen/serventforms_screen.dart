@@ -695,6 +695,9 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                     controller.servantCnicBacks.removeAt(index);
                                                                     controller.servantFormDataModel.data?.servantDetail?.removeAt(index);
                                                                   } else {
+                                                                    controller.servantImages.removeAt(index);
+                                                                    controller.servantCnicFronts.removeAt(index);
+                                                                    controller.servantCnicBacks.removeAt(index);
                                                                     controller.serventfullNameControllers.removeAt(index);
                                                                   }
                                                                 });
@@ -1228,6 +1231,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             controller.addServantFamilyFormKey.add(GlobalKey());
                                                             controller.servantFamilyImages.add(File(""));
                                                           });
+                                                        } else {
+                                                          controller.addServantFormKey.add(GlobalKey<FormState>());
                                                         }
                                                       },
                                                       child: Row(
@@ -1634,7 +1639,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 servantIndex - 1,
                                                 servantFamilyIndex - 1,
                                               )
-                                            : _value.submitServantApi(context);
+                                            : _value.submitServantApi(
+                                                context,
+                                                servantIndex - 1,
+                                                servantFamilyIndex - 1,
+                                              );
                                       },
                                     ),
                                   ),

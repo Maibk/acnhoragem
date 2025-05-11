@@ -782,6 +782,12 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                       _value.addVehicleFormKey.removeAt(index);
                                                                     } else {
                                                                       controller.vehicleNoControllers.removeAt(index);
+                                                                      controller.vehicleNoControllers.removeAt(index);
+                                                                      controller.makeControllers.removeAt(index);
+                                                                      controller.modelControllers.removeAt(index);
+                                                                      controller.colorControllers.removeAt(index);
+                                                                      controller.engineNoControllers.removeAt(index);
+                                                                      controller.chassisControllers.removeAt(index);
                                                                     }
                                                                   });
                                                                 },
@@ -1006,7 +1012,13 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                       controller.userCnicBacktSideImages.removeAt(index);
                                                                       controller.vehicleFormDataModel.data?.vehicleUserDetail?.removeAt(index);
                                                                     } else {
+                                                                      controller.userDrivingLicenseFrontSideImages.removeAt(index);
+                                                                      controller.userDrivingLicenseBackSideImages.removeAt(index);
+                                                                      controller.userCnicFrontSideImages.removeAt(index);
+                                                                      controller.userCnicBacktSideImages.removeAt(index);
                                                                       controller.userfullNameControllers.removeAt(index);
+                                                                      controller.userCnicControllers.removeAt(index);
+                                                                      controller.userMobileControllers.removeAt(index);
                                                                     }
                                                                   });
                                                                 },
