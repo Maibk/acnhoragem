@@ -2244,18 +2244,15 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 ),
                                                 onPressed: () async {
                                                   Utils.hideKeyBoard(context);
-
                                                   imageGalleryClass.imageGalleryBottomSheet(
                                                     context: context,
                                                     onCameraTap: () async {
                                                       controller.underTakingOldStickerImage = await imageGalleryClass.getImage(ImageSource.camera);
-
                                                       setState(() {});
                                                       Get.back();
                                                     },
                                                     onGalleryTap: () async {
                                                       controller.underTakingOldStickerImage = await imageGalleryClass.getImage(ImageSource.gallery);
-
                                                       setState(() {});
                                                       Get.back();
                                                     },
@@ -2289,7 +2286,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       onTap: () async {
                                         (args['status'] == Constants.formStatusRejected)
                                             ? controller.editSubmitVehicle(context, args['id'], vehicleKeyIndex - 1, userKeyIndex - 1)
-                                            : controller.SubmitVehicle(context);
+                                            : controller.SubmitVehicle(context, vehicleKeyIndex - 1, userKeyIndex - 1);
                                       },
                                     ),
                                   if (kDebugMode)

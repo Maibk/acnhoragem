@@ -835,7 +835,6 @@ class OwnerFornsScreenController extends GetxController {
           'present_address': presentAddController.text,
           'permanent_address': permanantAddController.text,
           'block_commercial': selectedValue?.id ?? 0,
-          // 'block_id': selectedValue?.id ?? 0,
           'street_no': streetSelectedValue?.title ?? "",
           'house_no': plotstSelectedValue?.title ?? "",
           'size_of_house_plot': sizeHouseAddController.text,
