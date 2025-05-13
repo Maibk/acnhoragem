@@ -793,6 +793,8 @@ class VechicleController extends GetxController {
               isLoading.value = false;
             }
           });
+        } else {
+          log("Invalid");
         }
       } else {
         print("Form validation failed");

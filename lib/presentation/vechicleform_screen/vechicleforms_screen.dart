@@ -782,7 +782,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                       _value.addVehicleFormKey.removeAt(index);
                                                                     } else {
                                                                       controller.vehicleNoControllers.removeAt(index);
-                                                                      controller.vehicleNoControllers.removeAt(index);
                                                                       controller.makeControllers.removeAt(index);
                                                                       controller.modelControllers.removeAt(index);
                                                                       controller.colorControllers.removeAt(index);
