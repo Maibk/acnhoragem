@@ -592,134 +592,138 @@ class ServentFormsController extends GetxController {
           "Please select family residing status",
           true,
         );
-      } else if ((isFamilyResiding == "Yes" && addServantFamilyFormKey[servantFamIndex].currentState!.validate())) {
-        log("Form is valid");
-        Utils.check().then((value) async {
-          servantData['date'] = serventdateController.text;
+      } else if ((isFamilyResiding == "Yes")) {
+        if (addServantFamilyFormKey[servantFamIndex].currentState!.validate()) {
+          log("FOrm is valid WITH family");
 
-          Map<String, dynamic> ownerInfoData = {
-            'name': fullNameController.text,
-            "father_name": fathersController.text,
-            'cnic': cnicController.text,
-            'phone': mobileController.text,
-            'house': plotstSelectedValue?.id ?? 0,
-            'street': streetSelectedValue?.id ?? 0,
-            'block': selectedValue ?? 0,
-            'servant_family_status': isFamilyResiding,
-          };
-          servantData.addAll(ownerInfoData);
-          if (ownerImage != null) {
-            String filePath1 = ownerImage?.path ?? '';
-            if (filePath1.isNotEmpty) {
-              servantData['image'] = await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              );
+          Utils.check().then((value) async {
+            servantData['date'] = serventdateController.text;
+
+            Map<String, dynamic> ownerInfoData = {
+              'name': fullNameController.text,
+              "father_name": fathersController.text,
+              'cnic': cnicController.text,
+              'phone': mobileController.text,
+              'house': plotstSelectedValue?.id ?? 0,
+              'street': streetSelectedValue?.id ?? 0,
+              'block': selectedValue ?? 0,
+              'servant_family_status': isFamilyResiding,
+            };
+            servantData.addAll(ownerInfoData);
+            if (ownerImage != null) {
+              String filePath1 = ownerImage?.path ?? '';
+              if (filePath1.isNotEmpty) {
+                servantData['image'] = await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                );
+              }
             }
-          }
 
-          if (ownerCnicFront != null) {
-            String filePath1 = ownerCnicFront?.path ?? '';
-            if (filePath1.isNotEmpty) {
-              servantData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              );
+            if (ownerCnicFront != null) {
+              String filePath1 = ownerCnicFront?.path ?? '';
+              if (filePath1.isNotEmpty) {
+                servantData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                );
+              }
             }
-          }
-          if (ownerCnicBack != null) {
-            String filePath1 = ownerCnicBack?.path ?? '';
-            if (filePath1.isNotEmpty) {
-              servantData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              );
+            if (ownerCnicBack != null) {
+              String filePath1 = ownerCnicBack?.path ?? '';
+              if (filePath1.isNotEmpty) {
+                servantData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                );
+              }
             }
-          }
 
-          if (isFamilyResiding == "Yes" && servantImages.isEmpty) {
-            Utils.showToast("Please select servant Images", true);
-          } else if (isFamilyResiding == "Yes" && servantCnicFronts.isEmpty) {
-            Utils.showToast("Please select servant cnic front images", true);
-          } else if (isFamilyResiding == "Yes" && servantCnicBacks.isEmpty) {
-            Utils.showToast("Please select servant cnic back images", true);
-          } else if (isFamilyResiding == "Yes" && servantFamilyImages.isEmpty) {
-            Utils.showToast("Please select servant family images", true);
-          } else {
-            if (value) {
-              formsLoader(context);
-              _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-                var dio = _dio.Dio(_dio.BaseOptions(
-                  baseUrl: "https://anchorageislamabad.com/api",
-                  headers: {
-                    'Authorization': "Bearer $token",
-                  },
-                ));
-                try {
-                  var response = await dio.post(
-                    "/servant-card",
-                    data: _dio.FormData.fromMap(servantData),
-                    options: _dio.Options(
-                      method: 'POST',
-                      contentType: 'multipart',
-                    ),
-                  );
-                  if (response.statusCode == 200) {
-                    Utils.showToast(
-                      response.data['message'],
-                      false,
+            if (isFamilyResiding == "Yes" && servantImages.isEmpty) {
+              Utils.showToast("Please select servant Images", true);
+            } else if (isFamilyResiding == "Yes" && servantCnicFronts.isEmpty) {
+              Utils.showToast("Please select servant cnic front images", true);
+            } else if (isFamilyResiding == "Yes" && servantCnicBacks.isEmpty) {
+              Utils.showToast("Please select servant cnic back images", true);
+            } else if (isFamilyResiding == "Yes" && servantFamilyImages.isEmpty) {
+              Utils.showToast("Please select servant family images", true);
+            } else {
+              if (value) {
+                formsLoader(context);
+                _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+                  var dio = _dio.Dio(_dio.BaseOptions(
+                    baseUrl: "https://anchorageislamabad.com/api",
+                    headers: {
+                      'Authorization': "Bearer $token",
+                    },
+                  ));
+                  try {
+                    var response = await dio.post(
+                      "/servant-card",
+                      data: _dio.FormData.fromMap(servantData),
+                      options: _dio.Options(
+                        method: 'POST',
+                        contentType: 'multipart',
+                      ),
                     );
-                    // Navigator.pop(context);
+                    if (response.statusCode == 200) {
+                      Utils.showToast(
+                        response.data['message'],
+                        false,
+                      );
+                      // Navigator.pop(context);
 
-                    log(json.encode(response.data));
+                      log(json.encode(response.data));
 
-                    Get.offAllNamed(AppRoutes.homePage);
-                  } else {
-                    // Navigator.pop(context);
+                      Get.offAllNamed(AppRoutes.homePage);
+                    } else {
+                      // Navigator.pop(context);
 
-                    Utils.showToast(
-                      response.data['message'],
-                      false,
-                    );
-                    log(response.statusMessage.toString());
-                  }
-                } on _dio.DioException catch (error) {
-                  // Navigator.pop(context);
-
-                  Utils.showToast(
-                    error.response?.data["message"].toString() ?? error.error.toString(),
-                    true,
-                  );
-                  if (error.response == null) {
-                    var exception = ApiException(
-                      url: "https://anchorageislamabad.com/api/servant-card",
-                      message: error.message!,
-                    );
-                    return BaseClient.handleApiError(exception);
-                  }
-
-                  if (error.response?.statusCode == 500) {
+                      Utils.showToast(
+                        response.data['message'],
+                        false,
+                      );
+                      log(response.statusMessage.toString());
+                    }
+                  } on _dio.DioException catch (error) {
                     // Navigator.pop(context);
 
                     Utils.showToast(
-                      "Internal Server Error",
+                      error.response?.data["message"].toString() ?? error.error.toString(),
                       true,
                     );
+                    if (error.response == null) {
+                      var exception = ApiException(
+                        url: "https://anchorageislamabad.com/api/servant-card",
+                        message: error.message!,
+                      );
+                      return BaseClient.handleApiError(exception);
+                    }
+
+                    if (error.response?.statusCode == 500) {
+                      // Navigator.pop(context);
+
+                      Utils.showToast(
+                        "Internal Server Error",
+                        true,
+                      );
+                    }
                   }
-                }
-              });
-            } else {
-              CustomSnackBar.showCustomErrorToast(
-                message: Strings.noInternetConnection,
-              );
+                });
+              } else {
+                CustomSnackBar.showCustomErrorToast(
+                  message: Strings.noInternetConnection,
+                );
+              }
             }
-          }
-        });
+          });
+        }
       } else if (formState!.validate()) {
-        log("FOrm is valid ");
+        log("FOrm is valid Without family");
+
         Utils.check().then((value) async {
           servantData['date'] = serventdateController.text;
 

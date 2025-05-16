@@ -1232,7 +1232,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             controller.servantFamilyImages.add(File(""));
                                                           });
                                                         } else {
-                                                          controller.addServantFormKey.add(GlobalKey<FormState>());
+                                                          controller.servantFamilyImages.add(File(""));
+                                                          controller.addServantFamilyFormKey.add(GlobalKey<FormState>());
                                                         }
                                                       },
                                                       child: Row(
@@ -1273,6 +1274,23 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         controller.addServantFamilyFormKey.clear();
                                                         controller.servantFamilyImages.clear();
                                                         controller.updateFamilyStatus("No");
+                                                        // controller.serventfamfullNameControllers.clear();
+                                                        // controller.serventfamoccutionControllers.clear();
+                                                        // controller.serventfamCnicControllers.clear();
+                                                        // controller.serventfamMobControllers.clear();
+                                                        // controller.serventfampresentAddControllers.clear();
+                                                        if (args['status'] == Constants.formStatusRejected) {
+                                                          setState(() {
+                                                            controller.servantFormDataModel.data?.servantFamilyDetail = [ServantFamilyDetail()];
+                                                            controller.addServantFamilyFormKey.clear();
+                                                            // controller.serventfamfullNameControllers.clear();
+                                                            // controller.serventfamoccutionControllers.clear();
+                                                            // controller.serventfamCnicControllers.clear();
+                                                            // controller.serventfamMobControllers.clear();
+                                                            // controller.serventfampresentAddControllers.clear();
+                                                            controller.servantFamilyImages.add(File(""));
+                                                          });
+                                                        }
                                                       },
                                                       child: Row(
                                                         children: [
@@ -1378,6 +1396,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                       controller.servantFormDataModel.data?.servantFamilyDetail?.removeAt(index);
                                                                       controller.addServantFamilyFormKey.removeAt(index);
                                                                     } else {
+                                                                      controller.servantFamilyImages.removeAt(index);
+
                                                                       controller.serventfamfullNameControllers.removeAt(index);
                                                                     }
                                                                   });
