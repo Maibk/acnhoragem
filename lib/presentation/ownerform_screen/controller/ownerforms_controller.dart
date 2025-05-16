@@ -326,9 +326,6 @@ class OwnerFornsScreenController extends GetxController {
     log(country.toString());
   }
 
-
-  
-
   Future<void> ownerFormApi(context, index) async {
     final formState = formKey.currentState;
     if (formState!.validate()) {
@@ -847,8 +844,8 @@ class OwnerFornsScreenController extends GetxController {
           'present_address': presentAddController.text,
           'permanent_address': permanantAddController.text,
           'block_commercial': selectedValue?.id ?? 0,
-          'street_no': streetSelectedValue?.title ?? "",
-          'house_no': plotstSelectedValue?.title ?? "",
+          'street_no': streetSelectedValue?.id ?? "",
+          'house_no': plotstSelectedValue?.id ?? "",
           'size_of_house_plot': sizeHouseAddController.text,
           'allotment_letter': alottmentletter,
           'completion_certificate': completionCertificate,

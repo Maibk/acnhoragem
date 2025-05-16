@@ -1008,7 +1008,6 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             },
                                                             child: Row(
                                                               children: [
-                                                       
                                                                 controller.privatearms == "No"
                                                                     ? Icon(
                                                                         Icons.circle,
