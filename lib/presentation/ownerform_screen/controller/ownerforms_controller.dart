@@ -248,13 +248,24 @@ class OwnerFornsScreenController extends GetxController {
               updateVehicle("Yes");
             } else {
               updateVehicle("No");
+              eTag.clear();
             }
-            selectedValue = Street(title: ownerFormModel.data?.blockCommercial ?? "", id: ownerFormModel.data?.block_id ?? 0);
-            streetSelectedValue = Street(title: ownerFormModel.data?.streetNo ?? "");
+            selectedValue = Street(
+              title: ownerFormModel.data?.blockCommercial ?? "",
+              id: ownerFormModel.data?.block_id ?? 0,
+            );
+            streetSelectedValue = Street(
+              title: ownerFormModel.data?.streetNo ?? "",
+              id: ownerFormModel.data?.street_id ?? 0,
+            );
+            plotstSelectedValue = Plots(
+              title: ownerFormModel.data?.houseNo ?? "",
+              sq_yards: ownerFormModel.data?.sizeOfHousePlot ?? "",
+              id: ownerFormModel.data?.house_id ?? 0,
+            );
             sizeHouseAddController.text = ownerFormModel.data?.sizeOfHousePlot ?? "";
             updateConstructionStatus(ownerFormModel.data?.construction_status ?? "");
 
-            plotstSelectedValue = Plots(title: ownerFormModel.data?.houseNo ?? "", sq_yards: ownerFormModel.data?.sizeOfHousePlot ?? "");
             permanantAddController.text = ownerFormModel.data?.permanentAddress ?? "";
 
             if (ownerFormModel.data!.allotmentLetter.toString() == "Yes") {
@@ -281,16 +292,18 @@ class OwnerFornsScreenController extends GetxController {
               updateCompletionCertificate("No");
             }
             if (ownerFormModel.data!.vehicle != null) {
-              for (var element in ownerFormModel.data!.vehicle!) {
-                vehicleTypeControllers.add(TextEditingController(text: element.vehicleType));
-                vehicleRegisterNoControllers.add(TextEditingController(text: element.registration));
-                vehicleColorControllers.add(TextEditingController(text: element.color));
-                vehicleStikerControllers.add(TextEditingController(text: element.stickerNo));
-                eTag.add(element.etag ?? "Yes");
-                vehicleFormKey.add(GlobalKey<FormState>());
-              }
+              if (ownerFormModel.data!.vehicleStatus == "Yes") {
+                for (var element in ownerFormModel.data!.vehicle!) {
+                  vehicleTypeControllers.add(TextEditingController(text: element.vehicleType));
+                  vehicleRegisterNoControllers.add(TextEditingController(text: element.registration));
+                  vehicleColorControllers.add(TextEditingController(text: element.color));
+                  vehicleStikerControllers.add(TextEditingController(text: element.stickerNo));
+                  eTag.add(element.etag ?? "Yes");
+                  vehicleFormKey.add(GlobalKey<FormState>());
+                }
 
-              vehicleDataIndex = ownerFormModel.data!.vehicle!.length;
+                vehicleDataIndex = ownerFormModel.data!.vehicle!.length;
+              }
             }
 
             update();

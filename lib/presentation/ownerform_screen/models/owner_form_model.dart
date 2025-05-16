@@ -27,6 +27,8 @@ class OwnerFormModel {
 class Data {
   int? userId;
   int? block_id;
+  int? house_id;
+  int? street_id;
   String? name;
   String? phone;
   String? cnic;
@@ -62,6 +64,8 @@ class Data {
   Data(
       {this.userId,
       this.block_id,
+      this.house_id,
+      this.street_id,
       this.name,
       this.phone,
       this.cnic,
@@ -97,6 +101,8 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     block_id = json['block_id'];
+    house_id = json['house_id'];
+    street_id = json['street_id'];
     name = json['name'];
     phone = json['phone'];
     cnic = json['cnic'];
@@ -192,8 +198,8 @@ class Vehicle {
     stickerNo = json['sticker_no'];
     etag = json['etag'];
     vehicleTypeController.text = vehicleType ?? "";
-    registrationController.text = registration ?? "";  
-    colorController.text = color ?? "";    
+    registrationController.text = registration ?? "";
+    colorController.text = color ?? "";
     stickerNoController.text = stickerNo ?? "";
   }
 
