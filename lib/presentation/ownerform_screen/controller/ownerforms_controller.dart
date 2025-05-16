@@ -326,11 +326,151 @@ class OwnerFornsScreenController extends GetxController {
     log(country.toString());
   }
 
+
+  
+
   Future<void> ownerFormApi(context, index) async {
     final formState = formKey.currentState;
     if (formState!.validate()) {
       if (hasVehicle == "Yes") {
         if (vehicleFormKey[index].currentState!.validate()) {
+          if (constructionStatus == "") {
+            Utils.showToast("Select construction status", true);
+          } else {
+            Utils.check().then((value) async {
+              Map<String, dynamic> data = {
+                'name': fullNameController.text,
+                'cnic': cnicController.text,
+                'phone': telephoneController.text,
+                'nationality': natinalityController.text,
+                'occupation': occupationController.text,
+                'present_address': presentAddController.text,
+                'permanent_address': permanantAddController.text,
+                'block_commercial': selectedValue?.id ?? 0,
+                // 'block_id': selectedValue?.id ?? 0,
+                'street_no': streetSelectedValue?.id ?? 0,
+                'house_no': plotstSelectedValue?.id ?? 0,
+                'size_of_house_plot': sizeHouseAddController.text,
+                'allotment_letter': alottmentletter,
+                'completion_certificate': completionCertificate,
+                'construction_status': constructionStatus,
+                'private_arm': privatearms == "Yes" ? "Yes" : "No",
+                'vehicle_status': hasVehicle,
+                'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+                'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+                'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+                'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
+                'status': '0',
+                'total_wives': total_wives,
+                'total_children': total_children,
+              };
+
+              ownerFormdata.addAll(data);
+
+              if (alottmentletter == "Yes") {
+                if (allotmentletter != null) {
+                  String filePath1 = allotmentletter?.path ?? '';
+                  if (filePath1.isNotEmpty) {
+                    ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
+                      filePath1,
+                      filename: filePath1.split('/').last,
+                      contentType: _http.MediaType.parse('image/jpeg'),
+                    );
+                  }
+                }
+              }
+
+              if (buildingplan != null) {
+                String filePath1 = buildingplan?.path ?? '';
+                if (filePath1.isNotEmpty) {
+                  ownerFormdata['copy_approval_building_plan'] = await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  );
+                }
+              }
+
+              if (completionCertificate == "Yes") {
+                if (certificate != null) {
+                  String filePath1 = certificate?.path ?? '';
+                  if (filePath1.isNotEmpty) {
+                    ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
+                      filePath1,
+                      filename: filePath1.split('/').last,
+                      contentType: _http.MediaType.parse('image/jpeg'),
+                    );
+                  }
+                }
+              }
+              if (value) {
+                formsLoader(context);
+                _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+                  var dio = _dio.Dio();
+                  try {
+                    var response = await dio.request(
+                      'https://anchorageislamabad.com/api/owner-application',
+                      options: _dio.Options(
+                        method: 'POST',
+                        headers: {
+                          'Authorization': "Bearer $token",
+                        },
+                      ),
+                      data: _dio.FormData.fromMap(ownerFormdata),
+                    );
+                    if (response.statusCode == 200) {
+                      Utils.showToast(
+                        response.data['message'],
+                        false,
+                      );
+                      // Navigator.pop(context);
+                      log(json.encode(response.data));
+
+                      Get.offAllNamed(AppRoutes.homePage);
+                    } else {
+                      // Navigator.pop(context);
+
+                      Utils.showToast(
+                        response.data['message'],
+                        false,
+                      );
+                      log(response.statusMessage.toString());
+                    }
+                  } on _dio.DioException catch (error) {
+                    // Navigator.pop(context);
+
+                    if (error.response == null) {
+                      var exception = ApiException(
+                        url: 'https://anchorageislamabad.com/api/owner-application',
+                        message: error.message!,
+                      );
+                      return BaseClient.handleApiError(exception);
+                    }
+
+                    if (error.response?.statusCode == 500) {
+                      // Navigator.pop(context);
+
+                      Utils.showToast(
+                        "Internal Server Error",
+                        true,
+                      );
+                    }
+                  }
+                });
+              } else {
+                // Navigator.pop(context);
+
+                CustomSnackBar.showCustomErrorToast(
+                  message: Strings.noInternetConnection,
+                );
+              }
+            });
+          }
+        }
+      } else {
+        if (constructionStatus == "") {
+          Utils.showToast("Select construction status", true);
+        } else {
           Utils.check().then((value) async {
             Map<String, dynamic> data = {
               'name': fullNameController.text,
@@ -360,6 +500,8 @@ class OwnerFornsScreenController extends GetxController {
             };
 
             ownerFormdata.addAll(data);
+
+            log(ownerFormdata.toString(), name: "Owner form data");
 
             if (alottmentletter == "Yes") {
               if (allotmentletter != null) {
@@ -418,6 +560,7 @@ class OwnerFornsScreenController extends GetxController {
                       false,
                     );
                     // Navigator.pop(context);
+
                     log(json.encode(response.data));
 
                     Get.offAllNamed(AppRoutes.homePage);
@@ -431,8 +574,10 @@ class OwnerFornsScreenController extends GetxController {
                     log(response.statusMessage.toString());
                   }
                 } on _dio.DioException catch (error) {
-                  // Navigator.pop(context);
-
+                  log(error.response!.data.toString(), name: "ERROOOOORORRRORO");
+                  if (error.response?.data is Map) {
+                    Utils.showToast(error.response?.data['message'] ?? "Something went wrong", true);
+                  }
                   if (error.response == null) {
                     var exception = ApiException(
                       url: 'https://anchorageislamabad.com/api/owner-application',
@@ -460,138 +605,6 @@ class OwnerFornsScreenController extends GetxController {
             }
           });
         }
-      } else {
-        Utils.check().then((value) async {
-          Map<String, dynamic> data = {
-            'name': fullNameController.text,
-            'cnic': cnicController.text,
-            'phone': telephoneController.text,
-            'nationality': natinalityController.text,
-            'occupation': occupationController.text,
-            'present_address': presentAddController.text,
-            'permanent_address': permanantAddController.text,
-            'block_commercial': selectedValue?.id ?? 0,
-            // 'block_id': selectedValue?.id ?? 0,
-            'street_no': streetSelectedValue?.id ?? 0,
-            'house_no': plotstSelectedValue?.id ?? 0,
-            'size_of_house_plot': sizeHouseAddController.text,
-            'allotment_letter': alottmentletter,
-            'completion_certificate': completionCertificate,
-            'construction_status': constructionStatus,
-            'private_arm': privatearms == "Yes" ? "Yes" : "No",
-            'vehicle_status': hasVehicle,
-            'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
-            'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
-            'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
-            'ammunition_quantity': privatearms == "Yes" ? armQuantityController.text : "No",
-            'status': '0',
-            'total_wives': total_wives,
-            'total_children': total_children,
-          };
-
-          ownerFormdata.addAll(data);
-
-          log(ownerFormdata.toString(), name: "Owner form data");
-
-          if (alottmentletter == "Yes") {
-            if (allotmentletter != null) {
-              String filePath1 = allotmentletter?.path ?? '';
-              if (filePath1.isNotEmpty) {
-                ownerFormdata['copy_allotment_letter'] = await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                );
-              }
-            }
-          }
-
-          if (buildingplan != null) {
-            String filePath1 = buildingplan?.path ?? '';
-            if (filePath1.isNotEmpty) {
-              ownerFormdata['copy_approval_building_plan'] = await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              );
-            }
-          }
-
-          if (completionCertificate == "Yes") {
-            if (certificate != null) {
-              String filePath1 = certificate?.path ?? '';
-              if (filePath1.isNotEmpty) {
-                ownerFormdata['copy_completion_certificate'] = await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                );
-              }
-            }
-          }
-          if (value) {
-            formsLoader(context);
-            _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-              var dio = _dio.Dio();
-              try {
-                var response = await dio.request(
-                  'https://anchorageislamabad.com/api/owner-application',
-                  options: _dio.Options(
-                    method: 'POST',
-                    headers: {
-                      'Authorization': "Bearer $token",
-                    },
-                  ),
-                  data: _dio.FormData.fromMap(ownerFormdata),
-                );
-                if (response.statusCode == 200) {
-                  Utils.showToast(
-                    response.data['message'],
-                    false,
-                  );
-                  // Navigator.pop(context);
-
-                  log(json.encode(response.data));
-
-                  Get.offAllNamed(AppRoutes.homePage);
-                } else {
-                  // Navigator.pop(context);
-
-                  Utils.showToast(
-                    response.data['message'],
-                    false,
-                  );
-                  log(response.statusMessage.toString());
-                }
-              } on _dio.DioException catch (error) {
-                // Navigator.pop(context);
-                log(error.response!.data.toString().substring(500), name: "ERROOOOORORRRORO");
-                if (error.response == null) {
-                  var exception = ApiException(
-                    url: 'https://anchorageislamabad.com/api/owner-application',
-                    message: error.message!,
-                  );
-                  return BaseClient.handleApiError(exception);
-                }
-
-                if (error.response?.statusCode == 500) {
-                  // Navigator.pop(context);
-
-                  Utils.showToast(
-                    "Internal Server Error",
-                    true,
-                  );
-                }
-              }
-            });
-          } else {
-            // Navigator.pop(context);
-
-            CustomSnackBar.showCustomErrorToast(
-              message: Strings.noInternetConnection,
-            );
-          }
-        });
       }
     } else {
       // Navigator.pop(context);
@@ -644,9 +657,8 @@ class OwnerFornsScreenController extends GetxController {
               'present_address': presentAddController.text,
               'permanent_address': permanantAddController.text,
               'block_commercial': selectedValue?.id ?? 0,
-              // 'block_id': selectedValue?.id ?? 0,
-              'street_no': streetSelectedValue?.title ?? "",
-              'house_no': plotstSelectedValue?.title ?? "",
+              'street_no': streetSelectedValue?.id ?? "",
+              'house_no': plotstSelectedValue?.id ?? "",
               'size_of_house_plot': sizeHouseAddController.text,
               'allotment_letter': alottmentletter,
               'completion_certificate': completionCertificate,
