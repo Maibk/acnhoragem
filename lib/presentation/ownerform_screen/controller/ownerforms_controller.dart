@@ -982,6 +982,7 @@ class OwnerFornsScreenController extends GetxController {
                   true,
                 );
               } else {
+                log(error.response!.data.toString());
                 Utils.showToast(
                   error.message.toString(),
                   true,

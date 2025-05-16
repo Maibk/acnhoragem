@@ -55,11 +55,13 @@ class ResetController extends GetxController {
                 response.data['message'],
                 false,
               );
+              
               Get.toNamed(AppRoutes.loginPage);
             } else {
               Utils.showToast('Incorrect Password or Email', true);
               // Handle the case where data is null in the response
             }
+            
           }, onError: (error) {
             BaseClient.handleApiError(error);
             btnController.stop();

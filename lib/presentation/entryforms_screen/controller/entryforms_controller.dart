@@ -325,67 +325,73 @@ class EntryFormsController extends GetxController {
   Future<void> spouseEntryFormAPi(context, index) async {
     final formState = spouseEntryFormKey[index].currentState;
     if (formState!.validate()) {
-      addSpouse();
-      Utils.check().then((value) async {
-        Map<String, dynamic> data = {};
-        data = {
-          'spouse_name': spousefullNameControllers[index].text,
-          // "spouse_father_name": spousefathersControllers[index].text,
-          'spouse_cnic': spousecnicControllers[index].text,
-          'spouse_phone': spousemobileControllers[index].text,
-          'spouse_house': spousehouseControllers[index].text,
-          'spouse_road': spouseroadControllers[index].text,
-          'spouse_street': spousestreetControllers[index].text,
-          'spouse_block': 0,
-          "spouse_po": spouseThanaControllers[index].text,
-          "spouse_city": spouseCityControllers[index].text,
-          "spouse_province": spouseProvinceControllers[index].text,
-          'spouse_village': spouseMohallaControllers[index].text,
-        };
-        data.forEach((key, value) {
-          EntryFormData["$key[$index]"] = value;
+      if (spouseImages.any((element) => element.path == "") ||
+          spouseCnicsfronts.any((element) => element.path == "") ||
+          spouseCnicBacks.any((element) => element.path == "")) {
+        Utils.showToast("Please select all spouse images", true);
+      } else {
+        addSpouse();
+        Utils.check().then((value) async {
+          Map<String, dynamic> data = {};
+          data = {
+            'spouse_name': spousefullNameControllers[index].text,
+            // "spouse_father_name": spousefathersControllers[index].text,
+            'spouse_cnic': spousecnicControllers[index].text,
+            'spouse_phone': spousemobileControllers[index].text,
+            'spouse_house': spousehouseControllers[index].text,
+            'spouse_road': spouseroadControllers[index].text,
+            'spouse_street': spousestreetControllers[index].text,
+            'spouse_block': 0,
+            "spouse_po": spouseThanaControllers[index].text,
+            "spouse_city": spouseCityControllers[index].text,
+            "spouse_province": spouseProvinceControllers[index].text,
+            'spouse_village': spouseMohallaControllers[index].text,
+          };
+          data.forEach((key, value) {
+            EntryFormData["$key[$index]"] = value;
+          });
+
+          for (var element in spouseImages) {
+            String filePath1 = element.path;
+            if (filePath1.isNotEmpty) {
+              EntryFormData['spouse_image[$index]'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          for (var element in spouseCnicsfronts) {
+            String filePath1 = element.path;
+            if (filePath1.isNotEmpty) {
+              EntryFormData['spouse_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          for (var element in spouseCnicBacks) {
+            String filePath1 = element.path;
+            if (filePath1.isNotEmpty) {
+              EntryFormData['spouse_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+
+              Utils.showToast(
+                "Spouse Added Successfully",
+                false,
+              );
+              spouseDataIndex = spouseDataIndex + 1;
+              update();
+            }
+          }
         });
-
-        for (var element in spouseImages) {
-          String filePath1 = element.path;
-          if (filePath1.isNotEmpty) {
-            EntryFormData['spouse_image[$index]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
-        }
-
-        for (var element in spouseCnicsfronts) {
-          String filePath1 = element.path;
-          if (filePath1.isNotEmpty) {
-            EntryFormData['spouse_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
-        }
-
-        for (var element in spouseCnicBacks) {
-          String filePath1 = element.path;
-          if (filePath1.isNotEmpty) {
-            EntryFormData['spouse_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-
-            Utils.showToast(
-              "Spouse Added Successfully",
-              false,
-            );
-            spouseDataIndex = spouseDataIndex + 1;
-            update();
-          }
-        }
-      });
+      }
     } else {
       print("Form validation failed");
     }
@@ -449,66 +455,72 @@ class EntryFormsController extends GetxController {
     final formState = childEntryFormKey[index].currentState;
 
     if (formState!.validate()) {
-      addChild();
-      Utils.check().then((value) async {
-        Map<String, dynamic> data = {};
+      if (childImages.any((element) => element.path == "") ||
+          childCnicsfronts.any((element) => element.path == "") ||
+          childCnicBacks.any((element) => element.path == "")) {
+        Utils.showToast("Please Select all child images", true);
+      } else {
+        addChild();
+        Utils.check().then((value) async {
+          Map<String, dynamic> data = {};
 
-        data = {
-          'child_name': childfullNameControllers[index].text,
-          'child_cnic': childcnicControllers[index].text,
-          'child_phone': childmobileControllers[index].text,
-          'child_house': childhouseControllers[index].text,
-          'child_road': childroadControllers[index].text,
-          'child_street': childstreetControllers[index].text,
-          'child_block': 0,
-          "child_po": childThanaControllers[index].text,
-          "child_city": childCityControllers[index].text,
-          "child_province": childProvinceControllers[index].text,
-          'child_village': childMohallaControllers[index].text,
-        };
-        data.forEach((key, value) {
-          EntryFormData["$key[$index]"] = value;
+          data = {
+            'child_name': childfullNameControllers[index].text,
+            'child_cnic': childcnicControllers[index].text,
+            'child_phone': childmobileControllers[index].text,
+            'child_house': childhouseControllers[index].text,
+            'child_road': childroadControllers[index].text,
+            'child_street': childstreetControllers[index].text,
+            'child_block': 0,
+            "child_po": childThanaControllers[index].text,
+            "child_city": childCityControllers[index].text,
+            "child_province": childProvinceControllers[index].text,
+            'child_village': childMohallaControllers[index].text,
+          };
+          data.forEach((key, value) {
+            EntryFormData["$key[$index]"] = value;
+          });
+
+          for (var element in childImages) {
+            String filePath1 = element.path;
+            if (filePath1.isNotEmpty) {
+              EntryFormData['child_image[$index]'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+          for (var element in childCnicsfronts) {
+            String filePath1 = element.path;
+            if (filePath1.isNotEmpty) {
+              EntryFormData['child_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          for (var element in childCnicBacks) {
+            String filePath1 = element.path;
+            if (filePath1.isNotEmpty) {
+              EntryFormData['child_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+
+          Utils.showToast(
+            "Child Added Successfully",
+            false,
+          );
+          childDataIndex = childDataIndex + 1;
+          update();
         });
-
-        for (var element in childImages) {
-          String filePath1 = element.path;
-          if (filePath1.isNotEmpty) {
-            EntryFormData['child_image[$index]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
-        }
-        for (var element in childCnicsfronts) {
-          String filePath1 = element.path;
-          if (filePath1.isNotEmpty) {
-            EntryFormData['child_cnic_front[$index]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
-        }
-
-        for (var element in childCnicBacks) {
-          String filePath1 = element.path;
-          if (filePath1.isNotEmpty) {
-            EntryFormData['child_cnic_back[$index]'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
-        }
-
-        Utils.showToast(
-          "Child Added Successfully",
-          false,
-        );
-        childDataIndex = childDataIndex + 1;
-        update();
-      });
+      }
     } else {
       print("Form validation failed");
     }
@@ -543,7 +555,9 @@ class EntryFormsController extends GetxController {
     }
   }
 
-  Future<void> childEditEntryFormAPi(context) async {
+  Future<void> childEditEntryFormAPi(
+    context,
+  ) async {
     Map<String, dynamic> data = {};
 
     for (int i = 0; i < entryFormDataModel.data!.childDetail!.length; i++) {
@@ -593,7 +607,7 @@ class EntryFormsController extends GetxController {
 
   GlobalKey<FormState> EntryCardFormKey = GlobalKey();
 
-  Future<void> SubmitEntryFormApi(context) async {
+  Future<void> SubmitEntryFormApi(context, childFormIndex, spouseFormIndex) async {
     final formState = EntryCardFormKey.currentState;
     if (spouseDataIndex == 0) {
       Utils.showToast(
@@ -633,124 +647,128 @@ class EntryFormsController extends GetxController {
         true,
       );
     } else if (formState!.validate()) {
-      Utils.check().then((value) async {
-        Map<String, dynamic> ownerInfoData = {
-          'name': fullNameController.text,
-          "father_name": fathersController.text,
-          'cnic': cnicController.text,
-          'phone': mobileController.text,
-          'house_no': plotstSelectedValue?.id ?? 0,
-          'street': streetSelectedValue?.id ?? 0,
-          'block': selectedValue ?? 0,
-          "date": DateTime.now().format("yyyy-MM-dd").toString()
-        };
-        EntryFormData.addAll(ownerInfoData);
+      if (spouseEntryFormKey[spouseFormIndex].currentState!.validate() && childEntryFormKey[childFormIndex].currentState!.validate()) {
+        Utils.check().then((value) async {
+          Map<String, dynamic> ownerInfoData = {
+            'name': fullNameController.text,
+            "father_name": fathersController.text,
+            'cnic': cnicController.text,
+            'phone': mobileController.text,
+            'house_no': plotstSelectedValue?.id ?? 0,
+            'street': streetSelectedValue?.id ?? 0,
+            'block': selectedValue ?? 0,
+            "date": DateTime.now().format("yyyy-MM-dd").toString()
+          };
+          EntryFormData.addAll(ownerInfoData);
 
-        if (ownerImage != null) {
-          String filePath1 = ownerImage?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            EntryFormData['image'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
-        }
-
-        if (ownerCnicFront != null) {
-          String filePath1 = ownerCnicFront?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            EntryFormData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
-        }
-        if (ownerCnicBack != null) {
-          String filePath1 = ownerCnicBack?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            EntryFormData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-              filePath1,
-              filename: filePath1.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-          }
-        }
-        log(EntryFormData.toString(), name: "EntryFormData");
-        if (value) {
-          formsLoader(context);
-
-          _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-            var dio = _dio.Dio();
-            try {
-              var response = await dio.request(
-                'https://anchorageislamabad.com/api/entry-card',
-                options: _dio.Options(
-                  method: 'POST',
-                  contentType: "multipart",
-                  headers: {
-                    'Authorization': "Bearer $token",
-                  },
-                ),
-                data: _dio.FormData.fromMap(
-                  EntryFormData,
-                ),
+          if (ownerImage != null) {
+            String filePath1 = ownerImage?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              EntryFormData['image'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
               );
-              if (response.statusCode == 200) {
-                Utils.showToast(
-                  response.data['message'],
-                  false,
-                );
-                Navigator.pop(context);
-                log(json.encode(response.data));
+            }
+          }
 
-                Get.offAllNamed(AppRoutes.homePage);
-              } else {
-                Navigator.pop(context);
-
-                log(response.data['message'].toString(), name: "eeror api");
-                Utils.showToast(
-                  response.data['message'],
-                  false,
-                );
-                log(response.statusMessage.toString());
-              }
-            } on _dio.DioException catch (error) {
-              Navigator.pop(context);
-
-              // dio error (api reach the server but not performed successfully
-              // no response
-
-              Utils.showToast(
-                error.response?.data.toString() ?? "Error",
-                true,
+          if (ownerCnicFront != null) {
+            String filePath1 = ownerCnicFront?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              EntryFormData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
               );
+            }
+          }
+          if (ownerCnicBack != null) {
+            String filePath1 = ownerCnicBack?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              EntryFormData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
+                filePath1,
+                filename: filePath1.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+            }
+          }
+          log(EntryFormData.toString(), name: "EntryFormData");
+          if (value) {
+            formsLoader(context);
 
-              if (error.response == null) {
-                var exception = ApiException(
-                  url: 'https://anchorageislamabad.com/api/entry-card',
-                  message: error.message!,
+            _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+              var dio = _dio.Dio();
+              try {
+                var response = await dio.request(
+                  'https://anchorageislamabad.com/api/entry-card',
+                  options: _dio.Options(
+                    method: 'POST',
+                    contentType: "multipart",
+                    headers: {
+                      'Authorization': "Bearer $token",
+                    },
+                  ),
+                  data: _dio.FormData.fromMap(
+                    EntryFormData,
+                  ),
                 );
-                return BaseClient.handleApiError(exception);
-              }
+                if (response.statusCode == 200) {
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  Navigator.pop(context);
+                  log(json.encode(response.data));
 
-              if (error.response?.statusCode == 500) {
+                  Get.offAllNamed(AppRoutes.homePage);
+                } else {
+                  Navigator.pop(context);
+
+                  log(response.data['message'].toString(), name: "eeror api");
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  log(response.statusMessage.toString());
+                }
+              } on _dio.DioException catch (error) {
                 Navigator.pop(context);
 
+                // dio error (api reach the server but not performed successfully
+                // no response
+
                 Utils.showToast(
-                  "Internal Server Error",
+                  error.response?.data.toString() ?? "Error",
                   true,
                 );
+
+                if (error.response == null) {
+                  var exception = ApiException(
+                    url: 'https://anchorageislamabad.com/api/entry-card',
+                    message: error.message!,
+                  );
+                  return BaseClient.handleApiError(exception);
+                }
+
+                if (error.response?.statusCode == 500) {
+                  Navigator.pop(context);
+
+                  Utils.showToast(
+                    "Internal Server Error",
+                    true,
+                  );
+                }
               }
-            }
-          });
-        } else {
-          CustomSnackBar.showCustomErrorToast(
-            message: Strings.noInternetConnection,
-          );
-        }
-      });
+            });
+          } else {
+            CustomSnackBar.showCustomErrorToast(
+              message: Strings.noInternetConnection,
+            );
+          }
+        });
+      } else {
+        Utils.showToast("Some validations failed.", true);
+      }
     } else {
       print("Form validation failed");
     }

@@ -666,7 +666,19 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                                     controller.spouseCnicBacks.removeAt(index);
                                                                     controller.entryFormDataModel.data?.spouseDetail?.removeAt(index);
                                                                   } else {
+                                                                    controller.spouseImages.removeAt(index);
+                                                                    controller.spouseCnicsfronts.removeAt(index);
+                                                                    controller.spouseCnicBacks.removeAt(index);
                                                                     controller.spousefullNameControllers.removeAt(index);
+                                                                    controller.spousecnicControllers.removeAt(index);
+                                                                    controller.spousemobileControllers.removeAt(index);
+                                                                    controller.spousehouseControllers.removeAt(index);
+                                                                    controller.spouseroadControllers.removeAt(index);
+                                                                    controller.spousestreetControllers.removeAt(index);
+                                                                    controller.spouseThanaControllers.removeAt(index);
+                                                                    controller.spouseCityControllers.removeAt(index);
+                                                                    controller.spouseProvinceControllers.removeAt(index);
+                                                                    controller.spouseMohallaControllers.removeAt(index);
                                                                   }
                                                                 });
                                                               },
@@ -1179,7 +1191,20 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
 
                                                                     controller.entryFormDataModel.data?.childDetail?.removeAt(index);
                                                                   } else {
+                                                                    controller.childImages.removeAt(index);
+                                                                    controller.childCnicsfronts.removeAt(index);
+                                                                    controller.childCnicBacks.removeAt(index);
                                                                     controller.childfullNameControllers.removeAt(index);
+                                                                    
+                                                                    controller.childcnicControllers.removeAt(index);
+                                                                    controller.childmobileControllers.removeAt(index);
+                                                                    controller.childhouseControllers.removeAt(index);
+                                                                    controller.childroadControllers.removeAt(index);
+                                                                    controller.childstreetControllers.removeAt(index);
+                                                                    controller.childThanaControllers.removeAt(index);
+                                                                    controller.childCityControllers.removeAt(index);
+                                                                    controller.childProvinceControllers.removeAt(index);
+                                                                    controller.childMohallaControllers.removeAt(index);
                                                                   }
                                                                 });
                                                               },
@@ -1625,7 +1650,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                 childIndex - 1,
                                                 spouseIndex - 1,
                                               )
-                                            : controller.SubmitEntryFormApi(context);
+                                            : controller.SubmitEntryFormApi(
+                                                context,
+                                                childIndex - 1,
+                                                spouseIndex - 1,
+                                              );
                                       },
                                     ),
                                   ),

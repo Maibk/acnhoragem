@@ -172,7 +172,7 @@ class CustomBottomBar extends StatelessWidget {
   showRewardsBottomSheet(BuildContext context,int index) {
     Utils.showBottomSheet(
         context,
-    bottomSheetHeight: MediaQuery.of(context!).size.height * 0.944,
+    bottomSheetHeight: MediaQuery.of(context).size.height * 0.944,
     widget:  Container(
       padding: getPadding(top: 150),
       width: double.infinity,

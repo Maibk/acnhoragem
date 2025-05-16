@@ -41,7 +41,7 @@ class SplashController extends GetxController {
             update();
             return true;
           }, onError: (error) {
-            ApiException apiException = error;  
+            ApiException apiException = error;
 
             print(apiException.message);
 
@@ -90,6 +90,7 @@ class SplashController extends GetxController {
       await Future.delayed(3000.milliseconds);
       Get.offAndToNamed(AppRoutes.loginPage);
     });
+    return null;
   }
 
   Future<void> getFCMtoken() async {
