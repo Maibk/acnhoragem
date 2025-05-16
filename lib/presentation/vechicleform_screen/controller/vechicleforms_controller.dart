@@ -630,169 +630,176 @@ class VechicleController extends GetxController {
     } else {
       if (formState!.validate()) {
         if (addVehicleFormKey[vehicleKeyIndex].currentState!.validate() && addUserInfoFormKey[userKeyIndex].currentState!.validate()) {
-          Utils.check().then((value) async {
-            Map<String, dynamic> ownerInfoData = {
-              'name': fullNameController.text,
-              "father_name": fathersController.text,
-              "service_category": selectedServiceCategory == 1 ? "civilian" : "service personnel",
-              "date": dateController.text,
-              'rank': rankController.text.isEmpty ? " " : rankController.text,
-              'service_no': servisController.text.isEmpty ? " " : servisController.text,
-              'cnic': cnicController.text,
-              'office_department': officeController.text,
-              'phone': cellNoController.text,
-              'house_no': plotstSelectedValue?.id ?? 0,
-              'road_street': streetSelectedValue?.id ?? 0,
-              'block': selectedValue ?? 0,
-              'cell_no': cellNoController.text,
-              'ptcl_no': ptclController.text,
-              'noc': selectedResidential == 2 ? nocSubmitted : "Not a tenant",
-              "residential_status": selectedResidential == 1
-                  ? "Civilian"
-                  : selectedResidential == 2
-                      ? "Tenant"
-                      : "Visitor / Non-Residential",
-              // 'residential_area': colonyController.text,
-            };
+          if (userDrivingLicenseFrontSideImages.any((e) => e.path == "") ||
+              userDrivingLicenseBackSideImages.any((e) => e.path == "") ||
+              userCnicFrontSideImages.any((e) => e.path == "") ||
+              userCnicBacktSideImages.any((e) => e.path == "")) {
+            Utils.showToast("Please select all images of user ", true);
+          } else {
+            Utils.check().then((value) async {
+              Map<String, dynamic> ownerInfoData = {
+                'name': fullNameController.text,
+                "father_name": fathersController.text,
+                "service_category": selectedServiceCategory == 1 ? "civilian" : "service personnel",
+                "date": dateController.text,
+                'rank': rankController.text.isEmpty ? " " : rankController.text,
+                'service_no': servisController.text.isEmpty ? " " : servisController.text,
+                'cnic': cnicController.text,
+                'office_department': officeController.text,
+                'phone': cellNoController.text,
+                'house_no': plotstSelectedValue?.id ?? 0,
+                'road_street': streetSelectedValue?.id ?? 0,
+                'block': selectedValue ?? 0,
+                'cell_no': cellNoController.text,
+                'ptcl_no': ptclController.text,
+                'noc': selectedResidential == 2 ? nocSubmitted : "Not a tenant",
+                "residential_status": selectedResidential == 1
+                    ? "Civilian"
+                    : selectedResidential == 2
+                        ? "Tenant"
+                        : "Visitor / Non-Residential",
+                // 'residential_area': colonyController.text,
+              };
 
-            for (var i = 0; i < vehicleNoControllers.length; i++) {
-              vehicalData['vehicle_no[$i]'] = vehicleNoControllers[i].text;
-              vehicalData["vehicle_make[$i]"] = makeControllers[i].text;
-              vehicalData['vehicle_model[$i]'] = modelControllers[i].text;
-              vehicalData['vehicle_color[$i]'] = colorControllers[i].text;
-              vehicalData['vehicle_engine[$i]'] = engineNoControllers[i].text;
-              vehicalData['vehicle_chassis[$i]'] = chassisControllers[i].text;
-            }
-            vehicalData.addAll(ownerInfoData);
+              for (var i = 0; i < vehicleNoControllers.length; i++) {
+                vehicalData['vehicle_no[$i]'] = vehicleNoControllers[i].text;
+                vehicalData["vehicle_make[$i]"] = makeControllers[i].text;
+                vehicalData['vehicle_model[$i]'] = modelControllers[i].text;
+                vehicalData['vehicle_color[$i]'] = colorControllers[i].text;
+                vehicalData['vehicle_engine[$i]'] = engineNoControllers[i].text;
+                vehicalData['vehicle_chassis[$i]'] = chassisControllers[i].text;
+              }
+              vehicalData.addAll(ownerInfoData);
 
-            vehicalData['driving_license_front'] = await _dio.MultipartFile.fromFile(
-              underTakingLicenseFrontSideImage!.path,
-              filename: underTakingLicenseFrontSideImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-            vehicalData['driving_license_back'] = await _dio.MultipartFile.fromFile(
-              underTakingLicenseBackSideImage!.path,
-              filename: underTakingLicenseBackSideImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+              vehicalData['driving_license_front'] = await _dio.MultipartFile.fromFile(
+                underTakingLicenseFrontSideImage!.path,
+                filename: underTakingLicenseFrontSideImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+              vehicalData['driving_license_back'] = await _dio.MultipartFile.fromFile(
+                underTakingLicenseBackSideImage!.path,
+                filename: underTakingLicenseBackSideImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
 
-            vehicalData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-              underTakingCnicFrontSideImage!.path,
-              filename: underTakingCnicFrontSideImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-            vehicalData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-              underTakingCnicBackSideImage!.path,
-              filename: underTakingCnicBackSideImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-            vehicalData['registration_image'] = await _dio.MultipartFile.fromFile(
-              underTakingVehicalRegistrationImage!.path,
-              filename: underTakingVehicalRegistrationImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-            vehicalData['owner_image'] = await _dio.MultipartFile.fromFile(
-              underTakingOwnerImage!.path,
-              filename: underTakingOwnerImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-            vehicalData['allotment_letter_image'] = await _dio.MultipartFile.fromFile(
-              underTakingAllotmentLetterImage!.path,
-              filename: underTakingAllotmentLetterImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-            vehicalData['maintenance_bill_image'] = await _dio.MultipartFile.fromFile(
-              underTakingMaintenanceBillImage!.path,
-              filename: underTakingMaintenanceBillImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
-            vehicalData['old_sticker_image'] = await _dio.MultipartFile.fromFile(
-              underTakingOldStickerImage!.path,
-              filename: underTakingOldStickerImage!.path.split('/').last,
-              contentType: _http.MediaType.parse('image/jpeg'),
-            );
+              vehicalData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
+                underTakingCnicFrontSideImage!.path,
+                filename: underTakingCnicFrontSideImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+              vehicalData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
+                underTakingCnicBackSideImage!.path,
+                filename: underTakingCnicBackSideImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+              vehicalData['registration_image'] = await _dio.MultipartFile.fromFile(
+                underTakingVehicalRegistrationImage!.path,
+                filename: underTakingVehicalRegistrationImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+              vehicalData['owner_image'] = await _dio.MultipartFile.fromFile(
+                underTakingOwnerImage!.path,
+                filename: underTakingOwnerImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+              vehicalData['allotment_letter_image'] = await _dio.MultipartFile.fromFile(
+                underTakingAllotmentLetterImage!.path,
+                filename: underTakingAllotmentLetterImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+              vehicalData['maintenance_bill_image'] = await _dio.MultipartFile.fromFile(
+                underTakingMaintenanceBillImage!.path,
+                filename: underTakingMaintenanceBillImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
+              vehicalData['old_sticker_image'] = await _dio.MultipartFile.fromFile(
+                underTakingOldStickerImage!.path,
+                filename: underTakingOldStickerImage!.path.split('/').last,
+                contentType: _http.MediaType.parse('image/jpeg'),
+              );
 
-            if (value) {
-              log(vehicalData.toString());
-              formsLoader(context);
-              isLoading.value = true;
-              _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-                var dio = _dio.Dio();
-                try {
-                  var response = await dio.request(
-                    'https://anchorageislamabad.com/api/vehicle',
-                    options: _dio.Options(
-                      method: 'POST',
-                      headers: {
-                        'Authorization': "Bearer $token",
-                      },
-                    ),
-                    data: _dio.FormData.fromMap(vehicalData),
-                  );
-                  if (response.statusCode == 200) {
-                    Utils.showToast(
-                      response.data['message'],
-                      false,
+              if (value) {
+                log(vehicalData.toString());
+                formsLoader(context);
+                isLoading.value = true;
+                _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+                  var dio = _dio.Dio();
+                  try {
+                    var response = await dio.request(
+                      'https://anchorageislamabad.com/api/vehicle',
+                      options: _dio.Options(
+                        method: 'POST',
+                        headers: {
+                          'Authorization': "Bearer $token",
+                        },
+                      ),
+                      data: _dio.FormData.fromMap(vehicalData),
                     );
-                    Navigator.pop(context);
+                    if (response.statusCode == 200) {
+                      Utils.showToast(
+                        response.data['message'],
+                        false,
+                      );
+                      Navigator.pop(context);
+                      isLoading.value = false;
+
+                      log(json.encode(response.data));
+
+                      Get.offAllNamed(AppRoutes.homePage);
+                    } else if (response.statusCode == 500) {
+                      Utils.showToast(
+                        "Internal Server Error",
+                        false,
+                      );
+                      Navigator.pop(context);
+
+                      Get.offAllNamed(AppRoutes.homePage);
+                    } else {
+                      isLoading.value = false;
+                      Navigator.pop(context);
+
+                      Utils.showToast(
+                        response.data['message'],
+                        false,
+                      );
+                      log(response.statusMessage.toString());
+                    }
+                  } on _dio.DioException catch (error) {
                     isLoading.value = false;
-
-                    log(json.encode(response.data));
-
-                    Get.offAllNamed(AppRoutes.homePage);
-                  } else if (response.statusCode == 500) {
-                    Utils.showToast(
-                      "Internal Server Error",
-                      false,
-                    );
-                    Navigator.pop(context);
-
-                    Get.offAllNamed(AppRoutes.homePage);
-                  } else {
-                    isLoading.value = false;
                     Navigator.pop(context);
 
                     Utils.showToast(
-                      response.data['message'],
-                      false,
-                    );
-                    log(response.statusMessage.toString());
-                  }
-                } on _dio.DioException catch (error) {
-                  isLoading.value = false;
-                  Navigator.pop(context);
-
-                  Utils.showToast(
-                    error.response?.toString() ?? error.error.toString(),
-                    true,
-                  );
-                  if (error.response == null) {
-                    var exception = ApiException(
-                      url: 'https://anchorageislamabad.com/api/servant-card',
-                      message: error.message!,
-                    );
-                    return BaseClient.handleApiError(exception);
-                  }
-
-                  if (error.response?.statusCode == 500) {
-                    Navigator.pop(context);
-
-                    isLoading.value = false;
-
-                    Utils.showToast(
-                      "Internal Server Error",
+                      error.response?.toString() ?? error.error.toString(),
                       true,
                     );
+                    if (error.response == null) {
+                      var exception = ApiException(
+                        url: 'https://anchorageislamabad.com/api/servant-card',
+                        message: error.message!,
+                      );
+                      return BaseClient.handleApiError(exception);
+                    }
+
+                    if (error.response?.statusCode == 500) {
+                      Navigator.pop(context);
+
+                      isLoading.value = false;
+
+                      Utils.showToast(
+                        "Internal Server Error",
+                        true,
+                      );
+                    }
                   }
-                }
-              });
-            } else {
-              CustomSnackBar.showCustomErrorToast(
-                message: Strings.noInternetConnection,
-              );
-              isLoading.value = false;
-            }
-          });
+                });
+              } else {
+                CustomSnackBar.showCustomErrorToast(
+                  message: Strings.noInternetConnection,
+                );
+                isLoading.value = false;
+              }
+            });
+          }
         } else {
           log("Invalid");
         }

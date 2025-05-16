@@ -648,124 +648,134 @@ class EntryFormsController extends GetxController {
       );
     } else if (formState!.validate()) {
       if (spouseEntryFormKey[spouseFormIndex].currentState!.validate() && childEntryFormKey[childFormIndex].currentState!.validate()) {
-        Utils.check().then((value) async {
-          Map<String, dynamic> ownerInfoData = {
-            'name': fullNameController.text,
-            "father_name": fathersController.text,
-            'cnic': cnicController.text,
-            'phone': mobileController.text,
-            'house_no': plotstSelectedValue?.id ?? 0,
-            'street': streetSelectedValue?.id ?? 0,
-            'block': selectedValue ?? 0,
-            "date": DateTime.now().format("yyyy-MM-dd").toString()
-          };
-          EntryFormData.addAll(ownerInfoData);
+        if (spouseImages.any((element) => element.path == "") ||
+            spouseCnicsfronts.any((element) => element.path == "") ||
+            spouseCnicBacks.any((element) => element.path == "")) {
+          Utils.showToast("Please select all spouse Images", true);
+        } else if (childImages.any((element) => element.path == "") ||
+            childCnicsfronts.any((element) => element.path == "") ||
+            childCnicBacks.any((element) => element.path == "")) {
+          Utils.showToast("Please select all child Images", true);
+        } else {
+          Utils.check().then((value) async {
+            Map<String, dynamic> ownerInfoData = {
+              'name': fullNameController.text,
+              "father_name": fathersController.text,
+              'cnic': cnicController.text,
+              'phone': mobileController.text,
+              'house_no': plotstSelectedValue?.id ?? 0,
+              'street': streetSelectedValue?.id ?? 0,
+              'block': selectedValue ?? 0,
+              "date": DateTime.now().format("yyyy-MM-dd").toString()
+            };
+            EntryFormData.addAll(ownerInfoData);
 
-          if (ownerImage != null) {
-            String filePath1 = ownerImage?.path ?? '';
-            if (filePath1.isNotEmpty) {
-              EntryFormData['image'] = await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              );
-            }
-          }
-
-          if (ownerCnicFront != null) {
-            String filePath1 = ownerCnicFront?.path ?? '';
-            if (filePath1.isNotEmpty) {
-              EntryFormData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              );
-            }
-          }
-          if (ownerCnicBack != null) {
-            String filePath1 = ownerCnicBack?.path ?? '';
-            if (filePath1.isNotEmpty) {
-              EntryFormData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
-                filePath1,
-                filename: filePath1.split('/').last,
-                contentType: _http.MediaType.parse('image/jpeg'),
-              );
-            }
-          }
-          log(EntryFormData.toString(), name: "EntryFormData");
-          if (value) {
-            formsLoader(context);
-
-            _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-              var dio = _dio.Dio();
-              try {
-                var response = await dio.request(
-                  'https://anchorageislamabad.com/api/entry-card',
-                  options: _dio.Options(
-                    method: 'POST',
-                    contentType: "multipart",
-                    headers: {
-                      'Authorization': "Bearer $token",
-                    },
-                  ),
-                  data: _dio.FormData.fromMap(
-                    EntryFormData,
-                  ),
+            if (ownerImage != null) {
+              String filePath1 = ownerImage?.path ?? '';
+              if (filePath1.isNotEmpty) {
+                EntryFormData['image'] = await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
                 );
-                if (response.statusCode == 200) {
-                  Utils.showToast(
-                    response.data['message'],
-                    false,
-                  );
-                  Navigator.pop(context);
-                  log(json.encode(response.data));
+              }
+            }
 
-                  Get.offAllNamed(AppRoutes.homePage);
-                } else {
-                  Navigator.pop(context);
-
-                  log(response.data['message'].toString(), name: "eeror api");
-                  Utils.showToast(
-                    response.data['message'],
-                    false,
-                  );
-                  log(response.statusMessage.toString());
-                }
-              } on _dio.DioException catch (error) {
-                Navigator.pop(context);
-
-                // dio error (api reach the server but not performed successfully
-                // no response
-
-                Utils.showToast(
-                  error.response?.data.toString() ?? "Error",
-                  true,
+            if (ownerCnicFront != null) {
+              String filePath1 = ownerCnicFront?.path ?? '';
+              if (filePath1.isNotEmpty) {
+                EntryFormData['cnic_image_front'] = await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
                 );
+              }
+            }
+            if (ownerCnicBack != null) {
+              String filePath1 = ownerCnicBack?.path ?? '';
+              if (filePath1.isNotEmpty) {
+                EntryFormData['cnic_image_back'] = await _dio.MultipartFile.fromFile(
+                  filePath1,
+                  filename: filePath1.split('/').last,
+                  contentType: _http.MediaType.parse('image/jpeg'),
+                );
+              }
+            }
+            log(EntryFormData.toString(), name: "EntryFormData");
+            if (value) {
+              formsLoader(context);
 
-                if (error.response == null) {
-                  var exception = ApiException(
-                    url: 'https://anchorageislamabad.com/api/entry-card',
-                    message: error.message!,
+              _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+                var dio = _dio.Dio();
+                try {
+                  var response = await dio.request(
+                    'https://anchorageislamabad.com/api/entry-card',
+                    options: _dio.Options(
+                      method: 'POST',
+                      contentType: "multipart",
+                      headers: {
+                        'Authorization': "Bearer $token",
+                      },
+                    ),
+                    data: _dio.FormData.fromMap(
+                      EntryFormData,
+                    ),
                   );
-                  return BaseClient.handleApiError(exception);
-                }
+                  if (response.statusCode == 200) {
+                    Utils.showToast(
+                      response.data['message'],
+                      false,
+                    );
+                    Navigator.pop(context);
+                    log(json.encode(response.data));
 
-                if (error.response?.statusCode == 500) {
+                    Get.offAllNamed(AppRoutes.homePage);
+                  } else {
+                    Navigator.pop(context);
+
+                    log(response.data['message'].toString(), name: "eeror api");
+                    Utils.showToast(
+                      response.data['message'],
+                      false,
+                    );
+                    log(response.statusMessage.toString());
+                  }
+                } on _dio.DioException catch (error) {
                   Navigator.pop(context);
 
+                  // dio error (api reach the server but not performed successfully
+                  // no response
+
                   Utils.showToast(
-                    "Internal Server Error",
+                    error.response?.data.toString() ?? "Error",
                     true,
                   );
+
+                  if (error.response == null) {
+                    var exception = ApiException(
+                      url: 'https://anchorageislamabad.com/api/entry-card',
+                      message: error.message!,
+                    );
+                    return BaseClient.handleApiError(exception);
+                  }
+
+                  if (error.response?.statusCode == 500) {
+                    Navigator.pop(context);
+
+                    Utils.showToast(
+                      "Internal Server Error",
+                      true,
+                    );
+                  }
                 }
-              }
-            });
-          } else {
-            CustomSnackBar.showCustomErrorToast(
-              message: Strings.noInternetConnection,
-            );
-          }
-        });
+              });
+            } else {
+              CustomSnackBar.showCustomErrorToast(
+                message: Strings.noInternetConnection,
+              );
+            }
+          });
+        }
       } else {
         Utils.showToast("Some validations failed.", true);
       }

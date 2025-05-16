@@ -1232,6 +1232,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                             controller.servantFamilyImages.add(File(""));
                                                           });
                                                         } else {
+                                                          controller.servantFamilyImages.clear();
                                                           controller.servantFamilyImages.add(File(""));
                                                           controller.addServantFamilyFormKey.add(GlobalKey<FormState>());
                                                         }

@@ -642,14 +642,14 @@ class ServentFormsController extends GetxController {
               }
             }
 
-            if (isFamilyResiding == "Yes" && servantImages.isEmpty) {
-              Utils.showToast("Please select servant Images", true);
-            } else if (isFamilyResiding == "Yes" && servantCnicFronts.isEmpty) {
-              Utils.showToast("Please select servant cnic front images", true);
-            } else if (isFamilyResiding == "Yes" && servantCnicBacks.isEmpty) {
-              Utils.showToast("Please select servant cnic back images", true);
-            } else if (isFamilyResiding == "Yes" && servantFamilyImages.isEmpty) {
-              Utils.showToast("Please select servant family images", true);
+            if (isFamilyResiding == "Yes" && servantImages.any((e) => e.path == "")) {
+              Utils.showToast("Please select all servant Images", true);
+            } else if (isFamilyResiding == "Yes" && servantCnicFronts.any((element) => element.path == "")) {
+              Utils.showToast("Please select all servant cnic front images", true);
+            } else if (isFamilyResiding == "Yes" && servantCnicBacks.any((e) => e.path == "")) {
+              Utils.showToast("Please select all servant cnic back images", true);
+            } else if (isFamilyResiding == "Yes" && servantFamilyImages.any((e) => e.path == "")) {
+              Utils.showToast("Please select all servant family images", true);
             } else {
               if (value) {
                 formsLoader(context);
