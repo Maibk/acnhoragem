@@ -161,7 +161,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                     height: getVerticalSize(10),
                                   ),
                                   CustomExpansionTile(
-                                    expanded: true,
+                                    expanded: args['status'] == "Rejected",
                                     title: MyText(
                                       title: 'Owner Application',
                                       clr: ColorConstant.black900,

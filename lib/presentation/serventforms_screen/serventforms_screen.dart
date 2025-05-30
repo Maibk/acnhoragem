@@ -154,6 +154,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                   height: getVerticalSize(10),
                                 ),
                                 CustomExpansionTile(
+                                    expanded: args['status'] == "Rejected",
+
                                   title: MyText(
                                     title: 'OWNER INFORMATION',
                                     clr: ColorConstant.black900,
@@ -601,6 +603,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return CustomExpansionTile(
+                                    expanded: args['status'] == "Rejected",
+
                                         title: MyText(
                                           title: 'Servant Information',
                                           clr: ColorConstant.black900,
@@ -1197,6 +1201,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return CustomExpansionTile(
+                                    expanded: args['status'] == "Rejected",
+
                                         title: MyText(
                                           title: 'Servants Family Details',
                                           clr: ColorConstant.black900,
@@ -1566,6 +1572,8 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                   height: getVerticalSize(10),
                                 ),
                                 CustomExpansionTile(
+                                    expanded: args['status'] == "Rejected",
+
                                   title: MyText(
                                     title: 'Add Signature',
                                     clr: ColorConstant.black900,

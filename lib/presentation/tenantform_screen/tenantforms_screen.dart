@@ -1603,6 +1603,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       height: getVerticalSize(10),
                                     ),
                                     CustomExpansionTile(
+                                      
                                       expanded: true,
                                       title: MyText(
                                         title: 'Required Documents',

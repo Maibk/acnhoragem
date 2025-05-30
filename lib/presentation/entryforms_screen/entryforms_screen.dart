@@ -152,6 +152,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                 Form(
                                   key: controller.EntryCardFormKey,
                                   child: CustomExpansionTile(
+                                    expanded: args['status'] == "Rejected",
                                     title: MyText(
                                       title: 'OWNER INFORMATION',
                                       clr: ColorConstant.black900,
@@ -583,6 +584,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return CustomExpansionTile(
+                                        expanded: args['status'] == "Rejected",
                                         title: MyText(
                                           title: 'Spouse',
                                           clr: ColorConstant.black900,
@@ -1094,6 +1096,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return CustomExpansionTile(
+                                        expanded: args['status'] == "Rejected",
                                         title: MyText(
                                           title: 'Child',
                                           clr: ColorConstant.black900,
@@ -1622,8 +1625,8 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             ? controller.SubmitEdittedEntryFormApi(
                                                 context,
                                                 args['id'],
-                                                childIndex - 1,
-                                                spouseIndex - 1,
+                                                childIndex > 0 ? childIndex - 1 : 1,
+                                                spouseIndex > 0 ? spouseIndex - 1 : 1,
                                               )
                                             : controller.SubmitEntryFormApi(context);
                                       },

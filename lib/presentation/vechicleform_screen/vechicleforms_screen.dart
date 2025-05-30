@@ -424,6 +424,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 onChanged: (value) {
                                                                   setState(() {
                                                                     controller.streetSelectedValue = value;
+                                                                    controller.plotstSelectedValue = null;
                                                                     controller.plots.clear();
                                                                     controller.getPlotNoByStreet(value!.id);
                                                                   });
@@ -703,6 +704,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                     height: getVerticalSize(10),
                                   ),
                                   CustomExpansionTile(
+                                      expanded: args['status'] == "Rejected",
                                       title: MyText(
                                         title: 'Vehicle Information',
                                         clr: ColorConstant.black900,
@@ -781,7 +783,6 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                       controller.vehicleFormDataModel.data?.vehicleDetail?.removeAt(index);
                                                                       _value.addVehicleFormKey.removeAt(index);
                                                                     } else {
-                                                                      controller.vehicleNoControllers.removeAt(index);
                                                                       controller.vehicleNoControllers.removeAt(index);
                                                                       controller.makeControllers.removeAt(index);
                                                                       controller.modelControllers.removeAt(index);
@@ -922,6 +923,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                       init: _value,
                                       builder: (context) {
                                         return CustomExpansionTile(
+                                          expanded: args['status'] == "Rejected",
                                           title: MyText(
                                             title: 'Users Information',
                                             clr: ColorConstant.black900,
@@ -1424,6 +1426,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                     height: getVerticalSize(10),
                                   ),
                                   CustomExpansionTile(
+                                    expanded: args['status'] == "Rejected",
                                     title: MyText(
                                       title: 'Requirements :',
                                       clr: ColorConstant.black900,
