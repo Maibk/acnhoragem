@@ -9,6 +9,7 @@ import 'package:anchorageislamabad/presentation/vechicleform_screen/models/Vehic
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:anchorageislamabad/widgets/field_text.dart';
 import 'package:anchorageislamabad/widgets/loader_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -156,8 +157,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 CustomTextField(
+                                                  label: FieldText(
+                                                    text: "Full Name".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                  fieldText: "Full Name".tr,
                                                   controller: controller.fullNameController,
                                                   isFinal: false,
                                                   keyboardType: TextInputType.emailAddress,
@@ -170,8 +174,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   height: getVerticalSize(5),
                                                 ),
                                                 CustomTextField(
+                                                  label: FieldText(
+                                                    text: "Father’s Name".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                  fieldText: "Father’s Name".tr,
                                                   controller: controller.fathersController,
                                                   isFinal: false,
                                                   keyboardType: TextInputType.emailAddress,
@@ -185,9 +192,18 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 ),
                                                 Padding(
                                                   padding: getPadding(left: 10),
-                                                  child: MyText(
-                                                    title: "Select Category:",
-                                                    fontSize: 20,
+                                                  child: Row(
+                                                    children: [
+                                                      MyText(
+                                                        title: "Select Category:",
+                                                        fontSize: 20,
+                                                      ),
+                                                      MyText(
+                                                        title: " *",
+                                                        fontSize: 20,
+                                                        clr: Colors.red,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                                 Padding(
@@ -243,7 +259,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   children: [
                                                     Expanded(
                                                       child: CustomTextField(
-                                                        fieldText: "Date".tr,
+                                                        label: FieldText(
+                                                          text: "Date".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         controller: controller.dateController,
                                                         isFinal: false,
                                                         onTap: () {
@@ -259,8 +278,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   children: [
                                                     Expanded(
                                                       child: CustomTextField(
+                                                        label: FieldText(
+                                                          text: "Rank/Rate".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Rank/Rate".tr,
                                                         controller: controller.rankController,
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
@@ -272,8 +294,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                     Expanded(
                                                       child: CustomTextField(
+                                                        label: FieldText(
+                                                          text: "Service No".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Service No".tr,
                                                         controller: controller.servisController,
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
@@ -292,8 +317,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   children: [
                                                     Expanded(
                                                       child: CustomTextField(
+                                                        label: FieldText(
+                                                          text: "CNIC".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "CNIC".tr,
                                                         controller: controller.cnicController,
                                                         isFinal: false,
                                                         inputFormatters: [
@@ -309,8 +337,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                     Expanded(
                                                       child: CustomTextField(
+                                                        label: FieldText(
+                                                          text: "Office / Department".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Office / Department".tr,
                                                         controller: controller.officeController,
                                                         isFinal: false,
                                                         keyboardType: TextInputType.emailAddress,
@@ -329,10 +360,17 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(
-                                                        "Block/COMM ",
-                                                        style: AppStyle.txtSourceSansProRegular16Gray600
-                                                            .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          text: "Block/COMM ",
+                                                          style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15),
+                                                          children: [
+                                                            TextSpan(
+                                                              text: ' *',
+                                                              style: TextStyle(color: Colors.red),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ).paddingOnly(
                                                         left: 0,
                                                       ),
@@ -394,12 +432,19 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text(
-                                                                "Street",
-                                                                style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
-                                                                    fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                              RichText(
+                                                                text: TextSpan(
+                                                                  text: "Street ",
+                                                                  style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15),
+                                                                  children: [
+                                                                    TextSpan(
+                                                                      text: ' *',
+                                                                      style: TextStyle(color: Colors.red),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ).paddingOnly(
-                                                                left: 14,
+                                                                left: 10,
                                                               ),
                                                               DropdownButton<Street>(
                                                                 isExpanded: true,
@@ -440,10 +485,17 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                               child: Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
-                                                              Text(
-                                                                "Plot",
-                                                                style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
-                                                                    fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                              RichText(
+                                                                text: TextSpan(
+                                                                  text: "Plot ",
+                                                                  style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15),
+                                                                  children: [
+                                                                    TextSpan(
+                                                                      text: ' *',
+                                                                      style: TextStyle(color: Colors.red),
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ).paddingOnly(
                                                                 left: 14,
                                                               ),
@@ -483,8 +535,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   children: [
                                                     Expanded(
                                                       child: CustomTextField(
+                                                        label: FieldText(
+                                                          text: "Cell No.".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Cell No.".tr,
                                                         controller: controller.cellNoController,
                                                         isFinal: false,
                                                         keyboardType: TextInputType.phone,
@@ -496,8 +551,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                     ),
                                                     Expanded(
                                                       child: CustomTextField(
+                                                        label: FieldText(
+                                                          text: "PTCL No.".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "PTCL No.".tr,
                                                         controller: controller.ptclController,
                                                         isFinal: false,
                                                         keyboardType: TextInputType.phone,
@@ -513,9 +571,18 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 ),
                                                 Padding(
                                                   padding: getPadding(left: 10),
-                                                  child: MyText(
-                                                    title: "Select Residential Status:",
-                                                    fontSize: 20,
+                                                  child: Row(
+                                                    children: [
+                                                      MyText(
+                                                        title: "Select Residential Status:",
+                                                        fontSize: 20,
+                                                      ),
+                                                      MyText(
+                                                        title: " *",
+                                                        fontSize: 20,
+                                                        clr: Colors.red,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -808,8 +875,11 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         children: [
                                                           Expanded(
                                                             child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "Vehicle No".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                fieldText: "Vehicle No.".tr,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleNoController
                                                                     : controller.vehicleNoControllers[index],
@@ -822,6 +892,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                           Expanded(
                                                             child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "Make".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 fieldText: "Make".tr,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleMakeController
@@ -843,7 +917,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         children: [
                                                           Expanded(
                                                             child: CustomTextField(
-                                                                fieldText: "Model".tr,
+                                                                label: FieldText(
+                                                                  text: "Model".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleModelController
@@ -857,7 +934,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                           Expanded(
                                                             child: CustomTextField(
-                                                                fieldText: "Color".tr,
+                                                                label: FieldText(
+                                                                  text: "Color".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleColorController
@@ -878,7 +958,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         children: [
                                                           Expanded(
                                                             child: CustomTextField(
-                                                                fieldText: "Engine No".tr,
+                                                                label: FieldText(
+                                                                  text: "Engine No".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleEngineController
@@ -892,7 +975,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                           Expanded(
                                                             child: CustomTextField(
-                                                                fieldText: "Chassis No".tr,
+                                                                label: FieldText(
+                                                                  text: "Chassis No".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleChassisController
@@ -1041,7 +1127,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         fontSize: 16,
                                                       ).paddingOnly(left: 10, bottom: 10),
                                                       CustomTextField(
-                                                          fieldText: "Full Name".tr,
+                                                          label: FieldText(
+                                                            text: "Full Name".tr,
+                                                          ),
+                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
                                                           controller: args['status'] == Constants.formStatusRejected
                                                               ? detail?.userNameController
                                                               : controller.userfullNameControllers[index],
@@ -1060,7 +1149,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         children: [
                                                           Expanded(
                                                             child: CustomTextField(
-                                                                fieldText: "CNIC No.".tr,
+                                                                label: FieldText(
+                                                                  text: "CNIC No.".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.userNicController
@@ -1078,7 +1170,10 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           ),
                                                           Expanded(
                                                             child: CustomTextField(
-                                                                fieldText: "Mobile number".tr,
+                                                                label: FieldText(
+                                                                  text: "Mobile number".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.userPhoneController

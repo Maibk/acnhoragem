@@ -8,6 +8,7 @@ import '../theme/app_style.dart';
 
 class CustomTextField extends StatefulWidget {
   String? fieldText;
+  Widget? label;
   String? hintText;
   bool? isFinal;
   bool? enabled;
@@ -40,7 +41,6 @@ class CustomTextField extends StatefulWidget {
   double? sidePadding;
   Widget? prefixWidget;
   FloatingLabelBehavior? floatingLabelBehavior;
-
   AutovalidateMode? autovalidateMode;
 
   CustomTextField(
@@ -65,6 +65,7 @@ class CustomTextField extends StatefulWidget {
       this.maxLines,
       this.nameWidth,
       this.focusNode,
+      this.label,
       this.nextFocusNode,
       this.controller,
       this.keyboardType,
@@ -165,7 +166,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       padding: const EdgeInsets.only(top: 5.0, bottom: 5, right: 10),
                       child: widget.prefixWidget ?? null,
                     ),
-                    labelText: widget.fieldText,
+                    label: widget.label != null ? widget.label : null,
+                    // labelText: widget.fieldText,
                     hintText: widget.hintText,
                     hintStyle: _setHintStyle(),
                     alignLabelWithHint: true,
@@ -190,7 +192,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 GestureDetector(
                   onTap: () {
                     widget.sufixIconOnTap!();
-                    print('aerssss');
                   },
                   child: Padding(
                     padding: EdgeInsets.only(top: 10),

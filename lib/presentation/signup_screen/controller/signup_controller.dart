@@ -1,15 +1,12 @@
-import 'dart:convert';
 import 'dart:io';
+
 import 'package:anchorageislamabad/core/model_classes/signup_model.dart';
-import 'package:anchorageislamabad/presentation/login_screen/models/login_model.dart';
 import 'package:anchorageislamabad/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:rounded_loading_button_plus/rounded_loading_button.dart';
+
 import '../../../Shared_prefrences/app_prefrences.dart';
-import '../../../core/model_classes/login_model.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/utils.dart';
 import '../../../data/services/api_call_status.dart';
@@ -28,6 +25,7 @@ class SignUpController extends GetxController {
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
+  TextEditingController presentAddressController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -64,7 +62,6 @@ class SignUpController extends GetxController {
                   : Get.offAllNamed(AppRoutes.tenantFormsPage, arguments: {'status': "", 'id': ""});
             } else {
               Utils.showToast('Incorrect Password or Email', true);
-              // Handle the case where data is null in the response
             }
           }, onError: (error) {
             BaseClient.handleApiError(error);
@@ -76,7 +73,7 @@ class SignUpController extends GetxController {
             "last_name": lastNameController.text,
             "email": emailController.text,
             "phone": phoneController.text,
-            "present_address": "Karachi Pakistan",
+            "present_address": presentAddressController.text,
             "password": passwordController.text,
             "c_password": passwordController.text,
             'device_token': Constants.device_token,

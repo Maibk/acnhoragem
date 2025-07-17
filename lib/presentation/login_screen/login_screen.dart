@@ -89,12 +89,9 @@ class LoginScreen extends GetWidget<LoginController> {
                         ),
                         Obx(
                           () => CustomTextField(
-                            postPixText: controller.isShowPassword.value == true
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off),
+                            postPixText: controller.isShowPassword.value == true ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
                             sufixIconOnTap: () {
-                              controller.isShowPassword.value =
-                                  HelperFunction.showPassword(controller.isShowPassword.value);
+                              controller.isShowPassword.value = HelperFunction.showPassword(controller.isShowPassword.value);
                             },
                             limit: 15,
                             inputFormatters: [
@@ -123,10 +120,7 @@ class LoginScreen extends GetWidget<LoginController> {
                               onTap: () {
                                 Get.toNamed(AppRoutes.forgotPassPage);
                               },
-                              child: MyText(
-                                  title: "lbl_forgot_password".tr,
-                                  customWeight: FontWeight.w400,
-                                  clr: ColorConstant.anbtnBlue),
+                              child: MyText(title: "lbl_forgot_password".tr, customWeight: FontWeight.w400, clr: ColorConstant.anbtnBlue),
                             ),
                           ],
                         ),
@@ -149,7 +143,7 @@ class LoginScreen extends GetWidget<LoginController> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            MyText(title: "Don't have an Account?"),
+                            MyText(title: "Don't have an Account? "),
                             GestureDetector(
                                 onTap: () {
                                   Get.toNamed(AppRoutes.signupPage);

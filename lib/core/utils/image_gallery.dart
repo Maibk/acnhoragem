@@ -107,6 +107,40 @@ class ImageGalleryClass {
     return null;
   }
 
+Future<List<File>> getImages({
+    required ImageSource source,
+  }) async {
+    try {
+      if (source == ImageSource.gallery) {
+        final List<XFile> pickedFiles = await picker.pickMultiImage(
+          imageQuality: 70,
+        );
+
+        if (pickedFiles.isNotEmpty) {
+          return pickedFiles.map((xfile) => File(xfile.path)).toList();
+        } else {
+          Utils.showToast("Image selection cancelled", false);
+        }
+      } else {
+        final XFile? pickedFile = await picker.pickImage(
+          source: source,
+          imageQuality: 70,
+        );
+
+        if (pickedFile != null) {
+          return [File(pickedFile.path)];
+        } else {
+          Utils.showToast("Image selection cancelled", false);
+        }
+      }
+    } on PlatformException catch (e) {
+      Utils.showToast(e.message ?? "Something went wrong", true);
+    }
+
+    return [];
+  }
+
+
   Future<String?> getVideo() async {
     try {
       getFilePath = await picker.pickVideo(

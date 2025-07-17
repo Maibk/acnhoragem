@@ -213,6 +213,19 @@ class SignUpScreen extends GetWidget<SignUpController> {
                             return HelperFunction.validateAlphabetsOnly(value!);
                           },
                         ),
+                           SizedBox(
+                          height: getVerticalSize(5),
+                        ),
+                        CustomTextField(
+                          fieldText: "Present address".tr,
+                          controller: controller.presentAddressController,
+                          isFinal: false,
+                          keyboardType: TextInputType.emailAddress,
+                          limit: HelperFunction.EMAIL_VALIDATION,
+                          validator: (value) {
+                            return HelperFunction.empthyFieldValidator(value!);
+                          },
+                        ),
                         SizedBox(
                           height: getVerticalSize(5),
                         ),

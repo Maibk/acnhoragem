@@ -243,6 +243,15 @@ class BaseClient {
         );
         return onError?.call(exception) ?? handleApiError(exception);
       }
+      if (error.response!.data['message'] == "The email has already been taken.") {
+        Utils.showToast(error.response?.data['message'], true);
+
+        var exception = ApiException(
+          url: url,
+          message: error.message!,
+        );
+        return onError?.call(exception) ?? handleApiError(exception);
+      }
 
       if (error.response!.data['message'].toLowerCase().contains('socket')) {
         onError?.call(ApiException(
@@ -272,7 +281,7 @@ class BaseClient {
         return;
       }
 
-      if (error.response?.data['data']['email'].toString() == "[The email has already been taken.]") {
+      if (error.response?.data['data']['email'].toString() == "The email has already been taken.") {
         onError?.call(ApiException(
           message: 'The email has already been taken.'.tr,
           url: url,

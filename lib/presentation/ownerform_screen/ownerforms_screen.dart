@@ -8,6 +8,7 @@ import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_fo
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:anchorageislamabad/widgets/field_text.dart';
 // import 'package:csc_picker/csc_picker.dart';
 import 'package:csc_picker_plus/csc_picker_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -172,7 +173,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           CustomTextField(
-                                            fieldText: "Full Name".tr,
+                                            label: FieldText(
+                                              text: "Full Name".tr,
+                                            ),
+                                            floatingLabelBehavior: FloatingLabelBehavior.never,
                                             controller: controller.fullNameController,
                                             isFinal: false,
                                             enabled: isEditable,
@@ -186,7 +190,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             height: getVerticalSize(5),
                                           ),
                                           CustomTextField(
-                                            fieldText: "Telephone No.".tr,
+                                            label: FieldText(
+                                              text: "Telephone No.".tr,
+                                            ),
+                                            floatingLabelBehavior: FloatingLabelBehavior.never,
                                             controller: controller.telephoneController,
                                             isFinal: false,
                                             enabled: isEditable,
@@ -208,10 +215,18 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(
-                                                        "Nationality",
-                                                        style: AppStyle.txtSourceSansProRegular16Gray600
-                                                            .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          text: "Nationality",
+                                                          style: AppStyle.txtSourceSansProRegular16Gray600
+                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          children: [
+                                                            TextSpan(
+                                                              text: ' *',
+                                                              style: TextStyle(color: Colors.red),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ).paddingOnly(
                                                         left: 10,
                                                       ),
@@ -247,10 +262,18 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                 child: Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      "Block/COMM ",
-                                                      style: AppStyle.txtSourceSansProRegular16Gray600
-                                                          .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                    RichText(
+                                                      text: TextSpan(
+                                                        text: "Block/COMM",
+                                                        style: AppStyle.txtSourceSansProRegular16Gray600
+                                                            .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        children: [
+                                                          TextSpan(
+                                                            text: ' *',
+                                                            style: TextStyle(color: Colors.red),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                     DropdownButton<Street>(
                                                       isExpanded: true,
@@ -298,12 +321,20 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
-                                                          "Street",
-                                                          style: AppStyle.txtSourceSansProRegular16Gray600
-                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            text: "Street",
+                                                            style: AppStyle.txtSourceSansProRegular16Gray600
+                                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                            children: [
+                                                              TextSpan(
+                                                                text: ' *',
+                                                                style: TextStyle(color: Colors.red),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ).paddingOnly(
-                                                          left: 14,
+                                                          left: 10,
                                                         ),
                                                         DropdownButton<Street>(
                                                           isExpanded: true,
@@ -340,12 +371,20 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                         child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
-                                                          "Plot",
-                                                          style: AppStyle.txtSourceSansProRegular16Gray600
-                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            text: "Plot",
+                                                            style: AppStyle.txtSourceSansProRegular16Gray600
+                                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                            children: [
+                                                              TextSpan(
+                                                                text: ' *',
+                                                                style: TextStyle(color: Colors.red),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ).paddingOnly(
-                                                          left: 14,
+                                                          left: 10,
                                                         ),
                                                         DropdownButton<Plots>(
                                                           isExpanded: true,
@@ -391,7 +430,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             children: [
                                               Expanded(
                                                 child: CustomTextField(
-                                                  fieldText: "CNIC".tr,
+                                                  label: FieldText(
+                                                    text: "CNIC".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   controller: controller.cnicController,
                                                   isFinal: false,
                                                   enabled: isEditable,
@@ -408,7 +450,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                               ),
                                               Expanded(
                                                 child: CustomTextField(
-                                                  fieldText: "Occupation".tr,
+                                                  label: FieldText(
+                                                    text: "Occupation".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   controller: controller.occupationController,
                                                   isFinal: false,
                                                   enabled: isEditable,
@@ -424,7 +469,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             height: getVerticalSize(5),
                                           ),
                                           CustomTextField(
-                                            fieldText: "Present Address.".tr,
+                                            label: FieldText(
+                                              text: "Present Address.".tr,
+                                            ),
+                                            floatingLabelBehavior: FloatingLabelBehavior.never,
                                             controller: controller.presentAddController,
                                             isFinal: false,
                                             enabled: isEditable,
@@ -438,7 +486,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             height: getVerticalSize(5),
                                           ),
                                           CustomTextField(
-                                            fieldText: "Permanent Address".tr,
+                                            label: FieldText(
+                                              text: "Permanent Address.".tr,
+                                            ),
+                                            floatingLabelBehavior: FloatingLabelBehavior.never,
                                             controller: controller.permanantAddController,
                                             isFinal: false,
                                             enabled: isEditable,
@@ -451,10 +502,17 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(10),
                                           ),
-                                          Text(
-                                            "Total Number of wives",
-                                            style: AppStyle.txtSourceSansProRegular16Gray600
-                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: "Total Number of wives",
+                                              style: TextStyle(color: Colors.black.withOpacity(.5), fontSize: 16),
+                                              children: [
+                                                TextSpan(
+                                                  text: ' *',
+                                                  style: TextStyle(color: Colors.red),
+                                                ),
+                                              ],
+                                            ),
                                           ).paddingOnly(
                                             left: 10,
                                           ),
@@ -499,10 +557,17 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(20),
                                           ),
-                                          Text(
-                                            "Total Number of children",
-                                            style: AppStyle.txtSourceSansProRegular16Gray600
-                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: "Total Number of children",
+                                              style: TextStyle(color: Colors.black.withOpacity(.5), fontSize: 16),
+                                              children: [
+                                                TextSpan(
+                                                  text: ' *',
+                                                  style: TextStyle(color: Colors.red),
+                                                ),
+                                              ],
+                                            ),
                                           ).paddingOnly(
                                             left: 10,
                                           ),
@@ -557,10 +622,17 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             children: [
                                                               Padding(
                                                                 padding: getPadding(left: 8, top: 20),
-                                                                child: Text(
-                                                                  "Allotment Letter held:",
-                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
-                                                                      fontSize: 15, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                                child: RichText(
+                                                                  text: TextSpan(
+                                                                    text: "Allotment Letter held:",
+                                                                    style: TextStyle(color: Colors.black.withOpacity(.5), fontSize: 16),
+                                                                    children: [
+                                                                      TextSpan(
+                                                                        text: ' *',
+                                                                        style: TextStyle(color: Colors.red),
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
                                                               Row(
@@ -674,10 +746,17 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             children: [
                                                               Padding(
                                                                 padding: getPadding(left: 10),
-                                                                child: Text(
-                                                                  "Completion certificate held:",
-                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
-                                                                      fontSize: 15, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                                child: RichText(
+                                                                  text: TextSpan(
+                                                                    text: "Completion certificate held:",
+                                                                    style: TextStyle(color: Colors.black.withOpacity(.5), fontSize: 16),
+                                                                    children: [
+                                                                      TextSpan(
+                                                                        text: ' *',
+                                                                        style: TextStyle(color: Colors.red),
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
                                                               SizedBox(
@@ -779,7 +858,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             children: [
                                               Expanded(
                                                 child: CustomTextField(
-                                                  fieldText: "Size of House/ Plot".tr,
+                                                  label: FieldText(
+                                                    text: "Size of House/ Plot.".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   controller: controller.sizeHouseAddController,
                                                   isFinal: false,
                                                   enabled: false,
@@ -812,10 +894,17 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             children: [
                                                               Padding(
                                                                 padding: getPadding(left: 10),
-                                                                child: Text(
-                                                                  "Construction Status:",
-                                                                  style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
-                                                                      fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                                child: RichText(
+                                                                  text: TextSpan(
+                                                                    text: "Construction Status:",
+                                                                    style: TextStyle(color: Colors.black.withOpacity(.5), fontSize: 16),
+                                                                    children: [
+                                                                      TextSpan(
+                                                                        text: ' *',
+                                                                        style: TextStyle(color: Colors.red),
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
                                                               SizedBox(
@@ -952,10 +1041,17 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     children: [
                                                       Padding(
                                                         padding: getPadding(left: 10),
-                                                        child: MyText(
-                                                          title: "PRIVATE ARMS*:",
-                                                          clr: ColorConstant.antextlightgray,
-                                                          fontSize: 14,
+                                                        child: RichText(
+                                                          text: TextSpan(
+                                                            text: "Private Arms:",
+                                                            style: TextStyle(color: Colors.black.withOpacity(.5), fontSize: 16),
+                                                            children: [
+                                                              TextSpan(
+                                                                text: ' *',
+                                                                style: TextStyle(color: Colors.red),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                       SizedBox(
@@ -1047,7 +1143,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   enabled: isEditable,
-                                                                  fieldText: "License Number".tr,
+                                                                  label: FieldText(
+                                                                    text: "License Number".tr,
+                                                                  ),
+                                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                   controller: controller.privateLicenseController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
@@ -1060,7 +1159,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   enabled: isEditable,
-                                                                  fieldText: "Arms Quantity".tr,
+                                                                  label: FieldText(
+                                                                    text: "Arms Quantity".tr,
+                                                                  ),
+                                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                   controller: controller.privateArmsController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.number,
@@ -1080,7 +1182,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   enabled: isEditable,
-                                                                  fieldText: "Ammunition Qantity ".tr,
+                                                                  label: FieldText(
+                                                                    text: "Ammunition Quantity".tr,
+                                                                  ),
+                                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                   controller: controller.armQuantityController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
@@ -1093,7 +1198,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                               Expanded(
                                                                 child: CustomTextField(
                                                                   enabled: isEditable,
-                                                                  fieldText: "Bore/Type".tr,
+                                                                  label: FieldText(
+                                                                    text: "Bore/Type".tr,
+                                                                  ),
+                                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                   controller: controller.privateBoreController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
@@ -1340,7 +1448,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                     Expanded(
                                                                       child: CustomTextField(
                                                                         enabled: isEditable,
-                                                                        fieldText: "Vehicle Type".tr,
+                                                                        label: FieldText(
+                                                                          text: "Vehicle Type".tr,
+                                                                        ),
+                                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                         controller: args['status'] == Constants.formStatusRejected
                                                                             ? detail?.vehicleTypeController
                                                                             : controller.vehicleTypeControllers[index],
@@ -1355,7 +1466,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                     Expanded(
                                                                       child: CustomTextField(
                                                                         enabled: isEditable,
-                                                                        fieldText: "Registration No.".tr,
+                                                                        label: FieldText(
+                                                                          text: "Registration No.".tr,
+                                                                        ),
+                                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                         controller: args['status'] == Constants.formStatusRejected
                                                                             ? detail?.registrationController
                                                                             : controller.vehicleRegisterNoControllers[index],
@@ -1378,7 +1492,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                     Expanded(
                                                                       child: CustomTextField(
                                                                         enabled: isEditable,
-                                                                        fieldText: "Color".tr,
+                                                                        label: FieldText(
+                                                                          text: "Color".tr,
+                                                                        ),
+                                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                         controller: args['status'] == Constants.formStatusRejected
                                                                             ? detail?.colorController
                                                                             : controller.vehicleColorControllers[index],
@@ -1393,7 +1510,10 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                     Expanded(
                                                                       child: CustomTextField(
                                                                         enabled: isEditable,
-                                                                        fieldText: "Sticker No.".tr,
+                                                                        label: FieldText(
+                                                                          text: "Sticker No.".tr,
+                                                                        ),
+                                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                         controller: args['status'] == Constants.formStatusRejected
                                                                             ? detail?.stickerNoController
                                                                             : controller.vehicleStikerControllers[index],
@@ -1412,11 +1532,19 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                 Row(
                                                                   children: [
                                                                     Padding(
-                                                                      padding: getPadding(left: 10),
-                                                                      child: MyText(
-                                                                        title: "E-Tag",
-                                                                        clr: ColorConstant.antextlightgray,
-                                                                        fontSize: 14.h,
+                                                                      padding: getPadding(left: 14),
+                                                                      child: RichText(
+                                                                        text: TextSpan(
+                                                                          text: "E-Tag",
+                                                                          style: TextStyle(
+                                                                              color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15),
+                                                                          children: [
+                                                                            TextSpan(
+                                                                              text: ' *',
+                                                                              style: TextStyle(color: Colors.red),
+                                                                            ),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                     SizedBox(

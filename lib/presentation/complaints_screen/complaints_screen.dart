@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:anchorageislamabad/core/utils/image_gallery.dart';
 import 'package:anchorageislamabad/presentation/complaints_screen/models/complaints_model.dart';
@@ -6,6 +7,7 @@ import 'package:anchorageislamabad/widgets/custom_text.dart';
 import 'package:anchorageislamabad/widgets/custom_textfield_new.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/helper_functions.dart';
 import '../../core/utils/image_constant.dart';
@@ -23,8 +25,6 @@ class CreateNewComplaintScreen extends StatefulWidget {
 class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
   ComplaintsController controller = Get.put(ComplaintsController());
   final ImageGalleryClass imageGalleryClass = ImageGalleryClass();
-  
-
 
   @override
   initState() {
@@ -93,7 +93,7 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                         padding: getPadding(left: 30, right: 30, top: 20, bottom: 20),
                         child: GetBuilder(
                             init: controller,
-                            builder: (context) {
+                            builder: (_) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -105,18 +105,44 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                         height: 90.h,
                                         width: double.infinity,
                                         alignment: Alignment.center,
-                                        child: controller.complaintsImages != null
+                                        child: (controller.complaintsImages != null && controller.complaintsImages!.isNotEmpty)
                                             ? Image.file(
                                                 controller.complaintsImages!.first,
                                                 fit: BoxFit.fitWidth,
                                               )
                                             : MyText(title: "Select Image to upload"),
                                       ),
-                                      controller.complaintsImages != null
+                                      (controller.complaintsImages != null && controller.complaintsImages!.isNotEmpty)
                                           ? GestureDetector(
                                               onTap: () async {
                                                 controller.complaintsImages?.clear();
-                                                controller.complaintsImages = await controller.getImages(context);
+                                                imageGalleryClass.imageGalleryBottomSheet(
+                                                  context: context,
+                                                  onCameraTap: () async {
+                                                    final List<File> result = await imageGalleryClass.getImages(
+                                                      source: ImageSource.camera,
+                                                    );
+
+                                                    if (result.isNotEmpty) {
+                                                      controller.complaintsImages = result;
+                                                    }
+
+                                                    setState(() {});
+                                                    Get.back();
+                                                  },
+                                                  onGalleryTap: () async {
+                                                    final List<File> result = await imageGalleryClass.getImages(
+                                                      source: ImageSource.gallery,
+                                                    );
+
+                                                    if (result.isNotEmpty) {
+                                                      controller.complaintsImages = result;
+                                                    }
+
+                                                    setState(() {});
+                                                    Get.back();
+                                                  },
+                                                );
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
@@ -132,7 +158,33 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
 
                                               child: GestureDetector(
                                                   onTap: () async {
-                                                    controller.complaintsImages = await controller.getImages(context);
+                                                    imageGalleryClass.imageGalleryBottomSheet(
+                                                      context: context,
+                                                      onCameraTap: () async {
+                                                        final List<File> result = await imageGalleryClass.getImages(
+                                                          source: ImageSource.camera,
+                                                        );
+
+                                                        if (result.isNotEmpty) {
+                                                          controller.complaintsImages = result;
+                                                        }
+
+                                                        setState(() {});
+                                                        Get.back();
+                                                      },
+                                                      onGalleryTap: () async {
+                                                        final List<File> result = await imageGalleryClass.getImages(
+                                                          source: ImageSource.gallery,
+                                                        );
+
+                                                        if (result.isNotEmpty) {
+                                                          controller.complaintsImages = result;
+                                                        }
+
+                                                        setState(() {});
+                                                        Get.back();
+                                                      },
+                                                    );
                                                   },
                                                   child: Container(
                                                     decoration: BoxDecoration(color: ColorConstant.anbtnBlue, shape: BoxShape.circle),

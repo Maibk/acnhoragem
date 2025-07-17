@@ -9,6 +9,7 @@ import 'package:anchorageislamabad/presentation/serventforms_screen/models/serva
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:anchorageislamabad/widgets/field_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -154,8 +155,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                   height: getVerticalSize(10),
                                 ),
                                 CustomExpansionTile(
-                                    expanded: args['status'] == "Rejected",
-
+                                  expanded: args['status'] == "Rejected",
                                   title: MyText(
                                     title: 'OWNER INFORMATION',
                                     clr: ColorConstant.black900,
@@ -167,7 +167,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                       child: Column(
                                         children: [
                                           CustomTextField(
-                                            fieldText: "Full Name".tr,
+                                            label: FieldText(
+                                              text: "Full Name".tr,
+                                            ),
+                                            floatingLabelBehavior: FloatingLabelBehavior.never,
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
                                             controller: controller.fullNameController,
                                             isFinal: false,
@@ -181,7 +184,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             height: getVerticalSize(5),
                                           ),
                                           CustomTextField(
-                                            fieldText: "Father’s Name".tr,
+                                            label: FieldText(
+                                              text: "Father’s Name".tr,
+                                            ),
+                                            floatingLabelBehavior: FloatingLabelBehavior.never,
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
                                             controller: controller.fathersController,
                                             isFinal: false,
@@ -199,8 +205,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             children: [
                                               Expanded(
                                                 child: CustomTextField(
+                                                  label: FieldText(
+                                                    text: "CNIC No.".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                  fieldText: "CNIC No.".tr,
                                                   controller: controller.cnicController,
                                                   isFinal: false,
                                                   keyboardType: TextInputType.number,
@@ -216,8 +225,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               ),
                                               Expanded(
                                                 child: CustomTextField(
+                                                  label: FieldText(
+                                                    text: "Mobile number".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                  fieldText: "Mobile number".tr,
                                                   controller: controller.mobileController,
                                                   isFinal: false,
                                                   keyboardType: TextInputType.phone,
@@ -241,10 +253,17 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(
-                                                        "Block/COMM ",
-                                                        style: AppStyle.txtSourceSansProRegular16Gray600
-                                                            .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          text: "Block/COMM ",
+                                                          style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                          children: [
+                                                            TextSpan(
+                                                              text: ' *',
+                                                              style: TextStyle(color: Colors.red),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ).paddingOnly(
                                                         left: 14,
                                                       ),
@@ -300,10 +319,17 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
-                                                          "Street",
-                                                          style: AppStyle.txtSourceSansProRegular16Gray600
-                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            text: "Street ",
+                                                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                            children: [
+                                                              TextSpan(
+                                                                text: ' *',
+                                                                style: TextStyle(color: Colors.red),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ).paddingOnly(
                                                           left: 14,
                                                         ),
@@ -346,10 +372,17 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
-                                                          "Plot",
-                                                          style: AppStyle.txtSourceSansProRegular16Gray600
-                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            text: "Plot ",
+                                                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                            children: [
+                                                              TextSpan(
+                                                                text: ' *',
+                                                                style: TextStyle(color: Colors.red),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ).paddingOnly(
                                                           left: 14,
                                                         ),
@@ -392,6 +425,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           //   children: [
                                           //     Expanded(
                                           //       child: CustomTextField(
+                                          // label: FieldText(
+                                          //               text: "Province".tr,
+                                          //             ),
+                                          //             floatingLabelBehavior: FloatingLabelBehavior.never,
                                           //         fieldText: "Road".tr,
                                           //         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                           //         controller: controller.roadController,
@@ -405,6 +442,10 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           //     ),
                                           //     Expanded(
                                           //       child: CustomTextField(
+                                          // label: FieldText(
+                                          //               text: "Province".tr,
+                                          //             ),
+                                          //             floatingLabelBehavior: FloatingLabelBehavior.never,
                                           //         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                           //         fieldText: "Colony/Residential Area Name".tr,
                                           //         controller: controller.colonyController,
@@ -603,8 +644,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return CustomExpansionTile(
-                                    expanded: args['status'] == "Rejected",
-
+                                        expanded: args['status'] == "Rejected",
                                         title: MyText(
                                           title: 'Servant Information',
                                           clr: ColorConstant.black900,
@@ -723,8 +763,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       fontSize: 16,
                                                     ).paddingOnly(left: 10, bottom: 10),
                                                     CustomTextField(
+                                                        label: FieldText(
+                                                          text: "Full Name".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Full Name".tr,
                                                         controller: args['status'] == Constants.formStatusRejected
                                                             ? detail?.servantNameController
                                                             : controller.serventfullNameControllers[index],
@@ -738,8 +781,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       height: getVerticalSize(5),
                                                     ),
                                                     CustomTextField(
+                                                        label: FieldText(
+                                                          text: "Father’s Name".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        fieldText: "Father’s Name".tr,
                                                         controller: args['status'] == Constants.formStatusRejected
                                                             ? detail?.servantFatherController
                                                             : controller.serventfathersControllers[index],
@@ -757,8 +803,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "CNIC No.".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "CNIC No.".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantCnicController
                                                                   : controller.serventcnicControllers[index],
@@ -775,8 +824,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "Mobile number".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "Mobile number".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantPhoneController
                                                                   : controller.serventmobileControllers[index],
@@ -811,8 +863,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "House/Plot".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "House/Plot".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantHouseController
                                                                   : controller.serventhouseControllers[index],
@@ -825,8 +880,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "Road".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "Road".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantRoadController
                                                                   : controller.serventroadControllers[index],
@@ -846,8 +904,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "Street".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "Street".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantStreetController
                                                                   : controller.serventstreetControllers[index],
@@ -860,8 +921,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "Mohalla/Village".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "Mohalla/Village".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantVillageController
                                                                   : controller.serventcolonyVillageControllers[index],
@@ -884,8 +948,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "Post Office/Thana".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "Post Office/Thana".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantPoController
                                                                   : controller.serventpostOfficeControllers[index],
@@ -898,8 +965,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "City".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "City".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantCityController
                                                                   : controller.serventCityControllers[index],
@@ -919,8 +989,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "Province".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "Province".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantProvinceController
                                                                   : controller.serventProvinceControllers[index],
@@ -1201,8 +1274,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                     init: controller,
                                     builder: (context) {
                                       return CustomExpansionTile(
-                                    expanded: args['status'] == "Rejected",
-
+                                        expanded: args['status'] == "Rejected",
                                         title: MyText(
                                           title: 'Servants Family Details',
                                           clr: ColorConstant.black900,
@@ -1215,10 +1287,18 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                               children: [
                                                 Padding(
                                                   padding: getPadding(left: 10),
-                                                  child: Text(
-                                                    "Residing",
-                                                    style: AppStyle.txtSourceSansProRegular16Gray600
-                                                        .copyWith(fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                  child: RichText(
+                                                    text: TextSpan(
+                                                      text: "Residing",
+                                                      style: AppStyle.txtSourceSansProRegular16Gray600
+                                                          .copyWith(fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: ' *',
+                                                          style: TextStyle(color: Colors.red),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -1405,8 +1485,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         fontSize: 16,
                                                       ).paddingOnly(left: 10, bottom: 10),
                                                       CustomTextField(
+                                                          label: FieldText(
+                                                            text: "Full Name".tr,
+                                                          ),
+                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
                                                           enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                          fieldText: "Full Name".tr,
                                                           controller: args['status'] == Constants.formStatusRejected
                                                               ? detail?.familyNameController
                                                               : controller.serventfamfullNameControllers[index],
@@ -1420,8 +1503,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         height: getVerticalSize(5),
                                                       ),
                                                       CustomTextField(
+                                                          label: FieldText(
+                                                            text: "Occupation".tr,
+                                                          ),
+                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
                                                           enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                          fieldText: "Occupation".tr,
                                                           controller: args['status'] == Constants.formStatusRejected
                                                               ? detail?.familyOccupationController
                                                               : controller.serventfamoccutionControllers[index],
@@ -1439,8 +1525,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         children: [
                                                           Expanded(
                                                             child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "N.I.C / FORM ‘B’".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                fieldText: "N.I.C / FORM ‘B’".tr,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.familyNicController
                                                                     : controller.serventfamCnicControllers[index],
@@ -1457,8 +1546,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           ),
                                                           Expanded(
                                                             child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "Mobile number".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                                fieldText: "Mobile number".tr,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.familyCellController
                                                                     : controller.serventfamMobControllers[index],
@@ -1474,8 +1566,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         height: getVerticalSize(5),
                                                       ),
                                                       CustomTextField(
+                                                          label: FieldText(
+                                                            text: "Present Address".tr,
+                                                          ),
+                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
                                                           enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                          fieldText: "Present Address".tr,
                                                           controller: args['status'] == Constants.formStatusRejected
                                                               ? detail?.familyAddressController
                                                               : controller.serventfampresentAddControllers[index],
@@ -1572,8 +1667,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                   height: getVerticalSize(10),
                                 ),
                                 CustomExpansionTile(
-                                    expanded: args['status'] == "Rejected",
-
+                                  expanded: args['status'] == "Rejected",
                                   title: MyText(
                                     title: 'Add Signature',
                                     clr: ColorConstant.black900,
@@ -1588,8 +1682,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           children: [
                                             Expanded(
                                               child: CustomTextField(
+                                                label: FieldText(
+                                                  text: "SIGNATURE OF OWNER:".tr,
+                                                ),
+                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                fieldText: "SIGNATURE OF OWNER:".tr,
                                                 readOnly: true,
                                                 fontStyle: FontStyle.italic,
                                                 controller: controller.fullNameController,
@@ -1603,8 +1700,11 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             ),
                                             Expanded(
                                               child: CustomTextField(
+                                                label: FieldText(
+                                                  text: "mm/dd/yyyy".tr,
+                                                ),
+                                                floatingLabelBehavior: FloatingLabelBehavior.never,
                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                fieldText: "mm/dd/yyyy".tr,
                                                 readOnly: true,
                                                 controller: controller.serventdateController,
                                                 isFinal: false,

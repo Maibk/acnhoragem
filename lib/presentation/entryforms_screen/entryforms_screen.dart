@@ -9,6 +9,7 @@ import 'package:anchorageislamabad/presentation/entryforms_screen/models/entry_f
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:anchorageislamabad/widgets/field_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -163,7 +164,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           CustomTextField(
-                                            fieldText: "Full Name".tr,
+                                            label: FieldText(
+                                              text: "Full Name".tr,
+                                            ),
+                                            floatingLabelBehavior: FloatingLabelBehavior.never,
                                             controller: controller.fullNameController,
                                             isFinal: false,
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -177,7 +181,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             height: getVerticalSize(5),
                                           ),
                                           CustomTextField(
-                                            fieldText: "Father’s Name".tr,
+                                            label: FieldText(
+                                              text: "Father’s Name".tr,
+                                            ),
+                                            floatingLabelBehavior: FloatingLabelBehavior.never,
                                             controller: controller.fathersController,
                                             isFinal: false,
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -195,7 +202,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             children: [
                                               Expanded(
                                                 child: CustomTextField(
-                                                  fieldText: "CNIC No.".tr,
+                                                  label: FieldText(
+                                                    text: "CNIC No.".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   controller: controller.cnicController,
                                                   isFinal: false,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -212,6 +222,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                               ),
                                               Expanded(
                                                 child: CustomTextField(
+                                                  label: FieldText(
+                                                    text: "Mobile number".tr,
+                                                  ),
+                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
                                                   fieldText: "Mobile number".tr,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                   controller: controller.mobileController,
@@ -227,10 +241,17 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           SizedBox(
                                             height: getVerticalSize(10),
                                           ),
-                                          Text(
-                                            "Block/COMM ",
-                                            style: AppStyle.txtSourceSansProRegular16Gray600
-                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                          RichText(
+                                            text: TextSpan(
+                                              text: "Block/COMM ",
+                                              style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                              children: [
+                                                TextSpan(
+                                                  text: ' *',
+                                                  style: TextStyle(color: Colors.red),
+                                                ),
+                                              ],
+                                            ),
                                           ).paddingOnly(
                                             left: 14,
                                           ),
@@ -299,10 +320,17 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         mainAxisSize: MainAxisSize.max,
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Text(
-                                                            "Street ",
-                                                            style: AppStyle.txtSourceSansProRegular16Gray600
-                                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              text: "Street ",
+                                                              style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text: ' *',
+                                                                  style: TextStyle(color: Colors.red),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ).paddingOnly(
                                                             left: 14,
                                                           ),
@@ -346,10 +374,17 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
-                                                          "Plot ",
-                                                          style: AppStyle.txtSourceSansProRegular16Gray600
-                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            text: "Plot ",
+                                                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                            children: [
+                                                              TextSpan(
+                                                                text: ' *',
+                                                                style: TextStyle(color: Colors.red),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ).paddingOnly(
                                                           left: 14,
                                                         ),
@@ -689,7 +724,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       fontSize: 16,
                                                     ).paddingOnly(left: 10, bottom: 10),
                                                     CustomTextField(
-                                                        fieldText: "Full Name".tr,
+                                                        label: FieldText(
+                                                          text: "Full Name".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         controller: args['status'] == Constants.formStatusRejected
                                                             ? detail?.spouseNameController
                                                             : controller.spousefullNameControllers[index],
@@ -705,7 +743,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "CNIC No.".tr,
+                                                              label: FieldText(
+                                                                text: "CNIC No.".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseCnicController
                                                                   : controller.spousecnicControllers[index],
@@ -722,7 +763,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Mobile number".tr,
+                                                              label: FieldText(
+                                                                text: "Mobile number".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spousePhoneController
                                                                   : controller.spousemobileControllers[index],
@@ -743,7 +787,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "House/Plot".tr,
+                                                              label: FieldText(
+                                                                text: "House/Plot".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseHouseController
                                                                   : controller.spousehouseControllers[index],
@@ -757,7 +804,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Road".tr,
+                                                              label: FieldText(
+                                                                text: "Road".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseRoadController
                                                                   : controller.spouseroadControllers[index],
@@ -778,7 +828,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Street".tr,
+                                                              label: FieldText(
+                                                                text: "Street".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseStreetController
                                                                   : controller.spousestreetControllers[index],
@@ -800,7 +853,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Mohalla/Village.".tr,
+                                                              label: FieldText(
+                                                                text: "Mohalla/Village".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseVillageController
                                                                   : controller.spouseMohallaControllers[index],
@@ -813,7 +869,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Post Office/Thana".tr,
+                                                              label: FieldText(
+                                                                text: "Post Office/Thana".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spousePoController
                                                                   : controller.spouseThanaControllers[index],
@@ -834,7 +893,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "City".tr,
+                                                              label: FieldText(
+                                                                text: "City".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseCityController
                                                                   : controller.spouseCityControllers[index],
@@ -847,7 +909,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Province".tr,
+                                                              label: FieldText(
+                                                                text: "Province".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseProvinceController
                                                                   : controller.spouseProvinceControllers[index],
@@ -1203,7 +1268,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       fontSize: 16,
                                                     ).paddingOnly(left: 10, bottom: 10),
                                                     CustomTextField(
-                                                        fieldText: "Full Name".tr,
+                                                        label: FieldText(
+                                                          text: "Full Name".tr,
+                                                        ),
+                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
                                                         controller: args['status'] == Constants.formStatusRejected
                                                             ? detail?.childNameController
                                                             : controller.childfullNameControllers[index],
@@ -1219,7 +1287,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "CNIC No.".tr,
+                                                              label: FieldText(
+                                                                text: "CNIC/B-form No".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childCnicController
                                                                   : controller.childcnicControllers[index],
@@ -1237,7 +1308,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Mobile number".tr,
+                                                              label: FieldText(
+                                                                text: "Mobile number".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childPhoneController
                                                                   : controller.childmobileControllers[index],
@@ -1258,7 +1332,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "House/Plot".tr,
+                                                              label: FieldText(
+                                                                text: "House/Plot".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childHouseController
                                                                   : controller.childhouseControllers[index],
@@ -1272,8 +1349,11 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
+                                                              label: FieldText(
+                                                                text: "Road".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              fieldText: "Road".tr,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childRoadController
                                                                   : controller.childroadControllers[index],
@@ -1293,7 +1373,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Street".tr,
+                                                              label: FieldText(
+                                                                text: "Street".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childStreetController
                                                                   : controller.childstreetControllers[index],
@@ -1315,20 +1398,27 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Mohalla/Village.".tr,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childVillageController
-                                                                  : controller.childMohallaControllers[index],
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.text,
-                                                              validator: (value) {
-                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                              }),
+                                                            label: FieldText(
+                                                              text: "Mohalla/Village.".tr,
+                                                            ),
+                                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                            controller: args['status'] == Constants.formStatusRejected
+                                                                ? detail?.childVillageController
+                                                                : controller.childMohallaControllers[index],
+                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                            isFinal: false,
+                                                            keyboardType: TextInputType.text,
+                                                            // validator: (value) {
+                                                            //   return HelperFunction.empthyFieldValidator(value!);
+                                                            // }
+                                                          ),
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Post Office/Thana".tr,
+                                                              label: FieldText(
+                                                                text: "Post Office/Thana".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childPoController
                                                                   : controller.childThanaControllers[index],
@@ -1349,7 +1439,10 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                       children: [
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "City".tr,
+                                                              label: FieldText(
+                                                                text: "City".tr,
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.childCityController
                                                                   : controller.childCityControllers[index],
@@ -1362,16 +1455,20 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         ),
                                                         Expanded(
                                                           child: CustomTextField(
-                                                              fieldText: "Province".tr,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childProvinceController
-                                                                  : controller.childProvinceControllers[index],
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.text,
-                                                              validator: (value) {
-                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                              }),
+                                                            label: FieldText(
+                                                              text: "Province".tr,
+                                                            ),
+                                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                            controller: args['status'] == Constants.formStatusRejected
+                                                                ? detail?.childProvinceController
+                                                                : controller.childProvinceControllers[index],
+                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                            isFinal: false,
+                                                            keyboardType: TextInputType.text,
+                                                            // validator: (value) {
+                                                            //   return HelperFunction.empthyFieldValidator(value!);
+                                                            // }
+                                                          ),
                                                         ),
                                                       ],
                                                     ),

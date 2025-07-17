@@ -7,6 +7,7 @@ import 'package:anchorageislamabad/presentation/ownerform_screen/models/owner_fo
 import 'package:anchorageislamabad/theme/app_style.dart';
 import 'package:anchorageislamabad/widgets/custom_image_view.dart';
 import 'package:anchorageislamabad/widgets/custom_text.dart';
+import 'package:anchorageislamabad/widgets/field_text.dart';
 import 'package:csc_picker_plus/csc_picker_plus.dart';
 // import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
@@ -176,7 +177,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             CustomTextField(
-                                              fieldText: "Full Name".tr,
+                                              label: FieldText(
+                                                text: "Full Name".tr,
+                                              ),
+                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                               controller: controller.fullNameController,
                                               isFinal: false,
                                               enabled: isEditable,
@@ -190,7 +194,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               height: getVerticalSize(5),
                                             ),
                                             CustomTextField(
-                                              fieldText: "Father’s Name".tr,
+                                              label: FieldText(
+                                                text: "Father’s Name".tr,
+                                              ),
+                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                               controller: controller.fathersController,
                                               isFinal: false,
                                               enabled: isEditable,
@@ -204,7 +211,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               height: getVerticalSize(5),
                                             ),
                                             CustomTextField(
-                                              fieldText: "Telephone No.".tr,
+                                              label: FieldText(
+                                                text: "Telephone No.".tr,
+                                              ),
+                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                               controller: controller.telephoneController,
                                               isFinal: false,
                                               enabled: isEditable,
@@ -226,10 +236,17 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     child: Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text(
-                                                          "Nationality",
-                                                          style: AppStyle.txtSourceSansProRegular16Gray600
-                                                              .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            text: "Nationality",
+                                                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                            children: [
+                                                              TextSpan(
+                                                                text: ' *',
+                                                                style: TextStyle(color: Colors.red),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ).paddingOnly(
                                                           left: 10,
                                                         ),
@@ -265,10 +282,17 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(
-                                                        "Block/COMM ",
-                                                        style: AppStyle.txtSourceSansProRegular16Gray600
-                                                            .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                      RichText(
+                                                        text: TextSpan(
+                                                          text: "Block/COMM",
+                                                          style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                          children: [
+                                                            TextSpan(
+                                                              text: ' *',
+                                                              style: TextStyle(color: Colors.red),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ).paddingOnly(
                                                         left: 0,
                                                       ),
@@ -318,10 +342,17 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Text(
-                                                            "Street",
-                                                            style: AppStyle.txtSourceSansProRegular16Gray600
-                                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              text: "Street",
+                                                              style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text: ' *',
+                                                                  style: TextStyle(color: Colors.red),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ).paddingOnly(
                                                             left: 14,
                                                           ),
@@ -360,12 +391,19 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                           child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Text(
-                                                            "Plot",
-                                                            style: AppStyle.txtSourceSansProRegular16Gray600
-                                                                .copyWith(fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                          RichText(
+                                                            text: TextSpan(
+                                                              text: "Plot",
+                                                              style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                              children: [
+                                                                TextSpan(
+                                                                  text: ' *',
+                                                                  style: TextStyle(color: Colors.red),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ).paddingOnly(
-                                                            left: 14,
+                                                            left: 10,
                                                           ),
                                                           DropdownButton<Plots>(
                                                             isExpanded: true,
@@ -411,7 +449,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               children: [
                                                 Expanded(
                                                   child: CustomTextField(
-                                                    fieldText: "CNIC".tr,
+                                                    label: FieldText(
+                                                      text: "CNIC".tr,
+                                                    ),
+                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                     controller: controller.cnicController,
                                                     isFinal: false,
                                                     enabled: isEditable,
@@ -428,7 +469,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                 ),
                                                 Expanded(
                                                   child: CustomTextField(
-                                                    fieldText: "Occupation".tr,
+                                                    label: FieldText(
+                                                      text: "Occupation".tr,
+                                                    ),
+                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                     enabled: isEditable,
                                                     controller: controller.occupationController,
                                                     isFinal: false,
@@ -444,7 +488,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               height: getVerticalSize(5),
                                             ),
                                             CustomTextField(
-                                              fieldText: "Permanent Address.".tr,
+                                              label: FieldText(
+                                                text: "Permanent Address.".tr,
+                                              ),
+                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                               controller: controller.presentAddController,
                                               isFinal: false,
                                               enabled: isEditable,
@@ -458,7 +505,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                               height: getVerticalSize(5),
                                             ),
                                             CustomTextField(
-                                              fieldText: "Size of House/ Plot".tr,
+                                              label: FieldText(
+                                                text: "Size of House/ Plot.".tr,
+                                              ),
+                                              floatingLabelBehavior: FloatingLabelBehavior.never,
                                               controller: controller.sizeHouseAddController,
                                               isFinal: false,
                                               enabled: false,
@@ -480,7 +530,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     height: getVerticalSize(5),
                                                   ),
                                                   CustomTextField(
-                                                    fieldText: "Name".tr,
+                                                    label: FieldText(
+                                                      text: "Name".tr,
+                                                    ),
+                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                     controller: controller.ownerNameController,
                                                     isFinal: false,
                                                     enabled: isEditable,
@@ -494,7 +547,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     height: getVerticalSize(5),
                                                   ),
                                                   CustomTextField(
-                                                    fieldText: "Telephone No".tr,
+                                                    label: FieldText(
+                                                      text: "Telephone No".tr,
+                                                    ),
+                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                     controller: controller.ownerPhoneController,
                                                     isFinal: false,
                                                     enabled: isEditable,
@@ -508,7 +564,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     height: getVerticalSize(5),
                                                   ),
                                                   CustomTextField(
-                                                    fieldText: "CNIC No".tr,
+                                                    label: FieldText(
+                                                      text: "CNIC No".tr,
+                                                    ),
+                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                     controller: controller.ownerCNICController,
                                                     isFinal: false,
                                                     enabled: isEditable,
@@ -526,7 +585,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     height: getVerticalSize(5),
                                                   ),
                                                   CustomTextField(
-                                                    fieldText: "Present Address".tr,
+                                                    label: FieldText(
+                                                      text: "Present Address".tr,
+                                                    ),
+                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                     controller: controller.ownerPresenttAddressController,
                                                     isFinal: false,
                                                     enabled: isEditable,
@@ -540,6 +602,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                     height: getVerticalSize(5),
                                                   ),
                                                   CustomTextField(
+                                                    label: FieldText(
+                                                      text: "Permanent Address".tr,
+                                                    ),
+                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                     fieldText: "Permanent Address".tr,
                                                     controller: controller.ownerPermanentAddressController,
                                                     isFinal: false,
@@ -553,10 +619,17 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                   SizedBox(
                                                     height: getVerticalSize(10),
                                                   ),
-                                                  MyText(
-                                                    clr: ColorConstant.gray600,
-                                                    fontSize: 14,
-                                                    title: "Size of House/Plot ",
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      text: "Size of House/Plot ",
+                                                      style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                      children: [
+                                                        TextSpan(
+                                                          text: ' *',
+                                                          style: TextStyle(color: Colors.red),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ).paddingOnly(
                                                     left: 10,
                                                   ),
@@ -616,15 +689,22 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Padding(
-                                                                  padding: getPadding(
-                                                                    left: 10,
-                                                                  ),
-                                                                  child: Text(
-                                                                    "Allotment Letter held:",
-                                                                    style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
-                                                                        fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
-                                                                  ),
-                                                                ),
+                                                                    padding: getPadding(
+                                                                      left: 10,
+                                                                    ),
+                                                                    child: RichText(
+                                                                      text: TextSpan(
+                                                                        text: "Allotment Letter held:",
+                                                                        style: TextStyle(
+                                                                            color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                                        children: [
+                                                                          TextSpan(
+                                                                            text: ' *',
+                                                                            style: TextStyle(color: Colors.red),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    )),
                                                                 SizedBox(
                                                                   height: getVerticalSize(10),
                                                                 ),
@@ -732,15 +812,22 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
                                                                 Container(
-                                                                  width: .5.sw,
+                                                                  width: .6.sw,
                                                                   child: Padding(
-                                                                    padding: getPadding(left: 0.w),
-                                                                    child: Text(
-                                                                      "Completion certificate held:",
-                                                                      style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
-                                                                          fontSize: 14, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
-                                                                    ),
-                                                                  ),
+                                                                      padding: getPadding(left: 0.w),
+                                                                      child: RichText(
+                                                                        text: TextSpan(
+                                                                          text: "Completion certificate held:",
+                                                                          style: TextStyle(
+                                                                              color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                                          children: [
+                                                                            TextSpan(
+                                                                              text: ' *',
+                                                                              style: TextStyle(color: Colors.red),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      )),
                                                                 ),
                                                                 SizedBox(
                                                                   height: getVerticalSize(10),
@@ -1092,7 +1179,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               children: [
                                                                 Expanded(
                                                                   child: CustomTextField(
-                                                                    fieldText: "License Number".tr,
+                                                                    label: FieldText(
+                                                                      text: "License Number".tr,
+                                                                    ),
+                                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                     controller: controller.privateLicenseController,
                                                                     isFinal: false,
                                                                     enabled: isEditable,
@@ -1105,7 +1195,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                 ),
                                                                 Expanded(
                                                                   child: CustomTextField(
-                                                                    fieldText: "Arms Quantity".tr,
+                                                                    label: FieldText(
+                                                                      text: "Arms Quantity".tr,
+                                                                    ),
+                                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                     controller: controller.privateArmsController,
                                                                     isFinal: false,
                                                                     enabled: isEditable,
@@ -1125,7 +1218,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               children: [
                                                                 Expanded(
                                                                   child: CustomTextField(
-                                                                    fieldText: "Ammunition Quantity".tr,
+                                                                    label: FieldText(
+                                                                      text: "Ammunition Quantity".tr,
+                                                                    ),
+                                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                     controller: controller.privateAmmunitionController,
                                                                     isFinal: false,
                                                                     enabled: isEditable,
@@ -1138,7 +1234,10 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                 ),
                                                                 Expanded(
                                                                   child: CustomTextField(
-                                                                    fieldText: "Bore/Type".tr,
+                                                                    label: FieldText(
+                                                                      text: "Bore/Type".tr,
+                                                                    ),
+                                                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                     controller: controller.privateBoreController,
                                                                     isFinal: false,
                                                                     enabled: isEditable,
@@ -1384,8 +1483,11 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                     children: [
                                                                       Expanded(
                                                                         child: CustomTextField(
+                                                                          label: FieldText(
+                                                                            text: "Vehicle Type".tr,
+                                                                          ),
+                                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                           enabled: isEditable,
-                                                                          fieldText: "Vehicle Type".tr,
                                                                           controller: args['status'] == Constants.formStatusRejected
                                                                               ? detail?.vehicleTypeController
                                                                               : controller.vehicleTypeControllers[index],
@@ -1399,8 +1501,11 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                       ),
                                                                       Expanded(
                                                                         child: CustomTextField(
+                                                                          label: FieldText(
+                                                                            text: "Registration No.".tr,
+                                                                          ),
+                                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                           enabled: isEditable,
-                                                                          fieldText: "Registration No.".tr,
                                                                           controller: args['status'] == Constants.formStatusRejected
                                                                               ? detail?.registrationController
                                                                               : controller.vehicleRegisterNoControllers[index],
@@ -1421,8 +1526,11 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                     children: [
                                                                       Expanded(
                                                                         child: CustomTextField(
+                                                                          label: FieldText(
+                                                                            text: "Color".tr,
+                                                                          ),
+                                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                           enabled: isEditable,
-                                                                          fieldText: "Color".tr,
                                                                           controller: args['status'] == Constants.formStatusRejected
                                                                               ? detail?.colorController
                                                                               : controller.vehicleColorControllers[index],
@@ -1436,8 +1544,11 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                       ),
                                                                       Expanded(
                                                                         child: CustomTextField(
+                                                                          label: FieldText(
+                                                                            text: "Sticker No.".tr,
+                                                                          ),
+                                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
                                                                           enabled: isEditable,
-                                                                          fieldText: "Sticker No.".tr,
                                                                           controller: args['status'] == Constants.formStatusRejected
                                                                               ? detail?.stickerNoController
                                                                               : controller.vehicleStikerControllers[index],
@@ -1456,13 +1567,20 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                   Row(
                                                                     children: [
                                                                       Padding(
-                                                                        padding: getPadding(left: 10),
-                                                                        child: MyText(
-                                                                          title: "E-Tag",
-                                                                          clr: ColorConstant.antextlightgray,
-                                                                          fontSize: 14,
-                                                                        ),
-                                                                      ),
+                                                                          padding: getPadding(left: 10),
+                                                                          child: RichText(
+                                                                            text: TextSpan(
+                                                                              text: "E-Tag",
+                                                                              style: TextStyle(
+                                                                                  color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                                              children: [
+                                                                                TextSpan(
+                                                                                  text: ' *',
+                                                                                  style: TextStyle(color: Colors.red),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          )),
                                                                       SizedBox(
                                                                         width: getHorizontalSize(20),
                                                                       ),
@@ -1603,7 +1721,6 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                       height: getVerticalSize(10),
                                     ),
                                     CustomExpansionTile(
-                                      
                                       expanded: true,
                                       title: MyText(
                                         title: 'Required Documents',
