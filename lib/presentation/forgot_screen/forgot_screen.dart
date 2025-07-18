@@ -82,7 +82,11 @@ class ForgotPassScreen extends GetWidget<ForgotPassController> {
                             height: getVerticalSize(5),
                           ),
                           CustomTextField(
-                            fieldText: "lbl_email_address".tr,
+                            label: Text(
+                              "lbl_email_address".tr,
+                              style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             controller: controller.emailController,
                             isFinal: false,
                             keyboardType: TextInputType.emailAddress,

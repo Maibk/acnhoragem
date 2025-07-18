@@ -99,7 +99,11 @@ class ResestPassScreen extends GetWidget<ResetController> {
                             height: getVerticalSize(5),
                           ),
                           CustomTextField(
-                            fieldText: "New Password".tr,
+                            label: Text(
+                              "New Password".tr,
+                              style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             controller: controller.passwordController,
                             isFinal: false,
                             // keyboardType: TextInputType.visiblePassword,

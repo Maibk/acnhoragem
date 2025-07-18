@@ -1266,12 +1266,12 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                             behavior: HitTestBehavior.opaque,
                                                             onTap: () {
                                                               controller.updateVehicle("Yes");
-                                                              if (args['status'] == Constants.formStatusRejected) {
+                                                              if (args['status'] != Constants.formStatusPending) {
                                                                 setState(() {
                                                                   controller.ownerFormModel.data?.vehicleStatus = "Yes";
                                                                   controller.eTag.add("");
                                                                   controller.ownerFormModel.data?.vehicle = [Vehicle()];
-                                                                  controller.vehicleFormKey.add(GlobalKey());
+                                                                  controller.vehicleFormKey.add(GlobalKey<FormState>());
                                                                 });
                                                               }
                                                             },

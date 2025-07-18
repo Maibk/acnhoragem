@@ -198,7 +198,15 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                     ],
                                   ),
                                   SizedBox(height: getVerticalSize(10)),
-                                  MyText(title: "Select Property", fontSize: 12.h),
+                                  Row(
+                                    children: [
+                                      MyText(title: "Select Property", fontSize: 12.h),
+                                      MyText(
+                                        title: ' *',
+                                        clr: Colors.red,
+                                      ),
+                                    ],
+                                  ),
                                   SizedBox(height: getVerticalSize(10)),
                                   Container(
                                     width: Get.width,
@@ -225,7 +233,15 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                     ),
                                   ),
                                   SizedBox(height: getVerticalSize(10)),
-                                  MyText(title: "Complaint Category", fontSize: 12.h),
+                                  Row(
+                                    children: [
+                                      MyText(title: "Complaint Category", fontSize: 12.h),
+                                      MyText(
+                                        title: ' *',
+                                        clr: Colors.red,
+                                      ),
+                                    ],
+                                  ),
                                   SizedBox(height: getVerticalSize(10)),
                                   Container(
                                     width: Get.width,
@@ -250,7 +266,15 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                     ),
                                   ),
                                   SizedBox(height: 20.0),
-                                  MyText(title: "Complaint Type", fontSize: 12.h),
+                                  Row(
+                                    children: [
+                                      MyText(title: "Complaint Type", fontSize: 12.h),
+                                      MyText(
+                                        title: ' *',
+                                        clr: Colors.red,
+                                      ),
+                                    ],
+                                  ),
                                   Container(
                                     width: Get.width,
                                     child: DropdownButton<FindDepartments>(
@@ -276,14 +300,25 @@ class _CreateNewComplaintScreenState extends State<CreateNewComplaintScreen> {
                                     ),
                                   ),
                                   SizedBox(height: getVerticalSize(10)),
-                                  MyText(title: "Description", fontSize: 12),
+                                  Row(
+                                    children: [
+                                      MyText(title: "Description", fontSize: 12),
+                                      MyText(
+                                        title: ' *',
+                                        clr: Colors.red,
+                                      ),
+                                    ],
+                                  ),
                                   SizedBox(height: getVerticalSize(10)),
                                   CustomTextField(
-                                    fieldText: "Enter Description".tr,
+                                    label: Text(
+                                      "Enter Description".tr,
+                                      style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                                    ),
+                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                     controller: controller.descriptionController,
                                     isFinal: false,
                                     maxLines: 2,
-                                    floatingLabelBehavior: FloatingLabelBehavior.never,
                                     keyboardType: TextInputType.emailAddress,
                                     limit: 250,
                                     validator: (value) {

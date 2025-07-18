@@ -191,7 +191,11 @@ class SignUpScreen extends GetWidget<SignUpController> {
                           height: getVerticalSize(5),
                         ),
                         CustomTextField(
-                          fieldText: "First Name".tr,
+                          label: Text(
+                            "First Name".tr,
+                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           controller: controller.firstNameController,
                           isFinal: false,
                           keyboardType: TextInputType.emailAddress,
@@ -204,7 +208,11 @@ class SignUpScreen extends GetWidget<SignUpController> {
                           height: getVerticalSize(5),
                         ),
                         CustomTextField(
-                          fieldText: "Last Name".tr,
+                          label: Text(
+                            "Last Name".tr,
+                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           controller: controller.lastNameController,
                           isFinal: false,
                           keyboardType: TextInputType.emailAddress,
@@ -213,11 +221,15 @@ class SignUpScreen extends GetWidget<SignUpController> {
                             return HelperFunction.validateAlphabetsOnly(value!);
                           },
                         ),
-                           SizedBox(
+                        SizedBox(
                           height: getVerticalSize(5),
                         ),
                         CustomTextField(
-                          fieldText: "Present address".tr,
+                          label: Text(
+                            "Present address".tr,
+                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           controller: controller.presentAddressController,
                           isFinal: false,
                           keyboardType: TextInputType.emailAddress,
@@ -230,7 +242,11 @@ class SignUpScreen extends GetWidget<SignUpController> {
                           height: getVerticalSize(5),
                         ),
                         CustomTextField(
-                          fieldText: "lbl_email_address".tr,
+                          label: Text(
+                            "lbl_email_address".tr,
+                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           controller: controller.emailController,
                           isFinal: false,
                           keyboardType: TextInputType.emailAddress,
@@ -252,7 +268,11 @@ class SignUpScreen extends GetWidget<SignUpController> {
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(30),
                             ],
-                            fieldText: "lbl_password".tr,
+                            label: Text(
+                              "lbl_password".tr,
+                              style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             controller: controller.passwordController,
                             isFinal: false,
                             keyboardType: TextInputType.visiblePassword,
@@ -266,7 +286,11 @@ class SignUpScreen extends GetWidget<SignUpController> {
                           height: getVerticalSize(5),
                         ),
                         CustomTextField(
-                          fieldText: "Mobile Number".tr,
+                          label: Text(
+                            "Mobile Number".tr,
+                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           controller: controller.phoneController,
                           isFinal: false,
                           keyboardType: TextInputType.phone,

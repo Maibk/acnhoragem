@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:anchorageislamabad/core/utils/size_utils.dart';
 import 'package:anchorageislamabad/widgets/common_image_view.dart';
+import 'package:anchorageislamabad/widgets/field_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -72,8 +73,12 @@ class LoginScreen extends GetWidget<LoginController> {
                           height: getVerticalSize(5),
                         ),
                         CustomTextField(
-                          fieldText: "lbl_email_address".tr,
                           controller: controller.emailController,
+                          label: Text(
+                            "lbl_email_address".tr,
+                            style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           isFinal: false,
                           keyboardType: TextInputType.emailAddress,
                           limit: HelperFunction.EMAIL_VALIDATION,
@@ -97,7 +102,11 @@ class LoginScreen extends GetWidget<LoginController> {
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(30),
                             ],
-                            fieldText: "lbl_password".tr,
+                            label: Text(
+                              "lbl_password".tr,
+                              style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 13),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
                             controller: controller.passwordController,
                             isFinal: false,
                             keyboardType: TextInputType.visiblePassword,
