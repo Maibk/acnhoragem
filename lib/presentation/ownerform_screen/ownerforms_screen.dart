@@ -176,7 +176,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             label: FieldText(
                                               text: "Full Name".tr,
                                             ),
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                                             controller: controller.fullNameController,
                                             isFinal: false,
                                             enabled: isEditable,
@@ -193,7 +193,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             label: FieldText(
                                               text: "Telephone No.".tr,
                                             ),
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                                             controller: controller.telephoneController,
                                             isFinal: false,
                                             enabled: isEditable,
@@ -433,7 +433,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                   label: FieldText(
                                                     text: "CNIC".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   controller: controller.cnicController,
                                                   isFinal: false,
                                                   enabled: isEditable,
@@ -453,7 +453,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                   label: FieldText(
                                                     text: "Occupation".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   controller: controller.occupationController,
                                                   isFinal: false,
                                                   enabled: isEditable,
@@ -472,7 +472,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             label: FieldText(
                                               text: "Present Address.".tr,
                                             ),
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                                             controller: controller.presentAddController,
                                             isFinal: false,
                                             enabled: isEditable,
@@ -489,7 +489,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                             label: FieldText(
                                               text: "Permanent Address.".tr,
                                             ),
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                                             controller: controller.permanantAddController,
                                             isFinal: false,
                                             enabled: isEditable,
@@ -861,7 +861,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                   label: FieldText(
                                                     text: "Size of House/ Plot.".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   controller: controller.sizeHouseAddController,
                                                   isFinal: false,
                                                   enabled: false,
@@ -1146,7 +1146,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                   label: FieldText(
                                                                     text: "License Number".tr,
                                                                   ),
-                                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                   controller: controller.privateLicenseController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
@@ -1162,7 +1162,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                   label: FieldText(
                                                                     text: "Arms Quantity".tr,
                                                                   ),
-                                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                   controller: controller.privateArmsController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.number,
@@ -1185,7 +1185,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                   label: FieldText(
                                                                     text: "Ammunition Quantity".tr,
                                                                   ),
-                                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                   controller: controller.armQuantityController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
@@ -1201,7 +1201,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                   label: FieldText(
                                                                     text: "Bore/Type".tr,
                                                                   ),
-                                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                   controller: controller.privateBoreController,
                                                                   isFinal: false,
                                                                   keyboardType: TextInputType.emailAddress,
@@ -1250,10 +1250,19 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                     children: [
                                                       Padding(
                                                         padding: getPadding(left: 10),
-                                                        child: MyText(
-                                                          title: "VEHICLE(s) IN USE",
-                                                          clr: ColorConstant.antextlightgray,
-                                                          fontSize: 14,
+                                                        child: Row(
+                                                          spacing: 5,
+                                                          children: [
+                                                            MyText(
+                                                              title: "VEHICLE(s) IN USE",
+                                                              clr: ColorConstant.antextlightgray,
+                                                              fontSize: 14,
+                                                            ),
+                                                            MyText(
+                                                              title: " *",
+                                                              clr: Colors.red,
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                       SizedBox(
@@ -1451,7 +1460,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         label: FieldText(
                                                                           text: "Vehicle Type".tr,
                                                                         ),
-                                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                         controller: args['status'] == Constants.formStatusRejected
                                                                             ? detail?.vehicleTypeController
                                                                             : controller.vehicleTypeControllers[index],
@@ -1469,7 +1478,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         label: FieldText(
                                                                           text: "Registration No.".tr,
                                                                         ),
-                                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                         controller: args['status'] == Constants.formStatusRejected
                                                                             ? detail?.registrationController
                                                                             : controller.vehicleRegisterNoControllers[index],
@@ -1495,7 +1504,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         label: FieldText(
                                                                           text: "Color".tr,
                                                                         ),
-                                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                         controller: args['status'] == Constants.formStatusRejected
                                                                             ? detail?.colorController
                                                                             : controller.vehicleColorControllers[index],
@@ -1513,7 +1522,7 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                         label: FieldText(
                                                                           text: "Sticker No.".tr,
                                                                         ),
-                                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                         controller: args['status'] == Constants.formStatusRejected
                                                                             ? detail?.stickerNoController
                                                                             : controller.vehicleStikerControllers[index],
@@ -1603,7 +1612,6 @@ class _OwnerFornsScreenState extends State<OwnerFornsScreen> {
                                                                               controller.eTag[index] = "No";
                                                                             });
 
-                                                                            // controller.updateEtag("No");
                                                                           },
                                                                           child: Row(
                                                                             children: [

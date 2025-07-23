@@ -170,7 +170,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             label: FieldText(
                                               text: "Full Name".tr,
                                             ),
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
                                             controller: controller.fullNameController,
                                             isFinal: false,
@@ -187,7 +187,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                             label: FieldText(
                                               text: "Father’s Name".tr,
                                             ),
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
                                             controller: controller.fathersController,
                                             isFinal: false,
@@ -208,7 +208,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   label: FieldText(
                                                     text: "CNIC No.".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                   controller: controller.cnicController,
                                                   isFinal: false,
@@ -228,7 +228,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                   label: FieldText(
                                                     text: "Mobile number".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                   controller: controller.mobileController,
                                                   isFinal: false,
@@ -428,7 +428,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           // label: FieldText(
                                           //               text: "Province".tr,
                                           //             ),
-                                          //             floatingLabelBehavior: FloatingLabelBehavior.never,
+                                          //             floatingLabelBehavior: FloatingLabelBehavior.auto,
                                           //         fieldText: "Road".tr,
                                           //         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                           //         controller: controller.roadController,
@@ -445,7 +445,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                           // label: FieldText(
                                           //               text: "Province".tr,
                                           //             ),
-                                          //             floatingLabelBehavior: FloatingLabelBehavior.never,
+                                          //             floatingLabelBehavior: FloatingLabelBehavior.auto,
                                           //         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                           //         fieldText: "Colony/Residential Area Name".tr,
                                           //         controller: controller.colonyController,
@@ -766,7 +766,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         label: FieldText(
                                                           text: "Full Name".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         controller: args['status'] == Constants.formStatusRejected
                                                             ? detail?.servantNameController
@@ -784,7 +784,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                         label: FieldText(
                                                           text: "Father’s Name".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         controller: args['status'] == Constants.formStatusRejected
                                                             ? detail?.servantFatherController
@@ -806,7 +806,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "CNIC No.".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantCnicController
@@ -827,7 +827,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Mobile number".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantPhoneController
@@ -866,7 +866,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "House/Plot".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantHouseController
@@ -883,7 +883,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Road".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantRoadController
@@ -907,7 +907,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Street".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantStreetController
@@ -924,7 +924,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Mohalla/Village".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantVillageController
@@ -951,7 +951,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Post Office/Thana".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantPoController
@@ -968,7 +968,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "City".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantCityController
@@ -992,7 +992,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Province".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.servantProvinceController
@@ -1488,7 +1488,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           label: FieldText(
                                                             text: "Full Name".tr,
                                                           ),
-                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                           enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                           controller: args['status'] == Constants.formStatusRejected
                                                               ? detail?.familyNameController
@@ -1506,7 +1506,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           label: FieldText(
                                                             text: "Occupation".tr,
                                                           ),
-                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                           enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                           controller: args['status'] == Constants.formStatusRejected
                                                               ? detail?.familyOccupationController
@@ -1528,7 +1528,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                 label: FieldText(
                                                                   text: "N.I.C / FORM ‘B’".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.familyNicController
@@ -1549,7 +1549,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                                 label: FieldText(
                                                                   text: "Mobile number".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.familyCellController
@@ -1569,7 +1569,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                           label: FieldText(
                                                             text: "Present Address".tr,
                                                           ),
-                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                           enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                           controller: args['status'] == Constants.formStatusRejected
                                                               ? detail?.familyAddressController
@@ -1685,7 +1685,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 label: FieldText(
                                                   text: "SIGNATURE OF OWNER:".tr,
                                                 ),
-                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                 readOnly: true,
                                                 fontStyle: FontStyle.italic,
@@ -1703,7 +1703,7 @@ class _ServentFormsScreenState extends State<ServentFormsScreen> {
                                                 label: FieldText(
                                                   text: "mm/dd/yyyy".tr,
                                                 ),
-                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                 readOnly: true,
                                                 controller: controller.serventdateController,

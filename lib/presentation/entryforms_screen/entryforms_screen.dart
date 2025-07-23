@@ -167,7 +167,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             label: FieldText(
                                               text: "Full Name".tr,
                                             ),
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                                             controller: controller.fullNameController,
                                             isFinal: false,
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -184,7 +184,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                             label: FieldText(
                                               text: "Father’s Name".tr,
                                             ),
-                                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                                             controller: controller.fathersController,
                                             isFinal: false,
                                             enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -205,7 +205,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   label: FieldText(
                                                     text: "CNIC No.".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   controller: controller.cnicController,
                                                   isFinal: false,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
@@ -225,7 +225,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                   label: FieldText(
                                                     text: "Mobile number".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   fieldText: "Mobile number".tr,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                   controller: controller.mobileController,
@@ -727,7 +727,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                         label: FieldText(
                                                           text: "Full Name".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         controller: args['status'] == Constants.formStatusRejected
                                                             ? detail?.spouseNameController
                                                             : controller.spousefullNameControllers[index],
@@ -746,7 +746,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "CNIC No.".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseCnicController
                                                                   : controller.spousecnicControllers[index],
@@ -766,7 +766,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Mobile number".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spousePhoneController
                                                                   : controller.spousemobileControllers[index],
@@ -790,7 +790,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "House/Plot".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseHouseController
                                                                   : controller.spousehouseControllers[index],
@@ -807,7 +807,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Road".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseRoadController
                                                                   : controller.spouseroadControllers[index],
@@ -831,7 +831,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Street".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseStreetController
                                                                   : controller.spousestreetControllers[index],
@@ -856,7 +856,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Mohalla/Village".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseVillageController
                                                                   : controller.spouseMohallaControllers[index],
@@ -872,7 +872,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Post Office/Thana".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spousePoController
                                                                   : controller.spouseThanaControllers[index],
@@ -896,7 +896,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "City".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseCityController
                                                                   : controller.spouseCityControllers[index],
@@ -912,7 +912,7 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                               label: FieldText(
                                                                 text: "Province".tr,
                                                               ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                               controller: args['status'] == Constants.formStatusRejected
                                                                   ? detail?.spouseProvinceController
                                                                   : controller.spouseProvinceControllers[index],
@@ -1168,535 +1168,674 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                           fontSize: 16,
                                         ),
                                         children: <Widget>[
-                                          ListView.builder(
-                                            shrinkWrap: true,
-                                            physics: const NeverScrollableScrollPhysics(),
-                                            padding: EdgeInsets.zero,
-                                            itemCount: args['status'] != ""
-                                                ? (controller.entryFormDataModel.data?.childDetail?.length ?? 0) +
-                                                    (args['status'] == Constants.formStatusRejected ? 1 : 0)
-                                                : controller.childfullNameControllers.length + 1,
-                                            itemBuilder: (context, index) {
-                                              childIndex = index;
-                                              bool isLastIndex = index ==
-                                                  (args['status'] != ""
-                                                      ? (controller.entryFormDataModel.data?.childDetail?.length ?? 0)
-                                                      : controller.childfullNameControllers.length);
-
-                                              if (isLastIndex && (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
-                                                return Padding(
-                                                  padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
-                                                  child: MyAnimatedButton(
-                                                    radius: 5.0,
-                                                    height: getVerticalSize(50),
-                                                    width: getHorizontalSize(400),
-                                                    fontSize: 16,
-                                                    bgColor: ColorConstant.anbtnBlue,
-                                                    controller: controller.btnControllerUseLess,
-                                                    title: "Add Child".tr,
-                                                    onTap: () async {
-                                                      if (args['status'] == Constants.formStatusRejected) {
-                                                        if (_value.childEntryFormKey[index - 1].currentState?.validate() ?? true) {
-                                                          if (controller.childImages[index - 1].path == "") {
-                                                            Utils.showToast("Please attach child image", true);
-                                                          } else if (controller.childCnicsfronts[index - 1].path == "") {
-                                                            Utils.showToast("Please attach child cnic front image", true);
-                                                          } else if (controller.childCnicBacks[index - 1].path == "") {
-                                                            Utils.showToast("Please attach child cnic back image", true);
-                                                          } else {
-                                                            controller.childImages.add(File(""));
-                                                            controller.childCnicsfronts.add(File(""));
-                                                            controller.childCnicBacks.add(File(""));
-                                                            controller.entryFormDataModel.data?.childDetail?.add(ChildDetail());
-                                                            _value.childEntryFormKey.add(GlobalKey<FormState>());
-                                                            controller.update();
-                                                          }
-                                                        }
-                                                      } else {
-                                                        _value.childEntryFormKey.add(GlobalKey<FormState>());
-
-                                                        controller.childEntryFormAPi(context, index - 1);
-                                                      }
-                                                    },
-                                                  ),
-                                                );
-                                              }
-                                              ChildDetail? detail;
-                                              if ((controller.entryFormDataModel.data?.childDetail?.length ?? 0) > 0 &&
-                                                  index < (controller.entryFormDataModel.data?.childDetail?.length ?? 0)) {
-                                                detail = controller.entryFormDataModel.data?.childDetail?[index];
-                                              }
-
-                                              return Form(
-                                                key: controller.childEntryFormKey[index],
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                          AbsorbPointer(
+                                            absorbing: !isEditable,
+                                            child: Column(
+                                              children: [
+                                                Row(
                                                   children: [
-                                                    if (index != 0)
-                                                      if (args['status'] != Constants.formStatusPending)
-                                                        Row(
-                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                    Padding(
+                                                      padding: getPadding(left: 10),
+                                                      child: RichText(
+                                                        text: TextSpan(
+                                                          text: "Do you have children?".tr,
+                                                          style: AppStyle.txtSourceSansProRegular16Gray600
+                                                              .copyWith(fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
                                                           children: [
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  if (args['status'] == Constants.formStatusRejected) {
-                                                                    controller.childImages.removeAt(index);
-                                                                    controller.childCnicsfronts.removeAt(index);
-                                                                    controller.childCnicBacks.removeAt(index);
-
-                                                                    controller.entryFormDataModel.data?.childDetail?.removeAt(index);
-                                                                  } else {
-                                                                    controller.childfullNameControllers.removeAt(index);
-                                                                  }
-                                                                });
-                                                              },
-                                                              child: Container(
-                                                                  margin: EdgeInsets.only(right: 15, top: 10),
-                                                                  padding: EdgeInsets.all(8),
-                                                                  decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                                                                  child: Icon(
-                                                                    Icons.delete_outlined,
-                                                                    color: Colors.white,
-                                                                  )),
+                                                            TextSpan(
+                                                              text: ' *',
+                                                              style: TextStyle(color: Colors.red),
                                                             ),
                                                           ],
-                                                        ),
-                                                    MyText(
-                                                      title: 'Child ${index + 1}',
-                                                      clr: ColorConstant.black900,
-                                                      fontSize: 16,
-                                                    ).paddingOnly(left: 10, bottom: 10),
-                                                    CustomTextField(
-                                                        label: FieldText(
-                                                          text: "Full Name".tr,
-                                                        ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                        controller: args['status'] == Constants.formStatusRejected
-                                                            ? detail?.childNameController
-                                                            : controller.childfullNameControllers[index],
-                                                        enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                        isFinal: false,
-                                                        keyboardType: TextInputType.emailAddress,
-                                                        limit: HelperFunction.EMAIL_VALIDATION,
-                                                        validator: (value) {
-                                                          return HelperFunction.validateAlphabetsOnly(value!);
-                                                        }),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              label: FieldText(
-                                                                text: "CNIC/B-form No".tr,
-                                                              ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childCnicController
-                                                                  : controller.childcnicControllers[index],
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              isFinal: false,
-                                                              inputFormatters: [
-                                                                FilteringTextInputFormatter.digitsOnly,
-                                                                TextInputFormatterWithPattern('#####-#######-#'),
-                                                              ],
-                                                              keyboardType: TextInputType.number,
-                                                              limit: HelperFunction.EMAIL_VALIDATION,
-                                                              validator: (value) {
-                                                                return HelperFunction.cnicValidator(value!);
-                                                              }),
-                                                        ),
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              label: FieldText(
-                                                                text: "Mobile number".tr,
-                                                              ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childPhoneController
-                                                                  : controller.childmobileControllers[index],
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.phone,
-                                                              validator: (value) {
-                                                                return HelperFunction.validatePakistaniPhoneNumber(value!);
-                                                              }),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              label: FieldText(
-                                                                text: "House/Plot".tr,
-                                                              ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childHouseController
-                                                                  : controller.childhouseControllers[index],
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.emailAddress,
-                                                              limit: HelperFunction.EMAIL_VALIDATION,
-                                                              validator: (value) {
-                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                              }),
-                                                        ),
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              label: FieldText(
-                                                                text: "Road".tr,
-                                                              ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childRoadController
-                                                                  : controller.childroadControllers[index],
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.emailAddress,
-                                                              validator: (value) {
-                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                              }),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              label: FieldText(
-                                                                text: "Street".tr,
-                                                              ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childStreetController
-                                                                  : controller.childstreetControllers[index],
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.emailAddress,
-                                                              limit: HelperFunction.EMAIL_VALIDATION,
-                                                              validator: (value) {
-                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                              }),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                            label: FieldText(
-                                                              text: "Mohalla/Village.".tr,
-                                                            ),
-                                                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                            controller: args['status'] == Constants.formStatusRejected
-                                                                ? detail?.childVillageController
-                                                                : controller.childMohallaControllers[index],
-                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                            isFinal: false,
-                                                            keyboardType: TextInputType.text,
-                                                            // validator: (value) {
-                                                            //   return HelperFunction.empthyFieldValidator(value!);
-                                                            // }
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              label: FieldText(
-                                                                text: "Post Office/Thana".tr,
-                                                              ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childPoController
-                                                                  : controller.childThanaControllers[index],
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.text,
-                                                              validator: (value) {
-                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                              }),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                              label: FieldText(
-                                                                text: "City".tr,
-                                                              ),
-                                                              floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                              controller: args['status'] == Constants.formStatusRejected
-                                                                  ? detail?.childCityController
-                                                                  : controller.childCityControllers[index],
-                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                              isFinal: false,
-                                                              keyboardType: TextInputType.text,
-                                                              validator: (value) {
-                                                                return HelperFunction.empthyFieldValidator(value!);
-                                                              }),
-                                                        ),
-                                                        Expanded(
-                                                          child: CustomTextField(
-                                                            label: FieldText(
-                                                              text: "Province".tr,
-                                                            ),
-                                                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                                                            controller: args['status'] == Constants.formStatusRejected
-                                                                ? detail?.childProvinceController
-                                                                : controller.childProvinceControllers[index],
-                                                            enabled: args['status'] == Constants.formStatusPending ? false : true,
-                                                            isFinal: false,
-                                                            keyboardType: TextInputType.text,
-                                                            // validator: (value) {
-                                                            //   return HelperFunction.empthyFieldValidator(value!);
-                                                            // }
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(5),
-                                                    ),
-                                                    if (args['status'] != "")
-                                                      if (controller.childImages[index].path.isEmpty ||
-                                                          !controller.childImages[index].path.startsWith("http"))
-                                                        SizedBox.shrink()
-                                                      else
-                                                        Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            MyText(title: "Attachment").paddingOnly(left: 10),
-                                                            5.verticalSpace,
-                                                            Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  radius: BorderRadius.circular(6),
-                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childImage ?? "",
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            5.verticalSpace,
-                                                          ],
-                                                        ),
-                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: CustomButton(
-                                                          width: getHorizontalSize(350),
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorConstant.whiteA700,
-                                                          label: "Attach a clear image of child".tr,
-                                                          textColor: ColorConstant.anbtnBlue,
-                                                          borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: controller.childImages[index].path == "" || controller.childImages[index].isBlank!
-                                                              ? Icon(
-                                                                  Icons.add_circle_outline,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                  size: 19.r,
-                                                                )
-                                                              : Icon(
-                                                                  Icons.check_circle_sharp,
-                                                                  size: 19.r,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                ),
-                                                          onPressed: () async {
-                                                            imageGalleryClass.imageGalleryBottomSheet(
-                                                              context: context,
-                                                              onCameraTap: () async {
-                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
-                                                                if (result != null) {
-                                                                  controller.childImages[index] = File(result.path);
-                                                                }
-                                                                setState(() {});
-                                                                Get.back();
-                                                              },
-                                                              onGalleryTap: () async {
-                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
-                                                                if (result != null) {
-                                                                  controller.childImages[index] = File(result.path);
-                                                                }
-                                                                setState(() {});
-                                                                Get.back();
-                                                              },
-                                                            );
-                                                          },
                                                         ),
                                                       ),
-                                                    SizedBox(
-                                                      height: getVerticalSize(15),
                                                     ),
-                                                    if (args['status'] != "")
-                                                      if (controller.childCnicsfronts[index].path.isEmpty ||
-                                                          !controller.childCnicsfronts[index].path.startsWith("http"))
-                                                        SizedBox.shrink()
-                                                      else
-                                                        Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            MyText(title: "Attachment").paddingOnly(left: 10),
-                                                            5.verticalSpace,
-                                                            Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  radius: BorderRadius.circular(6),
-                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childCnicFront ?? "",
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            5.verticalSpace,
-                                                          ],
-                                                        ),
-                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: CustomButton(
-                                                          width: getHorizontalSize(350),
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorConstant.whiteA700,
-                                                          label: "Attach child's CNIC front images".tr,
-                                                          textColor: ColorConstant.anbtnBlue,
-                                                          borderColor: ColorConstant.anbtnBlue,
-                                                          prefix: controller.childCnicsfronts[index].path == "" ||
-                                                                  controller.childCnicsfronts[index].isBlank!
-                                                              ? Icon(
-                                                                  Icons.add_circle_outline,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                  size: 19.r,
-                                                                )
-                                                              : Icon(
-                                                                  Icons.check_circle_sharp,
-                                                                  size: 19.r,
-                                                                  color: ColorConstant.anbtnBlue,
-                                                                ),
-                                                          onPressed: () async {
-                                                            imageGalleryClass.imageGalleryBottomSheet(
-                                                              context: context,
-                                                              onCameraTap: () async {
-                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
-                                                                if (result != null) {
-                                                                  controller.childCnicsfronts[index] = File(result.path);
-                                                                }
-                                                                setState(() {});
-                                                                Get.back();
-                                                              },
-                                                              onGalleryTap: () async {
-                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
-                                                                if (result != null) {
-                                                                  controller.childCnicsfronts[index] = File(result.path);
-                                                                }
-                                                                setState(() {});
-                                                                Get.back();
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
                                                     SizedBox(
-                                                      height: getVerticalSize(15),
+                                                      width: getHorizontalSize(20),
                                                     ),
-                                                    if (args['status'] != "")
-                                                      if (controller.childCnicBacks[index].path.isEmpty ||
-                                                          !controller.childCnicBacks[index].path.startsWith("http"))
-                                                        SizedBox.shrink()
-                                                      else
-                                                        Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            MyText(title: "Attachment").paddingOnly(left: 10),
-                                                            5.verticalSpace,
-                                                            Padding(
-                                                              padding: getPadding(left: 10, right: 10),
-                                                              child: Container(
-                                                                width: getHorizontalSize(350),
-                                                                color: ColorConstant.whiteA700,
-                                                                child: CustomImageView(
-                                                                  radius: BorderRadius.circular(6),
-                                                                  border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
-                                                                  url: controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            5.verticalSpace,
-                                                          ],
-                                                        ),
-                                                    if (args['status'] == Constants.formStatusRejected || args['status'] == "")
-                                                      Padding(
-                                                        padding: getPadding(left: 10, right: 10),
-                                                        child: CustomButton(
-                                                          width: getHorizontalSize(350),
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w700,
-                                                          color: ColorConstant.whiteA700,
-                                                          label: "Attach child's CNIC back images".tr,
-                                                          textColor: ColorConstant.anbtnBlue,
-                                                          borderColor: ColorConstant.anbtnBlue,
-                                                          prefix:
-                                                              controller.childCnicBacks[index].path == "" || controller.childCnicBacks[index].isBlank!
-                                                                  ? Icon(
-                                                                      Icons.add_circle_outline,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                      size: 19.r,
-                                                                    )
-                                                                  : Icon(
-                                                                      Icons.check_circle_sharp,
-                                                                      color: ColorConstant.anbtnBlue,
-                                                                      size: 19.r,
-                                                                    ),
-                                                          onPressed: () async {
-                                                            imageGalleryClass.imageGalleryBottomSheet(
-                                                              context: context,
-                                                              onCameraTap: () async {
-                                                                final result = await imageGalleryClass.getImage(ImageSource.camera);
-                                                                if (result != null) {
-                                                                  controller.childCnicBacks[index] = File(result.path);
-                                                                }
-                                                                setState(() {});
-                                                                Get.back();
-                                                              },
-                                                              onGalleryTap: () async {
-                                                                final result = await imageGalleryClass.getImage(ImageSource.gallery);
-                                                                if (result != null) {
-                                                                  controller.childCnicBacks[index] = File(result.path);
-                                                                }
-                                                                setState(() {});
-                                                                Get.back();
-                                                              },
-                                                            );
-                                                          },
-                                                        ),
-                                                      ),
                                                   ],
                                                 ),
-                                              );
-                                            },
+                                                10.verticalSpace,
+                                                Row(
+                                                  children: [
+                                                    GetBuilder(
+                                                      init: controller,
+                                                      builder: (controller) {
+                                                        return GestureDetector(
+                                                          behavior: HitTestBehavior.opaque,
+                                                          onTap: () {
+                                                            controller.updateChildStatus("Yes");
+                                                            if (args['status'] == Constants.formStatusRejected) {
+                                                              setState(() {
+                                                                controller.entryFormDataModel.data?.childDetail = [ChildDetail()];
+
+                                                                controller.childEntryFormKey.add(GlobalKey());
+                                                                 controller.childImages.add(File(""));
+                                                                controller.childCnicsfronts.add(File(""));
+                                                                controller.childCnicBacks.add(File(""));
+                                                              });
+                                                            } else {
+                                                              controller.childImages.add(File(""));
+                                                              controller.childCnicsfronts.add(File(""));
+                                                              controller.childCnicBacks.add(File(""));
+                                                              controller.childEntryFormKey.add(GlobalKey<FormState>());
+                                                            }
+                                                          },
+                                                          child: Row(
+                                                            children: [
+                                                              controller.haveChild == "Yes"
+                                                                  ? Icon(
+                                                                      Icons.circle,
+                                                                      color: ColorConstant.blackColor,
+                                                                      size: 14,
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons.circle_outlined,
+                                                                      color: ColorConstant.blackColor,
+                                                                      size: 14,
+                                                                    ),
+                                                              SizedBox(
+                                                                width: getHorizontalSize(10),
+                                                              ),
+                                                              Text(
+                                                                "Yes",
+                                                                style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                    fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                    SizedBox(
+                                                      width: getVerticalSize(10),
+                                                    ),
+                                                    GetBuilder(
+                                                      init: controller,
+                                                      builder: (controller) {
+                                                        return GestureDetector(
+                                                          onTap: () {
+                                                            controller.entryFormDataModel.data?.childDetail = null;
+                                                            controller.childEntryFormKey.clear();
+                                                            controller.childImages.clear();
+                                                            controller.childCnicsfronts.clear();
+                                                            controller.childCnicBacks.clear();
+                                                            controller.updateChildStatus("No");
+                                                          },
+                                                          child: Row(
+                                                            children: [
+                                                              controller.haveChild == "No"
+                                                                  ? Icon(
+                                                                      Icons.circle,
+                                                                      color: ColorConstant.blackColor,
+                                                                      size: 14,
+                                                                    )
+                                                                  : Icon(
+                                                                      Icons.circle_outlined,
+                                                                      color: ColorConstant.blackColor,
+                                                                      size: 14,
+                                                                    ),
+                                                              SizedBox(
+                                                                width: getHorizontalSize(10),
+                                                              ),
+                                                              Text(
+                                                                "No",
+                                                                style: AppStyle.txtSourceSansProRegular16Gray600.copyWith(
+                                                                    fontSize: 16, color: ColorConstant.gray600, fontWeight: FontWeight.normal),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ).paddingOnly(left: 10.w),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: getVerticalSize(5),
+                                          ),
+                                          Visibility(
+                                            visible: controller.haveChild == "Yes",
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              physics: const NeverScrollableScrollPhysics(),
+                                              padding: EdgeInsets.zero,
+                                              itemCount: args['status'] != ""
+                                                  ? (controller.entryFormDataModel.data?.childDetail?.length ?? 0) +
+                                                      (args['status'] == Constants.formStatusRejected ? 1 : 0)
+                                                  : controller.childfullNameControllers.length + 1,
+                                              itemBuilder: (context, index) {
+                                                childIndex = index;
+                                                bool isLastIndex = index ==
+                                                    (args['status'] != ""
+                                                        ? (controller.entryFormDataModel.data?.childDetail?.length ?? 0)
+                                                        : controller.childfullNameControllers.length);
+
+                                                if (isLastIndex && (args['status'] == Constants.formStatusRejected || args['status'] == "")) {
+                                                  return Padding(
+                                                    padding: getPadding(left: 10, right: 10, top: 20, bottom: 10),
+                                                    child: MyAnimatedButton(
+                                                      radius: 5.0,
+                                                      height: getVerticalSize(50),
+                                                      width: getHorizontalSize(400),
+                                                      fontSize: 16,
+                                                      bgColor: ColorConstant.anbtnBlue,
+                                                      controller: controller.btnControllerUseLess,
+                                                      title: "Add Child".tr,
+                                                      onTap: () async {
+                                                        if (args['status'] == Constants.formStatusRejected) {
+                                                          if (_value.childEntryFormKey[index - 1].currentState?.validate() ?? true) {
+                                                            if (controller.childImages[index - 1].path == "") {
+                                                              Utils.showToast("Please attach child image", true);
+                                                            } else if (controller.childCnicsfronts[index - 1].path == "") {
+                                                              Utils.showToast("Please attach child cnic front image", true);
+                                                            } else if (controller.childCnicBacks[index - 1].path == "") {
+                                                              Utils.showToast("Please attach child cnic back image", true);
+                                                            } else {
+                                                              controller.childImages.add(File(""));
+                                                              controller.childCnicsfronts.add(File(""));
+                                                              controller.childCnicBacks.add(File(""));
+                                                              controller.entryFormDataModel.data?.childDetail?.add(ChildDetail());
+                                                              _value.childEntryFormKey.add(GlobalKey<FormState>());
+                                                              controller.update();
+                                                            }
+                                                          }
+                                                        } else {
+                                                          _value.childEntryFormKey.add(GlobalKey<FormState>());
+
+                                                          controller.childEntryFormAPi(context, index - 1);
+                                                        }
+                                                      },
+                                                    ),
+                                                  );
+                                                }
+                                                ChildDetail? detail;
+                                                if ((controller.entryFormDataModel.data?.childDetail?.length ?? 0) > 0 &&
+                                                    index < (controller.entryFormDataModel.data?.childDetail?.length ?? 0)) {
+                                                  detail = controller.entryFormDataModel.data?.childDetail?[index];
+                                                }
+
+                                                return Form(
+                                                  key: controller.childEntryFormKey[index],
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      if (index != 0)
+                                                        if (args['status'] != Constants.formStatusPending)
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.end,
+                                                            children: [
+                                                              GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    if (args['status'] == Constants.formStatusRejected) {
+                                                                      controller.childImages.removeAt(index);
+                                                                      controller.childCnicsfronts.removeAt(index);
+                                                                      controller.childCnicBacks.removeAt(index);
+
+                                                                      controller.entryFormDataModel.data?.childDetail?.removeAt(index);
+                                                                    } else {
+                                                                      controller.childfullNameControllers.removeAt(index);
+                                                                    }
+                                                                  });
+                                                                },
+                                                                child: Container(
+                                                                    margin: EdgeInsets.only(right: 15, top: 10),
+                                                                    padding: EdgeInsets.all(8),
+                                                                    decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                                                                    child: Icon(
+                                                                      Icons.delete_outlined,
+                                                                      color: Colors.white,
+                                                                    )),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                      MyText(
+                                                        title: 'Child ${index + 1}',
+                                                        clr: ColorConstant.black900,
+                                                        fontSize: 16,
+                                                      ).paddingOnly(left: 10, bottom: 10),
+                                                      CustomTextField(
+                                                          label: FieldText(
+                                                            text: "Full Name".tr,
+                                                          ),
+                                                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                          controller: args['status'] == Constants.formStatusRejected
+                                                              ? detail?.childNameController
+                                                              : controller.childfullNameControllers[index],
+                                                          enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                          isFinal: false,
+                                                          keyboardType: TextInputType.emailAddress,
+                                                          limit: HelperFunction.EMAIL_VALIDATION,
+                                                          validator: (value) {
+                                                            return HelperFunction.validateAlphabetsOnly(value!);
+                                                          }),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "CNIC/B-form No".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.childCnicController
+                                                                    : controller.childcnicControllers[index],
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                isFinal: false,
+                                                                inputFormatters: [
+                                                                  FilteringTextInputFormatter.digitsOnly,
+                                                                  TextInputFormatterWithPattern('#####-#######-#'),
+                                                                ],
+                                                                keyboardType: TextInputType.number,
+                                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                                validator: (value) {
+                                                                  return HelperFunction.cnicValidator(value!);
+                                                                }),
+                                                          ),
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "Mobile number".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.childPhoneController
+                                                                    : controller.childmobileControllers[index],
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.phone,
+                                                                validator: (value) {
+                                                                  return HelperFunction.validatePakistaniPhoneNumber(value!);
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "House/Plot".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.childHouseController
+                                                                    : controller.childhouseControllers[index],
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "Road".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.childRoadController
+                                                                    : controller.childroadControllers[index],
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "Street".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.childStreetController
+                                                                    : controller.childstreetControllers[index],
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.emailAddress,
+                                                                limit: HelperFunction.EMAIL_VALIDATION,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                              label: RichText(
+                                                                text: TextSpan(
+                                                                  text: "Mohalla/Village".tr,
+                                                                  style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                                  children: [],
+                                                                ),
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.childVillageController
+                                                                  : controller.childMohallaControllers[index],
+                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                              isFinal: false,
+                                                              keyboardType: TextInputType.text,
+                                                              // validator: (value) {
+                                                              //   return HelperFunction.empthyFieldValidator(value!);
+                                                              // }
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "Post Office/Thana".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.childPoController
+                                                                    : controller.childThanaControllers[index],
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.text,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                                label: FieldText(
+                                                                  text: "City".tr,
+                                                                ),
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                                controller: args['status'] == Constants.formStatusRejected
+                                                                    ? detail?.childCityController
+                                                                    : controller.childCityControllers[index],
+                                                                enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                                isFinal: false,
+                                                                keyboardType: TextInputType.text,
+                                                                validator: (value) {
+                                                                  return HelperFunction.empthyFieldValidator(value!);
+                                                                }),
+                                                          ),
+                                                          Expanded(
+                                                            child: CustomTextField(
+                                                              label: RichText(
+                                                                text: TextSpan(
+                                                                  text: "Province".tr,
+                                                                  style: TextStyle(color: ColorConstant.blackColor.withOpacity(0.5), fontSize: 15.sp),
+                                                                  children: [],
+                                                                ),
+                                                              ),
+                                                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                                                              controller: args['status'] == Constants.formStatusRejected
+                                                                  ? detail?.childProvinceController
+                                                                  : controller.childProvinceControllers[index],
+                                                              enabled: args['status'] == Constants.formStatusPending ? false : true,
+                                                              isFinal: false,
+                                                              keyboardType: TextInputType.text,
+                                                              // validator: (value) {
+                                                              //   return HelperFunction.empthyFieldValidator(value!);
+                                                              // }
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(5),
+                                                      ),
+                                                      if (args['status'] != "")
+                                                        if (controller.childImages[index].path.isEmpty ||
+                                                            !controller.childImages[index].path.startsWith("http"))
+                                                          SizedBox.shrink()
+                                                        else
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                                              5.verticalSpace,
+                                                              Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    radius: BorderRadius.circular(6),
+                                                                    border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                    url: controller.entryFormDataModel.data?.childDetail?[index].childImage ?? "",
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              5.verticalSpace,
+                                                            ],
+                                                          ),
+                                                      if (args['status'] == Constants.formStatusRejected || args['status'] == "")
+                                                        Padding(
+                                                          padding: getPadding(left: 10, right: 10),
+                                                          child: CustomButton(
+                                                            width: getHorizontalSize(350),
+                                                            fontSize: 12.sp,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: ColorConstant.whiteA700,
+                                                            label: "Attach a clear image of child".tr,
+                                                            textColor: ColorConstant.anbtnBlue,
+                                                            borderColor: ColorConstant.anbtnBlue,
+                                                            prefix: controller.childImages[index].path == "" || controller.childImages[index].isBlank!
+                                                                ? Icon(
+                                                                    Icons.add_circle_outline,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                    size: 19.r,
+                                                                  )
+                                                                : Icon(
+                                                                    Icons.check_circle_sharp,
+                                                                    size: 19.r,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                  ),
+                                                            onPressed: () async {
+                                                              imageGalleryClass.imageGalleryBottomSheet(
+                                                                context: context,
+                                                                onCameraTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                  if (result != null) {
+                                                                    controller.childImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                                onGalleryTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                  if (result != null) {
+                                                                    controller.childImages[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(15),
+                                                      ),
+                                                      if (args['status'] != "")
+                                                        if (controller.childCnicsfronts[index].path.isEmpty ||
+                                                            !controller.childCnicsfronts[index].path.startsWith("http"))
+                                                          SizedBox.shrink()
+                                                        else
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                                              5.verticalSpace,
+                                                              Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    radius: BorderRadius.circular(6),
+                                                                    border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                    url: controller.entryFormDataModel.data?.childDetail?[index].childCnicFront ?? "",
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              5.verticalSpace,
+                                                            ],
+                                                          ),
+                                                      if (args['status'] == Constants.formStatusRejected || args['status'] == "")
+                                                        Padding(
+                                                          padding: getPadding(left: 10, right: 10),
+                                                          child: CustomButton(
+                                                            width: getHorizontalSize(350),
+                                                            fontSize: 12.sp,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: ColorConstant.whiteA700,
+                                                            label: "Attach child's CNIC/B-form front image(s)".tr,
+                                                            textColor: ColorConstant.anbtnBlue,
+                                                            borderColor: ColorConstant.anbtnBlue,
+                                                            prefix: controller.childCnicsfronts[index].path == "" ||
+                                                                    controller.childCnicsfronts[index].isBlank!
+                                                                ? Icon(
+                                                                    Icons.add_circle_outline,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                    size: 19.r,
+                                                                  )
+                                                                : Icon(
+                                                                    Icons.check_circle_sharp,
+                                                                    size: 19.r,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                  ),
+                                                            onPressed: () async {
+                                                              imageGalleryClass.imageGalleryBottomSheet(
+                                                                context: context,
+                                                                onCameraTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                  if (result != null) {
+                                                                    controller.childCnicsfronts[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                                onGalleryTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                  if (result != null) {
+                                                                    controller.childCnicsfronts[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      SizedBox(
+                                                        height: getVerticalSize(15),
+                                                      ),
+                                                      if (args['status'] != "")
+                                                        if (controller.childCnicBacks[index].path.isEmpty ||
+                                                            !controller.childCnicBacks[index].path.startsWith("http"))
+                                                          SizedBox.shrink()
+                                                        else
+                                                          Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              MyText(title: "Attachment").paddingOnly(left: 10),
+                                                              5.verticalSpace,
+                                                              Padding(
+                                                                padding: getPadding(left: 10, right: 10),
+                                                                child: Container(
+                                                                  width: getHorizontalSize(350),
+                                                                  color: ColorConstant.whiteA700,
+                                                                  child: CustomImageView(
+                                                                    radius: BorderRadius.circular(6),
+                                                                    border: Border.all(width: 2, color: ColorConstant.anbtnBlue),
+                                                                    url: controller.entryFormDataModel.data?.childDetail?[index].childCnicBack ?? "",
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              5.verticalSpace,
+                                                            ],
+                                                          ),
+                                                      if (args['status'] == Constants.formStatusRejected || args['status'] == "")
+                                                        Padding(
+                                                          padding: getPadding(left: 10, right: 10),
+                                                          child: CustomButton(
+                                                            width: getHorizontalSize(350),
+                                                            fontSize: 12.sp,
+                                                            fontWeight: FontWeight.w700,
+                                                            color: ColorConstant.whiteA700,
+                                                            label: "Attach child's CNIC back images".tr,
+                                                            textColor: ColorConstant.anbtnBlue,
+                                                            borderColor: ColorConstant.anbtnBlue,
+                                                            prefix: controller.childCnicBacks[index].path == "" ||
+                                                                    controller.childCnicBacks[index].isBlank!
+                                                                ? Icon(
+                                                                    Icons.add_circle_outline,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                    size: 19.r,
+                                                                  )
+                                                                : Icon(
+                                                                    Icons.check_circle_sharp,
+                                                                    color: ColorConstant.anbtnBlue,
+                                                                    size: 19.r,
+                                                                  ),
+                                                            onPressed: () async {
+                                                              imageGalleryClass.imageGalleryBottomSheet(
+                                                                context: context,
+                                                                onCameraTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.camera);
+                                                                  if (result != null) {
+                                                                    controller.childCnicBacks[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                                onGalleryTap: () async {
+                                                                  final result = await imageGalleryClass.getImage(ImageSource.gallery);
+                                                                  if (result != null) {
+                                                                    controller.childCnicBacks[index] = File(result.path);
+                                                                  }
+                                                                  setState(() {});
+                                                                  Get.back();
+                                                                },
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
                                           )
                                         ],
                                       );

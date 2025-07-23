@@ -1087,10 +1087,19 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                       children: [
                                                         Padding(
                                                           padding: getPadding(left: 10),
-                                                          child: MyText(
-                                                            title: "PRIVATE ARMS*:",
-                                                            clr: ColorConstant.antextlightgray,
-                                                            fontSize: 14.sp,
+                                                          child: Row(
+                                                            spacing: 5,
+                                                            children: [
+                                                              MyText(
+                                                                title: "Private Arms :",
+                                                                clr: ColorConstant.antextlightgray,
+                                                                fontSize: 14,
+                                                              ),
+                                                              MyText(
+                                                                title: "*",
+                                                                clr: Colors.red,
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                         SizedBox(
@@ -1287,10 +1296,19 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                       children: [
                                                         Padding(
                                                           padding: getPadding(left: 10),
-                                                          child: MyText(
-                                                            title: "VEHICLE(s) IN USE",
-                                                            clr: ColorConstant.antextlightgray,
-                                                            fontSize: 14,
+                                                          child: Row(
+                                                            spacing: 5,
+                                                            children: [
+                                                              MyText(
+                                                                title: "Vehcile(s) in use:",
+                                                                clr: ColorConstant.antextlightgray,
+                                                                fontSize: 14,
+                                                              ),
+                                                              MyText(
+                                                                title: "*",
+                                                                clr: Colors.red,
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                         SizedBox(
@@ -1347,13 +1365,11 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                               behavior: HitTestBehavior.opaque,
                                                               onTap: () {
                                                                 controller.updateVehicle("No");
-                                                                if (args['status'] == Constants.formStatusRejected) {
-                                                                  setState(() {
-                                                                    controller.eTag.clear();
-                                                                    controller.tenantFormModel.data?.vehicle = null;
-                                                                    controller.vehicleFormKey.clear();
-                                                                  });
-                                                                }
+                                                                setState(() {
+                                                                  controller.eTag.clear();
+                                                                  controller.tenantFormModel.data?.vehicle = null;
+                                                                  controller.vehicleFormKey.clear();
+                                                                });
                                                               },
                                                               child: Row(
                                                                 children: [
@@ -1453,11 +1469,13 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                           GestureDetector(
                                                                             onTap: () {
                                                                               setState(() {
-                                                                                if (args['status'] == Constants.formStatusRejected) {
+                                                                                if (args['status'] != "") {
                                                                                   controller.eTag.removeAt(index);
 
                                                                                   controller.tenantFormModel.data?.vehicle?.removeAt(index);
                                                                                 } else {
+                                                                                  controller.eTag.removeAt(index);
+
                                                                                   controller.vehicleTypeControllers.removeAt(index);
                                                                                 }
                                                                               });
@@ -1639,8 +1657,6 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                               setState(() {
                                                                                 controller.eTag[index] = "No";
                                                                               });
-
-                                                                              // controller.updateEtag("No");
                                                                             },
                                                                             child: Row(
                                                                               children: [
@@ -2218,7 +2234,7 @@ class _TenantFornsScreenState extends State<TenantFornsScreen> {
                                                                 true,
                                                               );
                                                             } else {
-                                                              controller.tenantFormApi(context);
+                                                              controller.tenantFormApi(context, vehicleFormIndex - 1);
                                                             }
                                                           }
                                                         },

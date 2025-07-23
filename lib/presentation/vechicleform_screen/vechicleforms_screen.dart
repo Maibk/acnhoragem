@@ -160,7 +160,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   label: FieldText(
                                                     text: "Full Name".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                   controller: controller.fullNameController,
                                                   isFinal: false,
@@ -177,7 +177,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                   label: FieldText(
                                                     text: "Father’s Name".tr,
                                                   ),
-                                                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                  floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                   enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                   controller: controller.fathersController,
                                                   isFinal: false,
@@ -262,7 +262,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         label: FieldText(
                                                           text: "Date".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         controller: controller.dateController,
                                                         isFinal: false,
                                                         onTap: () {
@@ -281,7 +281,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         label: FieldText(
                                                           text: "Rank/Rate".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         controller: controller.rankController,
                                                         isFinal: false,
@@ -297,7 +297,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         label: FieldText(
                                                           text: "Service No".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         controller: controller.servisController,
                                                         isFinal: false,
@@ -320,7 +320,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         label: FieldText(
                                                           text: "CNIC".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         controller: controller.cnicController,
                                                         isFinal: false,
@@ -340,7 +340,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         label: FieldText(
                                                           text: "Office / Department".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         controller: controller.officeController,
                                                         isFinal: false,
@@ -538,7 +538,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         label: FieldText(
                                                           text: "Cell No.".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         controller: controller.cellNoController,
                                                         isFinal: false,
@@ -554,7 +554,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                         label: FieldText(
                                                           text: "PTCL No.".tr,
                                                         ),
-                                                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                        floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                         enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                         controller: controller.ptclController,
                                                         isFinal: false,
@@ -878,7 +878,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 label: FieldText(
                                                                   text: "Vehicle No".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleNoController
@@ -895,7 +895,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 label: FieldText(
                                                                   text: "Make".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 fieldText: "Make".tr,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleMakeController
@@ -920,7 +920,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 label: FieldText(
                                                                   text: "Model".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleModelController
@@ -937,7 +937,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 label: FieldText(
                                                                   text: "Color".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleColorController
@@ -961,7 +961,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 label: FieldText(
                                                                   text: "Engine No".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleEngineController
@@ -978,7 +978,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 label: FieldText(
                                                                   text: "Chassis No".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.vehicleChassisController
@@ -1130,7 +1130,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                           label: FieldText(
                                                             text: "Full Name".tr,
                                                           ),
-                                                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                          floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                           controller: args['status'] == Constants.formStatusRejected
                                                               ? detail?.userNameController
                                                               : controller.userfullNameControllers[index],
@@ -1152,7 +1152,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 label: FieldText(
                                                                   text: "CNIC No.".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.userNicController
@@ -1173,7 +1173,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                                 label: FieldText(
                                                                   text: "Mobile number".tr,
                                                                 ),
-                                                                floatingLabelBehavior: FloatingLabelBehavior.never,
+                                                                floatingLabelBehavior: FloatingLabelBehavior.auto,
                                                                 enabled: args['status'] == Constants.formStatusPending ? false : true,
                                                                 controller: args['status'] == Constants.formStatusRejected
                                                                     ? detail?.userPhoneController
@@ -1233,7 +1233,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             fontSize: 12,
                                                             fontWeight: FontWeight.w700,
                                                             color: ColorConstant.whiteA700,
-                                                            label: "Attach Driving License Front Side Image".tr,
+                                                            label: "Attach Driving License Front Side Image *".tr,
                                                             textColor: ColorConstant.anbtnBlue,
                                                             borderColor: ColorConstant.anbtnBlue,
                                                             prefix: controller.userDrivingLicenseFrontSideImages[index].path.isNotEmpty
@@ -1312,7 +1312,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             fontSize: 12,
                                                             fontWeight: FontWeight.w700,
                                                             color: ColorConstant.whiteA700,
-                                                            label: "Attach Driving License Back Side Image".tr,
+                                                            label: "Attach Driving License Back Side Image *".tr,
                                                             textColor: ColorConstant.anbtnBlue,
                                                             borderColor: ColorConstant.anbtnBlue,
                                                             prefix: (controller.userDrivingLicenseBackSideImages[index].path.toString()) == ""
@@ -1391,7 +1391,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             fontSize: 12,
                                                             fontWeight: FontWeight.w700,
                                                             color: ColorConstant.whiteA700,
-                                                            label: "Attach image of your CNIC front side".tr,
+                                                            label: "Attach image of your CNIC front side *".tr,
                                                             textColor: ColorConstant.anbtnBlue,
                                                             borderColor: ColorConstant.anbtnBlue,
                                                             prefix: controller.userCnicFrontSideImages[index].path.isEmpty
@@ -1470,7 +1470,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                             fontSize: 12,
                                                             fontWeight: FontWeight.w700,
                                                             color: ColorConstant.whiteA700,
-                                                            label: "Attach image of your CNIC back side".tr,
+                                                            label: "Attach image of your CNIC back side *".tr,
                                                             textColor: ColorConstant.anbtnBlue,
                                                             borderColor: ColorConstant.anbtnBlue,
                                                             prefix: controller.userCnicBacktSideImages[index].path.isEmpty
@@ -1780,7 +1780,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach Driving License Front Side Image".tr,
+                                                label: "Attach Driving License Front Side Image *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -1850,7 +1850,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach Driving License Back Side Image".tr,
+                                                label: "Attach Driving License Back Side Image *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -1920,7 +1920,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach image of your CNIC front side".tr,
+                                                label: "Attach image of your CNIC front side *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -1989,7 +1989,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach image of your CNIC back side".tr,
+                                                label: "Attach image of your CNIC back side *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -2057,7 +2057,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach Vehicle Registration Image".tr,
+                                                label: "Attach Vehicle Registration Image *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -2127,7 +2127,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach Owner Image".tr,
+                                                label: "Attach Owner Image *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -2193,7 +2193,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach allotment Letter Image".tr,
+                                                label: "Attach allotment Letter Image *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -2263,7 +2263,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach Maintenance Bill Image".tr,
+                                                label: "Attach Maintenance Bill Image *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(
@@ -2333,7 +2333,7 @@ class _VechicleScreenState extends State<VechicleScreen> {
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700,
                                                 color: ColorConstant.whiteA700,
-                                                label: "Attach Old Sticker Image".tr,
+                                                label: "Attach Old Sticker Image *".tr,
                                                 textColor: ColorConstant.anbtnBlue,
                                                 borderColor: ColorConstant.anbtnBlue,
                                                 prefix: Icon(

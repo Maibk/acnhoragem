@@ -1094,11 +1094,6 @@ class OwnerFornsScreenController extends GetxController {
     update();
   }
 
-  updateEtag(value) {
-    eTag = value;
-    update();
-  }
-
   updateConstructionStatus(value) {
     constructionStatus = value;
     update();

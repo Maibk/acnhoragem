@@ -38,6 +38,7 @@ class Data {
   String? block;
   String? residentialArea;
   String? image;
+  String? haveChild;
   String? cnicImageFront;
   String? cnicImageBack;
   List<SpouseDetail>? spouseDetail;
@@ -63,6 +64,7 @@ class Data {
       this.cnicImageBack,
       this.spouseDetail,
       this.childDetail,
+      this.haveChild,
       this.rejection_reason,
       this.date});
 
@@ -74,6 +76,7 @@ class Data {
     street_id = json['street_id'];
     house_id = json['house_id'];
     phone = json['phone'];
+    haveChild = json['have_child'];
     houseNo = json['house_no'];
     road = json['road'];
     street = json['street'];

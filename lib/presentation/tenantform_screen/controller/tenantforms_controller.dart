@@ -377,212 +377,517 @@ class TenantFornsScreenController extends GetxController {
     return null;
   }
 
-  Future<void> tenantFormApi(context) async {
+  Future<void> tenantFormApi(context, index) async {
     final formState = formKey.currentState;
     if (formState!.validate()) {
-      Utils.check().then((value) async {
-        var data = _dio.FormData.fromMap({
-          'tenant_name': fullNameController.text,
-          'name': ownerNameController.text,
-          'phone': ownerPhoneController.text,
-          'cnic': ownerCNICController.text,
-          'father_name': fathersController.text,
-          'tenant_cnic': cnicController.text,
-          'tenant_phone': telephoneController.text,
-          'tenant_nationality': natinalityController.text,
-          'tenant_occupation': occupationController.text,
-          'tenant_permanent_address': presentAddController.text,
-          'tenant_block_commercial': selectedValue,
-          'tenant_street_no': streetSelectedValue?.id ?? 0,
-          'tenant_house_no': plotstSelectedValue?.id ?? 0,
-          'tenant_size_of_house_plot': sizeHouseAddController.text,
-          'present_address': ownerPresenttAddressController.text,
-          'permanent_address': ownerPermanentAddressController.text,
-          'size_of_house_plot': ownerHouseSize,
-          'allotment_letter': alottmentletter,
-          'completion_certificate': completionCertificate,
-          'construction_status': custructionStatusAddController.text,
-          'private_arm': privatearms == "Yes" ? "Yes" : "No",
-          'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
-          'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
-          'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
-          'ammunition_quantity': privatearms == "Yes" ? privateAmmunitionController.text : "No",
-          'vehicle_status': vehicleDataIndex > 0 ? "Yes" : "NO",
-          'submit_date': DateTime.now().format("dd-MM-yyyy").toString(),
-          'status': '0'
-        });
-        vehicleDataIndex > 0
-            ? {
-                tenantFormdata.forEach((key, value) {
-                  data.fields.addAll([MapEntry(key, value)]);
-                })
+      if (natinalityController.text == "Select" || natinalityController.text.isEmpty) {
+        Utils.showToast(
+          "Please select Nationality.",
+          true,
+        );
+      }
+      if (completionCertificate == "") {
+        Utils.showToast(
+          "Please select completion certificate status.",
+          true,
+        );
+        return;
+      }
+      if (alottmentletter == "") {
+        Utils.showToast(
+          "Please select allotment letter status.",
+          true,
+        );
+        return;
+      }
+      if (privatearms == "") {
+        Utils.showToast(
+          "Please select private arms status.",
+          true,
+        );
+        return;
+      }
+      if (hasVehicle == "") {
+        Utils.showToast(
+          "Please select vehicle status.",
+          true,
+        );
+        return;
+      }
+
+      if (selectedValue == null) {
+        Utils.showToast(
+          "Please select Block/Comm.",
+          true,
+        );
+        return;
+      }
+
+      if (streetSelectedValue == null) {
+        Utils.showToast(
+          "Please select Street.",
+          true,
+        );
+        return;
+      }
+
+      if (natinalityController.text == "Select" || natinalityController.text.isEmpty) {
+        Utils.showToast(
+          "Please select Nationality.",
+          true,
+        );
+      }
+
+      if (sizeHouseAddController.text == "" || sizeHouseAddController.text.isEmpty) {
+        Utils.showToast(
+          "Please select size of house/plot.",
+          true,
+        );
+      }
+
+      if (plotstSelectedValue == null) {
+        Utils.showToast(
+          "Please select Plot.",
+          true,
+        );
+        return;
+      }
+      if (ownerHouseSize == null || ownerHouseSize!.isEmpty) {
+        Utils.showToast(
+          "Please select owner size if house/plot.",
+          true,
+        );
+        return;
+      }
+
+      if (hasVehicle == "Yes") {
+        if ((vehicleFormKey[index].currentState?.validate() ?? true)) {
+          if (eTag.any((e) => e == "")) {
+            Utils.showToast(
+              "Please select E-Tag",
+              true,
+            );
+            return;
+          } else {
+            Utils.check().then((value) async {
+              var data = _dio.FormData.fromMap({
+                'tenant_name': fullNameController.text,
+                'name': ownerNameController.text,
+                'phone': ownerPhoneController.text,
+                'cnic': ownerCNICController.text,
+                'father_name': fathersController.text,
+                'tenant_cnic': cnicController.text,
+                'tenant_phone': telephoneController.text,
+                'tenant_nationality': natinalityController.text,
+                'tenant_occupation': occupationController.text,
+                'tenant_permanent_address': presentAddController.text,
+                'tenant_block_commercial': selectedValue,
+                'tenant_street_no': streetSelectedValue?.id ?? 0,
+                'tenant_house_no': plotstSelectedValue?.id ?? 0,
+                'tenant_size_of_house_plot': sizeHouseAddController.text,
+                'present_address': ownerPresenttAddressController.text,
+                'permanent_address': ownerPermanentAddressController.text,
+                'size_of_house_plot': ownerHouseSize,
+                'allotment_letter': alottmentletter,
+                'completion_certificate': completionCertificate,
+                'construction_status': custructionStatusAddController.text,
+                'private_arm': privatearms == "Yes" ? "Yes" : "No",
+                'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+                'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+                'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+                'ammunition_quantity': privatearms == "Yes" ? privateAmmunitionController.text : "No",
+                'vehicle_status': vehicleDataIndex > 0 ? "Yes" : "NO",
+                'submit_date': DateTime.now().format("dd-MM-yyyy").toString(),
+                'status': '0'
+              });
+              vehicleDataIndex > 0
+                  ? {
+                      tenantFormdata.forEach((key, value) {
+                        data.fields.addAll([MapEntry(key, value)]);
+                      })
+                    }
+                  : {
+                      NovehicleFormdata.forEach((key, value) {
+                        data.fields.addAll([MapEntry(key, value)]);
+                      })
+                    };
+              for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
+                data.files.addAll([
+                  MapEntry(
+                      "owner_cnic_image[$i]",
+                      await _dio.MultipartFile.fromFile(
+                        ownerCnicFrontBack![i].path,
+                        filename: ownerCnicFrontBack![i].path.split('/').last,
+                        contentType: _http.MediaType.parse('image/jpeg'),
+                      )),
+                ]);
               }
-            : {
-                NovehicleFormdata.forEach((key, value) {
-                  data.fields.addAll([MapEntry(key, value)]);
-                })
-              };
-        for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
-          data.files.addAll([
-            MapEntry(
-                "owner_cnic_image[$i]",
-                await _dio.MultipartFile.fromFile(
-                  ownerCnicFrontBack![i].path,
-                  filename: ownerCnicFrontBack![i].path.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                )),
-          ]);
-        }
 
-        for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
-          data.files.addAll([
-            MapEntry(
-                "owner_cnic_image[$i]",
-                await _dio.MultipartFile.fromFile(
-                  ownerCnicFrontBack![i].path,
-                  filename: ownerCnicFrontBack![i].path.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                )),
-          ]);
-        }
-        for (var i = 0; i < tenantCnicFrontBack!.length; i++) {
-          data.files.addAll([
-            MapEntry(
-                "tenant_cnic_image[$i]",
-                await _dio.MultipartFile.fromFile(
-                  tenantCnicFrontBack![i].path,
-                  filename: tenantCnicFrontBack![i].path.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                )),
-          ]);
-        }
+              for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
+                data.files.addAll([
+                  MapEntry(
+                      "owner_cnic_image[$i]",
+                      await _dio.MultipartFile.fromFile(
+                        ownerCnicFrontBack![i].path,
+                        filename: ownerCnicFrontBack![i].path.split('/').last,
+                        contentType: _http.MediaType.parse('image/jpeg'),
+                      )),
+                ]);
+              }
+              for (var i = 0; i < tenantCnicFrontBack!.length; i++) {
+                data.files.addAll([
+                  MapEntry(
+                      "tenant_cnic_image[$i]",
+                      await _dio.MultipartFile.fromFile(
+                        tenantCnicFrontBack![i].path,
+                        filename: tenantCnicFrontBack![i].path.split('/').last,
+                        contentType: _http.MediaType.parse('image/jpeg'),
+                      )),
+                ]);
+              }
 
-        if (estateCnicFrontBack != null) {
-          for (var i = 0; i < estateCnicFrontBack!.length; i++) {
+              if (estateCnicFrontBack != null) {
+                for (var i = 0; i < estateCnicFrontBack!.length; i++) {
+                  data.files.addAll([
+                    MapEntry(
+                        "agent_cnic_image[$i]",
+                        await _dio.MultipartFile.fromFile(
+                          estateCnicFrontBack![i].path,
+                          filename: estateCnicFrontBack![i].path.split('/').last,
+                          contentType: _http.MediaType.parse('image/jpeg'),
+                        )),
+                  ]);
+                }
+              }
+              if (tenantPhoto != null) {
+                String filePath1 = tenantPhoto?.path ?? '';
+                if (filePath1.isNotEmpty) {
+                  data.files.add(MapEntry(
+                      'tenant_image',
+                      await _dio.MultipartFile.fromFile(
+                        filePath1,
+                        filename: filePath1.split('/').last,
+                        contentType: _http.MediaType.parse('image/jpeg'),
+                      )));
+                }
+              }
+              if (rentAgreement != null) {
+                String filePath1 = rentAgreement?.path ?? '';
+                if (filePath1.isNotEmpty) {
+                  data.files.add(MapEntry(
+                      'agreement_image',
+                      await _dio.MultipartFile.fromFile(
+                        filePath1,
+                        filename: filePath1.split('/').last,
+                        contentType: _http.MediaType.parse('image/jpeg'),
+                      )));
+                }
+              }
+              if (policeForm != null) {
+                String filePath1 = policeForm?.path ?? '';
+                if (filePath1.isNotEmpty) {
+                  data.files.add(MapEntry(
+                      'police_registration_image',
+                      await _dio.MultipartFile.fromFile(
+                        filePath1,
+                        filename: filePath1.split('/').last,
+                        contentType: _http.MediaType.parse('image/jpeg'),
+                      )));
+                }
+              }
+              if (certificate != null) {
+                String filePath1 = certificate?.path ?? '';
+                if (filePath1.isNotEmpty) {
+                  data.files.add(MapEntry(
+                      'copy_completion_certificate',
+                      await _dio.MultipartFile.fromFile(
+                        filePath1,
+                        filename: filePath1.split('/').last,
+                        contentType: _http.MediaType.parse('image/jpeg'),
+                      )));
+                }
+              }
+
+              log(data.fields.toString());
+              if (value) {
+                formsLoader(context);
+                _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+                  var dio = _dio.Dio();
+                  try {
+                    var response = await dio.request(
+                      'https://anchorageislamabad.com/api/tenant-application',
+                      options: _dio.Options(
+                        method: 'POST',
+                        headers: {
+                          'Authorization': "Bearer $token",
+                        },
+                      ),
+                      data: data,
+                    );
+                    if (response.statusCode == 200) {
+                      log(data.toString());
+                      Navigator.pop(context);
+                      Utils.showToast(
+                        response.data['message'],
+                        false,
+                      );
+                      log(json.encode(response.data));
+
+                      Get.offAllNamed(AppRoutes.homePage);
+                    } else {
+                      Navigator.pop(context);
+
+                      Utils.showToast(
+                        response.data['message'],
+                        false,
+                      );
+                      log(response.statusMessage.toString());
+                    }
+                  } on _dio.DioException catch (error) {
+                    Navigator.pop(context);
+
+                    if (error.response == null) {
+                      var exception = ApiException(
+                        url: 'https://anchorageislamabad.com/api/owner-application',
+                        message: error.message!,
+                      );
+                      return BaseClient.handleApiError(exception);
+                    }
+
+                    if (error.response?.statusCode == 500) {
+                      Navigator.pop(context);
+
+                      Utils.showToast(
+                        "Internal Server Error",
+                        true,
+                      );
+                    }
+                    if (error.response?.statusCode == 404) {
+                      Utils.showToast(
+                        error.response?.data['message'] ?? "Not Found",
+                        true,
+                      );
+                    }
+                  }
+                });
+              } else {
+                Navigator.pop(context);
+
+                CustomSnackBar.showCustomErrorToast(
+                  message: Strings.noInternetConnection,
+                );
+              }
+            });
+            log("Succcess!   2");
+          }
+        }
+      } else {
+        log("Succcess!");
+
+        Utils.check().then((value) async {
+          var data = _dio.FormData.fromMap({
+            'tenant_name': fullNameController.text,
+            'name': ownerNameController.text,
+            'phone': ownerPhoneController.text,
+            'cnic': ownerCNICController.text,
+            'father_name': fathersController.text,
+            'tenant_cnic': cnicController.text,
+            'tenant_phone': telephoneController.text,
+            'tenant_nationality': natinalityController.text,
+            'tenant_occupation': occupationController.text,
+            'tenant_permanent_address': presentAddController.text,
+            'tenant_block_commercial': selectedValue,
+            'tenant_street_no': streetSelectedValue?.id ?? 0,
+            'tenant_house_no': plotstSelectedValue?.id ?? 0,
+            'tenant_size_of_house_plot': sizeHouseAddController.text,
+            'present_address': ownerPresenttAddressController.text,
+            'permanent_address': ownerPermanentAddressController.text,
+            'size_of_house_plot': ownerHouseSize,
+            'allotment_letter': alottmentletter,
+            'completion_certificate': completionCertificate,
+            'construction_status': custructionStatusAddController.text,
+            'private_arm': privatearms == "Yes" ? "Yes" : "No",
+            'license_no': privatearms == "Yes" ? privateLicenseController.text : "No",
+            'arm_quantity': privatearms == "Yes" ? privateArmsController.text : "No",
+            'bore_type': privatearms == "Yes" ? privateBoreController.text : "No",
+            'ammunition_quantity': privatearms == "Yes" ? privateAmmunitionController.text : "No",
+            'vehicle_status': vehicleDataIndex > 0 ? "Yes" : "NO",
+            'submit_date': DateTime.now().format("dd-MM-yyyy").toString(),
+            'status': '0'
+          });
+          vehicleDataIndex > 0
+              ? {
+                  tenantFormdata.forEach((key, value) {
+                    data.fields.addAll([MapEntry(key, value)]);
+                  })
+                }
+              : {
+                  NovehicleFormdata.forEach((key, value) {
+                    data.fields.addAll([MapEntry(key, value)]);
+                  })
+                };
+          for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
             data.files.addAll([
               MapEntry(
-                  "agent_cnic_image[$i]",
+                  "owner_cnic_image[$i]",
                   await _dio.MultipartFile.fromFile(
-                    estateCnicFrontBack![i].path,
-                    filename: estateCnicFrontBack![i].path.split('/').last,
+                    ownerCnicFrontBack![i].path,
+                    filename: ownerCnicFrontBack![i].path.split('/').last,
                     contentType: _http.MediaType.parse('image/jpeg'),
                   )),
             ]);
           }
-        }
-        if (tenantPhoto != null) {
-          String filePath1 = tenantPhoto?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            data.files.add(MapEntry(
-                'tenant_image',
-                await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                )));
+
+          for (var i = 0; i < ownerCnicFrontBack!.length; i++) {
+            data.files.addAll([
+              MapEntry(
+                  "owner_cnic_image[$i]",
+                  await _dio.MultipartFile.fromFile(
+                    ownerCnicFrontBack![i].path,
+                    filename: ownerCnicFrontBack![i].path.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )),
+            ]);
           }
-        }
-        if (rentAgreement != null) {
-          String filePath1 = rentAgreement?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            data.files.add(MapEntry(
-                'agreement_image',
-                await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                )));
+          for (var i = 0; i < tenantCnicFrontBack!.length; i++) {
+            data.files.addAll([
+              MapEntry(
+                  "tenant_cnic_image[$i]",
+                  await _dio.MultipartFile.fromFile(
+                    tenantCnicFrontBack![i].path,
+                    filename: tenantCnicFrontBack![i].path.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )),
+            ]);
           }
-        }
-        if (policeForm != null) {
-          String filePath1 = policeForm?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            data.files.add(MapEntry(
-                'police_registration_image',
-                await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                )));
-          }
-        }
-        if (certificate != null) {
-          String filePath1 = certificate?.path ?? '';
-          if (filePath1.isNotEmpty) {
-            data.files.add(MapEntry(
-                'copy_completion_certificate',
-                await _dio.MultipartFile.fromFile(
-                  filePath1,
-                  filename: filePath1.split('/').last,
-                  contentType: _http.MediaType.parse('image/jpeg'),
-                )));
-          }
-        }
 
-        log(data.fields.toString());
-        if (value) {
-          formsLoader(context);
-          _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
-            var dio = _dio.Dio();
-            try {
-              var response = await dio.request(
-                'https://anchorageislamabad.com/api/tenant-application',
-                options: _dio.Options(
-                  method: 'POST',
-                  headers: {
-                    'Authorization': "Bearer $token",
-                  },
-                ),
-                data: data,
-              );
-              if (response.statusCode == 200) {
-                log(data.toString());
-                Navigator.pop(context);
-                Utils.showToast(
-                  response.data['message'],
-                  false,
-                );
-                log(json.encode(response.data));
-
-                Get.offAllNamed(AppRoutes.homePage);
-              } else {
-                Navigator.pop(context);
-
-                Utils.showToast(
-                  response.data['message'],
-                  false,
-                );
-                log(response.statusMessage.toString());
-              }
-            } on _dio.DioException catch (error) {
-              Navigator.pop(context);
-
-              if (error.response == null) {
-                var exception = ApiException(
-                  url: 'https://anchorageislamabad.com/api/owner-application',
-                  message: error.message!,
-                );
-                return BaseClient.handleApiError(exception);
-              }
-
-              if (error.response?.statusCode == 500) {
-                Navigator.pop(context);
-
-                Utils.showToast(
-                  "Internal Server Error",
-                  true,
-                );
-              }
+          if (estateCnicFrontBack != null) {
+            for (var i = 0; i < estateCnicFrontBack!.length; i++) {
+              data.files.addAll([
+                MapEntry(
+                    "agent_cnic_image[$i]",
+                    await _dio.MultipartFile.fromFile(
+                      estateCnicFrontBack![i].path,
+                      filename: estateCnicFrontBack![i].path.split('/').last,
+                      contentType: _http.MediaType.parse('image/jpeg'),
+                    )),
+              ]);
             }
-          });
-        } else {
-          Navigator.pop(context);
+          }
+          if (tenantPhoto != null) {
+            String filePath1 = tenantPhoto?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              data.files.add(MapEntry(
+                  'tenant_image',
+                  await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )));
+            }
+          }
+          if (rentAgreement != null) {
+            String filePath1 = rentAgreement?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              data.files.add(MapEntry(
+                  'agreement_image',
+                  await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )));
+            }
+          }
+          if (policeForm != null) {
+            String filePath1 = policeForm?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              data.files.add(MapEntry(
+                  'police_registration_image',
+                  await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )));
+            }
+          }
+          if (certificate != null) {
+            String filePath1 = certificate?.path ?? '';
+            if (filePath1.isNotEmpty) {
+              data.files.add(MapEntry(
+                  'copy_completion_certificate',
+                  await _dio.MultipartFile.fromFile(
+                    filePath1,
+                    filename: filePath1.split('/').last,
+                    contentType: _http.MediaType.parse('image/jpeg'),
+                  )));
+            }
+          }
 
-          CustomSnackBar.showCustomErrorToast(
-            message: Strings.noInternetConnection,
-          );
-        }
-      });
+          log(data.fields.toString());
+          if (value) {
+            formsLoader(context);
+            _appPreferences.getAccessToken(prefName: AppPreferences.prefAccessToken).then((token) async {
+              var dio = _dio.Dio();
+              try {
+                var response = await dio.request(
+                  'https://anchorageislamabad.com/api/tenant-application',
+                  options: _dio.Options(
+                    method: 'POST',
+                    headers: {
+                      'Authorization': "Bearer $token",
+                    },
+                  ),
+                  data: data,
+                );
+                if (response.statusCode == 200) {
+                  log(data.toString());
+                  Navigator.pop(context);
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  log(json.encode(response.data));
+
+                  Get.offAllNamed(AppRoutes.homePage);
+                } else {
+                  Navigator.pop(context);
+
+                  Utils.showToast(
+                    response.data['message'],
+                    false,
+                  );
+                  log(response.statusMessage.toString());
+                }
+              } on _dio.DioException catch (error) {
+                Navigator.pop(context);
+
+                if (error.response == null) {
+                  var exception = ApiException(
+                    url: 'https://anchorageislamabad.com/api/owner-application',
+                    message: error.message!,
+                  );
+                  return BaseClient.handleApiError(exception);
+                }
+
+                if (error.response?.statusCode == 500) {
+                  Navigator.pop(context);
+
+                  Utils.showToast(
+                    "Internal Server Error",
+                    true,
+                  );
+                }
+              }
+            });
+          } else {
+            Navigator.pop(context);
+
+            CustomSnackBar.showCustomErrorToast(
+              message: Strings.noInternetConnection,
+            );
+          }
+        });
+      }
     } else {
       print("Form validation failed");
     }
@@ -965,11 +1270,6 @@ class TenantFornsScreenController extends GetxController {
 
   updateVehicle(value) {
     hasVehicle = value;
-    update();
-  }
-
-  updateEtag(value) {
-    eTag.add(value);
     update();
   }
 }

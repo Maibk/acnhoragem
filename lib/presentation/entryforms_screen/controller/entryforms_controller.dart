@@ -131,6 +131,8 @@ class EntryFormsController extends GetxController {
   Street? spousestreetSelectedValue;
   Plots? spouseplotstSelectedValue;
 
+  String haveChild = "";
+
   int? childselectedValue;
   Street? childstreetSelectedValue;
   Plots? childplotstSelectedValue;
@@ -166,6 +168,11 @@ class EntryFormsController extends GetxController {
     } else {
       selectedValue = null; // Handle cases where blockTitle is not found
     }
+  }
+
+  updateChildStatus(value) {
+    haveChild = value;
+    update();
   }
 
   getEntryFormsDetails(id) {
@@ -225,6 +232,8 @@ class EntryFormsController extends GetxController {
               childCnicBacks.add(File(element.childCnicBack!));
               childEntryFormKey.add(GlobalKey<FormState>());
             }
+
+            haveChild = entryFormDataModel.data?.haveChild ?? "";
             childDataIndex = entryFormDataModel.data?.childDetail?.length ?? 0;
             formsLoadingStatus.value = ApiCallStatus.success;
 
@@ -600,7 +609,7 @@ class EntryFormsController extends GetxController {
         "Add Spouse",
         true,
       );
-    } else if (childDataIndex == 0) {
+    } else if (haveChild == "Yes" && childDataIndex == 0) {
       Utils.showToast(
         "Add Child",
         true,
@@ -611,13 +620,16 @@ class EntryFormsController extends GetxController {
       Utils.showToast("Please select spouse cnic front images", true);
     } else if (spouseCnicBacks.isEmpty) {
       Utils.showToast("Please select spouse cnic back images", true);
-    } else if (childImages.isEmpty) {
+    } else if (haveChild == "Yes" && childImages.isEmpty) {
       Utils.showToast("Please select child images", true);
-    } else if (childCnicsfronts.isEmpty) {
-      Utils.showToast("Please select child cnic front images", true);
-    } else if (childCnicBacks.isEmpty) {
-      Utils.showToast("Please select child cnic back images", true);
-    } else if (ownerImage == null) {
+    }
+
+    // else if (childCnicsfronts.isEmpty) {
+    //   Utils.showToast("Please select child cnic front images", true);
+    // } else if (childCnicBacks.isEmpty) {
+    //   Utils.showToast("Please select child cnic back images", true);
+    // }
+    else if (ownerImage == null) {
       Utils.showToast(
         "Please select image of yours",
         true,
@@ -642,6 +654,7 @@ class EntryFormsController extends GetxController {
           'house_no': plotstSelectedValue?.id ?? 0,
           'street': streetSelectedValue?.id ?? 0,
           'block': selectedValue ?? 0,
+          "have_child": haveChild,
           "date": DateTime.now().format("yyyy-MM-dd").toString()
         };
         EntryFormData.addAll(ownerInfoData);
@@ -777,6 +790,7 @@ class EntryFormsController extends GetxController {
             'house_no': plotstSelectedValue?.id ?? 0,
             'street': streetSelectedValue?.id ?? 0,
             'block': selectedValue ?? 0,
+            "have_child": haveChild,
             "date": DateTime.now().format("yyyy-MM-dd").toString(),
             "id": id
           };
