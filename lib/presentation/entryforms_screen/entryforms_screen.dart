@@ -1329,11 +1329,16 @@ class _EntryFormsScreenState extends State<EntryFormsScreen> {
                                                           if (_value.childEntryFormKey[index - 1].currentState?.validate() ?? true) {
                                                             if (controller.childImages[index - 1].path == "") {
                                                               Utils.showToast("Please attach child image", true);
-                                                            } else if (controller.childCnicsfronts[index - 1].path == "") {
-                                                              Utils.showToast("Please attach child cnic front image", true);
-                                                            } else if (controller.childCnicBacks[index - 1].path == "") {
-                                                              Utils.showToast("Please attach child cnic back image", true);
-                                                            } else {
+                                                            }
+                                                            
+                                                            //  else if (controller.childCnicsfronts[index - 1].path == "") {
+                                                            //   Utils.showToast("Please attach child cnic front image", true);
+                                                            // } else if (controller.childCnicBacks[index - 1].path == "") {
+                                                            //   Utils.showToast("Please attach child cnic back image", true);
+                                                            // } 
+                                                            
+                                                            
+                                                            else {
                                                               controller.childImages.add(File(""));
                                                               controller.childCnicsfronts.add(File(""));
                                                               controller.childCnicBacks.add(File(""));

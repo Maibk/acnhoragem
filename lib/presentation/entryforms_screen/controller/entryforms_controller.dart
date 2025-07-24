@@ -775,9 +775,13 @@ class EntryFormsController extends GetxController {
           spouseCnicsfronts.any((element) => element.path == "") ||
           spouseCnicBacks.any((element) => element.path == "")) {
         Utils.showToast("Please select all spouse Images", true);
-      } else if (childImages.any((element) => element.path == "") ||
-          childCnicsfronts.any((element) => element.path == "") ||
-          childCnicBacks.any((element) => element.path == "")) {
+      } else if (childImages.any((element) => element.path == "")
+
+          // ||
+          //     childCnicsfronts.any((element) => element.path == "") ||
+          //     childCnicBacks.any((element) => element.path == "")
+
+          ) {
         Utils.showToast("Please select all child Images", true);
       } else {
         formsLoader(context);
