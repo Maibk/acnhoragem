@@ -9,5 +9,5 @@ workflows:
         script: |
           flutter pub get
           cd ios
-          pod repo update
+          pod install --repo-update
           pod install
