@@ -9,5 +9,7 @@ workflows:
         script: |
           flutter pub get
           cd ios
+          rm -f Podfile.lock
+          pod repo update
           pod install --repo-update
-          pod install
+
