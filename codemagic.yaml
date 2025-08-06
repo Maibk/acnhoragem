@@ -1,0 +1,12 @@
+workflows:
+  ios-workflow:
+    name: iOS Build
+    environment:
+      flutter: stable
+      xcode: latest
+    scripts:
+      - name: Install CocoaPods and update repo
+        script: |
+          cd ios
+          pod repo update
+          pod install
