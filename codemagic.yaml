@@ -7,6 +7,7 @@ workflows:
     scripts:
       - name: Install CocoaPods and update repo
         script: |
+          flutter pub get
           cd ios
           pod repo update
           pod install
