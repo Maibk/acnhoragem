@@ -1,4 +1,3 @@
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -10,15 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/custom_toast.dart';
 import 'color_constant.dart';
 
-
-
-class Utils{
-
-
+class Utils {
   static void hideKeyBoard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode()); //DateFormat('MMM/dd/yyyy').format(date);
   }
-  static void showToast(String body,bool error){
+
+  static void showToast(String body, bool error) {
     CustomToast().showToast(body, error);
   }
 
@@ -32,30 +28,27 @@ class Utils{
     return false;
   }
 
-
-
-  static bool validateEmail(String email){
-    if(email.isEmpty){
+  static bool validateEmail(String email) {
+    if (email.isEmpty) {
       CustomToast().showToast("Email can not be empty", true);
       return false;
-    }else if(!email.isEmail){
+    } else if (!email.isEmail) {
       CustomToast().showToast("Email format is not correct", true);
       return false;
     }
     return true;
   }
 
-  static bool validatePassword(String password){
-    if(password.isEmpty){
+  static bool validatePassword(String password) {
+    if (password.isEmpty) {
       CustomToast().showToast("Password can not be empty", true);
       return false;
-    }else if(password.length<8){
+    } else if (password.length < 8) {
       CustomToast().showToast("Password must be 8 characters long", true);
       return false;
     }
     return true;
   }
-
 
   static String? otpValidate(String value) {
     if (value.isEmpty) {
@@ -67,7 +60,7 @@ class Utils{
   }
 
   static Future<void> clearLocalStorage() async {
-    SharedPreferences storage=await SharedPreferences.getInstance();
+    SharedPreferences storage = await SharedPreferences.getInstance();
     storage.clear();
   }
 
@@ -84,14 +77,12 @@ class Utils{
 
   // 07: 00 am
 
-
-
-  static String timeFormator(date){
+  static String timeFormator(date) {
     var time = TimeOfDay.fromDateTime(date);
     print(time.hourOfPeriod);
     print(time.minute);
-    print(time.period.name);return '${time.hourOfPeriod <10 ? '0${time.hourOfPeriod}':time.hourOfPeriod} : ${time.minute < 10 ? '0${time.minute}':time.minute} ${time.period.name}';
-
+    print(time.period.name);
+    return '${time.hourOfPeriod < 10 ? '0${time.hourOfPeriod}' : time.hourOfPeriod} : ${time.minute < 10 ? '0${time.minute}' : time.minute} ${time.period.name}';
   }
 
   // May 26, 07: 00 am
@@ -120,12 +111,6 @@ class Utils{
     FocusScope.of(context).unfocus();
   }
 
-
-
-
-
-
-
   // static String getMonth(date){
   //   DateTime dt = DateTime.parse(date);
   //   String formattedDate = DateFormat('dd MMM').format(dt);
@@ -133,8 +118,7 @@ class Utils{
   // }
   //
 
-
-  static String getFormatedDate(String date){
+  static String getFormatedDate(String date) {
     print('abcd $date');
     DateTime dateTime = DateTime.parse(date);
     print(dateTime);
@@ -144,32 +128,30 @@ class Utils{
 
   static void showBottomSheet(context,
       {double? bottomSheetHeight,
-        double? spaceBetween,
-        double? radius,
-        bool? redclrEndTask,
-        bool? isLeftPadding = true,
-        bool? isPadding,
-        String? screenTitle,
-        String? suffixIconImg,
-        String? prefixIconImg,
-        Function? onTap,
-        bool? isScrollControlled,
-        Color? color,
-        Widget? save,
-        Widget? widget}) {
+      double? spaceBetween,
+      double? radius,
+      bool? redclrEndTask,
+      bool? isLeftPadding = true,
+      bool? isPadding,
+      String? screenTitle,
+      String? suffixIconImg,
+      String? prefixIconImg,
+      Function? onTap,
+      bool? isScrollControlled,
+      Color? color,
+      Widget? save,
+      Widget? widget}) {
     showModalBottomSheet(
         isScrollControlled: true,
         backgroundColor: color ?? ColorConstant.apppinkColor,
-      //  barrierColor: Colors.black.withOpacity(0.75),
+        //  barrierColor: Colors.black.withOpacity(0.75),
         enableDrag: false,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(radius ?? 15.0),
-              topLeft: Radius.circular(radius ?? 15.0)),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(radius ?? 15.0), topLeft: Radius.circular(radius ?? 15.0)),
         ),
         context: context,
         builder: (BuildContext bc) {
-          return  SingleChildScrollView(
+          return SingleChildScrollView(
             child: Container(
               height: bottomSheetHeight ?? 300,
               child: Column(
@@ -224,19 +206,15 @@ class Utils{
                   ),
                   Expanded(
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            left: isLeftPadding == false ? 0 : 0, right: 0),
-                        child: widget ?? Container(),
-                      )),
+                    padding: EdgeInsets.only(left: isLeftPadding == false ? 0 : 0, right: 0),
+                    child: widget ?? Container(),
+                  )),
                 ],
               ),
             ),
           );
-
         });
   }
-
-
 
   //
   // static String relativeTime(date){
@@ -252,5 +230,4 @@ class Utils{
   //     Utils.showToast('Invalid URL', true);
   //   }
   // }
-
 }

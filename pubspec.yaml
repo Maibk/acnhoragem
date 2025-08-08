@@ -12,21 +12,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get:
+  get: ^4.7.2
   get_storage: ^2.1.1
   dio: ^5.4.1
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.1.4
   shared_preferences: ^2.5.2
-  cached_network_image: ^3.3.0
+  cached_network_image: ^3.4.1
   flutter_svg: ^2.0.9
   flutter_animated_button: ^2.0.3
   # rounded_loading_button:
   rounded_loading_button_plus: ^3.0.1
-  file_picker: ^8.3.7
+  file_picker: ^10.2.3
   fluttertoast: ^8.2.12
   intl: ^0.20.2
   image_picker: ^1.1.2
-  permission_handler:
+  image_picker_android: ^0.8.12+25
+  permission_handler: ^12.0.1 
   flutter_secure_storage: ^9.0.0
   shimmer:
   cupertino_icons: ^1.0.2
@@ -38,7 +39,8 @@ dependencies:
   firebase_core: ^4.0.0
   firebase_messaging: ^16.0.0
   loader_overlay: ^5.0.0
-
+  path_provider_android: ^2.2.17
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

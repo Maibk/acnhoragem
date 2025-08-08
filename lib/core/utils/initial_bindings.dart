@@ -1,5 +1,5 @@
 import 'package:anchorageislamabad/core/utils/pref_utils.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -11,7 +11,7 @@ class InitialBindings extends Bindings {
   void dependencies() {
     Get.put(PrefUtils());
     Get.put(ApiClient());
-    Connectivity connectivity = Connectivity();
-    Get.put(NetworkInfo(connectivity));
+    // Connectivity connectivity = Connectivity();
+    // Get.put(NetworkInfo(connectivity));
   }
 }
